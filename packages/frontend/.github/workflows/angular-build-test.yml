@@ -1,0 +1,19 @@
+name: Node.js CI
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+jobs:
+  code-quality:
+    name: Code quality - ${{ matrix.script }}
+    uses: ./.github/workflows/env-build.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        script: 
+          - lint
+          - format
+          - test
+    with:
+      npm: run ${{ matrix.script }}

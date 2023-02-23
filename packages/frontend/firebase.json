@@ -1,0 +1,19 @@
+{
+  "firestore": {
+    "rules": "src/app/core/services/fireStore/firestroe.security.rules",
+    "indexes": "src/app/core/services/fireStore/firestore.indexes.json"
+  },
+  "storage": {
+    "rules": "./src/app/core/services/fireStorage/firestorge.security.rules"
+  },
+  "hosting": {
+    "public": "dist/hubert-frontend",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

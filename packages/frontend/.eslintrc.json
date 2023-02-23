@@ -1,0 +1,112 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "*.js",
+    "jest.config.ts",
+    "/lib"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "parserOptions": {
+        "project": [
+          "tsconfig.json"
+        ],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:prettier/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:jsdoc/recommended"
+      ],
+      "rules": {
+        "jsdoc/no-undefined-types": 0,
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": [
+              "Component",
+              "Controller",
+              "View",
+              "Service",
+              "Dialog"
+            ]
+          }
+        ],
+        "@angular-eslint/directive-class-suffix": [
+          "error",
+          {
+            "suffixes": [
+              "Directive"
+            ]
+          }
+        ],
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": [
+              "app",
+              "attr"
+            ],
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          { "type": "element", "prefix": [], "style": "kebab-case" }
+        ],
+        "jsdoc/require-jsdoc": [
+          "error",
+          {
+            "contexts": [
+              "ClassProperty",
+              "FunctionDeclaration"
+            ]
+          }
+        ],
+        "jsdoc/require-description": [
+          "error",
+          {
+            "contexts": [
+              "ClassProperty",
+              "FunctionDeclaration"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
+      "rules": {}
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "excludedFiles": [
+        "*inline-template-*.component.html"
+      ],
+      "extends": [
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        // NOTE: WE ARE OVERRIDING THE DEFAULT CONFIG TO ALWAYS SET THE PARSER TO ANGULAR (SEE BELOW)
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
+    }
+  ]
+}

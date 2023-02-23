@@ -1,0 +1,142 @@
+.container-overflow-vertical {
+  overflow: auto;
+}
+
+.max-width-container {
+  max-width: 100% !important;
+  width: 100%;
+}
+
+/* xs width */
+.article-container-height-responsive {
+  height: 80vh;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .article-container-height-responsive {
+    height: 80vh;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .article-container-height-responsive {
+    height: 90vh;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .article-container-height-responsive {
+    height: 90vh;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .article-container-height-responsive {
+    height: 90vh;
+  }
+}
+
+.responsive-container-overflow {
+  height: 80vh;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .responsive-container-overflow {
+    height: 80vh;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .responsive-container-overflow {
+    height: 90vh;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .responsive-container-overflow {
+    height: 90vh;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .responsive-container-overflow {
+    height: 90vh;
+  }
+}
+
+.text-overflow-card {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+/* xs width */
+.responsive-post-section {
+  width: 100vw;
+  height: 90vh;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .responsive-post-section {
+    width: 100vw;
+    height: 90vh;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
+
+.video-container {
+  height: 50vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed");
+}
+
+.video-container video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.article-container-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+}

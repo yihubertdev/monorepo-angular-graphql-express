@@ -1,0 +1,154 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-chip-list-wrapper {
+  flex-wrap: nowrap !important;
+  width: 100vw;
+  overflow-x: scroll;
+}
+
+.grid-tile-align-left-content {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.grid-tile-align-up-content {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.grid-tile-align-up-center-content {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: initial;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.ql-snow .ql-editor img {
+  max-width: 50% !important;
+}
+
+::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
+  border: 0px solid #fff;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 0;
+  background: #eeeeee;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 0;
+  background: #b0b0b0;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}
+/* xs width */
+.footer-resposnive {
+  display: initial;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .footer-resposnive {
+    display: initial;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .footer-resposnive {
+    display: none;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .footer-resposnive {
+    display: none;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .footer-resposnive {
+    display: none;
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.ql-editor p,
+.ql-editor ol,
+.ql-editor ul,
+.ql-editor pre,
+.ql-editor blockquote,
+.ql-editor h1,
+.ql-editor h2,
+.ql-editor h3,
+.ql-editor h4,
+.ql-editor h5,
+.ql-editor h6 {
+  font-size: xx-large;
+}

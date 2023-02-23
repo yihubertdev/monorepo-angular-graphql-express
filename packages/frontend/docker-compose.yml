@@ -1,0 +1,12 @@
+version: "3.7"
+services:
+  hbtyblog-angular:
+    container_name: hbtyblog-container
+    build: .
+    restart: always
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 4200:4200
+    command: ng serve --host 0.0.0.0

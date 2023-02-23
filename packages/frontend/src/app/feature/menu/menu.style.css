@@ -1,0 +1,12 @@
+.mdc-list-item__content {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  align-self: center;
+  flex: 1;
+  pointer-events: none;
+}
+
+.active-list-item {
+  background-color: #f5f5f5;
+}

@@ -1,0 +1,51 @@
+.input-full-width {
+  width: 100%;
+}
+
+.stick-footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+}
+
+/* xs width */
+.responsive-post-section {
+  width: 100vw;
+  height: 90vh;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .responsive-post-section {
+    width: 100vw;
+    height: 90vh;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .responsive-post-section {
+    width: 88vw;
+    height: 90vh;
+  }
+}
