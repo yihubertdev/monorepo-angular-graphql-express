@@ -1,0 +1,28 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "Serverless apollo graphql lambda",
+  "author": "hubertyydev",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "src": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "npx ts-node src/index.ts",
+    "test": "node ./__tests__/server.test.js"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.4.0",
+    "@as-integrations/aws-lambda": "^2.0.1",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "serverless-plugin-typescript": "^2.1.4"
+  }
+}

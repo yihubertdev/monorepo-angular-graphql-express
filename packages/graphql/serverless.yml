@@ -1,0 +1,17 @@
+service: apollo-lambda
+provider:
+  name: aws
+  stage: dev
+  profile: ybaws
+  region: ca-central-1
+  runtime: nodejs16.x
+functions:
+  graphql:
+    handler: src/index.handler
+    events:
+      - http:
+          path: /
+          method: any
+          cors: true
+plugins:
+  - serverless-plugin-typescript
