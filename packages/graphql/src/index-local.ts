@@ -1,27 +1,27 @@
-import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
+import { ApolloServer } from "apollo-server";
 
-(async () => {
-  const typeDefs = `
+const typeDefs = `
     type Query {
       hello: String
     }
   `;
 
-  const resolvers = {
-    Query: {
-      hello: () => "world",
-    },
-  };
-  console.log("hello");
-  const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-  });
+const resolvers = {
+  Query: {
+    hello: () => "world",
+  },
+};
 
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+});
 
-  console.log(`🚀  Server ready at: ${url}`);
-})();
+server
+  .listen()
+  .then(({ url }: { url: string }) => {
+    console.log(`🚀  Server ready at ${url}`);
+  })
+  .catch((e) => {
+    console.error(e);
+  });
