@@ -15,7 +15,8 @@
   ],
   "scripts": {
     "start": "npx ts-node src/index.ts",
-    "test": "node ./__tests__/server.test.js"
+    "test": "node ./__tests__/server.test.js",
+    "lint": "npx eslint --ext .ts ."
   },
   "dependencies": {
     "@as-integrations/aws-lambda": "^2.0.1",

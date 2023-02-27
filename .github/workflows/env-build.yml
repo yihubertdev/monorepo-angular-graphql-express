@@ -4,6 +4,14 @@ on:
     inputs:
       npm:
         description: "npm script to run in a workspace"
+        required: false
+        type: string
+      frontend-mono:
+        description: "npm script to run in a frontend workspace"
+        required: true
+        type: string
+      graphql-mono:
+        description: "npm script to run in a frontend workspace"
         required: true
         type: string
       uses-docker:
@@ -38,4 +46,8 @@ jobs:
       - name: Install packages dependencies
         run: npx lerna bootstrap
       - name: Run npm script
-        run: npx lerna exec --scope frontend -- npm ${{ inputs.npm }}
+        if: inputs.frontend
+        run: npx lerna exec --scope frontend -- npm ${{ inputs.frontend }}
+      - name: Run backend script
+        if: inputs.graphql-mono
+        run: npx lerna exec --scope graphql -- npm ${{ inputs.graphql-mono }}

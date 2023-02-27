@@ -5,15 +5,26 @@ on:
   pull_request:
     branches: ["master"]
 jobs:
-  code-quality:
-    name: Code quality - ${{ matrix.script }}
+  frontend:
+    name: Frontend - ${{ matrix.script }}
     uses: ./.github/workflows/env-build.yml
     strategy:
       fail-fast: false
       matrix:
-        script: 
+        frontend:
           - lint
           - format
           - test
     with:
-      npm: run ${{ matrix.script }}
+      frontend-mono: run ${{ matrix.frontend }}
+
+  backend-quality:
+    name: Backend - ${{ matrix.script }}
+    uses: ./.github/workflows/env-build.yml
+    strategy:
+      fail-fast: false
+      matrix:
+        backend: 
+          - lint
+    with:
+      graphql-mono: run ${{ matrix.backend }}
