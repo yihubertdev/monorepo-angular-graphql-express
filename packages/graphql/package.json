@@ -23,13 +23,10 @@
     "apollo-server-lambda": "^3.11.1",
     "apollo-server-plugin-base": "^3.5.0",
     "aws-lambda": "^1.0.6",
-    "graphql": "^16.6.0",
-    "typescript": "^4.9.5"
+    "graphql": "^16.6.0"
   },
   "devDependencies": {
     "serverless-offline": "^12.0.4",
-    "serverless-plugin-typescript": "^2.1.2",
-    "@typescript-eslint/eslint-plugin": "5.27.1",
-    "@typescript-eslint/parser": "5.27.1"
+    "serverless-plugin-typescript": "^2.1.2"
   }
 }
