@@ -8,11 +8,11 @@ on:
         type: string
       frontend-mono:
         description: "npm script to run in a frontend workspace"
-        required: true
+        required: false
         type: string
       graphql-mono:
         description: "npm script to run in a frontend workspace"
-        required: true
+        required: false
         type: string
       uses-docker:
         description: "use docker"
