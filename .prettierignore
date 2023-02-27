@@ -10,3 +10,4 @@ node_modules/
 docker-compose.yml
 dist/
 .github/
+.serverless
