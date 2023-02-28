@@ -26,7 +26,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --check && npx lerna exec --scope frontend -- ng lint && npx lerna exec --scope frontend -- npm run format"
+      "pre-commit": "pretty-quick --staged --check && prettier --write . && npx lerna exec --scope frontend -- ng lint && npx lerna exec --scope frontend -- npm run format"
     }
   }
 }
