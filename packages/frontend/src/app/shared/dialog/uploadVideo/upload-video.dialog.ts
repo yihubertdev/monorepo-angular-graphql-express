@@ -3,7 +3,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { GoogleHttpService } from "src/app/core/services/http/google.http";
 import { VALIDATE_VIDEO_ERROR } from "src/app/core/models/users.type";
-import { POP_UP_ACTION, POP_UP_DISMISS_DURATION, POP_UP_VERTICAL_POSITION } from "src/app/core/models/constants";
+import {
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+  POP_UP_VERTICAL_POSITION,
+} from "src/app/core/models/constants";
 
 @Component({
   selector: "upload-video-dialog",
@@ -11,11 +15,17 @@ import { POP_UP_ACTION, POP_UP_DISMISS_DURATION, POP_UP_VERTICAL_POSITION } from
     <div mat-dialog-content>
       <mat-form-field appearance="fill">
         <mat-label>Youtube Embed Video Id</mat-label>
-        <input matInput [(ngModel)]="data.id" />
+        <input
+          matInput
+          [(ngModel)]="data.id" />
       </mat-form-field>
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button
+        mat-button
+        (click)="onNoClick()">
+        No Thanks
+      </button>
       <button
         [class.spinner]="loading"
         [disabled]="loading"
@@ -35,7 +45,7 @@ export class UploadVideoDialog {
     @Inject(MAT_DIALOG_DATA) public data: { id: string },
     private ngZone: NgZone,
     private _googleHttpService: GoogleHttpService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {
     dialogRef.disableClose = true;
   }

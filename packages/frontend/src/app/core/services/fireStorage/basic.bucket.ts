@@ -61,7 +61,10 @@ export abstract class FireStorageBaseModel {
    */
   public upload = async (file: File, id: string): Promise<string> => {
     const extension = file.name.split(".").pop();
-    const storageRef = ref(this.storage, this.path + "/" + this.category + "-" + id + "." + extension);
+    const storageRef = ref(
+      this.storage,
+      this.path + "/" + this.category + "-" + id + "." + extension
+    );
 
     const task = uploadBytesResumable(storageRef, file);
     this.uploadPercent$ = percentage(task);
@@ -86,13 +89,16 @@ export abstract class FireStorageBaseModel {
     file: File,
     id: string,
     path: string,
-    category: string,
+    category: string
   ): Promise<UploadTaskSnapshot> => {
     // Upload file extension
     const extension = file.name.split(".").pop();
 
     // Create fire storage ref
-    this.storageRef = ref(this.storage, path + "/" + category + "-" + id + "." + extension);
+    this.storageRef = ref(
+      this.storage,
+      path + "/" + category + "-" + id + "." + extension
+    );
 
     // Upload file
     const task = uploadBytesResumable(this.storageRef, file);

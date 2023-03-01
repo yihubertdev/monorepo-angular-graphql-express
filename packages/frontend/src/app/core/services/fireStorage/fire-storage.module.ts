@@ -7,7 +7,11 @@ import { ProfileStorageService } from "./profile.bucket";
 
 @NgModule({
   declarations: [],
-  imports: [provideStorage(() => getStorage()), FireStoreServiceModule, FireAuthServiceModule],
+  imports: [
+    provideStorage(() => getStorage()),
+    FireStoreServiceModule,
+    FireAuthServiceModule,
+  ],
   providers: [ProfileStorageService, FormFileStorageService],
   bootstrap: [],
 })

@@ -10,21 +10,38 @@ import {
   signInWithPopup,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
-import { IUser, IUserAuth, IUserProfile, IUserRegister, IUserRole } from "../../models/users.type";
-import { browserSessionPersistence, GoogleAuthProvider, signInAnonymously, updateProfile } from "firebase/auth";
+import {
+  IUser,
+  IUserAuth,
+  IUserProfile,
+  IUserRegister,
+  IUserRole,
+} from "../../models/users.type";
+import {
+  browserSessionPersistence,
+  GoogleAuthProvider,
+  signInAnonymously,
+  updateProfile,
+} from "firebase/auth";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
 
 @Injectable()
 export class AuthService {
-  private _userAuth: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(null);
-  public readonly userAuthObserver$: Observable<IUser | null> = this._userAuth.asObservable();
+  private _userAuth: BehaviorSubject<IUser | null> =
+    new BehaviorSubject<IUser | null>(null);
+  public readonly userAuthObserver$: Observable<IUser | null> =
+    this._userAuth.asObservable();
 
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
 
-  constructor(private auth: Auth, private userService: UserService, private sessionStorage: SessionStorageService) {
+  constructor(
+    private auth: Auth,
+    private userService: UserService,
+    private sessionStorage: SessionStorageService
+  ) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(null);
@@ -60,7 +77,7 @@ export class AuthService {
    */
   public async updateUserInfo(
     user: User,
-    data: Partial<Pick<IUserProfile, "displayName" | "photoURL">>,
+    data: Partial<Pick<IUserProfile, "displayName" | "photoURL">>
   ): Promise<boolean> {
     try {
       console.log(data);
@@ -131,7 +148,11 @@ export class AuthService {
    */
   public async register(data: IUserRegister): Promise<UserCredential> {
     // Create user with firebase auth
-    const result = await createUserWithEmailAndPassword(this.auth, data.email, data.password);
+    const result = await createUserWithEmailAndPassword(
+      this.auth,
+      data.email,
+      data.password
+    );
 
     // Get User
     const user = result.user;
@@ -164,7 +185,10 @@ export class AuthService {
    * @param {string} data.password password address
    * @returns {Promise<UserCredential>} user credential
    */
-  public async login(data: { email: string; password: string }): Promise<UserCredential> {
+  public async login(data: {
+    email: string;
+    password: string;
+  }): Promise<UserCredential> {
     return signInWithEmailAndPassword(this.auth, data.email, data.password);
   }
 

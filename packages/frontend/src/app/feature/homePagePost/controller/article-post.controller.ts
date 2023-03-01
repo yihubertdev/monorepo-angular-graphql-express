@@ -7,7 +7,10 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   selector: "article-post-controller",
   template: `
     <h1 style="font-size: xx-large">{{ this.articleTitle }}</h1>
-    <quill-view [content]="articleContent" format="html" theme="snow"></quill-view>
+    <quill-view
+      [content]="articleContent"
+      format="html"
+      theme="snow"></quill-view>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })

@@ -5,8 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 @Component({
   selector: "document-uploader-component",
   template: ` <section style="display: block">
-    <input type="file" matinput (change)="uploadImage($event.target)" />
-    <mat-progress-bar mode="determinate" [value]="uploadPercentage"></mat-progress-bar>
+    <input
+      type="file"
+      matinput
+      (change)="uploadImage($event.target)" />
+    <mat-progress-bar
+      mode="determinate"
+      [value]="uploadPercentage"></mat-progress-bar>
   </section>`,
   styleUrls: ["./document-uploader.component.css"],
 })
@@ -28,7 +33,12 @@ export class DocumentUploaderComponent {
 
     if (!file || !this.documentPath || !this.documentCategory) return;
 
-    const uploadTask = this.formFileStorage.uploadWithPath(file[0], uuidv4(), this.documentPath, this.documentCategory);
+    const uploadTask = this.formFileStorage.uploadWithPath(
+      file[0],
+      uuidv4(),
+      this.documentPath,
+      this.documentCategory
+    );
 
     this.formFileStorage.uploadPercent$?.subscribe((data) => {
       this.uploadPercentage = data.progress;

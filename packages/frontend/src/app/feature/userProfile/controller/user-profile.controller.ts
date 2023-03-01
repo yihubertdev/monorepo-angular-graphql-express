@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnChanges, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { IUserAuth } from "src/app/core/models/users.type";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
@@ -9,11 +16,15 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   template: ` <mat-card>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div
+          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div
             mat-card-avatar
             class="user-profile-avatar"
-            [ngStyle]="{ 'background-image': 'url(' + photoUrl + ')', margin: 'auto' }"
+            [ngStyle]="{
+              'background-image': 'url(' + photoUrl + ')',
+              margin: 'auto'
+            }"
             (click)="triggerUpload()">
             <input
               type="file"
@@ -26,20 +37,31 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div
+          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <p>
-            <ng-container *ngIf="currentUser?.isAnonymous === false"> Email: {{ currentUser?.email }}</ng-container>
-            <ng-container *ngIf="currentUser?.isAnonymous === true"> Email: Anonymous </ng-container>
+            <ng-container *ngIf="currentUser?.isAnonymous === false">
+              Email: {{ currentUser?.email }}</ng-container
+            >
+            <ng-container *ngIf="currentUser?.isAnonymous === true">
+              Email: Anonymous
+            </ng-container>
           </p>
           <p>
             <ng-container *ngIf="currentUser?.isAnonymous === false">
               Name: {{ currentUser?.displayName }}</ng-container
             >
-            <ng-container *ngIf="currentUser?.isAnonymous === true"> Name: Anonymous</ng-container>
+            <ng-container *ngIf="currentUser?.isAnonymous === true">
+              Name: Anonymous</ng-container
+            >
           </p>
           <p>
-            <ng-container *ngIf="currentUser?.isAnonymous === false"> Role: Writer</ng-container>
-            <ng-container *ngIf="currentUser?.isAnonymous === true"> Name: Anonymous</ng-container>
+            <ng-container *ngIf="currentUser?.isAnonymous === false">
+              Role: Writer</ng-container
+            >
+            <ng-container *ngIf="currentUser?.isAnonymous === true">
+              Name: Anonymous</ng-container
+            >
           </p>
         </div>
       </div>
@@ -51,17 +73,22 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser?: IUserAuth;
-  photoUrl?: string = "https://material.angular.io/assets/img/examples/shiba1.jpg";
+  photoUrl?: string =
+    "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private profileStorage: ProfileStorageService,
+    private profileStorage: ProfileStorageService
   ) {}
 
   ngOnInit() {
     if (!this.userId) {
-      this.currentUser = this.authService.get()?.toJSON() as IUserAuth | undefined;
-      this.photoUrl = this.currentUser?.photoURL ?? "https://material.angular.io/assets/img/examples/shiba1.jpg";
+      this.currentUser = this.authService.get()?.toJSON() as
+        | IUserAuth
+        | undefined;
+      this.photoUrl =
+        this.currentUser?.photoURL ??
+        "https://material.angular.io/assets/img/examples/shiba1.jpg";
     }
   }
 
@@ -85,7 +112,10 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
     const file = element?.files;
     if (!file || !this.currentUser) return;
 
-    const url = await this.profileStorage.upload(file[0], this.currentUser?.uid);
+    const url = await this.profileStorage.upload(
+      file[0],
+      this.currentUser?.uid
+    );
     this.photoUrl = url;
   }
 

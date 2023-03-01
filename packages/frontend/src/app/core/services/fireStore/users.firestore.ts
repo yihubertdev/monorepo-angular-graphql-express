@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore, AngularFirestoreCollection } from "@angular/fire/compat/firestore";
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from "@angular/fire/compat/firestore";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { IUser } from "../../models/users.type";
 import { FireStoreBaseModel } from "./basic.firestore";
@@ -40,8 +43,12 @@ export class UserService extends FireStoreBaseModel<IUser> {
    * @param {boolean} verified verified email
    * @returns {Promise<IUser[]>} user
    */
-  public getUserWithVerifiedEmail = async (verified: boolean): Promise<IUser[]> => {
-    const result = await this.collection.ref.where("emailVerified", "==", verified).get();
+  public getUserWithVerifiedEmail = async (
+    verified: boolean
+  ): Promise<IUser[]> => {
+    const result = await this.collection.ref
+      .where("emailVerified", "==", verified)
+      .get();
     const data = result.docs.map((item) => item.data());
 
     return data;

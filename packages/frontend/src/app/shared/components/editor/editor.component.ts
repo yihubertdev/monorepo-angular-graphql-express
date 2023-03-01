@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild, Inject } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+  Inject,
+} from "@angular/core";
 import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
 import { quillEditorModule } from "src/app/core/static/post.static";
 import { v4 as uuidv4 } from "uuid";
@@ -27,7 +35,9 @@ import { EMBED_YOUTUBE_URL } from "src/app/core/models/constants";
       trackChanges="all"
       [styles]="{ height: '65vh' }"
       placeholder=""></quill-editor>
-    <mat-progress-bar mode="determinate" [value]="uploadPercentage"></mat-progress-bar>
+    <mat-progress-bar
+      mode="determinate"
+      [value]="uploadPercentage"></mat-progress-bar>
   </ng-container>`,
   styleUrls: [],
 })
@@ -44,7 +54,7 @@ export class EditorComponent {
   constructor(
     private formFileStorage: FormFileStorageService,
     private _sanitizer: DomSanitizer,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   getEditorInstance(editorInstance: any) {
@@ -72,7 +82,12 @@ export class EditorComponent {
 
     if (!file) return;
 
-    const uploadTask = this.formFileStorage.uploadWithPath(file[0], uuidv4(), "article", "image");
+    const uploadTask = this.formFileStorage.uploadWithPath(
+      file[0],
+      uuidv4(),
+      "article",
+      "image"
+    );
 
     this.formFileStorage.uploadPercent$?.subscribe((data) => {
       this.uploadPercentage = data.progress;
@@ -98,7 +113,11 @@ export class EditorComponent {
     dialogRef.afterClosed().subscribe((id) => {
       const range = this.editorRef.getSelection();
 
-      this.editorRef.insertEmbed(range.index, "video", `${EMBED_YOUTUBE_URL}${id}`);
+      this.editorRef.insertEmbed(
+        range.index,
+        "video",
+        `${EMBED_YOUTUBE_URL}${id}`
+      );
       this.editorRef.setSelection(range.index + 1);
     });
   }

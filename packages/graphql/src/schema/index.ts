@@ -1,7 +1,10 @@
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { merge } from "lodash";
 import { typeDefs as Hello, resolvers as helloResolver } from "./user";
-import { typeDefs as anotherHello, resolvers as anotherHelloResolver } from "./article";
+import {
+  typeDefs as anotherHello,
+  resolvers as anotherHelloResolver,
+} from "./article";
 
 const Query = `
   type Query {

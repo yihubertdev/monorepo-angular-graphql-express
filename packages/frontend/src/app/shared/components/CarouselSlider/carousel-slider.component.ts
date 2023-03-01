@@ -1,21 +1,44 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 @Component({
   selector: "carousel-slider-component",
-  template: ` <div class="slide-show-container" *ngIf="images.length !== 0">
+  template: ` <div
+      class="slide-show-container"
+      *ngIf="images.length !== 0">
       <div
         class="slide fade slide-image-container"
         [ngStyle]="{ 'background-image': 'url(' + image + ')' }"
         *ngFor="let image of images"></div>
 
-      <a class="prev hide-slide" (click)="plusSlides(-1)">❮</a>
-      <a class="next hide-slide" (click)="plusSlides(1)">❯</a>
+      <a
+        class="prev hide-slide"
+        (click)="plusSlides(-1)"
+        >❮</a
+      >
+      <a
+        class="next hide-slide"
+        (click)="plusSlides(1)"
+        >❯</a
+      >
     </div>
     <br />
 
     <div style="text-align:center">
-      <span class="dot" (click)="currentSlide(1)"></span>
-      <span class="dot" (click)="currentSlide(2)"></span>
-      <span class="dot" (click)="currentSlide(3)"></span>
+      <span
+        class="dot"
+        (click)="currentSlide(1)"></span>
+      <span
+        class="dot"
+        (click)="currentSlide(2)"></span>
+      <span
+        class="dot"
+        (click)="currentSlide(3)"></span>
     </div>`,
   styleUrls: ["./carousel-slider.css"],
 })

@@ -39,7 +39,9 @@ import { HomePagePostModule } from "./feature/homePagePost/home-page-post.module
     HomePagePostModule.forChatTopic(),
     QuillModule.forRoot(),
   ],
-  providers: [{ provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+  ],
   bootstrap: [MainViewComponent],
 })
 export class MainModule {}

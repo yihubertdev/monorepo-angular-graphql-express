@@ -12,7 +12,11 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
-  declarations: [FooterMenuController, MainMenuController, HeaderMenuController],
+  declarations: [
+    FooterMenuController,
+    MainMenuController,
+    HeaderMenuController,
+  ],
   imports: [
     CommonModule,
     MatIconModule,

@@ -7,7 +7,12 @@ import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [SearchViewComponent],
-  imports: [CommonModule, SearchRoutingModule, MatGridListModule, MatCardModule],
+  imports: [
+    CommonModule,
+    SearchRoutingModule,
+    MatGridListModule,
+    MatCardModule,
+  ],
   exports: [SearchViewComponent],
 })
 export class SearchModule {}

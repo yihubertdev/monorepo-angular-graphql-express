@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
-import { getDownloadURL, percentage, ref, Storage, uploadBytesResumable } from "@angular/fire/storage";
+import {
+  getDownloadURL,
+  percentage,
+  ref,
+  Storage,
+  uploadBytesResumable,
+} from "@angular/fire/storage";
 import { IUser } from "../../models/users.type";
 import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
@@ -27,7 +33,11 @@ export class ProfileStorageService extends FireStorageBaseModel {
    * @protected
    * @param {Storage} storage
    */
-  constructor(storage: Storage, private userService: UserService, private authService: AuthService) {
+  constructor(
+    storage: Storage,
+    private userService: UserService,
+    private authService: AuthService
+  ) {
     super(storage);
   }
 
@@ -44,7 +54,10 @@ export class ProfileStorageService extends FireStorageBaseModel {
     const extension = file.name.split(".").pop();
 
     // Create fire storage ref
-    const storageRef = ref(this.storage, this.path + "/" + this.category + "-" + id + "." + extension);
+    const storageRef = ref(
+      this.storage,
+      this.path + "/" + this.category + "-" + id + "." + extension
+    );
 
     // Upload file
     const task = uploadBytesResumable(storageRef, file);

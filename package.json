@@ -4,6 +4,9 @@
   "description": "yihu tech blog monorepo",
   "author": "hubertyydev",
   "license": "ISC",
+  "scripts": {
+    "pretty": "npx prettier --config ./.prettierrc --write ."
+  },
   "dependencies": {
     "typescript": "^4.9.5",
     "lerna": "^6.5.1",
@@ -27,7 +30,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged --check && prettier --write . && npx lerna exec --scope frontend -- ng lint && npx lerna exec --scope frontend -- npm run format"
+      "pre-commit": "pretty-quick --staged --check && npm run pretty && npx lerna exec -- npm run lint"
     }
   }
 }

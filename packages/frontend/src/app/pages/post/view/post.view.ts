@@ -10,7 +10,9 @@ import { postList } from "src/app/core/static/post.static";
     </ng-container> -->
     <!-- router container 90vh -->
     <div class="responsive-post-section">
-      <mat-grid-list [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }" rowHeight="10vh">
+      <mat-grid-list
+        [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
+        rowHeight="10vh">
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
@@ -60,10 +62,12 @@ import { postList } from "src/app/core/static/post.static";
               rowspan: 9
             }
           }">
-          <div class="container responsive-container-overflow max-width-container container-overflow-vertical">
+          <div
+            class="container responsive-container-overflow max-width-container container-overflow-vertical">
             <div class="row mb-2">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <carousel-slider-component [images]="images"></carousel-slider-component>
+                <carousel-slider-component
+                  [images]="images"></carousel-slider-component>
               </div>
             </div>
             <div class="row mb-4">

@@ -4,7 +4,12 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 @Component({
   selector: "sign-out-controller",
-  template: ` <button mat-raised-button color="primary" (click)="signout()">Sign Out</button>`,
+  template: ` <button
+    mat-raised-button
+    color="primary"
+    (click)="signout()">
+    Sign Out
+  </button>`,
   styleUrls: [],
 })
 export class SignOutControllerComponent implements OnInit {

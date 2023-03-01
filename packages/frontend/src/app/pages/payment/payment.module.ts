@@ -8,7 +8,13 @@ import { PostCategoryModule } from "src/app/feature/postCategory/post-category.m
 
 @NgModule({
   declarations: [PaymentViewComponent],
-  imports: [CommonModule, MatGridListModule, MatCardModule, PostCategoryModule, PaymentRoutingModule],
+  imports: [
+    CommonModule,
+    MatGridListModule,
+    MatCardModule,
+    PostCategoryModule,
+    PaymentRoutingModule,
+  ],
   exports: [PaymentViewComponent],
 })
 export class PaymentModule {}

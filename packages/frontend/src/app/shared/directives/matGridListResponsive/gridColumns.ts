@@ -25,7 +25,10 @@ export class GridColsDirective implements OnInit {
     }
   }
 
-  public constructor(private gridListElement: MatGridList, private breakpointObserver: BreakpointObserver) {
+  public constructor(
+    private gridListElement: MatGridList,
+    private breakpointObserver: BreakpointObserver
+  ) {
     if (this.gridListElement != null) {
       this.gridListElement.cols = this.attrGridCols.md;
     }
@@ -36,7 +39,13 @@ export class GridColsDirective implements OnInit {
       this.gridListElement.cols = this.attrGridCols.md;
     }
     this.breakpointObserver
-      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
       .subscribe((result) => {
         if (result.breakpoints[Breakpoints.XSmall]) {
           this.gridListElement.cols = this.attrGridCols.xs;

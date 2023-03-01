@@ -6,7 +6,9 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   template: `
     <!-- container section height 90vh, width responsive 100vw or 88vw  -->
     <div class="responsive-post-section">
-      <mat-grid-list [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }" rowHeight="10vh">
+      <mat-grid-list
+        [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }"
+        rowHeight="10vh">
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
@@ -33,7 +35,8 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           <div class="grid-tile-align-up-content">
             <div class="container">
               <div class="row mb-4 justify-content-center">
-                <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div
+                  class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <user-profile-controller></user-profile-controller>
                 </div>
               </div>
@@ -64,9 +67,11 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
             }
           }">
           <div class="grid-tile-align-up-content mt-4">
-            <div class="container max-width-container container-overflow-vertical">
+            <div
+              class="container max-width-container container-overflow-vertical">
               <div class="row mb-4 justify-content-center">
-                <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div
+                  class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <account-setting-controller></account-setting-controller>
                 </div>
               </div>
@@ -98,7 +103,8 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           }">
           <div class="container">
             <div class="row mb-4 justify-content-center">
-              <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+              <div
+                class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <sign-out-controller></sign-out-controller>
               </div>
             </div>
@@ -111,7 +117,10 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
 })
 export class AccountViewComponent implements OnInit {
   panelOpenState = false;
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UserService
+  ) {}
   async ngOnInit(): Promise<void> {
     const i = 1;
     // this.authService.register({1

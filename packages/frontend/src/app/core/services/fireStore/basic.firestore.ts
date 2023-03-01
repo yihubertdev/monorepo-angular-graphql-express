@@ -1,10 +1,20 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore, AngularFirestoreCollection, DocumentData } from "@angular/fire/compat/firestore";
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  DocumentData,
+} from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
-import { limit, query, orderBy, QueryDocumentSnapshot, QuerySnapshot } from "firebase/firestore";
+import {
+  limit,
+  query,
+  orderBy,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
+} from "firebase/firestore";
 
 @Injectable()
 export abstract class FireStoreBaseModel<T> {
@@ -79,7 +89,9 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document update document
    * @returns {Promise<void>}
    */
-  public update = async (document: Partial<T> & { id: string }): Promise<void> => {
+  public update = async (
+    document: Partial<T> & { id: string }
+  ): Promise<void> => {
     await this.collection.doc(document.id).update(document);
   };
 
@@ -112,10 +124,14 @@ export abstract class FireStoreBaseModel<T> {
       data = querySnapshotAfter.docs.map((doc) => doc.data());
       return data;
     }
-    const querySnapshot = await this.collection.ref.orderBy("createdAt", "desc").limit(limit).get();
+    const querySnapshot = await this.collection.ref
+      .orderBy("createdAt", "desc")
+      .limit(limit)
+      .get();
     data = querySnapshot.docs.map((doc, index, array) => {
       if (index === array.length) {
-        this.lastQueryDocumentSnapshot = querySnapshot.docs[querySnapshot.docs.length - 1];
+        this.lastQueryDocumentSnapshot =
+          querySnapshot.docs[querySnapshot.docs.length - 1];
       }
       return doc.data();
     });

@@ -6,7 +6,9 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
 @Component({
   template: ` <!-- container section height 90vh, width responsive 100vw or 88vw  -->
     <div class="responsive-post-section">
-      <mat-grid-list [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }" rowHeight="10vh">
+      <mat-grid-list
+        [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }"
+        rowHeight="10vh">
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
@@ -80,7 +82,14 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
               rowspan: 2
             }
           }">
-          <h3>No account? <a mat-tab-link routerLink="../signup"> Register</a></h3>
+          <h3>
+            No account?
+            <a
+              mat-tab-link
+              routerLink="../signup">
+              Register</a
+            >
+          </h3>
         </mat-grid-tile>
       </mat-grid-list>
     </div>`,
@@ -88,15 +97,21 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
 })
 export class LoginView implements OnInit, OnDestroy {
   authSubscription: Subscription = new Subscription();
-  constructor(private authService: AuthService, private _router: Router, private zone: NgZone) {}
+  constructor(
+    private authService: AuthService,
+    private _router: Router,
+    private zone: NgZone
+  ) {}
   ngOnInit(): void {
-    this.authSubscription = this.authService.userAuthObserver$.subscribe((user) => {
-      if (user) {
-        this.zone.run(() => {
-          this._router.navigate(["account", "me"]);
-        });
+    this.authSubscription = this.authService.userAuthObserver$.subscribe(
+      (user) => {
+        if (user) {
+          this.zone.run(() => {
+            this._router.navigate(["account", "me"]);
+          });
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy(): void {

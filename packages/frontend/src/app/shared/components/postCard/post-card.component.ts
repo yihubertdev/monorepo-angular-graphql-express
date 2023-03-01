@@ -7,16 +7,31 @@ import { IFormInput } from "src/app/core/models/view.types";
 @Component({
   selector: "form-input-list-component",
   template: `
-    <form class="example-form" [formGroup]="newForm">
-      <mat-form-field class="input-full-width" appearance="fill" *ngFor="let input of formInputList">
+    <form
+      class="example-form"
+      [formGroup]="newForm">
+      <mat-form-field
+        class="input-full-width"
+        appearance="fill"
+        *ngFor="let input of formInputList">
         <mat-label>{{ input.label }}</mat-label>
         <ng-container *ngIf="input.type !== 'select' || 'textarea'">
-          <input [type]="input.type" matInput [formControlName]="input.formControlName" />
-          <mat-error *ngIf="getError(input.formControlName) as error"> {{ error }} </mat-error>
+          <input
+            [type]="input.type"
+            matInput
+            [formControlName]="input.formControlName" />
+          <mat-error *ngIf="getError(input.formControlName) as error">
+            {{ error }}
+          </mat-error>
         </ng-container>
       </mat-form-field>
 
-      <button type="submit" mat-raised-button color="primary" style="width: 100vw;" (click)="save()">
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        style="width: 100vw;"
+        (click)="save()">
         {{ buttonName }}
       </button>
     </form>

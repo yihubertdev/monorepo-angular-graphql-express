@@ -7,8 +7,12 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   selector: "article-view",
   template: `
     <!-- container section height 90vh, width responsive 100vw or 88vw  -->
-    <div class="responsive-post-section" style="overflow: auto; height: 90vh;">
-      <mat-grid-list [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }" rowHeight="10vh">
+    <div
+      class="responsive-post-section"
+      style="overflow: auto; height: 90vh;">
+      <mat-grid-list
+        [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
+        rowHeight="10vh">
         <!-- article section 70% width -->
         <mat-grid-tile
           [attrGridColSpan]="{
@@ -33,7 +37,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
               rowspan: 9
             }
           }">
-          <div class="container article-container-height-responsive max-width-container container-overflow-vertical">
+          <div
+            class="container article-container-height-responsive max-width-container container-overflow-vertical">
             <div class="row">
               <div class="article-container-center">
                 <article-post-controller
@@ -67,7 +72,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
               rowspan: 4
             }
           }">
-          <user-profile-controller [userId]="articleUserId"></user-profile-controller>
+          <user-profile-controller
+            [userId]="articleUserId"></user-profile-controller>
         </mat-grid-tile>
 
         <mat-grid-tile
@@ -108,11 +114,13 @@ export class ArticleViewComponent implements OnInit {
   constructor(
     private _router: Router,
     private _activatedRouter: ActivatedRoute,
-    private _articleFireStore: ArticleFireStore,
+    private _articleFireStore: ArticleFireStore
   ) {}
 
   async ngOnInit() {
-    this._activatedRouter.params.subscribe((params: Params) => (this.articleId = params["id"]));
+    this._activatedRouter.params.subscribe(
+      (params: Params) => (this.articleId = params["id"])
+    );
     const article = await this._articleFireStore.retrieveById(this.articleId);
 
     if (isNil(article)) {

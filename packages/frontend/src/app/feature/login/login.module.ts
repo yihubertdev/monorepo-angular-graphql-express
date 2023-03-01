@@ -27,6 +27,11 @@ import { EmailSignUpController } from "./controller/email-signup.controller";
     MatListModule,
     MatBottomSheetModule,
   ],
-  exports: [EmailLoginControllerComponent, EmailSignUpController, OAuthLoginControllerComponent, OAuthOptionsComponent],
+  exports: [
+    EmailLoginControllerComponent,
+    EmailSignUpController,
+    OAuthLoginControllerComponent,
+    OAuthOptionsComponent,
+  ],
 })
 export class LoginModule {}

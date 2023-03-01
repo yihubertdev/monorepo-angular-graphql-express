@@ -41,7 +41,10 @@ export class GridColSpanDirective implements OnInit {
     },
   };
 
-  public constructor(private gridTileElement: MatGridTile, private breakpointObserver: BreakpointObserver) {
+  public constructor(
+    private gridTileElement: MatGridTile,
+    private breakpointObserver: BreakpointObserver
+  ) {
     if (this.gridTileElement != null) {
       this.gridTileElement.colspan = this.attrGridColSpan.md.colspan;
       this.gridTileElement.rowspan = this.attrGridColSpan.md.rowspan;
@@ -54,7 +57,13 @@ export class GridColSpanDirective implements OnInit {
       this.gridTileElement.rowspan = this.attrGridColSpan.md.rowspan;
     }
     this.breakpointObserver
-      .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
       .subscribe((result) => {
         if (result.breakpoints[Breakpoints.XSmall]) {
           this.gridTileElement.colspan = this.attrGridColSpan.xs.colspan;

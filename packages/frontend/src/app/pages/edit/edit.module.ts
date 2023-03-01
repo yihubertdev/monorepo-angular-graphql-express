@@ -9,7 +9,13 @@ import { EditArticleView } from "./view/edit-article.view";
 
 @NgModule({
   declarations: [EditBlogViewComponent, EditArticleView],
-  imports: [CommonModule, EditRoutingModule, MatGridListModule, EditBlogModule, EditArticleModule],
+  imports: [
+    CommonModule,
+    EditRoutingModule,
+    MatGridListModule,
+    EditBlogModule,
+    EditArticleModule,
+  ],
   exports: [EditBlogViewComponent, EditArticleView],
 })
 export class EditModule {}

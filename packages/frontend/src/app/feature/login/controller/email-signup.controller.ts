@@ -2,7 +2,12 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { userSignUpSchema } from "src/app/core/joiSchema/user-login.schema";
-import { LOGIN_FAILED, POP_UP_ACTION, POP_UP_DISMISS_DURATION, SIGNUP_FAILED } from "src/app/core/models/constants";
+import {
+  LOGIN_FAILED,
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+  SIGNUP_FAILED,
+} from "src/app/core/models/constants";
 import { IUserSignUpForm } from "src/app/core/models/users.type";
 import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
@@ -22,13 +27,18 @@ export class EmailSignUpController implements OnInit {
   formInputList: IFormInput[] = userSignUpFormList;
   validatorSchema: any = userSignUpSchema;
   error: string = "";
-  constructor(private _router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {}
+  constructor(
+    private _router: Router,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
   ngOnInit(): void {
     const i = 1;
   }
 
   async signup(formValue: Record<string, number | string>) {
-    const { username, email, password } = formValue as unknown as IUserSignUpForm;
+    const { username, email, password } =
+      formValue as unknown as IUserSignUpForm;
     const data = {
       username,
       email,

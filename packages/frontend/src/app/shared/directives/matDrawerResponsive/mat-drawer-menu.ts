@@ -16,12 +16,18 @@ export interface OpenedStatus {
   selector: "[attrOpenedStatus]",
 })
 export class MatDrawerMenuDirective implements OnInit {
-  @Input() attrOpenedStatus: OpenedStatus = { xs: false, sm: false, md: true, lg: true, xl: true };
+  @Input() attrOpenedStatus: OpenedStatus = {
+    xs: false,
+    sm: false,
+    md: true,
+    lg: true,
+    xl: true,
+  };
 
   public constructor(
     private authService: AuthService,
     private matDrawerElement: MatDrawer,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointObserver: BreakpointObserver
   ) {}
 
   public ngOnInit(): void {
@@ -35,17 +41,28 @@ export class MatDrawerMenuDirective implements OnInit {
             id: user.id,
             role: user.role,
           };
-        }),
+        })
       )
       .subscribe((user) => {
-        if (this.matDrawerElement == null || !user || isEmpty(user.id) || this.authService.isVisitor(user.role)) {
+        if (
+          this.matDrawerElement == null ||
+          !user ||
+          isEmpty(user.id) ||
+          this.authService.isVisitor(user.role)
+        ) {
           this.matDrawerElement.opened = false;
           return;
         }
 
         this.matDrawerElement.opened = true;
         this.breakpointObserver
-          .observe([Breakpoints.XSmall, Breakpoints.Small, Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
+          .observe([
+            Breakpoints.XSmall,
+            Breakpoints.Small,
+            Breakpoints.Medium,
+            Breakpoints.Large,
+            Breakpoints.XLarge,
+          ])
           .subscribe((result) => {
             if (result.breakpoints[Breakpoints.XSmall]) {
               this.matDrawerElement.opened = this.attrOpenedStatus.xs;

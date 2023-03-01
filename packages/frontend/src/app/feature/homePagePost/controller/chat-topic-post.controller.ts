@@ -5,19 +5,45 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "chat-topic-post-controller",
   template: `
-    <mat-list role="list" style="background-color: white;">
-      <mat-list-item class="list-item-height" role="listitem">BlaBLaBLa1</mat-list-item>
+    <mat-list
+      role="list"
+      style="background-color: white;">
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa1</mat-list-item
+      >
       <mat-divider></mat-divider>
-      <mat-list-item class="list-item-height" role="listitem">BlaBLaBLa2</mat-list-item>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa2</mat-list-item
+      >
       <mat-divider></mat-divider>
-      <mat-list-item class="list-item-height" role="listitem">BlaBLaBLa3</mat-list-item>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa3</mat-list-item
+      >
       <mat-divider></mat-divider>
-      <mat-list-item class="list-item-height" role="listitem">BlaBLaBLa4</mat-list-item>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa4</mat-list-item
+      >
       <mat-divider></mat-divider>
-      <mat-list-item class="list-item-height" role="listitem">BlaBLaBLa5</mat-list-item>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa5</mat-list-item
+      >
       <mat-divider></mat-divider>
     </mat-list>
-    <mat-paginator [length]="100" [pageSize]="10" aria-label="Select page"> </mat-paginator>
+    <mat-paginator
+      [length]="100"
+      [pageSize]="10"
+      aria-label="Select page">
+    </mat-paginator>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })

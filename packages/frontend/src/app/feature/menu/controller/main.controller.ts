@@ -6,7 +6,11 @@ import { homePageMenus } from "src/app/core/static/post.static";
   selector: "main-menu-controller",
   template: `
     <mat-nav-list>
-      <a mat-list-item [routerLink]="menu.link" *ngFor="let menu of menus" routerLinkActive="active-list-item">
+      <a
+        mat-list-item
+        [routerLink]="menu.link"
+        *ngFor="let menu of menus"
+        routerLinkActive="active-list-item">
         {{ menu.description }}</a
       >
     </mat-nav-list>

@@ -1,6 +1,11 @@
 import { Injectable, NgZone } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import {
+  Router,
+  CanActivate,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from "@angular/router";
 import { isEmpty } from "lodash";
 import { POP_UP_ACTION, POP_UP_DISMISS_DURATION } from "../../models/constants";
 import { SNACKBAR_LOCATION } from "../../models/layout.type";
@@ -13,7 +18,7 @@ export class UserGuardService implements CanActivate {
     private _router: Router,
     private authService: AuthService,
     private zone: NgZone,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   /**
@@ -22,7 +27,10 @@ export class UserGuardService implements CanActivate {
    * @param {RouterStateSnapshot}state route state
    * @returns {Promise<boolean>} route check status
    */
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Promise<boolean> {
     console.log("trigger");
     return new Promise((resolve) => {
       this.authService.userAuthObserver$.subscribe({

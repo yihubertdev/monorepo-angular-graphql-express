@@ -9,14 +9,21 @@ import { TextEditorOptionsComponent } from "./text-editor-options.controller";
   selector: "add-text-editor-controller",
   template: `
     <ng-container *ngIf="(userAuthObserver$ | async)?.id">
-      <mat-icon class="fab-button icon-display" (click)="openOAuthOptions()">add_circle</mat-icon>
+      <mat-icon
+        class="fab-button icon-display"
+        (click)="openOAuthOptions()"
+        >add_circle</mat-icon
+      >
     </ng-container>
   `,
   styleUrls: ["../add-text-editor.style.css"],
 })
 export class AddTextEditorControllerComponent implements OnInit {
   userAuthObserver$?: Observable<IUser | null>;
-  constructor(private _bottomSheet: MatBottomSheet, private authService: AuthService) {}
+  constructor(
+    private _bottomSheet: MatBottomSheet,
+    private authService: AuthService
+  ) {}
   ngOnInit(): void {
     this.userAuthObserver$ = this.authService.userAuthObserver$;
   }

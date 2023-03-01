@@ -9,7 +9,13 @@ import { GoogleHttpService } from "src/app/core/services/http/google.http";
 
 @NgModule({
   declarations: [EditorComponent],
-  imports: [CommonModule, MatProgressBarModule, QuillModule, FormsModule, UploadVideoDialogModule],
+  imports: [
+    CommonModule,
+    MatProgressBarModule,
+    QuillModule,
+    FormsModule,
+    UploadVideoDialogModule,
+  ],
   providers: [GoogleHttpService],
   exports: [EditorComponent],
 })

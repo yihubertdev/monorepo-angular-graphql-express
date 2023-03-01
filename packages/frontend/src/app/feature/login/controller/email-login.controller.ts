@@ -2,7 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { userLoginSchema } from "src/app/core/joiSchema/user-login.schema";
-import { LOGIN_FAILED, POP_UP_ACTION, POP_UP_DISMISS_DURATION } from "src/app/core/models/constants";
+import {
+  LOGIN_FAILED,
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+} from "src/app/core/models/constants";
 import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userLoginFormList } from "src/app/core/static/auth.static";
@@ -21,7 +25,11 @@ export class EmailLoginControllerComponent implements OnInit {
   formInputList: IFormInput[] = userLoginFormList;
   validatorSchema: any = userLoginSchema;
   error: string = "";
-  constructor(private _router: Router, private authService: AuthService, private _snackBar: MatSnackBar) {}
+  constructor(
+    private _router: Router,
+    private authService: AuthService,
+    private _snackBar: MatSnackBar
+  ) {}
   ngOnInit(): void {
     const i = 1;
   }

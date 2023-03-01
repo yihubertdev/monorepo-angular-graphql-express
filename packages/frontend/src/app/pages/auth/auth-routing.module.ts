@@ -9,7 +9,11 @@ import { SignUpView } from "./view/sign-up.view";
 
 const routes: Routes = [
   { path: "", redirectTo: "me", pathMatch: "full" },
-  { path: "me", canActivate: [UserGuardService], component: AccountViewComponent },
+  {
+    path: "me",
+    canActivate: [UserGuardService],
+    component: AccountViewComponent,
+  },
   { path: "login", canActivate: [LoginGuardService], component: LoginView },
   { path: "signup", component: SignUpView },
 ];

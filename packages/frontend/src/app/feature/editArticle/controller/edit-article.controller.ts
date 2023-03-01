@@ -3,8 +3,15 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "src/app/core/joiSchema/article-edit.schema";
 import { IArticle } from "src/app/core/models/blog.type";
-import { POP_UP_ACTION, POP_UP_DISMISS_DURATION } from "src/app/core/models/constants";
-import { ADD_ARTICLE_ERROR, ADD_BLOG_ERROR, USER_LOGIN_ERROR } from "src/app/core/models/users.type";
+import {
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+} from "src/app/core/models/constants";
+import {
+  ADD_ARTICLE_ERROR,
+  ADD_BLOG_ERROR,
+  USER_LOGIN_ERROR,
+} from "src/app/core/models/users.type";
 import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
@@ -33,7 +40,7 @@ export class EditArticleController {
     private _router: Router,
     private _articleFireStore: ArticleFireStore,
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
 
   public save = async (formValue: Record<string, number | string>) => {

@@ -11,8 +11,16 @@ const routes: Routes = [
     redirectTo: "me",
     pathMatch: "full",
   },
-  { path: "article", canActivate: [UserGuardService], component: EditArticleView },
-  { path: "blog", canActivate: [UserGuardService], component: EditBlogViewComponent },
+  {
+    path: "article",
+    canActivate: [UserGuardService],
+    component: EditArticleView,
+  },
+  {
+    path: "blog",
+    canActivate: [UserGuardService],
+    component: EditBlogViewComponent,
+  },
 ];
 
 @NgModule({

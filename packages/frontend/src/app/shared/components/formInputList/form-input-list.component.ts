@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormBuilder } from "@angular/forms";
 import { joiValidator } from "src/app/core/utils/validator";
@@ -8,12 +15,27 @@ import { EditorComponent } from "../editor/editor.component";
 @Component({
   selector: "form-input-list-component",
   template: `
-    <form class="form-full-width" [formGroup]="newForm">
-      <mat-form-field class="input-full-width" appearance="fill" *ngFor="let input of formInputList">
-        <ng-container *ngIf="input.type === 'text' || input.type === 'email' || input.type === 'password'">
+    <form
+      class="form-full-width"
+      [formGroup]="newForm">
+      <mat-form-field
+        class="input-full-width"
+        appearance="fill"
+        *ngFor="let input of formInputList">
+        <ng-container
+          *ngIf="
+            input.type === 'text' ||
+            input.type === 'email' ||
+            input.type === 'password'
+          ">
           <mat-label>{{ input.label }}</mat-label>
-          <input [type]="input.type" matInput [formControlName]="input.formControlName" />
-          <mat-error *ngIf="getError(input.formControlName) as error"> {{ error }} </mat-error>
+          <input
+            [type]="input.type"
+            matInput
+            [formControlName]="input.formControlName" />
+          <mat-error *ngIf="getError(input.formControlName) as error">
+            {{ error }}
+          </mat-error>
         </ng-container>
 
         <ng-container *ngIf="input.type === 'textarea'">
@@ -23,21 +45,33 @@ import { EditorComponent } from "../editor/editor.component";
             [placeholder]="input.placeholder ?? ''"
             style="height: 20vh;"
             [formControlName]="input.formControlName"></textarea>
-          <mat-error *ngIf="getError(input.formControlName) as error"> {{ error }} </mat-error>
+          <mat-error *ngIf="getError(input.formControlName) as error">
+            {{ error }}
+          </mat-error>
         </ng-container>
 
         <ng-container *ngIf="input.type === 'upload'">
           <mat-label>{{ input.label }}</mat-label>
-          <input [type]="input.type" matInput [formControlName]="input.formControlName" style="display:none" />
+          <input
+            [type]="input.type"
+            matInput
+            [formControlName]="input.formControlName"
+            style="display:none" />
           <document-uploader-component
             [documentPath]="input.documentPath"
             [documentCategory]="input.documentCategory"
-            (documentUpload)="saveFile($event, input.formControlName)"></document-uploader-component>
-          <mat-error *ngIf="getError(input.formControlName) as error"> {{ error }} </mat-error>
+            (documentUpload)="
+              saveFile($event, input.formControlName)
+            "></document-uploader-component>
+          <mat-error *ngIf="getError(input.formControlName) as error">
+            {{ error }}
+          </mat-error>
         </ng-container>
       </mat-form-field>
     </form>
-    <div *ngIf="haveEditor" style="margin-bottom: 4%">
+    <div
+      *ngIf="haveEditor"
+      style="margin-bottom: 4%">
       <editor-component [(editorContent)]="editorContent"></editor-component>
     </div>
     <button
@@ -80,7 +114,10 @@ export class FormInputListComponent implements OnInit {
 
     // Create the form
     this.newForm = this.formBuilder.group(this.defaultFormGroupValue, {
-      validators: joiValidator(this.errorLocation, this.validatorSchema, { abortEarly: false, allowUnknown: true }),
+      validators: joiValidator(this.errorLocation, this.validatorSchema, {
+        abortEarly: false,
+        allowUnknown: true,
+      }),
     });
   }
 

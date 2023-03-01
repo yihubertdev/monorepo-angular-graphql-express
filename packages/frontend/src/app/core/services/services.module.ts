@@ -16,7 +16,9 @@ import { FireAuthServiceModule } from "./fireAuth/auth.module";
     FireStoreServiceModule,
     FireStorageServiceModule,
   ],
-  providers: [{ provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig }],
+  providers: [
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
+  ],
   bootstrap: [],
 })
 export class ServiceModule {}

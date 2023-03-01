@@ -9,7 +9,13 @@ import { UploadVideoDialog } from "./upload-video.dialog";
 
 @NgModule({
   declarations: [UploadVideoDialog],
-  imports: [CommonModule, MatDialogModule, FormsModule, MatInputModule, MatSnackBarModule],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    FormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+  ],
   providers: [GoogleHttpService],
   exports: [UploadVideoDialog],
 })

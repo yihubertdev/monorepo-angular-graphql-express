@@ -7,7 +7,12 @@ import { FormInputListComponent } from "./post-card.component";
 
 @NgModule({
   declarations: [FormInputListComponent],
-  imports: [CommonModule, MatExpansionModule, ReactiveFormsModule, MatInputModule],
+  imports: [
+    CommonModule,
+    MatExpansionModule,
+    ReactiveFormsModule,
+    MatInputModule,
+  ],
   exports: [FormInputListComponent],
 })
 export class FormInputListModule {}

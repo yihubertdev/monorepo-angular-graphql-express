@@ -5,7 +5,7 @@ import { ValidationOptions } from "joi";
 export const joiValidator = (
   errorLocation: string,
   schemaGenerator: any,
-  options: ValidationOptions = { abortEarly: false },
+  options: ValidationOptions = { abortEarly: false }
 ): ValidationErrors | null => {
   const validator = (group: FormGroup) => {
     // Remove error from controls
@@ -17,7 +17,10 @@ export const joiValidator = (
     }
 
     // Generate joi schema with current user input value and error happened location
-    const schema = schemaGenerator(errorLocation, group.value) as Joi.ObjectSchema;
+    const schema = schemaGenerator(
+      errorLocation,
+      group.value
+    ) as Joi.ObjectSchema;
 
     // Validate joi schema
     const result = schema.validate(group.value, options);

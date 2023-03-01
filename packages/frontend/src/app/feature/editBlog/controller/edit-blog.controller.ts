@@ -3,8 +3,14 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
 import { IBlog } from "src/app/core/models/blog.type";
-import { POP_UP_ACTION, POP_UP_DISMISS_DURATION } from "src/app/core/models/constants";
-import { ADD_BLOG_ERROR, USER_LOGIN_ERROR } from "src/app/core/models/users.type";
+import {
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+} from "src/app/core/models/constants";
+import {
+  ADD_BLOG_ERROR,
+  USER_LOGIN_ERROR,
+} from "src/app/core/models/users.type";
 import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { BlogService } from "src/app/core/services/fireStore/blog.firestore";
@@ -30,7 +36,7 @@ export class EditBlogController implements OnInit {
     private _router: Router,
     private blogService: BlogService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar,
+    private _snackBar: MatSnackBar
   ) {}
   ngOnInit(): void {
     const i = 1;

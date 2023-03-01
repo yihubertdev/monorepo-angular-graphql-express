@@ -6,10 +6,22 @@ import { homePageMenus } from "src/app/core/static/post.static";
 @Component({
   selector: "header-menu-controller",
   template: ` <ng-container>
-    <button mat-button [matMenuTriggerFor]="animals">Bla</button>
+    <button
+      mat-button
+      [matMenuTriggerFor]="animals">
+      Bla
+    </button>
     <mat-menu #animals="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
-      <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="vertebrates">
+        Vertebrates
+      </button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="invertebrates">
+        Invertebrates
+      </button>
     </mat-menu>
 
     <mat-menu #vertebrates="matMenu">
@@ -27,16 +39,40 @@ import { homePageMenus } from "src/app/core/static/post.static";
       <button mat-menu-item>Horseshoe crabs</button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="animals">Bla</button>
+    <button
+      mat-button
+      [matMenuTriggerFor]="animals">
+      Bla
+    </button>
     <mat-menu #animals="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
-      <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="vertebrates">
+        Vertebrates
+      </button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="invertebrates">
+        Invertebrates
+      </button>
     </mat-menu>
 
-    <button mat-button [matMenuTriggerFor]="animals">Bla</button>
+    <button
+      mat-button
+      [matMenuTriggerFor]="animals">
+      Bla
+    </button>
     <mat-menu #animals="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="vertebrates">Vertebrates</button>
-      <button mat-menu-item [matMenuTriggerFor]="invertebrates">Invertebrates</button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="vertebrates">
+        Vertebrates
+      </button>
+      <button
+        mat-menu-item
+        [matMenuTriggerFor]="invertebrates">
+        Invertebrates
+      </button>
     </mat-menu>
   </ng-container>`,
   styleUrls: [],

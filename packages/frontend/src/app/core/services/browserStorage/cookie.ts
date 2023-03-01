@@ -39,7 +39,12 @@ export class CookieService {
    *
    * @public
    */
-  public setCookie(name: string, value: string, expireHours: number, path: string = "") {
+  public setCookie(
+    name: string,
+    value: string,
+    expireHours: number,
+    path: string = ""
+  ) {
     const date: Date = new Date();
 
     // Set expire hour for the cookie
@@ -49,6 +54,12 @@ export class CookieService {
     const expires: string = "expires=" + date.toUTCString();
 
     // Set the cookie
-    document.cookie = name + "=" + value + "; " + expires + (path.length > 0 ? "; path=" + path : "");
+    document.cookie =
+      name +
+      "=" +
+      value +
+      "; " +
+      expires +
+      (path.length > 0 ? "; path=" + path : "");
   }
 }
