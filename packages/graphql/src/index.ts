@@ -1,20 +1,8 @@
 import { ApolloServer } from "apollo-server-lambda";
-
-const typeDefs = `#graphql
-  type Query {
-    hello: String
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => "world",
-  },
-};
+import { schema } from "./schema";
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+  schema,
   introspection: true,
 });
 

@@ -14,12 +14,14 @@
     "src"
   ],
   "scripts": {
-    "start": "npx ts-node src/index.ts",
+    "start": "npx ts-node-dev src/index-local.ts",
     "test": "node ./__tests__/server.test.js",
-    "lint": "npx eslint --ext .ts ."
+    "lint": "npx eslint --ext .ts .",
+    "build": "tsc --project ./tsconfig.json"
   },
   "dependencies": {
     "@as-integrations/aws-lambda": "^2.0.1",
+    "@graphql-tools/schema": "^9.0.16",
     "apollo-server": "^3.1.2",
     "apollo-server-lambda": "^3.11.1",
     "apollo-server-plugin-base": "^3.5.0",

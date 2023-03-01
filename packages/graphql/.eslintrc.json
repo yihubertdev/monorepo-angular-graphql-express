@@ -74,9 +74,6 @@
       "@typescript-eslint/unified-signatures": "error",
       "@typescript-eslint/no-extra-non-null-assertion": "error",
 
-      // eslint-plugin-import
-      "import/no-extraneous-dependencies": ["error", { "optionalDependencies": false }],
-
       // eslint
       "constructor-super": "error",
       "curly": ["error", "multi-line"],
