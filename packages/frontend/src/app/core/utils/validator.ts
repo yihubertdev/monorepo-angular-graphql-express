@@ -1,4 +1,4 @@
-import { FormGroup, ValidationErrors } from "@angular/forms";
+import { UntypedFormGroup, ValidationErrors } from "@angular/forms";
 import * as Joi from "joi";
 import { ValidationOptions } from "joi";
 
@@ -7,7 +7,7 @@ export const joiValidator = (
   schemaGenerator: any,
   options: ValidationOptions = { abortEarly: false }
 ): ValidationErrors | null => {
-  const validator = (group: FormGroup) => {
+  const validator = (group: UntypedFormGroup) => {
     // Remove error from controls
     for (const key in group.controls) {
       const control = group.get(key);

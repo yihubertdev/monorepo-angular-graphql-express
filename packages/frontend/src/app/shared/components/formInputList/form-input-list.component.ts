@@ -6,8 +6,8 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { FormBuilder } from "@angular/forms";
+import { UntypedFormGroup } from "@angular/forms";
+import { UntypedFormBuilder } from "@angular/forms";
 import { joiValidator } from "src/app/core/utils/validator";
 import { IFormInput } from "src/app/core/models/view.types";
 import { EditorComponent } from "../editor/editor.component";
@@ -96,13 +96,13 @@ export class FormInputListComponent implements OnInit {
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
 
-  newForm: FormGroup;
+  newForm: UntypedFormGroup;
   defaultFormGroupValue: Record<string, number | string> = {};
   public editorContent: string = "";
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
     this.newForm = formBuilder.group({});
   }
 
