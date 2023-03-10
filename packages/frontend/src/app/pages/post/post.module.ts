@@ -13,6 +13,7 @@ import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/mat
 import { CarouselSliderModule } from "src/app/shared/components/CarouselSlider/carousel-slider.module";
 import { UserProfileModule } from "src/app/feature/userProfile/user-profile.module";
 import { ArticleViewComponent } from "./view/article.view";
+import { UiModule } from "ui";
 
 @NgModule({
   declarations: [PostViewComponent, ArticleViewComponent],
@@ -29,6 +30,7 @@ import { ArticleViewComponent } from "./view/article.view";
     GridListResponsiveDirectiveModule,
     CarouselSliderModule,
     UserProfileModule,
+    UiModule,
   ],
   exports: [PostViewComponent, ArticleViewComponent],
 })

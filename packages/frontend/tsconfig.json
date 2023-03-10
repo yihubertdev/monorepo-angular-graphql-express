@@ -5,7 +5,11 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "paths": {
-      "@angular": ["./node_modules/rxjs"]
+      "rxjs": ["./node_modules/rxjs"],
+      "ui": [
+        "../shared/dist/ui"
+      ],
+      "@angular/*": ["./node_modules/@angular/*"]
     }
   },
   "angularCompilerOptions": {
