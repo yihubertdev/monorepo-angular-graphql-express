@@ -36,16 +36,15 @@
     "ngx-quill": "^16.2.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
+    "typescript": "^4.8.5",
     "uuid": "^9.0.0",
-    "zone.js": "~0.11.4",
-    "typescript": "^4.8.5"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^13.3.10",
     "@angular-eslint/builder": "13.5.0",
     "@angular-eslint/eslint-plugin": "13.5.0",
     "@angular-eslint/eslint-plugin-template": "13.5.0",
-    "@angular-eslint/schematics": "14.2.0",
     "@angular-eslint/template-parser": "13.5.0",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.0",
