@@ -3,7 +3,8 @@
   "version": 1,
   "newProjectRoot": "./library",
   "cli": {
-    "analytics": false
+    "analytics": false,
+    "schematicCollections": ["@angular-eslint/schematics"]
   },
   "projects": {
     "ui": {
@@ -33,6 +34,12 @@
             "main": "library/ui/src/test.ts",
             "tsConfig": "library/ui/tsconfig.spec.json",
             "karmaConfig": "library/ui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["library/ui/**/*.ts", "library/ui/**/*.html"]
           }
         }
       }

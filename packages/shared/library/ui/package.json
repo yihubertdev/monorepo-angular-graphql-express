@@ -5,6 +5,13 @@
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0"
   },
+  "scripts": {
+    "ng": "ng",
+    "build": "ng build",
+    "start": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint"
+  },
   "dependencies": {
     "tslib": "^2.3.0"
   }

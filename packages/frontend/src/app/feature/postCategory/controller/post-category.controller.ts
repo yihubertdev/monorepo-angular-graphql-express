@@ -4,12 +4,12 @@ import { IPostCategoryList } from "src/app/core/models/view.types";
 @Component({
   selector: "post-category-controller",
   template: `
-    <mat-chip-list class="new-chip-list-wrapper">
+    <mat-chip-listbox class="new-chip-list-wrapper">
       <mat-chip *ngFor="let category of postCategoryList">
         <mat-icon>{{ category.icon }}</mat-icon>
         {{ category.number }}
       </mat-chip>
-    </mat-chip-list>
+    </mat-chip-listbox>
   `,
   styleUrls: [],
 })
