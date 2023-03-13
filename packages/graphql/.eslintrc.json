@@ -26,6 +26,7 @@
       "**/coverage/**"
   ],
   "rules": {
+      "require-jsdoc": 1,
       "@typescript-eslint/adjacent-overload-signatures": "error",
       "@typescript-eslint/array-type": "error",
       "@typescript-eslint/no-array-constructor": "error",
@@ -77,7 +78,7 @@
       // eslint
       "constructor-super": "error",
       "curly": ["error", "multi-line"],
-      "dot-notation": "error",
+      "dot-notation": 0,
       "eqeqeq": "error",
       "linebreak-style": 1,
       "new-parens": "error",

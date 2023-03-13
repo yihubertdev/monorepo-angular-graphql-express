@@ -15,9 +15,14 @@
   ],
   "scripts": {
     "start": "npx ts-node-dev src/index-local.ts",
-    "test": "node ./__tests__/server.test.js",
     "lint": "npx eslint --ext .ts .",
-    "build": "tsc --project ./tsconfig.json"
+    "build": "tsc --project ./tsconfig.json",
+    "knex:run": "npx knex --knexfile src/database/knexfile",
+    "migrate:list": "npm run knex:run -- migrate:list",
+    "migrate:make": "npm run knex:run -- migrate:make",
+    "migrate:up": "npm run knex:run -- migrate:up",
+    "migrate:latest": "npm run knex:run -- migrate:latest --debug",
+    "migrate:rollback": "npm run knex:run -- migrate:rollback --debug"
   },
   "dependencies": {
     "@as-integrations/aws-lambda": "^2.0.1",
@@ -26,9 +31,11 @@
     "apollo-server-lambda": "^3.11.1",
     "apollo-server-plugin-base": "^3.5.0",
     "aws-lambda": "^1.0.6",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "knex": "^2.4.2"
   },
   "devDependencies": {
+    "mysql": "^2.18.1",
     "serverless-offline": "^12.0.4",
     "serverless-plugin-typescript": "^2.1.2"
   }
