@@ -18,6 +18,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
 import { HomePagePostModule } from "./feature/homePagePost/home-page-post.module";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [MainViewComponent],
@@ -34,6 +36,8 @@ import { HomePagePostModule } from "./feature/homePagePost/home-page-post.module
     MatDrawerResponsiveDirectiveModule,
     GridListResponsiveDirectiveModule,
     MatIconModule,
+    MatTabsModule,
+    MatMenuModule,
     MatToolbarModule,
     MatButtonModule,
     HomePagePostModule.forChatTopic(),

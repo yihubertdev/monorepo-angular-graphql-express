@@ -3,10 +3,12 @@ import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { isEmpty } from "lodash";
 import { map, Observable } from "rxjs";
+import { IMenu } from "./core/models/layout.type";
 import { IUser } from "./core/models/users.type";
 import { AuthService } from "./core/services/fireAuth/auth";
 import {
   googleIconSvg,
+  homePageMenus,
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
@@ -137,9 +139,19 @@ import {
                 }
               }"
               class="stick-footer">
-              <ng-container
-                ><footer-menu-controller></footer-menu-controller
-              ></ng-container>
+              <ng-container>
+                <nav
+                  mat-tab-nav-bar
+                  class="child-centered mat-tab-group-inverted-header main-nav">
+                  <a
+                    mat-tab-link
+                    [routerLink]="icon.link"
+                    [style.min-width]="icon.width"
+                    *ngFor="let icon of footerIconLayout">
+                    <mat-icon>{{ icon.iconName }}</mat-icon>
+                  </a>
+                </nav></ng-container
+              >
             </mat-grid-tile>
           </mat-grid-list>
         </div>
@@ -151,6 +163,8 @@ import {
 export class MainViewComponent implements OnInit {
   public isDisplay: boolean = false;
   userAuthObserver$?: Observable<IUser | null>;
+  footerIconLayout: IMenu[] = homePageMenus;
+
   constructor(
     private authService: AuthService,
     iconRegistry: MatIconRegistry,
