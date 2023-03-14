@@ -1,0 +1,9 @@
+.new-chip-list-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap !important;
+    width: 100dvw !important;
+    overflow-x: scroll !important;
+    overflow-y: hidden !important;
+  }
