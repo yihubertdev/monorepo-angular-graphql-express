@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
+import { MatTabNavPanel } from "@angular/material/tabs";
 import { DomSanitizer } from "@angular/platform-browser";
 import { isEmpty } from "lodash";
 import { map, Observable } from "rxjs";
@@ -63,7 +64,7 @@ import {
           aria-label="linkedln"></mat-icon>
       </button>
     </mat-toolbar>
-    <!-- desktop: 90vh mobile: 100vh -->
+    <!-- desktop: 90svh mobile: 100svh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
         #drawer
@@ -83,7 +84,7 @@ import {
           <!-- desktop: top tool bar 10vh, main content 90vh, no footer. mobile: no top toolbar, main content 90vh, footer 10vh -->
           <mat-grid-list
             cols="1"
-            rowHeight="10vh">
+            rowHeight="10svh">
             <mat-grid-tile
               [attrGridColSpan]="{
                 xs: {
@@ -139,19 +140,7 @@ import {
                 }
               }"
               class="stick-footer">
-              <ng-container>
-                <nav
-                  mat-tab-nav-bar
-                  class="child-centered mat-tab-group-inverted-header main-nav">
-                  <a
-                    mat-tab-link
-                    [routerLink]="icon.link"
-                    [style.min-width]="icon.width"
-                    *ngFor="let icon of footerIconLayout">
-                    <mat-icon>{{ icon.iconName }}</mat-icon>
-                  </a>
-                </nav></ng-container
-              >
+              <footer-menu-controller></footer-menu-controller>
             </mat-grid-tile>
           </mat-grid-list>
         </div>

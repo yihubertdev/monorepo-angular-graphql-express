@@ -7,7 +7,7 @@
     "rules": "./src/app/core/services/fireStorage/firestorge.security.rules"
   },
   "hosting": {
-    "public": "dist/hubert-frontend",
+    "public": "dist/frontend",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
