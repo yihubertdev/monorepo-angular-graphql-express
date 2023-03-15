@@ -33,7 +33,7 @@ import { EMBED_YOUTUBE_URL } from "src/app/core/models/constants";
       id="quillEditor"
       [modules]="quillEditorModule"
       trackChanges="all"
-      [styles]="{ height: '65vh' }"
+      [styles]="{ height: '65dvh' }"
       placeholder=""></quill-editor>
     <mat-progress-bar
       mode="determinate"

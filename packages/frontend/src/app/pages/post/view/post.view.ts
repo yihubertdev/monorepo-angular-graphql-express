@@ -8,11 +8,11 @@ import { postList } from "src/app/core/static/post.static";
     <!-- <ng-container>
       <mat-spinner></mat-spinner>
     </ng-container> -->
-    <!-- router container 90vh -->
+    <!-- router container 90dvh -->
     <div class="responsive-post-section">
       <mat-grid-list
         [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
-        rowHeight="10vh">
+        rowHeight="10dvh">
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
@@ -38,7 +38,7 @@ import { postList } from "src/app/core/static/post.static";
           }">
           <post-category-controller></post-category-controller>
         </mat-grid-tile>
-        <!-- desktop 90vh content, mobile 10vh category and 80vh content-->
+        <!-- desktop 90dvh content, mobile 10dvh category and 80dvh content-->
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {

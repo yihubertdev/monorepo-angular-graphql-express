@@ -43,7 +43,7 @@ import { EditorComponent } from "../editor/editor.component";
           <textarea
             matInput
             [placeholder]="input.placeholder ?? ''"
-            style="height: 20vh;"
+            style="height: 20dvh;"
             [formControlName]="input.formControlName"></textarea>
           <mat-error *ngIf="getError(input.formControlName) as error">
             {{ error }}

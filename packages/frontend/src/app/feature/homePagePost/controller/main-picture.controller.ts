@@ -7,7 +7,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   template: `
     <div
       class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 video-container"
-      style="height: 58vh; padding: 0;">
+      style="height: 58dvh; padding: 0;">
       <video
         autoplay
         muted

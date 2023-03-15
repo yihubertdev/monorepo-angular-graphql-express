@@ -3,10 +3,10 @@ import { Component } from "@angular/core";
 @Component({
   selector: "post-view",
   template: `
-    <div style="width: 80vw; height: 90vh">
+    <div style="width: 80vw; height: 90dvh">
       <mat-grid-list
         cols="1"
-        rowHeight="90vh">
+        rowHeight="90dvh">
         <mat-grid-tile
           colspan="1"
           rowspan="1">

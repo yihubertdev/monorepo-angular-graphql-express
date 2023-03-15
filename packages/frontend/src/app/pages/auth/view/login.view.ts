@@ -4,11 +4,11 @@ import { Subscription } from "rxjs";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 @Component({
-  template: ` <!-- container section height 90vh, width responsive 100vw or 88vw  -->
+  template: ` <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div class="responsive-post-section">
       <mat-grid-list
         [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }"
-        rowHeight="10vh">
+        rowHeight="10dvh">
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {

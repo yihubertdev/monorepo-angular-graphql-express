@@ -6,13 +6,13 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "article-view",
   template: `
-    <!-- container section height 90vh, width responsive 100vw or 88vw  -->
+    <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div
       class="responsive-post-section"
-      style="overflow: auto; height: 90vh;">
+      style="overflow: auto; height: 90dvh;">
       <mat-grid-list
         [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
-        rowHeight="10vh">
+        rowHeight="10dvh">
         <!-- article section 70% width -->
         <mat-grid-tile
           [attrGridColSpan]="{
@@ -48,7 +48,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
             </div>
           </div>
         </mat-grid-tile>
-        <!-- desktop 90vh content, mobile 10vh category and 80vh content-->
+        <!-- desktop 90dvh content, mobile 10dvh category and 80dvh content-->
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {

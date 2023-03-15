@@ -7,7 +7,7 @@ img {
 
 /* Slideshow container */
 .slide-show-container {
-  height: 30vh;
+  height: 30dvh;
   position: relative;
   margin: auto;
 }
@@ -15,7 +15,7 @@ img {
 /* sm width */
 @media (min-width: 576px) {
   .slide-show-container {
-    height: 30vh;
+    height: 30dvh;
     position: relative;
     margin: auto;
   }
@@ -24,7 +24,7 @@ img {
 /* md width */
 @media (min-width: 768px) {
   .slide-show-container {
-    height: 40vh;
+    height: 40dvh;
     position: relative;
     margin: auto;
   }
@@ -33,7 +33,7 @@ img {
 /* lg width */
 @media (min-width: 992px) {
   .slide-show-container {
-    height: 40vh;
+    height: 40dvh;
     position: relative;
     margin: auto;
   }
@@ -42,7 +42,7 @@ img {
 /* xl width */
 @media (min-width: 1200px) {
   .slide-show-container {
-    height: 40vh;
+    height: 40dvh;
     position: relative;
     margin: auto;
   }

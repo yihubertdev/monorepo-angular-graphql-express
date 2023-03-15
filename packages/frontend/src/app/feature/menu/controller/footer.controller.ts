@@ -8,7 +8,8 @@ import { homePageMenus } from "src/app/core/static/post.static";
     <ng-container>
       <nav
         mat-tab-nav-bar
-        class="child-centered mat-tab-group-inverted-header main-nav">
+        class="child-centered mat-tab-group-inverted-header main-nav"
+        [tabPanel]="tabPanel">
         <a
           mat-tab-link
           [routerLink]="icon.link"

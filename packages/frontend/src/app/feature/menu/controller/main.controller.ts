@@ -3,7 +3,7 @@ import { IMenu } from "src/app/core/models/layout.type";
 import { homePageMenus } from "src/app/core/static/post.static";
 
 @Component({
-  selector: "main-menu-controller",
+  selector: "drawer-menu-controller",
   template: `
     <mat-nav-list>
       <a

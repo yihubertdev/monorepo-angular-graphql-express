@@ -32,14 +32,14 @@
 
 .responsive-main-container {
   width: 100vw;
-  height: 100svh;
+  height: 100dvh;
 }
 
 /* sm width */
 @media (min-width: 576px) {
   .responsive-main-container {
     width: 100vw;
-    height: 100svh;
+    height: 100dvh;
   }
 }
 
@@ -47,7 +47,7 @@
 @media (min-width: 768px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90svh;
+    height: 90dvh;
   }
 }
 
@@ -55,7 +55,7 @@
 @media (min-width: 992px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90svh;
+    height: 90dvh;
   }
 }
 
@@ -63,7 +63,7 @@
 @media (min-width: 1200px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90svh;
+    height: 90dvh;
   }
 }
 
