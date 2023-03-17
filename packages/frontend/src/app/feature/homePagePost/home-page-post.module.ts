@@ -45,7 +45,7 @@ import { ArticlePostControllerComponent } from "./controller/article-post.contro
   ],
 })
 export class HomePagePostModule {
-  static forChatTopic(): ModuleWithProviders<CommonModule> {
+  static forChatTopic(): ModuleWithProviders<HomePagePostModule> {
     return {
       ngModule: HomePagePostModule,
       providers: [],

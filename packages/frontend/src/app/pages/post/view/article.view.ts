@@ -49,6 +49,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
           </div>
         </mat-grid-tile>
         <!-- desktop 90dvh content, mobile 10dvh category and 80dvh content-->
+        <!-- width 30% -->
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
@@ -73,7 +74,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
             }
           }">
           <user-profile-controller
-            [userId]="articleUserId"></user-profile-controller>
+            [userId]="articleUserId"
+            style="width: 100%; height: 100%; margin-bottom: 5%;"></user-profile-controller>
         </mat-grid-tile>
 
         <mat-grid-tile
@@ -99,7 +101,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
               rowspan: 5
             }
           }">
-          <chat-topic-post-controller></chat-topic-post-controller>
+          <chat-topic-post-controller
+            style="width: 100%; height: 100%; margin-bottom: 5%;"></chat-topic-post-controller>
         </mat-grid-tile>
       </mat-grid-list>
     </div>

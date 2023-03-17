@@ -13,67 +13,69 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
 
 @Component({
   selector: "user-profile-controller",
-  template: ` <mat-card>
-    <div class="container">
-      <div class="row justify-content-center">
-        <div
-          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  template: `
+    <mat-card style="height: 100%;">
+      <div class="container vertical-horizontal-center">
+        <div class="row justify-content-center">
           <div
-            mat-card-avatar
-            class="user-profile-avatar"
-            [ngStyle]="{
-              'background-image': 'url(' + photoUrl + ')',
-              margin: 'auto'
-            }"
-            (click)="triggerUpload()">
-            <input
-              type="file"
-              (change)="uploadImage($event.target)"
-              style="display:none"
-              id="uploadProfile"
-              #uploadProfile
-              name="filedata" />
+            class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div
+              mat-card-avatar
+              class="user-profile-avatar"
+              [ngStyle]="{
+                'background-image': 'url(' + photoUrl + ')',
+                margin: 'auto'
+              }"
+              (click)="triggerUpload()">
+              <input
+                type="file"
+                (change)="uploadImage($event.target)"
+                style="display:none"
+                id="uploadProfile"
+                #uploadProfile
+                name="filedata" />
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div
+            class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <p>
+              <ng-container>
+                {{
+                  currentUser?.email
+                    | StringTransformPipe : "Email" : currentUser?.isAnonymous
+                }}</ng-container
+              >
+            </p>
+            <p>
+              <ng-container>
+                {{
+                  currentUser?.displayName
+                    | StringTransformPipe : "Name" : currentUser?.isAnonymous
+                }}</ng-container
+              >
+            </p>
+            <p>
+              <ng-container>
+                {{
+                  currentUser?.displayName
+                    | StringTransformPipe : "Role" : currentUser?.isAnonymous
+                }}</ng-container
+              >
+            </p>
           </div>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <div
-          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <p>
-            <ng-container *ngIf="currentUser?.isAnonymous === false">
-              Email: {{ currentUser?.email }}</ng-container
-            >
-            <ng-container *ngIf="currentUser?.isAnonymous === true">
-              Email: Anonymous
-            </ng-container>
-          </p>
-          <p>
-            <ng-container *ngIf="currentUser?.isAnonymous === false">
-              Name: {{ currentUser?.displayName }}</ng-container
-            >
-            <ng-container *ngIf="currentUser?.isAnonymous === true">
-              Name: Anonymous</ng-container
-            >
-          </p>
-          <p>
-            <ng-container *ngIf="currentUser?.isAnonymous === false">
-              Role: Writer</ng-container
-            >
-            <ng-container *ngIf="currentUser?.isAnonymous === true">
-              Name: Anonymous</ng-container
-            >
-          </p>
-        </div>
-      </div>
-    </div>
-  </mat-card>`,
+    </mat-card>
+  `,
   styleUrls: ["../user-profile.style.css"],
 })
 export class UserProfileControllerComponent implements OnInit, OnChanges {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser?: IUserAuth;
-  photoUrl?: string =
+  photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
     private authService: AuthService,
@@ -86,9 +88,7 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
       this.currentUser = this.authService.get()?.toJSON() as
         | IUserAuth
         | undefined;
-      this.photoUrl =
-        this.currentUser?.photoURL ??
-        "https://material.angular.io/assets/img/examples/shiba1.jpg";
+      this.photoUrl = this.currentUser?.photoURL ?? this.photoUrl;
     }
   }
 
@@ -96,9 +96,21 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
     if (this.userId) {
       const user = await this.userService.retrieveById(this.userId);
 
+      if (!user) {
+        this.currentUser = {
+          uid: "",
+          photoURL: this.photoUrl,
+          isAnonymous: true,
+          email: "",
+          emailVerified: false,
+          displayName: "",
+        } as IUserAuth;
+        return;
+      }
+
       this.currentUser = {
         uid: this.userId,
-        photoURL: user.photoURL,
+        photoURL: user.photoURL ?? this.photoUrl,
         isAnonymous: user.isAnonymous,
         email: user.email,
         emailVerified: user.emailVerified,

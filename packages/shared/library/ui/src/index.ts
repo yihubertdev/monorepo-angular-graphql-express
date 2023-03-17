@@ -2,6 +2,6 @@
  * Public API Surface of ui
  */
 
-export * from "./components/sample.service";
-export * from "./components/sample.component";
-export * from "./components/sample.module";
+export * from "./pipes/sample.service";
+export * from "./pipes/sample.component";
+export * from "./pipes/sample.module";

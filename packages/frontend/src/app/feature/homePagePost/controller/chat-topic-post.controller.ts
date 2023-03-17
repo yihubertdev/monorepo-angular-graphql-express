@@ -7,7 +7,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   template: `
     <mat-list
       role="list"
-      style="background-color: white;">
+      style="background-color: white; height: 90%;">
       <mat-list-item
         class="list-item-height"
         role="listitem"
@@ -38,6 +38,23 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
         >BlaBLaBLa5</mat-list-item
       >
       <mat-divider></mat-divider>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa5</mat-list-item
+      >
+      <mat-divider></mat-divider>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa5</mat-list-item
+      >
+      <mat-divider></mat-divider>
+      <mat-list-item
+        class="list-item-height"
+        role="listitem"
+        >BlaBLaBLa5</mat-list-item
+      >
     </mat-list>
     <mat-paginator
       [length]="100"
