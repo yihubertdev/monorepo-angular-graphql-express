@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowUnreachableCode": false,
     "lib": ["esnext", "dom", "es2020"],
+    "outDir": "./dist/out-tsc",
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "target": "ES2020",
