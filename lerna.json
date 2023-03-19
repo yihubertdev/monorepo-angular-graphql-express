@@ -3,5 +3,5 @@
   "useWorkspaces": false,
   "ignoreVersionCheck": false,
   "version": "0.0.0",
-  "packages": ["packages/**"]
+  "packages": ["packages/*"]
 }

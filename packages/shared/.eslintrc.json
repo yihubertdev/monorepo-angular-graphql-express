@@ -23,7 +23,8 @@
       "**/scripts/**/*.js",
       "**/scripts/**/*.d.*",
       "**/internal/**",
-      "**/coverage/**"
+      "**/coverage/**",
+      "**/dist/**"
   ],
   "rules": {
       "@typescript-eslint/adjacent-overload-signatures": "error",
