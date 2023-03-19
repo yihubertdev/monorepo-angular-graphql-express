@@ -36,7 +36,6 @@
     "ngx-quill": "^16.2.1",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
-    "ui": "file:dependencies/ui-0.0.1.tgz",
     "uuid": "^9.0.0",
     "zone.js": "~0.11.4"
   },

@@ -54,11 +54,11 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
           [attrGridColSpan]="{
             xs: {
               colspan: 1,
-              rowspan: 1
+              rowspan: 4
             },
             sm: {
               colspan: 1,
-              rowspan: 1
+              rowspan: 4
             },
             md: {
               colspan: 3,
@@ -82,11 +82,11 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
           [attrGridColSpan]="{
             xs: {
               colspan: 1,
-              rowspan: 1
+              rowspan: 5
             },
             sm: {
               colspan: 1,
-              rowspan: 1
+              rowspan: 5
             },
             md: {
               colspan: 3,

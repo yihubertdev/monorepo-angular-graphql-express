@@ -1,7 +1,5 @@
 /*
  * Public API Surface of ui
  */
-
-export * from "./pipes/sample.service";
-export * from "./pipes/sample.component";
-export * from "./pipes/sample.module";
+export * from "./pipes/index.module";
+export * from "./pipes/string-tranform.pipe";

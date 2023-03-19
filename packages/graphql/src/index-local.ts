@@ -1,9 +1,11 @@
 import { ApolloServer } from "apollo-server";
 import { schema } from "./schema";
+import { graphQLContext } from "./index";
 
 const server = new ApolloServer({
   schema,
   introspection: true,
+  context: graphQLContext,
 });
 
 server

@@ -77,7 +77,6 @@ import { postList } from "src/app/core/static/post.static";
             </div>
             <div class="row">
               <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
-                <lib-ui></lib-ui>
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">

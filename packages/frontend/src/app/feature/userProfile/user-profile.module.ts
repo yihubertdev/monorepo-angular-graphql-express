@@ -3,11 +3,16 @@ import { CommonModule } from "@angular/common";
 import { UserProfileControllerComponent } from "./controller/user-profile.controller";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { StringTransformPipe } from "./controller/string-transform.pipe";
+import { StringTransformPipeModule } from "ui";
 
 @NgModule({
-  declarations: [UserProfileControllerComponent, StringTransformPipe],
-  imports: [CommonModule, MatCardModule, MatGridListModule],
-  exports: [UserProfileControllerComponent, StringTransformPipe],
+  declarations: [UserProfileControllerComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatGridListModule,
+    StringTransformPipeModule,
+  ],
+  exports: [UserProfileControllerComponent],
 })
 export class UserProfileModule {}
