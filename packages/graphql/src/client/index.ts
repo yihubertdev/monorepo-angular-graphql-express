@@ -1,7 +1,7 @@
 import { knexClient } from "./knex";
-import { firebaseAdmin } from "./firebase-admin";
+import { firebase } from "./firebase";
 
 export default {
-  firebaseAdmin,
+  firebase,
   knexClient,
 };

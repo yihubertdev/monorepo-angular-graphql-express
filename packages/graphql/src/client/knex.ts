@@ -1,13 +1,14 @@
 import { knex, Knex } from "knex";
-import { generateKnexConfiguration } from "../database/knexfile";
 
 /**
- * Create a Knex instance
+ * Generate knex configuration
  * @param {Partial<Knex.Config>} [options]
- * @returns {Knex}
+ * @returns {Knex.Config}
  */
-function getInstance(options: Partial<Knex.Config> = {}): Knex {
-  const config = {
+export function generateKnexConfiguration(
+  options: Partial<Knex.Config> = {}
+): Knex.Config {
+  return {
     client: "mysql",
     connection: {
       insecureAuth: true,
@@ -19,10 +20,20 @@ function getInstance(options: Partial<Knex.Config> = {}): Knex {
     pool: { min: 1, max: 1 },
     ...options,
   };
+}
+
+/**
+ * Create a Knex instance
+ * @param {Partial<Knex.Config>} [options]
+ * @returns {Knex}
+ */
+function getInstance(options: Partial<Knex.Config> = {}): Knex {
+  const config = generateKnexConfiguration();
 
   return knex(config);
 }
 
 export const knexClient = {
+  generateKnexConfiguration,
   getInstance,
 };

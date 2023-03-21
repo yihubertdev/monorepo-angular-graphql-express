@@ -1,12 +1,14 @@
-import clients from "../client";
+import client from "../client";
 
 /**
  * sdf
  */
 async function test() {
-  const knexClient = clients.knexClient.getInstance();
+  const knexClient = client.knexClient.getInstance();
 
-  const result = knexClient("users").select();
+  const result = await knexClient("users").select();
+
+  console.log(result);
 }
 
 export const users = {

@@ -14,7 +14,9 @@ export async function graphQLContext({
   req: Request;
   res: Response;
 }): Promise<any> {
-  await modelsFirestore.users.get();
+  // await modelsFirestore.users.get();
+
+  await modelsKnex.users.test();
 }
 
 export const server = new ApolloServer({
