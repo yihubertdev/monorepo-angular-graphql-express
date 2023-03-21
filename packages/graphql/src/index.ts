@@ -1,5 +1,8 @@
 import { ApolloServer } from "apollo-server-lambda";
+import modelsFirestore from "./modelsFirestore";
+import modelsKnex from "./modelsKnex";
 import { schema } from "./schema";
+import admin from "firebase-admin";
 
 /**
  * sdf
@@ -11,7 +14,7 @@ export async function graphQLContext({
   req: Request;
   res: Response;
 }): Promise<any> {
-  console.log(req.headers);
+  await modelsFirestore.users.get();
 }
 
 export const server = new ApolloServer({

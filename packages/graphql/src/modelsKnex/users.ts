@@ -7,6 +7,8 @@ async function test() {
   const knexClient = clients.knexClient.getInstance();
 
   const result = knexClient("users").select();
-
-  console.log(result);
 }
+
+export const users = {
+  test,
+};

@@ -3,10 +3,11 @@ import client from "../client";
 /**
  * sdf
  */
-async function test() {
+async function get() {
   const fireStore = client.firebaseAdmin.getFirestoreInstance();
-
   const result = await fireStore.collection("users").get();
-
-  console.log(result);
 }
+
+export const users = {
+  get,
+};

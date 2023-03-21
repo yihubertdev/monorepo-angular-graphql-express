@@ -7,8 +7,9 @@ import { initializeFirestore } from "firebase-admin/firestore";
  * @returns {Knex}
  */
 function getInstance(options?: AppOptions): app.App {
+  const serviceAccount = require("../../firebase-admin.json");
   const firebaseAdmin = admin.initializeApp({
-    credential: admin.credential.cert("../../firebase-admin.json"),
+    credential: admin.credential.cert(serviceAccount),
     ...options,
   });
 
