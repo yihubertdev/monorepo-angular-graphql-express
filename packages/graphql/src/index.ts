@@ -1,8 +1,10 @@
 import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
-import modelsKnex from "./modelsKnex";
 import { schema } from "./schema";
-import admin from "firebase-admin";
+import { Request, Response } from "express";
+import { APIGatewayProxyEvent } from "aws-lambda";
+import { v4 } from "uuid";
+import { DecodedIdToken } from "firebase-admin/auth";
 
 /**
  * sdf
@@ -13,10 +15,27 @@ export async function graphQLContext({
 }: {
   req: Request;
   res: Response;
-}): Promise<any> {
-  // await modelsFirestore.users.get();
+}): Promise<{
+  token: string;
+  user: DecodedIdToken;
+  event: APIGatewayProxyEvent;
+  requestSourceIps: string[];
+}> {
+  const token = req.headers.authorization || "";
 
-  await modelsKnex.users.test();
+  const user = await modelsFirestore.users.verifyFromFirebaseAuth(token);
+
+  const event: APIGatewayProxyEvent = {
+    // fake the AWS request ID
+    requestContext: { requestId: v4() },
+  } as APIGatewayProxyEvent;
+
+  return {
+    token,
+    user,
+    event,
+    requestSourceIps: [],
+  };
 }
 
 export const server = new ApolloServer({
