@@ -7,13 +7,21 @@ import {
   typeDefs as anotherHello,
   resolvers as anotherHelloResolver,
 } from "./article";
+import directives from "./directives";
 
-export const SchemaTypeDefs = fs.readFileSync(
+const SchemaTypeDefs = fs.readFileSync(
   path.join(__dirname, "schema.graphql"),
   "utf8"
 );
 
-export const schema = makeExecutableSchema({
+let schema = makeExecutableSchema({
   typeDefs: [SchemaTypeDefs, Hello, anotherHello],
   resolvers: merge(helloResolver, anotherHelloResolver),
 });
+
+schema = directives.reduce(
+  (curSchema, directive) => directive.transformer(curSchema, directive.name),
+  schema
+);
+
+export default schema;

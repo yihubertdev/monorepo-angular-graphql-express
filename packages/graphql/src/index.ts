@@ -1,10 +1,9 @@
 import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
-import { schema } from "./schema";
+import schema from "./schema";
 import { Request, Response } from "express";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { v4 } from "uuid";
-import { DecodedIdToken } from "firebase-admin/auth";
 
 /**
  * sdf
@@ -17,13 +16,13 @@ export async function graphQLContext({
   res: Response;
 }): Promise<{
   token: string;
-  user: DecodedIdToken;
   event: APIGatewayProxyEvent;
   requestSourceIps: string[];
 }> {
   const token = req.headers.authorization || "";
-
-  const user = await modelsFirestore.users.verifyFromFirebaseAuth(token);
+  if(token) {
+    const user = await modelsFirestore.users.verifyFromFirebaseAuth(token);
+  }
 
   const event: APIGatewayProxyEvent = {
     // fake the AWS request ID
@@ -32,7 +31,6 @@ export async function graphQLContext({
 
   return {
     token,
-    user,
     event,
     requestSourceIps: [],
   };

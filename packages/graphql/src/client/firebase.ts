@@ -1,5 +1,5 @@
 import admin from "firebase-admin";
-import { initializeFirestore } from "firebase-admin/firestore";
+import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 
 import serviceAccount from "../../firebase-admin.json";
@@ -8,9 +8,9 @@ const firebaseApp = admin.initializeApp({
   credential: admin.credential.cert(serviceAccount as any),
 });
 
-const firestoreInstance = initializeFirestore(firebaseApp);
+const firestoreInstance = getFirestore();
 
-const fireAuthInstance = getAuth(firebaseApp);
+const fireAuthInstance = getAuth();
 
 export const firebase = {
   firebaseApp,

@@ -1,3 +1,5 @@
+directive @upper(test: String) on FIELD_DEFINITION
+
 type Query {
   _empty: String
 }
