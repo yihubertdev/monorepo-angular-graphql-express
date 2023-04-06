@@ -1,5 +1,11 @@
+type user {
+  id: String
+
+  name: String
+}
+
 extend type Query {
-  hello: String @upper(test: "sdf")
+  hello: user @upper(test: "sdf")
 }
 
 extend type Mutation {

@@ -9,35 +9,25 @@ const SchemaTypeDefs = fs.readFileSync(
 
 export let totalResolver = {};
 export const totalTypeDefs: string[] = [SchemaTypeDefs];
-export const Query = () => {
+export const FieldResolver = (type: string) => {
   return (
     target: any,
     memberName: string,
     propertyDescriptor: PropertyDescriptor
   ) => {
-    const query = {};
-    query[memberName] = propertyDescriptor.value;
-
-    const estt = {
-      Query: query,
-    };
-
-    totalResolver = merge(totalResolver, estt);
-  };
-};
-
-export const Mutation = () => {
-  return (
-    target: any,
-    memberName: string,
-    propertyDescriptor: PropertyDescriptor
-  ) => {
-    const mutation = {};
-    mutation[memberName] = propertyDescriptor.value;
-
-    totalResolver = merge(totalResolver, {
-      Mutation: mutation,
-    });
+    totalResolver = merge(
+      totalResolver,
+      Object.defineProperty({}, type, {
+        configurable: true,
+        enumerable: true,
+        get: () =>
+          Object.defineProperty({}, memberName, {
+            configurable: true,
+            enumerable: true,
+            value: propertyDescriptor.value,
+          }),
+      })
+    );
   };
 };
 

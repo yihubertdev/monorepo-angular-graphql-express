@@ -21,7 +21,6 @@ const UpperDirective: DirectiveInterface = {
 
         if (upperDirective) {
           const { test } = upperDirective;
-          console.log(test);
           // Get this field's original resolver
           const { resolve = defaultFieldResolver } = fieldConfig;
 

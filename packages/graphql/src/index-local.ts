@@ -4,7 +4,7 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import directives from "./directives";
 import { totalResolver, totalTypeDefs } from "./decorators/graphql";
 import "./schema";
-
+console.log(totalResolver);
 let schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,
   resolvers: totalResolver,
