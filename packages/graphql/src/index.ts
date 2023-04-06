@@ -1,6 +1,20 @@
 import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
-import schema from "./schema";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+import directives from "./directives";
+import { totalResolver, totalTypeDefs } from "./decorators/graphql";
+import "./schema";
+
+let schema = makeExecutableSchema({
+  typeDefs: totalTypeDefs,
+  resolvers: totalResolver,
+});
+
+schema = directives.reduce(
+  (curSchema, directive) => directive.transformer(curSchema, directive.name),
+  schema
+);
+
 import { Request, Response } from "express";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { v4 } from "uuid";
@@ -20,7 +34,7 @@ export async function graphQLContext({
   requestSourceIps: string[];
 }> {
   const token = req.headers.authorization || "";
-  if(token) {
+  if (token) {
     const user = await modelsFirestore.users.verifyFromFirebaseAuth(token);
   }
 

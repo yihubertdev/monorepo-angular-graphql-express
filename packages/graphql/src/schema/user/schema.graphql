@@ -1,3 +1,7 @@
 extend type Query {
   hello: String @upper(test: "sdf")
 }
+
+extend type Mutation {
+  helloMutation: String @upper(test: "sdf")
+}
