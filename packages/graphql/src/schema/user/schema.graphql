@@ -1,13 +1,13 @@
 type user {
-  id: String
+  id: String @StringValidation(max: 10)
 
-  name: String
+  name: String @StringValidation(max: 10)
 }
 
 extend type Query {
-  hello: user @upper(test: "sdf")
+  hello: user 
 }
 
 extend type Mutation {
-  helloMutation: String @upper(test: "sdf")
+  helloMutation: String @StringValidation(max: 10)
 }

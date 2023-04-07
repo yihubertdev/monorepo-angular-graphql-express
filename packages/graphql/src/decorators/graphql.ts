@@ -2,6 +2,14 @@ import { merge } from "lodash";
 import fs from "fs";
 import path from "path";
 
+export interface PropertyDescriptorRecord extends PropertyDescriptor {
+  configurable: boolean;
+  enumerable: boolean;
+  get(): () => Record<string, PropertyDescriptorRecord>;
+}
+
+export type ResolverType = Record<string, PropertyDescriptorRecord>;
+
 const SchemaTypeDefs = fs.readFileSync(
   path.join(__dirname, "../schema/schema.graphql"),
   "utf8"
@@ -26,7 +34,7 @@ export const FieldResolver = (type: string) => {
             enumerable: true,
             value: propertyDescriptor.value,
           }),
-      })
+      }) as ResolverType
     );
   };
 };

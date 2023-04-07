@@ -1,4 +1,4 @@
-directive @upper(test: String) on FIELD_DEFINITION
+directive @StringValidation(alphanum: Boolean, guid: String, max: Int, min: Int) on FIELD_DEFINITION
 
 type Query {
   _empty: String

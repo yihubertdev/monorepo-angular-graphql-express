@@ -6,8 +6,8 @@ interface DirectiveInterface {
   transformer: (schema: GraphQLSchema, directiveName: string) => GraphQLSchema;
 }
 
-const UpperDirective: DirectiveInterface = {
-  name: "upper",
+const StringValidationDirective: DirectiveInterface = {
+  name: "StringValidation",
   transformer: (schema: GraphQLSchema, directiveName: string) => {
     return mapSchema(schema, {
       // Executes once for each object field in the schema
@@ -20,7 +20,7 @@ const UpperDirective: DirectiveInterface = {
         )?.[0];
 
         if (upperDirective) {
-          const { test } = upperDirective;
+          const { alphanum, guid, max, min } = upperDirective;
           // Get this field's original resolver
           const { resolve = defaultFieldResolver } = fieldConfig;
 
@@ -28,6 +28,7 @@ const UpperDirective: DirectiveInterface = {
           // the original resolver, then converts its result to upper case
           fieldConfig.resolve = async (source, args, context, info) => {
             const result = await resolve(source, args, context, info);
+            console.log(max);
             console.log(result);
             if (typeof result === "string") {
               return result.toUpperCase();
@@ -42,4 +43,4 @@ const UpperDirective: DirectiveInterface = {
   },
 };
 
-export default [UpperDirective];
+export default [StringValidationDirective];
