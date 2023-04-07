@@ -1,8 +1,11 @@
 import { ApolloServer } from "apollo-server";
 import { graphQLContext } from "./index";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import directives from "./directives";
-import { totalResolver, totalTypeDefs } from "./decorators/graphql";
+import {
+  totalDirective,
+  totalResolver,
+  totalTypeDefs,
+} from "./decorators/graphql";
 import "./schema";
 
 let schema = makeExecutableSchema({
@@ -10,8 +13,9 @@ let schema = makeExecutableSchema({
   resolvers: totalResolver,
 });
 
-schema = directives.reduce(
-  (currentSchema, directive) => directive.transformer(currentSchema, directive.name),
+schema = totalDirective.reduce(
+  (currentSchema, directive) =>
+    directive.transformer(currentSchema, directive.name),
   schema
 );
 

@@ -1,46 +1,5 @@
-import { defaultFieldResolver, GraphQLSchema } from "graphql";
-import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
+import { validation } from "./validation";
 
-interface DirectiveInterface {
-  name: string;
-  transformer: (schema: GraphQLSchema, directiveName: string) => GraphQLSchema;
-}
-
-const StringValidationDirective: DirectiveInterface = {
-  name: "StringValidation",
-  transformer: (schema: GraphQLSchema, directiveName: string) => {
-    return mapSchema(schema, {
-      // Executes once for each object field in the schema
-      [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
-        // Check whether this field has the specified directive
-        const upperDirective = getDirective(
-          schema,
-          fieldConfig,
-          directiveName
-        )?.[0];
-
-        if (upperDirective) {
-          const { alphanum, guid, max, min } = upperDirective;
-          // Get this field's original resolver
-          const { resolve = defaultFieldResolver } = fieldConfig;
-
-          // Replace the original resolver with a function that *first* calls
-          // the original resolver, then converts its result to upper case
-          fieldConfig.resolve = async (source, args, context, info) => {
-            const result = await resolve(source, args, context, info);
-            console.log(max);
-            console.log(result);
-            if (typeof result === "string") {
-              return result.toUpperCase();
-            }
-            return result;
-          };
-          return fieldConfig;
-        }
-        return fieldConfig;
-      },
-    });
-  },
+export default {
+  validation,
 };
-
-export default [StringValidationDirective];

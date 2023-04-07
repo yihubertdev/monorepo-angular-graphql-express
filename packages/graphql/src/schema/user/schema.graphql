@@ -4,10 +4,18 @@ type user {
   name: String @StringValidation(max: 10)
 }
 
+input PostUserInput @postUserValidation {
+  "Create user Id"
+  id: String
+
+  "Create user name"
+  name: String
+}
+
 extend type Query {
-  hello: user 
+  hello: user
 }
 
 extend type Mutation {
-  helloMutation: String @StringValidation(max: 10)
+  postUser(postUserInput: PostUserInput): String
 }

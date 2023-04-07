@@ -1,29 +1,44 @@
 import { merge } from "lodash";
 import fs from "fs";
 import path from "path";
+import Joi from "joi";
+import directives from "../directives";
+import { IFaceDirective } from "../directives/validation";
 
-export interface PropertyDescriptorRecord extends PropertyDescriptor {
+export interface IFaceResolverPropertyDescriptor extends PropertyDescriptor {
   configurable: boolean;
   enumerable: boolean;
-  get(): () => Record<string, PropertyDescriptorRecord>;
+  get(): () => Record<string, IFaceResolverPropertyDescriptor>;
 }
-
-export type ResolverType = Record<string, PropertyDescriptorRecord>;
-
-const SchemaTypeDefs = fs.readFileSync(
-  path.join(__dirname, "../schema/schema.graphql"),
-  "utf8"
-);
+export type TypeResolver = Record<string, IFaceResolverPropertyDescriptor>;
 
 export let totalResolver = {};
-export const totalTypeDefs: string[] = [SchemaTypeDefs];
-export const FieldResolver = (type: string) => {
+export const totalDirective: IFaceDirective[] = [];
+export const totalTypeDefs: string[] = [
+  fs.readFileSync(path.join(__dirname, "../schema/schema.graphql"), "utf8"),
+];
+export const FieldResolver = (params: {
+  type: string;
+  validation?: Joi.ObjectSchema;
+}) => {
+  const { type, validation } = params;
+
   return (
     target: any,
     memberName: string,
     propertyDescriptor: PropertyDescriptor
   ) => {
-    totalResolver = merge(
+    if (validation) {
+      const directive = directives.validation.inputObject({
+        name: memberName,
+        validation,
+      });
+
+      totalTypeDefs.unshift(directive.typeDefs);
+      totalDirective.push(directive);
+    }
+
+    return (totalResolver = merge(
       totalResolver,
       Object.defineProperty({}, type, {
         configurable: true,
@@ -34,8 +49,8 @@ export const FieldResolver = (type: string) => {
             enumerable: true,
             value: propertyDescriptor.value,
           }),
-      }) as ResolverType
-    );
+      }) as TypeResolver
+    ));
   };
 };
 

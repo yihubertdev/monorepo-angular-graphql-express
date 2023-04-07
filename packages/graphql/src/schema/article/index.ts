@@ -4,13 +4,17 @@ import { FieldResolver, Resolver } from "../../decorators/graphql";
 
 @Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class ArticleResolver {
-  @FieldResolver("Query")
+  @FieldResolver({
+    type: "Query",
+  })
   anotherhello() {
     const i = 1;
     return i;
   }
 
-  @FieldResolver("Query")
+  @FieldResolver({
+    type: "Query",
+  })
   anotherAnotherHello() {
     const i = 1;
     return "hello1";

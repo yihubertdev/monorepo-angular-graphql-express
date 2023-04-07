@@ -1,8 +1,11 @@
 import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import directives from "./directives";
-import { totalResolver, totalTypeDefs } from "./decorators/graphql";
+import {
+  totalDirective,
+  totalResolver,
+  totalTypeDefs,
+} from "./decorators/graphql";
 import "./schema";
 
 let schema = makeExecutableSchema({
@@ -10,7 +13,7 @@ let schema = makeExecutableSchema({
   resolvers: totalResolver,
 });
 
-schema = directives.reduce(
+schema = totalDirective.reduce(
   (curSchema, directive) => directive.transformer(curSchema, directive.name),
   schema
 );
