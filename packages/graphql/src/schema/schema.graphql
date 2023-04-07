@@ -1,5 +1,3 @@
-directive @StringValidation(alphanum: Boolean, guid: String, max: Int, min: Int) on FIELD_DEFINITION
-
 type Query {
   _empty: String
 }
