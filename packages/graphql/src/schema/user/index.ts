@@ -1,7 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { FieldResolver, Resolver } from "../../decorators/graphql";
-import Joi from "joi";
+import { FieldResolver, Resolver } from "../../decorators/resolver";
 
 @Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class UserResolver {
@@ -14,12 +13,6 @@ class UserResolver {
 
   @FieldResolver({
     type: "Mutation",
-    validation: Joi.object({
-      content: Joi.string().optional().messages({
-        "string.base": `'content' should be a type of 'string'`,
-        "string.empty": `'content' should not be empty`,
-      }),
-    }),
   })
   postUser() {
     const i = 1;

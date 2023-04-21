@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import { FieldResolver, Resolver } from "../../decorators/graphql";
+import { FieldResolver, Resolver } from "../../decorators/resolver";
 
 @Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class ArticleResolver {

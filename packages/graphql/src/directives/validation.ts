@@ -1,4 +1,4 @@
-import { GraphQLInputObjectType, GraphQLSchema } from "graphql";
+import { GraphQLScalarType, GraphQLSchema } from "graphql";
 import { mapSchema, getDirective, MapperKind } from "@graphql-tools/utils";
 import Joi from "joi";
 
@@ -9,15 +9,16 @@ export interface IFaceDirective {
   transformer: (schema: GraphQLSchema, directiveName: string) => GraphQLSchema;
 }
 
-type TypeDirectiveBuilder = (params: {
+/**
+ * Directive to validate input object
+ * @param {string} params.name directive name
+ * @param {Joi.ObjectSchema} params.validation joi validation schema
+ * @returns {TypeDirectiveBuilder}
+ */
+function inputObject(params: {
   name: string;
   validation: Joi.ObjectSchema;
-}) => IFaceDirective;
-
-const inputObject: TypeDirectiveBuilder = (params: {
-  name: string;
-  validation: Joi.ObjectSchema;
-}) => {
+}): IFaceDirective {
   const { name, validation } = params;
   const directiveName = name + INPUT_OBJECT;
   return {
@@ -43,7 +44,7 @@ const inputObject: TypeDirectiveBuilder = (params: {
       });
     },
   } as IFaceDirective;
-};
+}
 
 export const validation = {
   inputObject,

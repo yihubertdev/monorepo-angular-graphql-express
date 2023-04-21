@@ -4,6 +4,7 @@ import path from "path";
 import Joi from "joi";
 import directives from "../directives";
 import { IFaceDirective } from "../directives/validation";
+import { GraphQLScalarType } from "graphql";
 
 export interface IFaceResolverPropertyDescriptor extends PropertyDescriptor {
   configurable: boolean;
@@ -20,8 +21,10 @@ export const totalTypeDefs: string[] = [
 export const FieldResolver = (params: {
   type: string;
   validation?: Joi.ObjectSchema;
+  scalar?: string;
+  description?: string;
 }) => {
-  const { type, validation } = params;
+  const { type, validation, scalar, description } = params;
 
   return (
     target: any,
@@ -36,6 +39,23 @@ export const FieldResolver = (params: {
 
       totalTypeDefs.unshift(directive.typeDefs);
       totalDirective.push(directive);
+    }
+
+    if (scalar) {
+      totalTypeDefs.unshift(scalar);
+
+      return (totalResolver = merge(
+        totalResolver,
+        Object.defineProperty({}, memberName, {
+          configurable: true,
+          enumerable: true,
+          value: new GraphQLScalarType({
+            name: memberName,
+            description,
+            ...propertyDescriptor.value,
+          }),
+        }) as TypeResolver
+      ));
     }
 
     return (totalResolver = merge(

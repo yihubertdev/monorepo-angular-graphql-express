@@ -5,7 +5,7 @@ import {
   totalDirective,
   totalResolver,
   totalTypeDefs,
-} from "./decorators/graphql";
+} from "./decorators/resolver";
 import "./schema";
 
 let schema = makeExecutableSchema({
