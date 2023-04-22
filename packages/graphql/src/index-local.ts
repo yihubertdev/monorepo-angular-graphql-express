@@ -7,7 +7,6 @@ import {
   totalTypeDefs,
 } from "./decorators/resolver";
 import "./schema";
-import "./scalars";
 
 let schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,

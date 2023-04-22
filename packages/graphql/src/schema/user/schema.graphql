@@ -1,19 +1,20 @@
-type user {
-  id: String @StringValidation(max: 10)
+scalar UserId
 
-  name: String @StringValidation(max: 10)
+type User {
+  id: String
+  name: String
 }
 
-input PostUserInput @postUserValidation {
+input PostUserInput {
   "Create user Id"
-  id: String
+  id: UserId
 
   "Create user name"
   name: String
 }
 
 extend type Query {
-  hello: user
+  hello: User
 }
 
 extend type Mutation {
