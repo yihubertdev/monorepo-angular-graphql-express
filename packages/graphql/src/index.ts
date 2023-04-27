@@ -2,21 +2,15 @@ import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import {
-  totalDirective,
   totalResolver,
   totalTypeDefs,
 } from "./decorators/resolver";
-import "./schema";
+import "./controller";
 
-let schema = makeExecutableSchema({
+const schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,
   resolvers: totalResolver,
 });
-
-schema = totalDirective.reduce(
-  (curSchema, directive) => directive.transformer(curSchema, directive.name),
-  schema
-);
 
 import { Request, Response } from "express";
 import { APIGatewayProxyEvent } from "aws-lambda";

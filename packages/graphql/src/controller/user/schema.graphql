@@ -10,7 +10,7 @@ input PostUserInput {
   id: UserId
 
   "Create user name"
-  name: String
+  name: String @constraint(min: 3)
 }
 
 extend type Query {
@@ -19,4 +19,8 @@ extend type Query {
 
 extend type Mutation {
   postUser(postUserInput: PostUserInput): String
+}
+
+extend type Subscription {
+  subscription(postUserInput: PostUserInput): String
 }

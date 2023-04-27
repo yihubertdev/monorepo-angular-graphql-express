@@ -1,0 +1,39 @@
+directive @StringValidation(minLength: Int) on FIELD_DEFINITION | INPUT_FIELD_DEFINITION
+directive @constraint(
+    # String constraints
+    minLength: Int
+    maxLength: Int
+    startsWith: String
+    endsWith: String
+    contains: String
+    notContains: String
+    pattern: String
+    format: String
+
+    # Number constraints
+    min: Float
+    max: Float
+    exclusiveMin: Float
+    exclusiveMax: Float
+    multipleOf: Float
+
+    # Array/List size constraints
+    minItems: Int
+    maxItems: Int
+
+    # Shared for Schema wrapper
+    uniqueTypeName: String
+
+  ) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION | ARGUMENT_DEFINITION
+
+type Query {
+  _empty: String
+}
+
+type Mutation {
+  _empty: String
+}
+
+type Subscription {
+  _empty: String
+}

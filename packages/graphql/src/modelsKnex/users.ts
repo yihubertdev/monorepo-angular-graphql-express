@@ -1,11 +1,9 @@
-import client from "../client";
+import { Knex } from "knex";
 
 /**
  * sdf
  */
-async function test() {
-  const knexClient = client.knexClient.getInstance();
-
+async function test(knexClient: Knex) {
   const result = await knexClient("users").select();
 }
 

@@ -51,21 +51,30 @@ class UserResolver {
     return "myname";
   }
 
+
+  @FieldResolver({
+    type: RESOLVER_TYPE.SUBSCRIPTION,
+    subQuery: "User",
+  })
+  subscription() {
+    return "myname";
+  }
+
   @FieldResolver({
     type: RESOLVER_TYPE.SCALAR,
   })
   UserId(): IFaceScalar<string> {
     return {
       serialize: (value: string) => {
-        console.log(value);
+        // console.log(value);
         return "hello"; // Convert outgoing Date to integer for JSON
       },
       parseValue(value: string) {
-        console.log(value);
+        // console.log(value);
         return "hello"; // Convert incoming integer to Date
       },
       parseLiteral(value: string) {
-        console.log(value);
+        // console.log(value);
         return "hello"; // Convert hard-coded AST string to integer and then to Date
       },
     };

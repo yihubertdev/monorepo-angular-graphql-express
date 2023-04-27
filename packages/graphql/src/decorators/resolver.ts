@@ -1,7 +1,6 @@
 import { merge } from "lodash";
 import fs from "fs";
 import path from "path";
-import { IFaceDirective } from "../directives/validation";
 import { GraphQLScalarType } from "graphql";
 
 export enum RESOLVER_TYPE {
@@ -27,9 +26,8 @@ export type TypeMethodDecoratorResponse = (
 ) => TypeResolver;
 
 export let totalResolver = {};
-export const totalDirective: IFaceDirective[] = [];
 export const totalTypeDefs: string[] = [
-  fs.readFileSync(path.join(__dirname, "../schema/schema.graphql"), "utf8"),
+  fs.readFileSync(path.join(__dirname, "../controller/schema.graphql"), "utf8"),
 ];
 
 /**

@@ -1,11 +1,10 @@
-import { DecodedIdToken } from "firebase-admin/auth";
+import { Auth, DecodedIdToken } from "firebase-admin/auth";
 import client from "../client";
 
 /**
  * sdf
  */
-async function get() {
-  const fireStore = client.firebase.firestoreInstance;
+async function get(fireStore: FirebaseFirestore.Firestore) {
   const result = await fireStore.collection("users").get();
 
   const data = result.docs.map((dataSnapshot) => dataSnapshot.data());

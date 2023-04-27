@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@types/uuid": "^9.0.1",
+    "graphql-constraint-directive": "^5.0.0",
     "mysql": "^2.18.1",
     "serverless-offline": "^12.0.4",
     "serverless-plugin-typescript": "^2.1.2",

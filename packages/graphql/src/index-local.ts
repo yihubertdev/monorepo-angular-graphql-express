@@ -1,28 +1,26 @@
 import { ApolloServer } from "apollo-server";
 import { graphQLContext } from "./index";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import {
-  totalDirective,
-  totalResolver,
-  totalTypeDefs,
-} from "./decorators/resolver";
-import "./schema";
+import { totalResolver, totalTypeDefs } from "./decorators/resolver";
+import "./controller";
+import { constraintDirective, createApolloQueryValidationPlugin } from "graphql-constraint-directive";
 
-let schema = makeExecutableSchema({
+const schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,
   resolvers: totalResolver,
 });
 
-schema = totalDirective.reduce(
-  (currentSchema, directive) =>
-    directive.transformer(currentSchema, directive.name),
-  schema
-);
+const plugins = [
+  createApolloQueryValidationPlugin({
+    schema
+  })
+];
 
 const server = new ApolloServer({
   schema,
   introspection: true,
   context: graphQLContext,
+  plugins
 });
 
 server
