@@ -1,10 +1,7 @@
 import { ApolloServer } from "apollo-server-lambda";
 import modelsFirestore from "./modelsFirestore";
 import { makeExecutableSchema } from "@graphql-tools/schema";
-import {
-  totalResolver,
-  totalTypeDefs,
-} from "./decorators/resolver";
+import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
 
 const schema = makeExecutableSchema({
