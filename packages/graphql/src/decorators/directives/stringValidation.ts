@@ -6,7 +6,7 @@ class StringValidation extends BaseDirective {
   name = "StringValidation";
   private typeDirectiveArgumentMaps: Record<string, any> = {};
 
-  transformer = (schema: GraphQLSchema) => {
+  transformer(schema: GraphQLSchema) {
     console.log("trigger");
     return mapSchema(schema, {
       [MapperKind.INPUT_OBJECT_FIELD]: (
@@ -42,5 +42,5 @@ class StringValidation extends BaseDirective {
         return fieldConfig;
       },
     });
-  };
+  }
 }

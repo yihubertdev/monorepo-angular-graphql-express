@@ -1,7 +1,8 @@
 import { merge } from "lodash";
 import fs from "fs";
 import path from "path";
-import { GraphQLScalarType } from "graphql";
+import utils from "../utils";
+import scalars from "./scalars";
 
 export enum RESOLVER_TYPE {
   QUERY = "Query",
@@ -25,10 +26,14 @@ export type TypeMethodDecoratorResponse = (
   propertyDescriptor: PropertyDescriptor
 ) => TypeResolver;
 
-export let totalResolver = {};
+export let totalResolver: TypeResolver = {};
+
 export const totalTypeDefs: string[] = [
   fs.readFileSync(path.join(__dirname, "../controller/schema.graphql"), "utf8"),
 ];
+
+// Change the reference value directly, no need to return. variable is a reference to an object or arrays in ts
+utils.graphql.addScalars(totalResolver, totalTypeDefs, scalars);
 
 /**
  * Decorator for field RESOLVER_TYPE inside resolver
@@ -63,23 +68,6 @@ export function FieldResolver(params: {
             }),
           }) as TypeResolver
         ));
-
-      case RESOLVER_TYPE.SCALAR:
-        // Manually add scalar does not work on schema graphql, comment it first
-        // totalTypeDefs.unshift(`scalar ${name}`);
-        totalResolver = merge(
-          totalResolver,
-          Object.defineProperty({}, name, {
-            configurable: true,
-            enumerable: true,
-            value: new GraphQLScalarType({
-              name,
-              description,
-              ...propertyDescriptor.value(),
-            }),
-          }) as TypeResolver
-        );
-        return totalResolver;
 
       case RESOLVER_TYPE.SUB_QUERY:
         if (!subQuery) {

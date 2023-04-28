@@ -1,20 +1,17 @@
-scalar UserId
-
 type User {
-  id: String
+  id: UUID
   name: String
 }
 
 input PostUserInput {
   "Create user Id"
-  id: UserId
+  id: UUID
 
-  "Create user name"
-  name: String @constraint(min: 3)
+  email: EMAIL
 }
 
 extend type Query {
-  hello: User
+  hello: String
 }
 
 extend type Mutation {
