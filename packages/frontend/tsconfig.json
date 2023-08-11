@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
+    "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
@@ -12,7 +12,7 @@
     "sourceMap": true,
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
-      "ui": ["../shared/dist/sharedModule"],
+      "ui": ["../frontend-shared/dist/sharedModule"],
       "@angular/*": ["./node_modules/@angular/*"]
     },
     "declaration": false,

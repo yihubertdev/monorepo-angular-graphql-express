@@ -12,7 +12,6 @@
     "sourceMap": true,
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
-      "ui": ["dist/ui"]
     },
     "declaration": false,
     "downlevelIteration": true,
