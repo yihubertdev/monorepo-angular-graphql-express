@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { PostViewComponent } from "./view/post.view";
-import { PostRoutingModule } from "./post-routing.module";
+import { HomeViewComponent } from "./view/home.view";
+import { PostRoutingModule } from "./home-routing.module";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
 import { PostCategoryModule } from "src/app/feature/postCategory/post-category.module";
@@ -13,9 +13,11 @@ import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/mat
 import { CarouselSliderModule } from "src/app/shared/components/CarouselSlider/carousel-slider.module";
 import { UserProfileModule } from "src/app/feature/userProfile/user-profile.module";
 import { ArticleViewComponent } from "./view/article.view";
+import { PostViewComponent } from "./view/post.view";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
-  declarations: [PostViewComponent, ArticleViewComponent],
+  declarations: [HomeViewComponent, ArticleViewComponent, PostViewComponent],
   imports: [
     CommonModule,
     PostRoutingModule,
@@ -29,7 +31,8 @@ import { ArticleViewComponent } from "./view/article.view";
     GridListResponsiveDirectiveModule,
     CarouselSliderModule,
     UserProfileModule,
+    MatButtonModule,
   ],
-  exports: [PostViewComponent, ArticleViewComponent],
+  exports: [HomeViewComponent, ArticleViewComponent, PostViewComponent],
 })
 export class PostModule {}

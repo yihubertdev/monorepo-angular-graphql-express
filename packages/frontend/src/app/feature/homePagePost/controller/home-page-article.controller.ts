@@ -7,7 +7,6 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "home-page-article-controller",
   template: `
-    <h3>Article</h3>
     <mat-card
       class="bottom-margin-card"
       *ngFor="let article of articles"

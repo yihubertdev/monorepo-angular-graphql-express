@@ -107,7 +107,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       </mat-grid-list>
     </div>
   `,
-  styleUrls: ["../post.style.css"],
+  styleUrls: ["../home.style.css"],
 })
 export class ArticleViewComponent implements OnInit {
   public articleId: string = "";

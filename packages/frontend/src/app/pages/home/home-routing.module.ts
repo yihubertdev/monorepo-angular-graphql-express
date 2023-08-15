@@ -1,11 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PostViewComponent } from "./view/post.view";
+import { HomeViewComponent } from "./view/home.view";
 import { ArticleViewComponent } from "./view/article.view";
+import { PostViewComponent } from "./view/post.view";
 
 const routes: Routes = [
-  { path: "", component: PostViewComponent },
+  { path: "", component: HomeViewComponent },
   { path: "article/:id", component: ArticleViewComponent },
+  { path: "posts", component: PostViewComponent },
 ];
 
 @NgModule({

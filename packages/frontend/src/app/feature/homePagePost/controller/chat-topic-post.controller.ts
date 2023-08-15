@@ -5,7 +5,6 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "chat-topic-post-controller",
   template: `
-    <h3>Hot Topic</h3>
     <mat-list
       role="list"
       style="background-color: white; height: 90%;">
@@ -59,7 +58,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
     </mat-list>
     <mat-paginator
       [length]="100"
-      [pageSize]="10"
+      [hidePageSize]="true"
       aria-label="Select page">
     </mat-paginator>
   `,

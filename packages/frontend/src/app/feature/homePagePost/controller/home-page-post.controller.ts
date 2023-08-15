@@ -7,7 +7,6 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "home-page-post-controller",
   template: `
-    <h3>Post</h3>
     <mat-card
       class="bottom-margin-card"
       *ngFor="let article of articles"
@@ -39,7 +38,7 @@ export class HomePagePostController implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.articles = await this._articleFireStore.listPagination(3);
+    this.articles = await this._articleFireStore.listPagination(5);
     console.log(this.articles);
   }
 

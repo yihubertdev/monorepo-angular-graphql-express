@@ -81,13 +81,25 @@ import { postList } from "src/app/core/static/post.static";
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-5">
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-2">
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <button
+                  mat-button
+                  routerLink="/home/posts"
+                  style="font-size: 25px">
+                  Post
+                </button>
                 <home-page-post-controller></home-page-post-controller>
               </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-3">
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                <button
+                  mat-button
+                  routerLink="/home/posts"
+                  style="font-size: 25px">
+                  Article
+                </button>
                 <home-page-article-controller></home-page-article-controller>
               </div>
             </div>
@@ -98,9 +110,9 @@ import { postList } from "src/app/core/static/post.static";
       </mat-grid-list>
     </div>
   `,
-  styleUrls: ["../post.style.css"],
+  styleUrls: ["../home.style.css"],
 })
-export class PostViewComponent {
+export class HomeViewComponent {
   postList: IPostList[];
   images = [
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",

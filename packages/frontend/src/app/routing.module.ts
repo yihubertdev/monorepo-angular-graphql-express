@@ -2,11 +2,11 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-  { path: "", redirectTo: "posts", pathMatch: "full" },
+  { path: "", redirectTo: "home", pathMatch: "full" },
   {
-    path: "posts",
+    path: "home",
     loadChildren: () =>
-      import("./pages/post/post.module").then((module) => module.PostModule),
+      import("./pages/home/home.module").then((module) => module.PostModule),
   },
   {
     path: "edit",
