@@ -5,9 +5,9 @@ import { IArticle } from "src/app/core/models/blog.type";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
-  selector: "home-page-post-controller",
+  selector: "home-page-article-controller",
   template: `
-    <h3>Post</h3>
+    <h3>Article</h3>
     <mat-card
       class="bottom-margin-card"
       *ngFor="let article of articles"
@@ -30,7 +30,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
-export class HomePagePostController implements OnInit {
+export class HomePageArticleController implements OnInit {
   public articles?: IArticle[];
 
   constructor(

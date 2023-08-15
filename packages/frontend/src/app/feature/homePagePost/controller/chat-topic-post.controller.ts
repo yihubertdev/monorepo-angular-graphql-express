@@ -5,6 +5,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "chat-topic-post-controller",
   template: `
+    <h3>Hot Topic</h3>
     <mat-list
       role="list"
       style="background-color: white; height: 90%;">

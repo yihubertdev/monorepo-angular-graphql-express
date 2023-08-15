@@ -81,14 +81,14 @@ import { postList } from "src/app/core/static/post.static";
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-3">
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-5">
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                 <home-page-post-controller></home-page-post-controller>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-3">
-                <home-page-post-controller></home-page-post-controller>
+                <home-page-article-controller></home-page-article-controller>
               </div>
             </div>
           </div>

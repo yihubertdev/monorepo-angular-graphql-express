@@ -14,6 +14,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { JobsHorizonalScrollController } from "./controller/jobs-horizonal-scroll.controller";
 import { QuillModule } from "ngx-quill";
 import { ArticlePostControllerComponent } from "./controller/article-post.controller";
+import { HomePageArticleController } from "./controller/home-page-article.controller";
+import { MatChipsModule } from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import { ArticlePostControllerComponent } from "./controller/article-post.contro
     TopToolMenuController,
     JobsHorizonalScrollController,
     ArticlePostControllerComponent,
+    HomePageArticleController,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,7 @@ import { ArticlePostControllerComponent } from "./controller/article-post.contro
   ],
   exports: [
     HomePagePostController,
+    HomePageArticleController,
     ChatTopicPostController,
     HomePageMainPictureController,
     TopToolMenuController,
