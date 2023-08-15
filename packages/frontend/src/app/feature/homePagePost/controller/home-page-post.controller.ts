@@ -21,12 +21,10 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
-        <p class="text-overflow-card">
-          The Shiba Inu is the smallest of the six original and distinct spitz
-          breeds of dog from Japan. A small, agile dog that copes very well with
-          mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </p></mat-card-content
-      >
+        <p
+          class="text-overflow-card"
+          [innerHTML]="article.content"></p
+      ></mat-card-content>
     </mat-card>
   `,
   styleUrls: ["../home-page-post.style.css"],
@@ -41,6 +39,7 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.articles = await this._articleFireStore.listPagination(3);
+    console.log(this.articles);
   }
 
   public navigate(id?: string) {

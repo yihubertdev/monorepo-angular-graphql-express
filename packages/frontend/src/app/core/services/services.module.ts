@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.dev";
 import { provideFirebaseApp, initializeApp } from "@angular/fire/app";
 import { FIREBASE_OPTIONS } from "@angular/fire/compat";
 import { getAuth, provideAuth } from "@angular/fire/auth";

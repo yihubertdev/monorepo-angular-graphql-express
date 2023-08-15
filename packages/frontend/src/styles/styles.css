@@ -64,7 +64,7 @@ body {
 .ql-snow .ql-editor img {
   max-width: 50% !important;
 }
-
+/* main page scrollbar vertical */
 ::-webkit-scrollbar {
   height: 0px;
   width: 0px;

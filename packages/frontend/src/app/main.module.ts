@@ -5,7 +5,7 @@ import { MainViewComponent } from "./main.view";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MenuModule } from "src/app/feature/menu/menu.module";
-import { environment } from "src/environments/environment";
+import { environment } from "src/environments/environment.dev";
 import { FIREBASE_OPTIONS } from "@angular/fire/compat";
 import { ServiceModule } from "./core/services/services.module";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";

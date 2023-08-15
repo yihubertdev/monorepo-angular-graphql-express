@@ -1,5 +1,9 @@
 import { Component } from "@angular/core";
+import { map, Observable } from "rxjs";
+import { isEmpty } from "lodash";
+import { IUser } from "src/app/core/models/users.type";
 import { IPostList } from "src/app/core/models/view.types";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { postList } from "src/app/core/static/post.static";
 
 @Component({
@@ -35,19 +39,20 @@ import { postList } from "src/app/core/static/post.static";
               colspan: 0,
               rowspan: 0
             }
-          }">
+          }"
+          *ngIf="isDisplay">
           <post-category-controller></post-category-controller>
         </mat-grid-tile>
-        <!-- desktop 90dvh content, mobile 10dvh category and 80dvh content-->
+        <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
         <mat-grid-tile
           [attrGridColSpan]="{
             xs: {
               colspan: 1,
-              rowspan: 8
+              rowspan: 9
             },
             sm: {
               colspan: 1,
-              rowspan: 8
+              rowspan: 9
             },
             md: {
               colspan: 10,
@@ -76,13 +81,13 @@ import { postList } from "src/app/core/static/post.static";
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-3">
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
-              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-3">
                 <home-page-post-controller></home-page-post-controller>
               </div>
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
+              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-3">
                 <home-page-post-controller></home-page-post-controller>
               </div>
             </div>
@@ -101,8 +106,36 @@ export class PostViewComponent {
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
     "https://material.angular.io/assets/img/examples/shiba2.jpg",
   ];
+  public isDisplay: boolean = false;
+  private userAuthObserver$?: Observable<IUser | null>;
 
-  constructor() {
+  constructor(private authService: AuthService) {
     this.postList = postList;
+  }
+
+  ngOnInit() {
+    this.userAuthObserver$ = this.authService.userAuthObserver$;
+    this.userAuthObserver$
+      .pipe(
+        map((user) => {
+          if (!user) {
+            return;
+          }
+          return {
+            id: user.id,
+            role: user.role,
+          };
+        })
+      )
+      .subscribe({
+        next: (user) => {
+          if (!user || isEmpty(user.id)) {
+            this.isDisplay = false;
+            return;
+          }
+
+          this.isDisplay = !this.authService.isVisitor(user.role);
+        },
+      });
   }
 }
