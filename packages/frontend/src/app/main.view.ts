@@ -24,7 +24,7 @@ import {
         mat-icon-button
         class="example-icon"
         aria-label="Example icon-button with menu icon">
-        <mat-icon (click)="drawer.toggle()">menu</mat-icon>
+        <mat-icon (click)="myDrawer.toggle()">menu</mat-icon>
       </button>
       <span>Yihu Tech</span>
       <button mat-button>
@@ -67,7 +67,7 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        #drawer
+        #myDrawer
         mode="side"
         [attrOpenedStatus]="{
           xs: false,
@@ -190,7 +190,7 @@ export class MainViewComponent implements OnInit {
       .subscribe({
         next: (user) => {
           if (!user || isEmpty(user.id)) {
-            this.isDisplay = false;
+            this.isDisplay = true;
             return;
           }
 

@@ -39,7 +39,6 @@ export class HomePageArticleController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.articles = await this._articleFireStore.listPagination(3);
-    console.log(this.articles);
   }
 
   public navigate(id?: string) {

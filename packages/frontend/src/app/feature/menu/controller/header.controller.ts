@@ -77,12 +77,8 @@ import { homePageMenus } from "src/app/core/static/post.static";
   </ng-container>`,
   styleUrls: [],
 })
-export class HeaderMenuController implements OnInit {
+export class HeaderMenuController {
   footerIconLayout: IMenu[] = homePageMenus;
 
   constructor(private router: Router) {}
-
-  ngOnInit() {
-    console.log(this.router.config);
-  }
 }

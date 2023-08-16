@@ -25,61 +25,35 @@ export class MatDrawerMenuDirective implements OnInit {
   };
 
   public constructor(
-    private authService: AuthService,
     private matDrawerElement: MatDrawer,
     private breakpointObserver: BreakpointObserver
   ) {}
 
   public ngOnInit(): void {
-    this.authService.userAuthObserver$
-      .pipe(
-        map((user) => {
-          if (!user) {
-            return;
-          }
-          return {
-            id: user.id,
-            role: user.role,
-          };
-        })
-      )
-      .subscribe((user) => {
-        if (
-          this.matDrawerElement == null ||
-          !user ||
-          isEmpty(user.id) ||
-          this.authService.isVisitor(user.role)
-        ) {
-          this.matDrawerElement.opened = false;
-          return;
+    this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
+      .subscribe((result) => {
+        if (result.breakpoints[Breakpoints.XSmall]) {
+          this.matDrawerElement.opened = this.attrOpenedStatus.xs;
         }
-
-        this.matDrawerElement.opened = true;
-        this.breakpointObserver
-          .observe([
-            Breakpoints.XSmall,
-            Breakpoints.Small,
-            Breakpoints.Medium,
-            Breakpoints.Large,
-            Breakpoints.XLarge,
-          ])
-          .subscribe((result) => {
-            if (result.breakpoints[Breakpoints.XSmall]) {
-              this.matDrawerElement.opened = this.attrOpenedStatus.xs;
-            }
-            if (result.breakpoints[Breakpoints.Small]) {
-              this.matDrawerElement.opened = this.attrOpenedStatus.sm;
-            }
-            if (result.breakpoints[Breakpoints.Medium]) {
-              this.matDrawerElement.opened = this.attrOpenedStatus.md;
-            }
-            if (result.breakpoints[Breakpoints.Large]) {
-              this.matDrawerElement.opened = this.attrOpenedStatus.lg;
-            }
-            if (result.breakpoints[Breakpoints.XLarge]) {
-              this.matDrawerElement.opened = this.attrOpenedStatus.xl;
-            }
-          });
+        if (result.breakpoints[Breakpoints.Small]) {
+          this.matDrawerElement.opened = this.attrOpenedStatus.sm;
+        }
+        if (result.breakpoints[Breakpoints.Medium]) {
+          this.matDrawerElement.opened = this.attrOpenedStatus.md;
+        }
+        if (result.breakpoints[Breakpoints.Large]) {
+          this.matDrawerElement.opened = this.attrOpenedStatus.lg;
+        }
+        if (result.breakpoints[Breakpoints.XLarge]) {
+          this.matDrawerElement.opened = this.attrOpenedStatus.xl;
+        }
       });
   }
 }
