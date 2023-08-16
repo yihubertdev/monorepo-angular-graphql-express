@@ -1,8 +1,6 @@
 import { Directive, Input, OnInit } from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { MatDrawer } from "@angular/material/sidenav";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { isEmpty } from "lodash";
 import { map } from "rxjs";
 
 export interface OpenedStatus {
@@ -38,20 +36,21 @@ export class MatDrawerMenuDirective implements OnInit {
         Breakpoints.Large,
         Breakpoints.XLarge,
       ])
-      .subscribe((result) => {
-        if (result.breakpoints[Breakpoints.XSmall]) {
+      .pipe(map((result) => result.breakpoints))
+      .subscribe((breakpoints) => {
+        if (breakpoints[Breakpoints.XSmall]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.xs;
         }
-        if (result.breakpoints[Breakpoints.Small]) {
+        if (breakpoints[Breakpoints.Small]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.sm;
         }
-        if (result.breakpoints[Breakpoints.Medium]) {
+        if (breakpoints[Breakpoints.Medium]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.md;
         }
-        if (result.breakpoints[Breakpoints.Large]) {
+        if (breakpoints[Breakpoints.Large]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.lg;
         }
-        if (result.breakpoints[Breakpoints.XLarge]) {
+        if (breakpoints[Breakpoints.XLarge]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.xl;
         }
       });

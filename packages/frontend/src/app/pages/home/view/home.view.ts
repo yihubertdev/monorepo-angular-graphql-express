@@ -85,21 +85,21 @@ import { postList } from "src/app/core/static/post.static";
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                <button
+                <a
                   mat-button
-                  routerLink="/home/posts"
+                  routerLink="posts"
                   style="font-size: 25px">
                   Post
-                </button>
+                </a>
                 <home-page-post-controller></home-page-post-controller>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                <button
+                <a
                   mat-button
-                  routerLink="/home/posts"
+                  routerLink="posts"
                   style="font-size: 25px">
                   Article
-                </button>
+                </a>
                 <home-page-article-controller></home-page-article-controller>
               </div>
             </div>
