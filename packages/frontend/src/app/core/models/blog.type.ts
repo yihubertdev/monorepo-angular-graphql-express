@@ -5,8 +5,8 @@ export interface IBlog {
   image: string;
   alt: string;
   content: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedA?: Date;
 }
 
 export interface IArticle {
@@ -14,6 +14,6 @@ export interface IArticle {
   userId: string;
   title: string;
   content: string;
-  created_at?: Date;
-  updated_at?: Date;
+  createdAt?: Date;
+  updatedA?: Date;
 }

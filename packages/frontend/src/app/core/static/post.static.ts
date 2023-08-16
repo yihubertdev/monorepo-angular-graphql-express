@@ -146,15 +146,15 @@ export const linkedlnIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" data-nam
 
 export const homePageMenus: IMenu[] = [
   {
-    link: "home",
-    description: "Home",
-    iconName: "home",
+    link: "home/posts",
+    description: "Posts",
+    iconName: "feed",
     width: "100px",
   },
   {
-    link: "search",
-    description: "Search",
-    iconName: "search",
+    link: "home",
+    description: "Home",
+    iconName: "home",
     width: "100px",
   },
   {

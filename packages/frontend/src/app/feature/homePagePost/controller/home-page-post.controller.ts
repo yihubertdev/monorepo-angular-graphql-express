@@ -13,11 +13,9 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       (click)="navigate(article.id)">
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>{{ article.title }}</mat-card-subtitle>
-          <img
-            mat-card-sm-image
-            src="https://material.angular.io/assets/img/examples/shiba2.jpg" />
+          <mat-card-subtitle>{{
+            article.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+          }}</mat-card-subtitle>
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
@@ -39,6 +37,8 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.articles = await this._articleFireStore.listPagination(5);
+
+    console.log(this.articles);
   }
 
   public navigate(id?: string) {
@@ -46,6 +46,6 @@ export class HomePagePostController implements OnInit {
       return;
     }
 
-    this._router.navigate(["posts", `article`, `${id}`]);
+    this._router.navigate(["home", `article`, `${id}`]);
   }
 }
