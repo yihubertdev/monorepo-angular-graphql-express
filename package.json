@@ -10,7 +10,7 @@
     "add": "npx lerna add package --scope=workspace"
   },
   "dependencies": {
-    "lerna": "^6.5.1",
+    "lerna": "^7.1.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.2"
