@@ -38,7 +38,7 @@ export class UserGuardService implements CanActivate {
           console.log(user);
           if (!user || isEmpty(user?.id)) {
             this.zone.run(() => {
-              this._router.navigateByUrl("account/login");
+              this._router.navigate(["account", "login"]);
               this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
                 duration: POP_UP_DISMISS_DURATION,
                 horizontalPosition: SNACKBAR_LOCATION.CENTER,
