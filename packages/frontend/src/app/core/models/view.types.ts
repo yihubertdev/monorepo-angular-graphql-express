@@ -6,11 +6,11 @@ export interface IFormInput {
   label: string;
   key: string;
   value: string;
-  formControlName: string;
   placeholder?: string;
   select?: (string | number)[];
   documentPath?: string;
   documentCategory?: string;
+  error?: string;
 }
 
 export interface IPostCategoryList {

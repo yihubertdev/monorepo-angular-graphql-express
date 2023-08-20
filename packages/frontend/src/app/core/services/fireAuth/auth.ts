@@ -146,22 +146,19 @@ export class AuthService {
    * @param {IUserRegister} data user register data
    * @returns {Promise<IUserRegister>} user register
    */
-  public async register(data: IUserRegister): Promise<UserCredential> {
+  public async register(data: IUserRegister): Promise<User> {
     // Create user with firebase auth
-    const result = await createUserWithEmailAndPassword(
+    const { user } = await createUserWithEmailAndPassword(
       this.auth,
       data.email,
       data.password
     );
 
-    // Get User
-    const user = result.user;
-    console.log(user);
     // Send verification mail
-    this.sendVerificationMail(user);
+    await this.sendVerificationMail(user);
 
     // Save User info into firestore
-    this.userService.create({
+    await this.userService.create({
       id: user.uid,
       userId: user.uid,
       username: data.username,
@@ -173,7 +170,9 @@ export class AuthService {
       photoURL: user.photoURL,
     });
 
-    return result;
+    const currentUser = await this.userService.retrieveById(user.uid);
+    this._userAuth.next(currentUser);
+    return user;
   }
 
   /**

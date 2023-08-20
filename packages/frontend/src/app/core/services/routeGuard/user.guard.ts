@@ -31,25 +31,8 @@ export class UserGuardService implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
-    console.log("trigger");
-    return new Promise((resolve) => {
-      this.authService.userAuthObserver$.subscribe({
-        next: (user) => {
-          console.log(user);
-          if (!user || isEmpty(user?.id)) {
-            this.zone.run(() => {
-              this._router.navigateByUrl("account/login");
-              this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
-                duration: POP_UP_DISMISS_DURATION,
-                horizontalPosition: SNACKBAR_LOCATION.CENTER,
-                verticalPosition: SNACKBAR_LOCATION.TOP,
-              });
-            });
-            resolve(false);
-          }
-          resolve(true);
-        },
-      });
-    });
+    return new Promise((resolve) =>
+      this.authService.get() ? resolve(true) : resolve(false)
+    );
   }
 }

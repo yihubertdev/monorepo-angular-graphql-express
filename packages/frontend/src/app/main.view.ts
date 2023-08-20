@@ -20,11 +20,9 @@ import {
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="isDisplay"
         mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon">
-        <mat-icon (click)="myDrawer.toggle()">menu</mat-icon>
+        (click)="opened = !opened">
+        <mat-icon>menu</mat-icon>
       </button>
       <span>Yihu Tech</span>
       <button mat-button>
@@ -67,7 +65,8 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        #myDrawer
+        [(opened)]="opened"
+        #drawer
         mode="side"
         [attrOpenedStatus]="{
           xs: false,
@@ -153,6 +152,7 @@ export class MainViewComponent implements OnInit {
   public isDisplay: boolean = false;
   userAuthObserver$?: Observable<IUser | null>;
   footerIconLayout: IMenu[] = homePageMenus;
+  public opened: boolean = false;
 
   constructor(
     private authService: AuthService,

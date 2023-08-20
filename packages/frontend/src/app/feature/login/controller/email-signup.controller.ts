@@ -44,6 +44,7 @@ export class EmailSignUpController implements OnInit {
       email,
       password,
     };
+
     try {
       await this.authService.register(data);
       this._router.navigateByUrl("/account/login");

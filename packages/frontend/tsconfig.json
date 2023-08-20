@@ -14,7 +14,7 @@
       "rxjs": ["./node_modules/rxjs"],
       "ui": ["../frontend-shared/dist/sharedModule"],
       "@angular/*": ["./node_modules/@angular/*"],
-      "shared": ["../frontend-shared/library/types"]
+      "types": ["../frontend-shared/library/types"]
     },
     "declaration": false,
     "downlevelIteration": true,

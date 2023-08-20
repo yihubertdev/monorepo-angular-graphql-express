@@ -8,7 +8,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   selector: "home-page-article-controller",
   template: `
     <mat-card
-      class="bottom-margin-card"
+      class="mb-2"
       *ngFor="let article of articles"
       (click)="navigate(article.id)">
       <mat-card-header>
