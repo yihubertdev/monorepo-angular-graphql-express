@@ -8,7 +8,6 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Your Profile Name",
     key: "displayName",
     value: "",
-    formControlName: "displayName",
     placeholder: "Edit your display name",
   },
   {
@@ -17,7 +16,6 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Your location",
     key: "location",
     value: "",
-    formControlName: "location",
     placeholder: "Edit your location",
   },
   {
@@ -26,7 +24,6 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Email",
     key: "email",
     value: "",
-    formControlName: "email",
     placeholder: "Edit your email",
   },
   {
@@ -35,7 +32,6 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Your phone",
     key: "phone",
     value: "",
-    formControlName: "phone",
     placeholder: "Edit phone",
   },
   {
@@ -44,7 +40,6 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Your Image",
     key: "image",
     value: "",
-    formControlName: "image",
     placeholder: "Edit image",
     documentPath: "postImage",
     documentCategory: "blog",
@@ -58,7 +53,6 @@ export const userLoginFormList: IFormInput[] = [
     label: "Your Email",
     key: "email",
     value: "",
-    formControlName: "email",
     placeholder: "Enter Email",
   },
   {
@@ -67,7 +61,6 @@ export const userLoginFormList: IFormInput[] = [
     label: "Your Password",
     key: "password",
     value: "",
-    formControlName: "password",
     placeholder: "Enter Password",
   },
 ];
@@ -79,8 +72,8 @@ export const userSignUpFormList: IFormInput[] = [
     label: "Your Username",
     key: "username",
     value: "",
-    formControlName: "username",
     placeholder: "Edit username",
+    error: "",
   },
   {
     id: "email",
@@ -88,8 +81,8 @@ export const userSignUpFormList: IFormInput[] = [
     label: "Your Email",
     key: "email",
     value: "",
-    formControlName: "email",
     placeholder: "Enter Email",
+    error: "",
   },
   {
     id: "password",
@@ -97,8 +90,8 @@ export const userSignUpFormList: IFormInput[] = [
     label: "Your Password",
     key: "password",
     value: "",
-    formControlName: "password",
     placeholder: "Enter Password",
+    error: "",
   },
   {
     id: "repeat_password",
@@ -106,7 +99,7 @@ export const userSignUpFormList: IFormInput[] = [
     label: "Repeat your Password",
     key: "repeat_password",
     value: "",
-    formControlName: "repeat_password",
     placeholder: "Repeat password",
+    error: "",
   },
 ];

@@ -3,12 +3,11 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { IBlog } from "../../models/blog.type";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { FireStoreBaseModel } from "./basic.firestore";
-import { IArticle } from "shared";
+import { IArticle, IPost } from "types";
 @Injectable()
-export class BlogService extends FireStoreBaseModel<IBlog> {
+export class PostFireStore extends FireStoreBaseModel<IPost> {
   /**
    * Collection Name.
    *
@@ -24,7 +23,7 @@ export class BlogService extends FireStoreBaseModel<IBlog> {
    *
    * @protected
    */
-  protected override collection: AngularFirestoreCollection<IBlog>;
+  protected override collection: AngularFirestoreCollection<IPost>;
 
   /**
    * Contructor

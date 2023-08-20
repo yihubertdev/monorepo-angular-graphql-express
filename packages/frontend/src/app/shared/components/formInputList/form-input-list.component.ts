@@ -32,9 +32,9 @@ import { EditorComponent } from "../editor/editor.component";
           <input
             [type]="input.type"
             matInput
-            [formControlName]="input.formControlName" />
-          <mat-error *ngIf="getError(input.formControlName) as error">
-            {{ error }}
+            [formControlName]="input.key" />
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
           </mat-error>
         </ng-container>
 
@@ -44,9 +44,9 @@ import { EditorComponent } from "../editor/editor.component";
             matInput
             [placeholder]="input.placeholder ?? ''"
             style="height: 20dvh;"
-            [formControlName]="input.formControlName"></textarea>
-          <mat-error *ngIf="getError(input.formControlName) as error">
-            {{ error }}
+            [formControlName]="input.key"></textarea>
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
           </mat-error>
         </ng-container>
 
@@ -55,16 +55,16 @@ import { EditorComponent } from "../editor/editor.component";
           <input
             [type]="input.type"
             matInput
-            [formControlName]="input.formControlName"
+            [formControlName]="input.key"
             style="display:none" />
           <document-uploader-component
             [documentPath]="input.documentPath"
             [documentCategory]="input.documentCategory"
             (documentUpload)="
-              saveFile($event, input.formControlName)
+              saveFile($event, input.key)
             "></document-uploader-component>
-          <mat-error *ngIf="getError(input.formControlName) as error">
-            {{ error }}
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
           </mat-error>
         </ng-container>
       </mat-form-field>
@@ -81,7 +81,7 @@ import { EditorComponent } from "../editor/editor.component";
       mat-raised-button
       color="primary"
       class="btn-full-width"
-      (click)="save()">
+      (click)="submit()">
       {{ buttonName }}
     </button>
   `,
@@ -96,9 +96,10 @@ export class FormInputListComponent implements OnInit {
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
 
-  newForm: UntypedFormGroup;
-  defaultFormGroupValue: Record<string, number | string> = {};
+  public newForm: UntypedFormGroup;
+  private defaultFormGroupValue: Record<string, number | string> = {};
   public editorContent: string = "";
+  public hasError: boolean = false;
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
@@ -108,7 +109,7 @@ export class FormInputListComponent implements OnInit {
 
   ngOnInit(): void {
     // Generate default form group value
-    this.formInputList.map((form) => {
+    this.formInputList.forEach((form) => {
       this.defaultFormGroupValue[form.key] = form.value;
     });
 
@@ -126,8 +127,9 @@ export class FormInputListComponent implements OnInit {
     this.newForm.controls[formControlName].setValue(fileUrl);
   };
 
-  save = () => {
+  submit = () => {
     if (this.newForm.errors) {
+      this.hasError = true;
       return;
     }
 
@@ -139,11 +141,15 @@ export class FormInputListComponent implements OnInit {
     this.formValue.emit(this.newForm.value);
   };
 
-  getError(formControlName: string): string {
-    const formControl = this.newForm.get(formControlName);
+  /**
+   * @param {string} key get error by key
+   * @returns {string} return the error message
+   */
+  getError(key: string): string {
+    const formControl = this.newForm.get(key);
 
     if (formControl?.errors) {
-      return formControl.errors[formControlName];
+      return formControl.errors[key];
     }
 
     return "";

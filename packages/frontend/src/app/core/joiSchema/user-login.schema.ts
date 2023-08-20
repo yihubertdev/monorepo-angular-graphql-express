@@ -19,7 +19,6 @@ export const userLoginSchema = (
         "string.pattern.base": `'email' should follow email pattern, user input is ${String(
           data.email
         )}`,
-        "string.empty": `Please enter your email.`,
       }),
     password: Joi.string()
       .optional()
@@ -27,7 +26,6 @@ export const userLoginSchema = (
         "string.base": `password should be a type of 'string', user input is ${String(
           data.password
         )}`,
-        "string.empty": `Please enter your password.`,
       }),
   });
 };
@@ -75,8 +73,8 @@ export const userSignUpSchema = (
         "string.base": `password should be a type of 'string', user input is ${String(
           data.repeat_password
         )}`,
-        "string.empty": `Please enter your password.`,
         "any.only": "Password and repeat password must be equal",
+        "string.empty": `Please enter your email.`,
       }),
   });
 };

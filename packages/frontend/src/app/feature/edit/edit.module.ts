@@ -1,12 +1,13 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { EditBlogController } from "./controller/edit-blog.controller";
+import { EditArticleController } from "./controller/edit-article.controller";
 import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { EditPostController } from "./controller/edit-post.controller";
 
 @NgModule({
-  declarations: [EditBlogController],
+  declarations: [EditArticleController, EditPostController],
   imports: [CommonModule, FormInputListModule, MatSnackBarModule],
-  exports: [EditBlogController],
+  exports: [EditArticleController, EditPostController],
 })
-export class EditBlogModule {}
+export class EditControllerModule {}

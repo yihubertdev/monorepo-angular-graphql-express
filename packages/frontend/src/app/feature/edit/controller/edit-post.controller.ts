@@ -13,8 +13,8 @@ import {
 } from "src/app/core/models/users.type";
 import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { BlogService } from "src/app/core/services/fireStore/blog.firestore";
-import { blogEditFormList } from "src/app/core/static/post.static";
+import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
+import { postEditFormList } from "src/app/core/static/post.static";
 import { v4 as uuidv4 } from "uuid";
 
 @Component({
@@ -26,15 +26,15 @@ import { v4 as uuidv4 } from "uuid";
     buttonName="Add Blog"
     (formValue)="save($event)"
     [loading]="loading"></form-input-list-component>`,
-  styleUrls: ["../edit-blog.style.css"],
+  styleUrls: ["../edit.style.css"],
 })
-export class EditBlogController implements OnInit {
-  formInputList: IFormInput[] = blogEditFormList;
+export class EditPostController implements OnInit {
+  formInputList: IFormInput[] = postEditFormList;
   blogEditSchema: any = blogEditSchema;
   public loading: boolean = false;
   constructor(
     private _router: Router,
-    private blogService: BlogService,
+    private _postService: PostService,
     private authService: AuthService,
     private _snackBar: MatSnackBar
   ) {}
@@ -44,14 +44,7 @@ export class EditBlogController implements OnInit {
 
   async save(formValue: Record<string, number | string>) {
     // Get current login user
-    const currentUser = this.authService.getJSON();
-    if (!currentUser) {
-      this.loading = false;
-      this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-      });
-      return;
-    }
+    const currentUser = this.authService.get();
 
     this.loading = true;
     const newBlog = {
@@ -60,8 +53,8 @@ export class EditBlogController implements OnInit {
     } as unknown as IBlog;
 
     try {
-      await this.blogService.create(newBlog);
-      this._router.navigateByUrl("/posts");
+      await this._postService.create(newBlog);
+      this._router.navigate(["home", "posts"]);
       this.loading = false;
     } catch (err) {
       this._snackBar.open(ADD_BLOG_ERROR, POP_UP_ACTION, {

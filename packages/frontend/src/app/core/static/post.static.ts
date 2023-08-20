@@ -50,41 +50,13 @@ export const postList = [
   },
 ];
 
-export const blogEditFormList: IFormInput[] = [
-  {
-    id: "title",
-    type: InputType.TEXT,
-    label: "Blog Title",
-    key: "title",
-    value: "",
-    formControlName: "title",
-    placeholder: "Edit blog title",
-  },
-  {
-    id: "subTitle",
-    type: InputType.TEXT,
-    label: "Sub title",
-    key: "subTitle",
-    value: "",
-    formControlName: "subTitle",
-    placeholder: "Edit your location",
-  },
-  {
-    id: "alt",
-    type: InputType.TEXT,
-    label: "alt",
-    key: "alt",
-    value: "",
-    formControlName: "alt",
-    placeholder: "Edit your alt",
-  },
+export const postEditFormList: IFormInput[] = [
   {
     id: "content",
     type: InputType.TEXTAREA,
     label: "Your content",
     key: "content",
     value: "",
-    formControlName: "content",
     placeholder: "Edit content",
   },
   {
@@ -93,7 +65,6 @@ export const blogEditFormList: IFormInput[] = [
     label: "Your Image",
     key: "image",
     value: "",
-    formControlName: "image",
     placeholder: "Edit image",
     documentPath: "postImage",
     documentCategory: "blog",
@@ -107,7 +78,6 @@ export const editArticleFormList: IFormInput[] = [
     label: "Blog Title",
     key: "title",
     value: "",
-    formControlName: "title",
     placeholder: "Edit blog title",
   },
 ];
