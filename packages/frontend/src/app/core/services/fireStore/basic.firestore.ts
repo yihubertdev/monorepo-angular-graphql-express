@@ -2,19 +2,14 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
   DocumentData,
 } from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
-import {
-  limit,
-  query,
-  orderBy,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { ICollectionQueryBuilder } from "types";
 
 @Injectable()
 export abstract class FireStoreBaseModel<T> {
@@ -80,6 +75,35 @@ export abstract class FireStoreBaseModel<T> {
       createdAt: getTime(new Date()),
       updatedAt: getTime(new Date()),
     });
+  };
+
+  protected buildSubCollectionQuery = (
+    queries: AngularFirestoreCollection<T>,
+    queryBuilder: ICollectionQueryBuilder<T>
+  ): any => {
+    let newQueries = queries.doc(queryBuilder.documentId);
+
+    return queryBuilder.next
+      ? this.buildSubCollectionQuery(
+          newQueries.collection(queryBuilder.collectionId as string),
+          queryBuilder.next
+        )
+      : newQueries.set(queryBuilder.documentValue as any);
+  };
+
+  /**
+   * Create document in that collection
+   *
+   * @public
+   * @param {ISubCollectionQuery<T>} queryBuilder create document
+   * @returns {void}
+   */
+  public createSubCollection = (
+    queryBuilder: ICollectionQueryBuilder<T>
+  ): void => {
+    const query = this.buildSubCollectionQuery(this.collection, queryBuilder);
+
+    console.log(query);
   };
 
   /**

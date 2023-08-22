@@ -16,3 +16,10 @@ export interface IPost {
   createdAt?: Date;
   updatedA?: Date;
 }
+
+export interface ICollectionQueryBuilder<T> {
+  documentId: string;
+  collectionId?: string;
+  documentValue?: T;
+  next?: ICollectionQueryBuilder<T>
+}

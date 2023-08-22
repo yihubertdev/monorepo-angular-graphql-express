@@ -88,6 +88,19 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
       this.currentUser = this.authService.get()?.toJSON() as
         | IUserAuth
         | undefined;
+
+      this.userService.createSubCollection({
+        documentId: "241c489e-4f31-41a0-beeb-289a7f771c9a",
+        collectionId: "firstCollection",
+        next: {
+          documentId: "testid",
+          collectionId: "secondCollection",
+          next: {
+            documentId: "test2",
+            documentValue: { random: "random" } as any,
+          },
+        },
+      });
       this.photoUrl = this.currentUser?.photoURL ?? this.photoUrl;
     }
   }
