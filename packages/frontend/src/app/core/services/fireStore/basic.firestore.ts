@@ -10,6 +10,8 @@ import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
 import { ICollectionQueryBuilder } from "types";
+import joiValidator from "../../utils/validator";
+import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 
 @Injectable()
 export abstract class FireStoreBaseModel<T> {
@@ -81,14 +83,21 @@ export abstract class FireStoreBaseModel<T> {
     queries: AngularFirestoreCollection<T>,
     queryBuilder: ICollectionQueryBuilder<T>
   ): any => {
-    let newQueries = queries.doc(queryBuilder.documentId);
+    subCollectionBuilderSchema().validate(queryBuilder);
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: subCollectionBuilderSchema,
+    });
 
-    return queryBuilder.next
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    let newQueries = queries.doc(documentId);
+
+    return next
       ? this.buildSubCollectionQuery(
-          newQueries.collection(queryBuilder.collectionId as string),
-          queryBuilder.next
+          newQueries.collection(collectionId as string),
+          next
         )
-      : newQueries.set(queryBuilder.documentValue as any);
+      : newQueries.set(documentValue as any);
   };
 
   /**

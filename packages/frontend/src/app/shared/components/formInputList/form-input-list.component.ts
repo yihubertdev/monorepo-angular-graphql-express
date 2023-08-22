@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { UntypedFormGroup } from "@angular/forms";
 import { UntypedFormBuilder } from "@angular/forms";
-import { joiValidator } from "src/app/core/utils/validator";
+import joiValidator from "src/app/core/utils/validator";
 import { IFormInput } from "src/app/core/models/view.types";
 import { EditorComponent } from "../editor/editor.component";
 
@@ -115,10 +115,16 @@ export class FormInputListComponent implements OnInit {
 
     // Create the form
     this.newForm = this.formBuilder.group(this.defaultFormGroupValue, {
-      validators: joiValidator(this.errorLocation, this.validatorSchema, {
-        abortEarly: false,
-        allowUnknown: true,
-      }),
+      validators: joiValidator.formGroup(
+        {
+          errorLocation: this.errorLocation,
+          schemaGenerator: this.validatorSchema,
+        },
+        {
+          abortEarly: false,
+          allowUnknown: true,
+        }
+      ),
     });
   }
 
