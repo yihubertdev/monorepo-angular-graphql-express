@@ -34,7 +34,7 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           }">
           <div class="grid-tile-align-up-content">
             <div class="container">
-              <div class="row mb-4 justify-content-center">
+              <div class="row justify-content-center">
                 <div
                   class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
                   <user-profile-controller></user-profile-controller>

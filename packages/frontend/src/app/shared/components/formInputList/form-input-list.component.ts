@@ -11,7 +11,6 @@ import { UntypedFormBuilder } from "@angular/forms";
 import joiValidator, { JoiSchemaBuilder } from "src/app/core/utils/validator";
 import { IFormInput } from "src/app/core/models/view.types";
 import { EditorComponent } from "../editor/editor.component";
-import * as Joi from "joi";
 
 @Component({
   selector: "form-input-list-component",
