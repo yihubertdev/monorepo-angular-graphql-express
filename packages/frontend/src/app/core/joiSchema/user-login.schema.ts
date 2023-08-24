@@ -75,7 +75,7 @@ export const userSignUpSchema: JoiSchemaBuilder<IUserSignUpForm> = (
           data.repeat_password
         )}`,
         "any.only": "Password and repeat password must be equal",
-        "string.empty": `Please enter your email.`,
+        "string.empty": `Please enter your password.`,
       }),
   });
 };

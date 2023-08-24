@@ -2,6 +2,8 @@ export interface IArticle {
   id?: string;
   userId: string;
   title: string;
+  subTitle: string;
+  description: string;
   content: string;
   createdAt?: Date;
   updatedA?: Date;

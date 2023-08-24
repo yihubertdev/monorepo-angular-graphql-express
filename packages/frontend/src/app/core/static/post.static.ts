@@ -80,6 +80,22 @@ export const editArticleFormList: IFormInput[] = [
     value: "",
     placeholder: "Edit blog title",
   },
+  {
+    id: "subTitle",
+    type: InputType.TEXT,
+    label: "Blog SubTitle",
+    key: "subTitle",
+    value: "",
+    placeholder: "Edit blog sub title",
+  },
+  {
+    id: "description",
+    type: InputType.TEXTAREA,
+    label: "Blog Description",
+    key: "description",
+    value: "",
+    placeholder: "Edit blog description",
+  },
 ];
 
 export const quillEditorModule = {

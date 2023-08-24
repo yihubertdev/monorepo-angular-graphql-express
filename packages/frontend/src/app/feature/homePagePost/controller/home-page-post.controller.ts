@@ -8,7 +8,6 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   template: `
     <mat-card
       class="mb-2"
-      style="maxWidth: 400px"
       *ngFor="let post of posts">
       <mat-card-header>
         <div
@@ -17,7 +16,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
             backgroundImage: 'url(' + (post.photoURL | UserPhotoPipe) + ')',
             backgroundSize: 'cover'
           }"></div>
-        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-title>{{ post.displayName }}</mat-card-title>
         <mat-card-subtitle>{{
           post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
