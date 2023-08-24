@@ -1,4 +1,3 @@
-
 export interface IArticle {
   id?: string;
   userId: string;
@@ -21,5 +20,5 @@ export interface ICollectionQueryBuilder<T> {
   documentId: string;
   collectionId?: string;
   documentValue?: T;
-  next?: ICollectionQueryBuilder<T>
+  next?: ICollectionQueryBuilder<T>;
 }

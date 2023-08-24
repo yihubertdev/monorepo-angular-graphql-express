@@ -1,9 +1,10 @@
 import * as Joi from "joi";
 import { IUserLogin, IUserSignUpForm } from "../models/users.type";
+import { JoiSchemaBuilder } from "../utils/validator";
 
-export const userLoginSchema = (
-  errorLocation: string,
-  data: IUserLogin
+export const userLoginSchema: JoiSchemaBuilder<IUserLogin> = (
+  data: IUserLogin,
+  errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
     email: Joi.string()
@@ -30,9 +31,9 @@ export const userLoginSchema = (
   });
 };
 
-export const userSignUpSchema = (
-  errorLocation: string,
-  data: IUserSignUpForm
+export const userSignUpSchema: JoiSchemaBuilder<IUserSignUpForm> = (
+  data: IUserSignUpForm,
+  errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
     username: Joi.string()

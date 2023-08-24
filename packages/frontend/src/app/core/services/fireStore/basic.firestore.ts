@@ -83,12 +83,10 @@ export abstract class FireStoreBaseModel<T> {
     queries: AngularFirestoreCollection<T>,
     queryBuilder: ICollectionQueryBuilder<T>
   ): any => {
-    subCollectionBuilderSchema().validate(queryBuilder);
     joiValidator.parameter({
       data: queryBuilder,
       schemaGenerator: subCollectionBuilderSchema,
     });
-
     const { documentId, collectionId, documentValue, next } = queryBuilder;
     let newQueries = queries.doc(documentId);
 

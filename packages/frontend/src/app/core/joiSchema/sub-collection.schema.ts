@@ -1,18 +1,25 @@
 import * as Joi from "joi";
+import { JoiSchemaBuilder } from "../utils/validator";
+import { ICollectionQueryBuilder } from "types";
 
-export const subCollectionBuilderSchema = (): Joi.ObjectSchema => {
+export const subCollectionBuilderSchema: JoiSchemaBuilder<
+  ICollectionQueryBuilder<any>
+> = (
+  data: ICollectionQueryBuilder<any>,
+  errorLocation?: string
+): Joi.ObjectSchema => {
   return Joi.object({
-    next: Joi.string().optional(),
+    next: Joi.object().optional(),
     documentId: Joi.string().required(),
-    collectionId: Joi.string().when(Joi.ref("next"), {
-      is: Joi.string(),
-      then: Joi.required(),
+    collectionId: Joi.when(Joi.ref("next"), {
+      is: Joi.exist(),
+      then: Joi.string().required(),
       otherwise: Joi.forbidden(),
     }),
-    documentValue: Joi.string().when(Joi.ref("next"), {
-      is: Joi.string(),
+    documentValue: Joi.when(Joi.ref("next"), {
+      is: Joi.exist(),
       then: Joi.forbidden(),
-      otherwise: Joi.required(),
+      otherwise: Joi.string().required(),
     }),
   });
 };

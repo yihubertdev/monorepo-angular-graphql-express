@@ -2,13 +2,21 @@ import { UntypedFormGroup, ValidationErrors } from "@angular/forms";
 import * as Joi from "joi";
 import { ValidationOptions } from "joi";
 
+export type JoiSchemaBuilder<T> = (
+  data: T,
+  errorLocation?: string
+) => Joi.ObjectSchema;
+
 class joiValidator {
   private options: ValidationOptions = { abortEarly: false };
   constructor() {
     console.log("validator trigger");
   }
   public formGroup = (
-    params: { schemaGenerator: any; errorLocation: string },
+    params: {
+      schemaGenerator: JoiSchemaBuilder<any>;
+      errorLocation: string;
+    },
     options: ValidationOptions = this.options
   ) => {
     const { schemaGenerator, errorLocation } = params;
@@ -59,11 +67,15 @@ class joiValidator {
   };
 
   public parameter = (
-    params: { data: any; schemaGenerator: any; errorLocation?: string },
+    params: {
+      data: any;
+      schemaGenerator: JoiSchemaBuilder<any>;
+      errorLocation?: string;
+    },
     options: ValidationOptions = this.options
   ) => {
     const { data, schemaGenerator, errorLocation } = params;
-    const schema = schemaGenerator(errorLocation, params) as Joi.ObjectSchema;
+    const schema = schemaGenerator(data, errorLocation) as Joi.ObjectSchema;
     const { error } = schema.validate(data, options);
 
     if (error) {
