@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
-import { StringTransformPipe } from "./string-tranform.pipe";
+import { StringTransformPipe, UserPhotoPipe } from "./string-tranform.pipe";
 
 @NgModule({
-  declarations: [StringTransformPipe],
-  exports: [StringTransformPipe],
+  declarations: [StringTransformPipe, UserPhotoPipe],
+  exports: [StringTransformPipe, UserPhotoPipe],
 })
 export class StringTransformPipeModule {}

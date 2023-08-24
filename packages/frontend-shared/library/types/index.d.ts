@@ -12,6 +12,8 @@ export interface IPost {
   userId: string;
   image?: string;
   content: string;
+  displayName?: string;
+  photoURL?: string;
   createdAt?: Date;
   updatedA?: Date;
 }

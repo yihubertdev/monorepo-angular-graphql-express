@@ -11,12 +11,18 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
       style="maxWidth: 400px"
       *ngFor="let post of posts">
       <mat-card-header>
-        <mat-card-title-group>
-          <mat-card-subtitle>{{
-            post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
-          }}</mat-card-subtitle>
-        </mat-card-title-group>
+        <div
+          mat-card-avatar
+          [ngStyle]="{
+            backgroundImage: 'url(' + (post.photoURL | UserPhotoPipe) + ')',
+            backgroundSize: 'cover'
+          }"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>{{
+          post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+        }}</mat-card-subtitle>
       </mat-card-header>
+
       <img
         mat-card-image
         *ngIf="post.image"
@@ -24,6 +30,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
       <mat-card-content>
         <p
           class="text-overflow-card"
+          style="white-space: pre-wrap;"
           [innerHTML]="post.content"></p
       ></mat-card-content>
     </mat-card>

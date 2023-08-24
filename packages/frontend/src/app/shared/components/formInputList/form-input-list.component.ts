@@ -149,6 +149,8 @@ export class FormInputListComponent implements OnInit {
       this.newForm.value.quillEditor = this.editorContent;
     }
 
+    console.log(this.newForm.value);
+
     this.formValue.emit(this.newForm.value);
   };
 

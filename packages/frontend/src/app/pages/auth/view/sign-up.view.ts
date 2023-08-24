@@ -29,7 +29,7 @@ import { Component } from "@angular/core";
               rowspan: 9
             }
           }">
-          <div class="grid-tile-align-up-content">
+          <div class="grid-content-up-center">
             <div class="container">
               <div class="row mb-4 justify-content-center">
                 <div

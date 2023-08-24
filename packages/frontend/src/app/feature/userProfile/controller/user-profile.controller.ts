@@ -16,15 +16,15 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   template: `
     <mat-card style="height: 100%;">
       <div class="container vertical-horizontal-center">
-        <div class="row justify-content-center">
+        <div class="row">
           <div
             class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div
               mat-card-avatar
-              class="user-profile-avatar"
               [ngStyle]="{
-                'background-image': 'url(' + photoUrl + ')',
-                margin: 'auto'
+                backgroundImage: 'url(' + photoUrl + ')',
+                margin: 'auto',
+                backgroundSize: 'cover'
               }"
               (click)="triggerUpload()">
               <input

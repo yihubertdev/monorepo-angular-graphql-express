@@ -45,11 +45,23 @@ export class EditPostController implements OnInit {
   async save(formValue: Record<string, number | string>) {
     // Get current login user
     const currentUser = this.authService.get();
+    if (!currentUser) {
+      this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
+        duration: POP_UP_DISMISS_DURATION,
+        horizontalPosition: "center",
+        verticalPosition: "top",
+      });
+      this.loading = false;
+      return;
+    }
+    const { uid, displayName, photoURL } = currentUser;
 
     this.loading = true;
     const newBlog = {
       ...formValue,
-      userId: currentUser?.uid,
+      userId: uid,
+      displayName,
+      photoURL,
     } as unknown as IBlog;
 
     try {
