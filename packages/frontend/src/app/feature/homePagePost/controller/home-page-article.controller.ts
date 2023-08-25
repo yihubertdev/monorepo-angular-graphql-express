@@ -46,6 +46,6 @@ export class HomePageArticleController implements OnInit {
       return;
     }
 
-    this._router.navigate(["posts", `article`, `${id}`]);
+    this._router.navigate(["home", "article", `${id}`]);
   }
 }

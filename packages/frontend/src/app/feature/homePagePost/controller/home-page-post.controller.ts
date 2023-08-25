@@ -30,8 +30,15 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
         <p
           class="text-overflow-card"
           style="white-space: pre-wrap;"
-          [innerHTML]="post.content"></p
-      ></mat-card-content>
+          [innerHTML]="post.content"></p>
+
+        <p
+          class="clickable-pointer"
+          (click)="showMore()"
+          style="text-align: right;">
+          Show More
+        </p></mat-card-content
+      >
     </mat-card>
   `,
   styleUrls: ["../home-page-post.style.css"],
@@ -44,5 +51,9 @@ export class HomePagePostController implements OnInit {
   async ngOnInit(): Promise<void> {
     this.posts = await this._PostService.listPagination(5);
     console.log(this.posts);
+  }
+
+  public showMore() {
+    console.log("show more");
   }
 }
