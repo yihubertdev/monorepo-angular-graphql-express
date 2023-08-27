@@ -1,9 +1,10 @@
 import * as Joi from "joi";
 import { IPost } from "types";
+import { JoiSchemaBuilder } from "../utils/validator";
 
-export const blogEditSchema = (
-  errorLocation: string,
-  data: IPost
+export const blogEditSchema: JoiSchemaBuilder<IPost> = (
+  data: IPost,
+  errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
     content: Joi.string()

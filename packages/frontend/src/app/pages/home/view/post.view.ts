@@ -1,7 +1,4 @@
 import { Component } from "@angular/core";
-import { map, Observable } from "rxjs";
-import { isEmpty } from "lodash";
-import { IUser } from "src/app/core/models/users.type";
 import { IPostList } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { postList } from "src/app/core/static/post.static";
@@ -9,10 +6,6 @@ import { postList } from "src/app/core/static/post.static";
 @Component({
   selector: "post-view",
   template: `
-    <!-- <ng-container>
-      <mat-spinner></mat-spinner>
-    </ng-container> -->
-    <!-- router container 90dvh -->
     <div class="responsive-post-section">
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <div class="row mb-3 mx-2">
@@ -20,9 +13,10 @@ import { postList } from "src/app/core/static/post.static";
           <post-category-controller></post-category-controller>
         </div>
       </div>
-      <div class="row mb-3 mx-2">
+      <div class="row mb-3 mx-2 justify-content-center">
+        <!-- container responsive-container-overflow max-width-container container-overflow-vertical -->
         <div
-          class="col-12 container responsive-container-overflow max-width-container container-overflow-vertical">
+          class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 responsive-container-overflow container-overflow-vertical">
           <home-page-post-controller></home-page-post-controller>
         </div>
       </div>

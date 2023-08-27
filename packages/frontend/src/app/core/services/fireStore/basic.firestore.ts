@@ -2,19 +2,16 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  AngularFirestoreDocument,
   DocumentData,
 } from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
-import {
-  limit,
-  query,
-  orderBy,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { ICollectionQueryBuilder } from "types";
+import joiValidator from "../../utils/validator";
+import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 
 @Injectable()
 export abstract class FireStoreBaseModel<T> {
@@ -80,6 +77,40 @@ export abstract class FireStoreBaseModel<T> {
       createdAt: getTime(new Date()),
       updatedAt: getTime(new Date()),
     });
+  };
+
+  protected buildSubCollectionQuery = (
+    queries: AngularFirestoreCollection<T>,
+    queryBuilder: ICollectionQueryBuilder<T>
+  ): any => {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: subCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    let newQueries = queries.doc(documentId);
+
+    return next
+      ? this.buildSubCollectionQuery(
+          newQueries.collection(collectionId as string),
+          next
+        )
+      : newQueries.set(documentValue as any);
+  };
+
+  /**
+   * Create document in that collection
+   *
+   * @public
+   * @param {ISubCollectionQuery<T>} queryBuilder create document
+   * @returns {void}
+   */
+  public createSubCollection = (
+    queryBuilder: ICollectionQueryBuilder<T>
+  ): void => {
+    const query = this.buildSubCollectionQuery(this.collection, queryBuilder);
+
+    console.log(query);
   };
 
   /**

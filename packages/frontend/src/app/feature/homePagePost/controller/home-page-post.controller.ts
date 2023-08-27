@@ -8,15 +8,20 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   template: `
     <mat-card
       class="mb-2"
-      style="maxWidth: 400px"
       *ngFor="let post of posts">
       <mat-card-header>
-        <mat-card-title-group>
-          <mat-card-subtitle>{{
-            post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
-          }}</mat-card-subtitle>
-        </mat-card-title-group>
+        <div
+          mat-card-avatar
+          [ngStyle]="{
+            backgroundImage: 'url(' + (post.photoURL | UserPhotoPipe) + ')',
+            backgroundSize: 'cover'
+          }"></div>
+        <mat-card-title>{{ post.displayName }}</mat-card-title>
+        <mat-card-subtitle>{{
+          post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+        }}</mat-card-subtitle>
       </mat-card-header>
+
       <img
         mat-card-image
         *ngIf="post.image"
@@ -24,8 +29,16 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
       <mat-card-content>
         <p
           class="text-overflow-card"
-          [innerHTML]="post.content"></p
-      ></mat-card-content>
+          style="white-space: pre-wrap;"
+          [innerHTML]="post.content"></p>
+
+        <p
+          class="clickable-pointer"
+          (click)="showMore()"
+          style="text-align: right;">
+          Show More
+        </p></mat-card-content
+      >
     </mat-card>
   `,
   styleUrls: ["../home-page-post.style.css"],
@@ -38,5 +51,9 @@ export class HomePagePostController implements OnInit {
   async ngOnInit(): Promise<void> {
     this.posts = await this._PostService.listPagination(5);
     console.log(this.posts);
+  }
+
+  public showMore() {
+    console.log("show more");
   }
 }

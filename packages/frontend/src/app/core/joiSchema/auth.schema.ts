@@ -1,9 +1,10 @@
 import * as Joi from "joi";
 import { IUserProfile } from "../models/users.type";
+import { JoiSchemaBuilder } from "../utils/validator";
 
-export const accountSchema = (
-  errorLocation: string,
-  data: IUserProfile
+export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
+  data: IUserProfile,
+  errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
     displayName: Joi.string()

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { isNil } from "lodash";
-import { IArticle } from "src/app/core/models/blog.type";
+import { IArticle } from "types";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
@@ -13,8 +13,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       (click)="navigate(article.id)">
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title>Shiba Inu</mat-card-title>
-          <mat-card-subtitle>{{ article.title }}</mat-card-subtitle>
+          <mat-card-title>{{ article.title }}</mat-card-title>
+          <mat-card-subtitle>{{ article.subTitle }}</mat-card-subtitle>
           <img
             mat-card-sm-image
             src="https://material.angular.io/assets/img/examples/shiba2.jpg" />
@@ -23,7 +23,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       <mat-card-content>
         <p
           class="text-overflow-card"
-          [innerHTML]="article.content"></p
+          [innerHTML]="article.description"></p
       ></mat-card-content>
     </mat-card>
   `,
@@ -46,6 +46,6 @@ export class HomePageArticleController implements OnInit {
       return;
     }
 
-    this._router.navigate(["posts", `article`, `${id}`]);
+    this._router.navigate(["home", "article", `${id}`]);
   }
 }

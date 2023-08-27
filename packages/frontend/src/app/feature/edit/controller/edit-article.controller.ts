@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "src/app/core/joiSchema/article-edit.schema";
-import { IArticle } from "src/app/core/models/blog.type";
 import {
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
@@ -16,6 +15,7 @@ import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { editArticleFormList } from "src/app/core/static/post.static";
+import { IArticle } from "types";
 
 @Component({
   selector: "edit-article-controller",
@@ -25,7 +25,7 @@ import { editArticleFormList } from "src/app/core/static/post.static";
     [validatorSchema]="validatorSchema"
     buttonName="Add Article"
     (formValue)="save($event)"
-    [haveEditor]="haveEditor"
+    [haveEditor]="true"
     [loading]="loading"></form-input-list-component>`,
   styleUrls: [],
 })
@@ -34,7 +34,6 @@ export class EditArticleController {
   public loading: boolean = false;
   public validatorSchema = articleEditSchema;
   public content: string = "";
-  public haveEditor: boolean = true;
 
   constructor(
     private _router: Router,
@@ -55,20 +54,14 @@ export class EditArticleController {
     }
 
     this.loading = false;
-    const article = formValue as {
-      title: string;
-      quillEditor: string;
-    };
-
     const newArticle = {
+      ...formValue,
       userId: currentUser.uid,
-      title: article.title,
-      content: article.quillEditor,
     } as IArticle;
 
     try {
       await this._articleFireStore.create(newArticle);
-      this._router.navigateByUrl("/posts");
+      this._router.navigate(["posts"]);
       this._snackBar.open(ADD_ARTICLE_ERROR, POP_UP_ACTION, {
         duration: POP_UP_DISMISS_DURATION,
         horizontalPosition: "center",

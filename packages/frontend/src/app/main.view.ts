@@ -1,6 +1,5 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
-import { MatTabNavPanel } from "@angular/material/tabs";
 import { DomSanitizer } from "@angular/platform-browser";
 import { isEmpty } from "lodash";
 import { map, Observable } from "rxjs";

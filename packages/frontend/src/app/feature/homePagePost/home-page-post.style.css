@@ -104,3 +104,17 @@ div.horizonal-scroll-section > .horizonal-scroll-card {
 .list-item-height {
   height: 60px !important;
 }
+
+.text-overflow-card {
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.clickable-pointer:hover {
+  cursor: pointer;
+}

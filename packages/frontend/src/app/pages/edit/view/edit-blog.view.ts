@@ -10,7 +10,7 @@ import { Component } from "@angular/core";
         <mat-grid-tile
           colspan="1"
           rowspan="1">
-          <div class="grid-tile-align-up-content">
+          <div class="grid-content-up-center">
             <edit-blog-controller></edit-blog-controller>
           </div>
         </mat-grid-tile>
