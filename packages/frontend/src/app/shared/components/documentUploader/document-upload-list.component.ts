@@ -1,23 +1,30 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { UploadTaskSnapshot } from "@angular/fire/storage";
-import { IUploadMultipleFileRes } from "src/app/core/services/fireStorage/basic.bucket";
+import { UploadTask, UploadTaskSnapshot } from "@angular/fire/storage";
+import { Observable } from "rxjs/internal/Observable";
 
 @Component({
   selector: "document-upload-list-component",
   template: ` <ng-container>
+    {{ documentName }}
     <mat-progress-bar
       mode="determinate"
-      value="68"></mat-progress-bar>
+      [value]="percentage"></mat-progress-bar>
   </ng-container>`,
   styleUrls: ["./document-uploader.component.css"],
 })
 export class DocumentUploadListComponent implements OnInit {
-  @Input() documentUploader: {
+  @Input() documentPercent$: Observable<{
     progress: number;
     snapshot: UploadTaskSnapshot;
-  } | null = null;
+  }> | null = null;
+  @Input() documentName: UploadTask | null = null;
+
+  public percentage: number = 0;
 
   ngOnInit(): void {
-    console.log(this.documentUploader);
+    console.log(this.documentName);
+    this.documentPercent$?.subscribe((file) => {
+      this.percentage = file.progress;
+    });
   }
 }

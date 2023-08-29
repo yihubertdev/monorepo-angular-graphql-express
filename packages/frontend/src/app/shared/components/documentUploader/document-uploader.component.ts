@@ -17,9 +17,8 @@ import { v4 as uuidv4 } from "uuid";
       *ngFor="let task of tasks">
       <mat-list-item role="listitem">
         <document-upload-list-component
-          [documentUploader]="
-            task.uploadPercent | async
-          "></document-upload-list-component>
+          [documentPercent$]="task.uploadPercent"
+          [documentName]="task.task"></document-upload-list-component>
       </mat-list-item>
     </mat-list>
   </section>`,
@@ -57,8 +56,6 @@ export class DocumentUploaderComponent {
       this.documentPath,
       this.documentCategory
     );
-
-    console.log(this.tasks);
 
     return;
     // const uploadTask = this.formFileStorage.uploadWithPath(
