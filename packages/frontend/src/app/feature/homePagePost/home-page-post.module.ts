@@ -15,7 +15,7 @@ import { JobsHorizonalScrollController } from "./controller/jobs-horizonal-scrol
 import { QuillModule } from "ngx-quill";
 import { ArticlePostControllerComponent } from "./controller/article-post.controller";
 import { HomePageArticleController } from "./controller/home-page-article.controller";
-import { StringTransformPipeModule } from "ui";
+import { PostCardModule, StringTransformPipeModule } from "ui";
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { StringTransformPipeModule } from "ui";
     HomePageArticleController,
   ],
   imports: [
+    PostCardModule,
     CommonModule,
     MatGridListModule,
     MatCardModule,

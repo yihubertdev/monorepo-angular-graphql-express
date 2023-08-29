@@ -6,40 +6,9 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 @Component({
   selector: "home-page-post-controller",
   template: `
-    <mat-card
-      class="mb-2"
-      *ngFor="let post of posts">
-      <mat-card-header>
-        <div
-          mat-card-avatar
-          [ngStyle]="{
-            backgroundImage: 'url(' + (post.photoURL | UserPhotoPipe) + ')',
-            backgroundSize: 'cover'
-          }"></div>
-        <mat-card-title>{{ post.displayName }}</mat-card-title>
-        <mat-card-subtitle>{{
-          post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
-        }}</mat-card-subtitle>
-      </mat-card-header>
-
-      <img
-        mat-card-image
-        *ngIf="post.image"
-        [src]="post.image" />
-      <mat-card-content>
-        <p
-          class="text-overflow-card"
-          style="white-space: pre-wrap;"
-          [innerHTML]="post.content"></p>
-
-        <p
-          class="clickable-pointer"
-          (click)="showMore()"
-          style="text-align: right;">
-          Show More
-        </p></mat-card-content
-      >
-    </mat-card>
+    <ng-container *ngFor="let post of posts">
+      <post-card-component (postCardInfo)="(post)"></post-card-component>
+    </ng-container>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
