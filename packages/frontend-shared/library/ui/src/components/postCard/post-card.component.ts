@@ -40,9 +40,8 @@ import { IPost } from "library/types";
 `,
   styleUrls: ["./post-card.component.css"],
 })
-export class PostCardComponent implements OnInit {
+export class PostCardComponent {
   @Input() postCardInfo?:  IPost;
-  ngOnInit(): void {}
 
   showMore() {
     console.log(this.postCardInfo);

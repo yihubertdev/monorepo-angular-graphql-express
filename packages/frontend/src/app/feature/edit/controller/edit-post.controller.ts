@@ -15,7 +15,6 @@ import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
 import { postEditFormList } from "src/app/core/static/post.static";
-import { v4 as uuidv4 } from "uuid";
 
 @Component({
   selector: "edit-blog-controller",

@@ -1,18 +1,18 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatExpansionModule } from "@angular/material/expansion";
-import { ReactiveFormsModule } from "@angular/forms";
-import { MatInputModule } from "@angular/material/input";
-import { FormInputListComponent } from "./post-card.component";
+import { PostCardComponent } from "./post-card.component";
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from "@angular/material/card";
+import { StringTransformPipeModule } from "ui";
 
 @NgModule({
-  declarations: [FormInputListComponent],
+  declarations: [PostCardComponent],
   imports: [
     CommonModule,
-    MatExpansionModule,
-    ReactiveFormsModule,
-    MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    StringTransformPipeModule,
   ],
-  exports: [FormInputListComponent],
+  exports: [PostCardComponent],
 })
-export class FormInputListModule {}
+export class PostCardModule {}

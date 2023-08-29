@@ -133,9 +133,10 @@ export class FormInputListComponent implements OnInit {
     );
   }
 
-  saveFile = (fileUrl: string, formControlName: string) => {
+  saveFile = (filesUrl: string[], formControlName: string) => {
+    console.log(filesUrl);
     // Assign the document uploaded url into form
-    this.newForm.controls[formControlName].setValue(fileUrl);
+    this.newForm.controls[formControlName].setValue(filesUrl);
   };
 
   submit = () => {

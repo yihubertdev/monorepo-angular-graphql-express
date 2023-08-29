@@ -7,7 +7,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   selector: "home-page-post-controller",
   template: `
     <ng-container *ngFor="let post of posts">
-      <post-card-component (postCardInfo)="(post)"></post-card-component>
+      <post-card-component [postCardInfo]="post"></post-card-component>
     </ng-container>
   `,
   styleUrls: ["../home-page-post.style.css"],

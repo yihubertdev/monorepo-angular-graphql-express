@@ -81,9 +81,6 @@ import { postList } from "src/app/core/static/post.static";
               </div>
             </div>
             <div class="row">
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12 mb-2">
-                <chat-topic-post-controller></chat-topic-post-controller>
-              </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <a
                   mat-button
@@ -101,6 +98,15 @@ import { postList } from "src/app/core/static/post.static";
                   Article
                 </a>
                 <home-page-article-controller></home-page-article-controller>
+              </div>
+              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                <a
+                  mat-button
+                  routerLink="posts"
+                  style="font-size: 25px">
+                  Announce
+                </a>
+                <chat-topic-post-controller></chat-topic-post-controller>
               </div>
             </div>
           </div>
