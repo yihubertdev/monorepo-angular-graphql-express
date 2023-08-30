@@ -18,7 +18,9 @@ import { v4 as uuidv4 } from "uuid";
       <mat-list-item role="listitem">
         <document-upload-list-component
           [documentPercent$]="task.uploadPercent"
-          [documentName]="task.task"></document-upload-list-component>
+          [documentName]="task.file.name"
+          [storageRef]="task.storageRef"
+          (urlEmitter)="saveImage($event)"></document-upload-list-component>
       </mat-list-item>
     </mat-list>
   </section>`,
@@ -31,10 +33,11 @@ export class DocumentUploaderComponent {
 
   public uploadPercentage: number = 0;
   public tasks?: IUploadMultipleFileRes[];
+  public urls: string[] = [];
 
   constructor(private formFileStorage: FormFileStorageService) {}
 
-  async uploadImage(eventTarget: EventTarget | null): Promise<void> {
+  uploadImage(eventTarget: EventTarget | null): void {
     // Transform eventTarget to HTMLInputElement
     const element = eventTarget as HTMLInputElement | null;
 
@@ -74,5 +77,9 @@ export class DocumentUploaderComponent {
     // if (fileUrl) {
     //   this.documentUpload.emit(fileUrl);
     // }
+  }
+
+  saveImage(url: any) {
+    this.urls.push(url);
   }
 }

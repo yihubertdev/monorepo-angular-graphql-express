@@ -18,7 +18,8 @@ export interface IUploadFile {
 }
 
 export interface IUploadMultipleFileRes {
-  task: UploadTask;
+  file: File;
+  storageRef: StorageReference;
   uploadPercent: Observable<{
     progress: number;
     snapshot: UploadTaskSnapshot;
@@ -141,28 +142,43 @@ export abstract class FireStorageBaseModel {
       const extension = uploadFile.file.name.split(".").pop();
 
       // Create fire storage ref
-      this.storageRef = ref(
+      const storageRef = ref(
         this.storage,
         path + "/" + category + "-" + uploadFile.id + "." + extension
       );
 
-      const task = uploadBytesResumable(this.storageRef, uploadFile.file);
+      const task = uploadBytesResumable(storageRef, uploadFile.file);
 
       return {
-        task,
+        storageRef: storageRef,
+        file: uploadFile.file,
         uploadPercent: percentage(task),
-      } as IUploadMultipleFileRes;
+      };
     });
+  };
+
+  /**
+   * Get Multiple File Download URl
+   *
+   * @public
+   * @param {StorageReference[]} storageRefs upload file
+   * @returns {string[]} return upload task
+   */
+  public getMultipleURL = (storageRefs: StorageReference): Promise<string> => {
+    return getDownloadURL(storageRefs);
   };
 
   /**
    * Get Download URl
    *
    * @public
+   * @param {StorageReference} storageRef upload file
+   * @returns {string[]} return upload task
    */
-  public getDownloadURL = async (): Promise<string | null> => {
-    if (!this.storageRef) return null;
-    return await getDownloadURL(this.storageRef);
+  public getDownloadURL = (
+    storageRef: StorageReference | undefined = this.storageRef
+  ): Promise<string> | null => {
+    return storageRef ? getDownloadURL(storageRef) : null;
   };
 
   /**

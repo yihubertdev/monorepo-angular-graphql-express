@@ -26,7 +26,7 @@ import { IPost } from "types";
       <mat-card-content>
         <p
           class="text-overflow-card"
-          [ngStyle]="{ '-webkit-line-clamp': isShowMore ? 'none' : '4' }"
+          [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
           [innerHTML]="postCardInfo?.content"></p>
         <p
           class="clickable-pointer"

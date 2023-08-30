@@ -10,7 +10,8 @@
   width: 100px;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
+  /* number of lines to show */
+  -webkit-line-clamp: 4;
   white-space: pre-wrap;
   -webkit-box-orient: vertical;
 }
