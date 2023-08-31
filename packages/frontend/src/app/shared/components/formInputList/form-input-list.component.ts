@@ -134,7 +134,6 @@ export class FormInputListComponent implements OnInit {
   }
 
   saveFile = (filesUrl: string[], formControlName: string) => {
-    console.log(filesUrl);
     // Assign the document uploaded url into form
     this.newForm.controls[formControlName].setValue(filesUrl);
   };
@@ -149,8 +148,6 @@ export class FormInputListComponent implements OnInit {
       this.EditorComponent.exportEditorContent();
       this.newForm.value.quillEditor = this.editorContent;
     }
-
-    console.log(this.newForm.value);
 
     this.formValue.emit(this.newForm.value);
   };

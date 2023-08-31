@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
-import { IBlog } from "src/app/core/models/blog.type";
 import {
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
@@ -15,6 +14,7 @@ import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
 import { postEditFormList } from "src/app/core/static/post.static";
+import { IPost } from "types";
 
 @Component({
   selector: "edit-blog-controller",
@@ -41,7 +41,7 @@ export class EditPostController implements OnInit {
     const i = 1;
   }
 
-  async save(formValue: Record<string, number | string>) {
+  async save(formValue: Record<string, number | string | string[]>) {
     // Get current login user
     const currentUser = this.authService.get();
     if (!currentUser) {
@@ -54,14 +54,13 @@ export class EditPostController implements OnInit {
       return;
     }
     const { uid, displayName, photoURL } = currentUser;
-
     this.loading = true;
     const newBlog = {
       ...formValue,
       userId: uid,
       displayName,
       photoURL,
-    } as unknown as IBlog;
+    } as unknown as IPost;
 
     try {
       await this._postService.create(newBlog);

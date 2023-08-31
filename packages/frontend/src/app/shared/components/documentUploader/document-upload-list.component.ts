@@ -1,9 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import {
-  StorageReference,
-  UploadTask,
-  UploadTaskSnapshot,
-} from "@angular/fire/storage";
+import { StorageReference, UploadTaskSnapshot } from "@angular/fire/storage";
 import { Observable } from "rxjs/internal/Observable";
 import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
 

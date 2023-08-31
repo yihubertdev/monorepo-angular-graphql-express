@@ -35,6 +35,7 @@ export class DocumentUploaderComponent {
   public tasks?: IUploadMultipleFileRes[];
   public urls: string[] = [];
 
+  private fileCount: number = 0;
   constructor(private formFileStorage: FormFileStorageService) {}
 
   uploadImage(eventTarget: EventTarget | null): void {
@@ -51,6 +52,7 @@ export class DocumentUploaderComponent {
     )
       return;
 
+    this.fileCount = fileList.length;
     this.tasks = this.formFileStorage.uploadMultiple(
       Array.from(fileList).map((file) => ({
         id: uuidv4(),
@@ -61,25 +63,13 @@ export class DocumentUploaderComponent {
     );
 
     return;
-    // const uploadTask = this.formFileStorage.uploadWithPath(
-    //   file[0],
-    //   uuidv4(),
-    //   this.documentPath,
-    //   this.documentCategory
-    // );
-
-    // this.formFileStorage.uploadPercent$?.subscribe((data) => {
-    //   this.uploadPercentage = data.progress;
-    // });
-
-    // await uploadTask;
-    // const fileUrl = await this.formFileStorage.getDownloadURL();
-    // if (fileUrl) {
-    //   this.documentUpload.emit(fileUrl);
-    // }
   }
 
   saveImage(url: any) {
     this.urls.push(url);
+
+    if (this.urls.length == this.fileCount) {
+      this.documentUpload.emit(this.urls);
+    }
   }
 }

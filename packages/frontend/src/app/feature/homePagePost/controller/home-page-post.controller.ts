@@ -19,10 +19,5 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.posts = await this._PostService.listPagination(5);
-    console.log(this.posts);
-  }
-
-  public showMore() {
-    console.log("show more");
   }
 }

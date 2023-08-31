@@ -155,6 +155,23 @@ export abstract class FireStorageBaseModel {
         uploadPercent: percentage(task),
       };
     });
+
+    // const uploadTask = this.formFileStorage.uploadWithPath(
+    //   file[0],
+    //   uuidv4(),
+    //   this.documentPath,
+    //   this.documentCategory
+    // );
+
+    // this.formFileStorage.uploadPercent$?.subscribe((data) => {
+    //   this.uploadPercentage = data.progress;
+    // });
+
+    // await uploadTask;
+    // const fileUrl = await this.formFileStorage.getDownloadURL();
+    // if (fileUrl) {
+    //   this.documentUpload.emit(fileUrl);
+    // }
   };
 
   /**

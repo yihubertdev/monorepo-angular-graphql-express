@@ -4,6 +4,7 @@ import { PostCardComponent } from "./post-card.component";
 import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
 import { StringTransformPipeModule } from "ui";
+import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
 
 @NgModule({
   declarations: [PostCardComponent],
@@ -12,6 +13,7 @@ import { StringTransformPipeModule } from "ui";
     MatCardModule,
     MatIconModule,
     StringTransformPipeModule,
+    CarouselSliderModule,
   ],
   exports: [PostCardComponent],
 })

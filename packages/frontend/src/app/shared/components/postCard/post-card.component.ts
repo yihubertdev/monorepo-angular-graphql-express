@@ -1,4 +1,10 @@
-import { Component, Input } from "@angular/core";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from "@angular/core";
 import { IPost } from "types";
 
 @Component({
@@ -13,7 +19,9 @@ import { IPost } from "types";
               'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
             backgroundSize: 'cover'
           }"></div>
-        <mat-card-title>{{ postCardInfo?.displayName }}</mat-card-title>
+        <mat-card-title>{{
+          postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
+        }}</mat-card-title>
         <mat-card-subtitle>{{
           postCardInfo?.createdAt | date : "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
@@ -21,14 +29,21 @@ import { IPost } from "types";
 
       <img
         mat-card-image
-        *ngIf="postCardInfo?.image"
+        *ngIf="postCardInfo?.image?.length == 1"
         [src]="postCardInfo?.image" />
+
+      <carousel-slider-component
+        *ngIf="postCardInfo?.image && postCardInfo?.image?.length != 1"
+        [images]="postCardInfo?.image ?? []"></carousel-slider-component>
+
       <mat-card-content>
         <p
+          #content
           class="text-overflow-card"
           [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
           [innerHTML]="postCardInfo?.content"></p>
         <p
+          *ngIf="content.scrollHeight > 80"
           class="clickable-pointer"
           (click)="isShowMore = !isShowMore"
           style="text-align: right;">
@@ -39,8 +54,12 @@ import { IPost } from "types";
   `,
   styleUrls: ["./post-card.component.css"],
 })
-export class PostCardComponent {
+export class PostCardComponent implements AfterViewInit {
   @Input() postCardInfo?: IPost;
+  @ViewChild("content", { static: true }) input?: ElementRef;
 
   public isShowMore: boolean = false;
+  ngAfterViewInit(): void {
+    console.log(this.input);
+  }
 }
