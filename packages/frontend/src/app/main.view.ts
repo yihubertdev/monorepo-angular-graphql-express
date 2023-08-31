@@ -62,6 +62,7 @@ import {
           aria-label="linkedln"></mat-icon>
       </button>
     </mat-toolbar>
+
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
@@ -79,6 +80,7 @@ import {
         style="width: 12vw">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
+
       <mat-drawer-content style="overflow: initial !important;">
         <div style="width: 100%; height: 100%">
           <!-- desktop: top tool bar 10vh, main content 90vh, no footer. mobile: no top toolbar, main content 90vh, footer 10vh -->

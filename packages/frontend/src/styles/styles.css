@@ -8,6 +8,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.full-height-container {
+  display: block;
+  height: 100dvh;
+}
+
 .mat-chip-list-wrapper {
   flex-wrap: nowrap !important;
   width: 100vw;
