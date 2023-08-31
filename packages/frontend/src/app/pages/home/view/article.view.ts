@@ -135,6 +135,5 @@ export class ArticleViewComponent implements OnInit {
     this.articleContent = content;
     this.articleTitle = title;
     this.articleUserId = userId;
-    console.log(userId);
   }
 }
