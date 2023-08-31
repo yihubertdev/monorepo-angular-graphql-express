@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { UserProfileControllerComponent } from "./controller/user-profile.controller";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { StringTransformPipeModule } from "ui";
+import { StringTransformPipeModule } from "angular-shared-ui";
 
 @NgModule({
   declarations: [UserProfileControllerComponent],

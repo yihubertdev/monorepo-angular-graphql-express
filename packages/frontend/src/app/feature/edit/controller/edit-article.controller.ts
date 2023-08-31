@@ -15,7 +15,7 @@ import { IFormInput } from "src/app/core/models/view.types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { editArticleFormList } from "src/app/core/static/post.static";
-import { IArticle } from "types";
+import { IArticle } from "blog";
 
 @Component({
   selector: "edit-article-controller",

@@ -1,15 +1,10 @@
 import { Injectable, NgZone } from "@angular/core";
-import {
-  Router,
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-} from "@angular/router";
+import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
 import { takeWhile } from "rxjs";
 import { AuthService } from "../fireAuth/auth";
 
 @Injectable()
-export class LoginGuardService implements CanActivate {
+export class LoginGuardService  {
   constructor(
     private _router: Router,
     private authService: AuthService,

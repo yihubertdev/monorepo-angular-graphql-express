@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from "@angular/core";
-import { IPost } from "types";
+import { IPost } from "blog";
 
 @Component({
   selector: "post-card-component",
