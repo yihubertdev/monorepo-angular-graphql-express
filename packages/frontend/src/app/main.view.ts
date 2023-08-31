@@ -19,6 +19,7 @@ import {
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
+        *ngIf="isDisplay"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -64,6 +65,7 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
+        *ngIf="isDisplay"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -77,7 +79,7 @@ import {
         style="width: 12vw">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
-      <mat-drawer-content>
+      <mat-drawer-content style="overflow: initial !important;">
         <div style="width: 100%; height: 100%">
           <!-- desktop: top tool bar 10vh, main content 90vh, no footer. mobile: no top toolbar, main content 90vh, footer 10vh -->
           <mat-grid-list
@@ -188,12 +190,10 @@ export class MainViewComponent implements OnInit {
       )
       .subscribe({
         next: (user) => {
-          if (!user || isEmpty(user.id)) {
-            this.isDisplay = true;
-            return;
-          }
+          if (!user || isEmpty(user.id)) return;
 
-          this.isDisplay = !this.authService.isVisitor(user.role);
+          this.isDisplay = false;
+          // this.isDisplay = !this.authService.isVisitor(user.role);
         },
       });
   }
