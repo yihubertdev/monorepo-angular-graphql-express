@@ -38,7 +38,7 @@ export class DocumentUploaderComponent {
   private fileCount: number = 0;
   constructor(private formFileStorage: FormFileStorageService) {}
 
-  uploadImage(eventTarget: EventTarget | null): void {
+  public uploadImage(eventTarget: EventTarget | null): void {
     // Transform eventTarget to HTMLInputElement
     const element = eventTarget as HTMLInputElement | null;
 
@@ -65,7 +65,7 @@ export class DocumentUploaderComponent {
     return;
   }
 
-  saveImage(url: any) {
+  public saveImage(url: any): void {
     this.urls.push(url);
 
     if (this.urls.length == this.fileCount) {

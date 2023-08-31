@@ -3,14 +3,20 @@ import { AfterViewInit, Component, Input } from "@angular/core";
   selector: "carousel-slider-component",
   template: ` <div
       class="slide-show-container"
+      [ngStyle]="{
+        height: height + 'dvh'
+      }"
       *ngIf="images?.length !== 0">
       <div
-        class="slide fade slide-image-container"
+        class="slide fade"
         *ngFor="let image of images; let i = index"
         [ngStyle]="{
           'background-image': 'url(' + image + ')',
           display: i == slideIndex ? 'block' : 'none'
-        }"></div>
+        }"
+        [ngClass]="
+          isCover ? 'slide-image-container' : 'slide-image-center'
+        "></div>
 
       <a
         class="prev hide-slide"
@@ -44,5 +50,7 @@ import { AfterViewInit, Component, Input } from "@angular/core";
 })
 export class CarouselSliderComponent {
   @Input() images: string[] = [];
+  @Input() height?: number;
+  @Input() isCover: boolean = true;
   public slideIndex: number = 0;
 }

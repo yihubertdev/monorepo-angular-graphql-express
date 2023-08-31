@@ -34,7 +34,9 @@ import { IPost } from "types";
 
       <carousel-slider-component
         *ngIf="postCardInfo?.image && postCardInfo?.image?.length != 1"
-        [images]="postCardInfo?.image ?? []"></carousel-slider-component>
+        [images]="postCardInfo?.image ?? []"
+        [height]="20"
+        [isCover]="false"></carousel-slider-component>
 
       <mat-card-content>
         <p
@@ -59,7 +61,5 @@ export class PostCardComponent implements AfterViewInit {
   @ViewChild("content", { static: true }) input?: ElementRef;
 
   public isShowMore: boolean = false;
-  ngAfterViewInit(): void {
-    console.log(this.input);
-  }
+  ngAfterViewInit(): void {}
 }
