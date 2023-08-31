@@ -14,9 +14,13 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
-export class ArticlePostControllerComponent {
+export class ArticlePostControllerComponent implements OnInit {
   @Input() articleContent: string = "";
   @Input() articleTitle: string = "";
 
   constructor() {}
+
+  ngOnInit(): void {
+    console.log(this.articleContent);
+  }
 }

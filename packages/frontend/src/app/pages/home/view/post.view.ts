@@ -16,7 +16,7 @@ import { postList } from "src/app/core/static/post.static";
       <div class="row mb-3 mx-2 justify-content-center">
         <!-- container responsive-container-overflow max-width-container container-overflow-vertical -->
         <div
-          class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-sm-12 responsive-container-overflow container-overflow-vertical">
+          class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 responsive-container-overflow container-overflow-vertical">
           <home-page-post-controller></home-page-post-controller>
         </div>
       </div>

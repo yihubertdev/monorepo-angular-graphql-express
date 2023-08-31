@@ -52,10 +52,14 @@ export class EditArticleController {
       });
       return;
     }
+    const { title, subTitle, description, quillEditor } = formValue;
 
     this.loading = false;
     const newArticle = {
-      ...formValue,
+      title,
+      subTitle,
+      description,
+      content: quillEditor,
       userId: currentUser.uid,
     } as IArticle;
 
