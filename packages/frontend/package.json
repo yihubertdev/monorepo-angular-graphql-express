@@ -9,6 +9,7 @@
     "test": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "format": "prettier --write .",
+    "deploy-select-region": "firebase use",
     "deploy-role": "firebase deploy --only firestore:rules"
   },
   "private": true,
