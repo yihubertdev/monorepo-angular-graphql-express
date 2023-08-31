@@ -47,7 +47,7 @@
 @media (min-width: 768px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90dvh;
+    height: 93dvh;
   }
 }
 
@@ -55,7 +55,7 @@
 @media (min-width: 992px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90dvh;
+    height: 93dvh;
   }
 }
 
@@ -63,7 +63,7 @@
 @media (min-width: 1200px) {
   .responsive-main-container {
     width: 100vw;
-    height: 90dvh;
+    height: 93dvh;
   }
 }
 
