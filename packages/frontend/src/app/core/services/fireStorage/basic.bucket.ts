@@ -9,7 +9,22 @@ import {
   UploadTaskSnapshot,
   StorageReference,
   deleteObject,
+  UploadTask,
 } from "@angular/fire/storage";
+
+export interface IUploadFile {
+  id: string;
+  file: File;
+}
+
+export interface IUploadMultipleFileRes {
+  file: File;
+  storageRef: StorageReference;
+  uploadPercent: Observable<{
+    progress: number;
+    snapshot: UploadTaskSnapshot;
+  }>;
+}
 
 @Injectable()
 export abstract class FireStorageBaseModel {
@@ -109,13 +124,78 @@ export abstract class FireStorageBaseModel {
   };
 
   /**
+   * Upload multiple file with storageRef
+   *
+   * @public
+   * @param {IUploadFile[]} uploadFiles upload file
+   * @param {string} path upload file path
+   * @param {string} category upload file category
+   * @returns {IUploadMultipleFileRes} return upload task
+   */
+  public uploadMultiple = (
+    uploadFiles: IUploadFile[],
+    path: string = this.path,
+    category: string = this.category
+  ): IUploadMultipleFileRes[] => {
+    return uploadFiles.map((uploadFile) => {
+      // Upload file extension
+      const extension = uploadFile.file.name.split(".").pop();
+
+      // Create fire storage ref
+      const storageRef = ref(
+        this.storage,
+        path + "/" + category + "-" + uploadFile.id + "." + extension
+      );
+
+      const task = uploadBytesResumable(storageRef, uploadFile.file);
+
+      return {
+        storageRef: storageRef,
+        file: uploadFile.file,
+        uploadPercent: percentage(task),
+      };
+    });
+
+    // const uploadTask = this.formFileStorage.uploadWithPath(
+    //   file[0],
+    //   uuidv4(),
+    //   this.documentPath,
+    //   this.documentCategory
+    // );
+
+    // this.formFileStorage.uploadPercent$?.subscribe((data) => {
+    //   this.uploadPercentage = data.progress;
+    // });
+
+    // await uploadTask;
+    // const fileUrl = await this.formFileStorage.getDownloadURL();
+    // if (fileUrl) {
+    //   this.documentUpload.emit(fileUrl);
+    // }
+  };
+
+  /**
+   * Get Multiple File Download URl
+   *
+   * @public
+   * @param {StorageReference[]} storageRefs upload file
+   * @returns {string[]} return upload task
+   */
+  public getMultipleURL = (storageRefs: StorageReference): Promise<string> => {
+    return getDownloadURL(storageRefs);
+  };
+
+  /**
    * Get Download URl
    *
    * @public
+   * @param {StorageReference} storageRef upload file
+   * @returns {string[]} return upload task
    */
-  public getDownloadURL = async (): Promise<string | null> => {
-    if (!this.storageRef) return null;
-    return await getDownloadURL(this.storageRef);
+  public getDownloadURL = (
+    storageRef: StorageReference | undefined = this.storageRef
+  ): Promise<string> | null => {
+    return storageRef ? getDownloadURL(storageRef) : null;
   };
 
   /**

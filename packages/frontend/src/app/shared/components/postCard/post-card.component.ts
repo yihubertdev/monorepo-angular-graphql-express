@@ -1,79 +1,65 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { FormBuilder } from "@angular/forms";
-import { joiValidator } from "src/app/core/utils/validator";
-import { IFormInput } from "src/app/core/models/view.types";
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from "@angular/core";
+import { IPost } from "types";
 
 @Component({
-  selector: "form-input-list-component",
+  selector: "post-card-component",
   template: `
-    <form
-      class="example-form"
-      [formGroup]="newForm">
-      <mat-form-field
-        class="input-full-width"
-        appearance="fill"
-        *ngFor="let input of formInputList">
-        <mat-label>{{ input.label }}</mat-label>
-        <ng-container *ngIf="input.type !== 'select' || 'textarea'">
-          <input
-            [type]="input.type"
-            matInput
-            [formControlName]="input.formControlName" />
-          <mat-error *ngIf="getError(input.formControlName) as error">
-            {{ error }}
-          </mat-error>
-        </ng-container>
-      </mat-form-field>
+    <mat-card class="mb-2">
+      <mat-card-header>
+        <div
+          mat-card-avatar
+          [ngStyle]="{
+            backgroundImage:
+              'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
+            backgroundSize: 'cover'
+          }"></div>
+        <mat-card-title>{{
+          postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
+        }}</mat-card-title>
+        <mat-card-subtitle>{{
+          postCardInfo?.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+        }}</mat-card-subtitle>
+      </mat-card-header>
 
-      <button
-        type="submit"
-        mat-raised-button
-        color="primary"
-        style="width: 100vw;"
-        (click)="save()">
-        {{ buttonName }}
-      </button>
-    </form>
+      <img
+        mat-card-image
+        *ngIf="postCardInfo?.image?.length == 1"
+        [src]="postCardInfo?.image" />
+
+      <carousel-slider-component
+        *ngIf="postCardInfo?.image && postCardInfo?.image?.length != 1"
+        [images]="postCardInfo?.image ?? []"
+        [height]="20"
+        [isCover]="false"></carousel-slider-component>
+
+      <mat-card-content>
+        <p
+          #content
+          class="text-overflow-card"
+          [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
+          [innerHTML]="postCardInfo?.content"></p>
+        <p
+          *ngIf="content.scrollHeight > 80"
+          class="clickable-pointer"
+          (click)="isShowMore = !isShowMore"
+          style="text-align: right;">
+          {{ isShowMore ? "Show Less" : "Show More" }}
+        </p></mat-card-content
+      >
+    </mat-card>
   `,
   styleUrls: ["./post-card.component.css"],
 })
-export class FormInputListComponent implements OnInit {
-  @Input() formInputList: IFormInput[] = [];
-  @Input() errorLocation: string = "";
-  @Input() validatorSchema: any = {};
-  @Input() buttonName: string = "";
-  @Output() formValue = new EventEmitter<Record<string, number | string>>();
-  newForm: FormGroup;
-  defaultFormGroupValue: Record<string, number | string> = {};
+export class PostCardComponent implements AfterViewInit {
+  @Input() postCardInfo?: IPost;
+  @ViewChild("content", { static: true }) input?: ElementRef;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.newForm = formBuilder.group({});
-  }
-
-  ngOnInit(): void {
-    // Generate default form group value
-    this.formInputList.map((form) => {
-      this.defaultFormGroupValue[form.key] = form.value;
-    });
-
-    // Create the form
-    this.newForm = this.formBuilder.group(this.defaultFormGroupValue, {
-      validators: joiValidator(this.errorLocation, this.validatorSchema),
-    });
-  }
-
-  save = () => {
-    this.formValue.emit(this.newForm.value);
-  };
-
-  getError(formControlName: string): string {
-    const formControl = this.newForm.get(formControlName);
-
-    if (formControl?.errors) {
-      return formControl.errors[formControlName];
-    }
-
-    return "";
-  }
+  public isShowMore: boolean = false;
+  ngAfterViewInit(): void {}
 }

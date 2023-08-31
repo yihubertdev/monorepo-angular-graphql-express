@@ -1,6 +1,21 @@
 .input-full-width {
   width: 100%;
 }
+
 .example-form {
   width: 100%;
+}
+
+.text-overflow-card {
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* number of lines to show */
+  -webkit-line-clamp: 4;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+}
+
+.clickable-pointer:hover {
+  cursor: pointer;
 }

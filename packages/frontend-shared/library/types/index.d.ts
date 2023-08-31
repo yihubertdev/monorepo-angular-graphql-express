@@ -12,7 +12,7 @@ export interface IArticle {
 export interface IPost {
   id?: string;
   userId: string;
-  image?: string;
+  image?: string[];
   content: string;
   displayName?: string;
   photoURL?: string;

@@ -1,9 +1,9 @@
 import * as Joi from "joi";
-import { IBlog } from "../models/blog.type";
 import { JoiSchemaBuilder } from "../utils/validator";
+import { IArticle } from "types";
 // Make sure schema object key match to the form list key
-export const articleEditSchema: JoiSchemaBuilder<IBlog> = (
-  data: IBlog,
+export const articleEditSchema: JoiSchemaBuilder<IArticle> = (
+  data: IArticle,
   errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
