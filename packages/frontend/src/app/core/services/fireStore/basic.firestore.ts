@@ -9,7 +9,7 @@ import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
-import { ICollectionQueryBuilder } from "types";
+import { ICollectionQueryBuilder } from "blog";
 import joiValidator from "../../utils/validator";
 import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 

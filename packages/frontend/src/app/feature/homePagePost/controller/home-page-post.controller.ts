@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { IPost } from "types";
+import { IPost } from "blog";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({

@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 import { JoiSchemaBuilder } from "../utils/validator";
-import { IArticle } from "types";
+import { IArticle } from "blog";
 // Make sure schema object key match to the form list key
 export const articleEditSchema: JoiSchemaBuilder<IArticle> = (
   data: IArticle,

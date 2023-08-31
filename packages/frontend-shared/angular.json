@@ -7,7 +7,7 @@
     "schematicCollections": ["@angular-eslint/schematics"]
   },
   "projects": {
-    "ui": {
+    "angular-shared-ui": {
       "projectType": "library",
       "root": "library/ui",
       "sourceRoot": "library/ui/src",

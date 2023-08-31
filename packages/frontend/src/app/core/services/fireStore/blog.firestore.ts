@@ -5,7 +5,7 @@ import {
 } from "@angular/fire/compat/firestore";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { FireStoreBaseModel } from "./basic.firestore";
-import { IArticle, IPost } from "types";
+import { IArticle, IPost } from "blog";
 @Injectable()
 export class PostFireStore extends FireStoreBaseModel<IPost> {
   /**
