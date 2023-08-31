@@ -192,9 +192,10 @@ export class MainViewComponent implements OnInit {
       )
       .subscribe({
         next: (user) => {
+          console.log(user);
           if (!user || isEmpty(user.id)) return;
 
-          this.isDisplay = false;
+          this.isDisplay = true;
           // this.isDisplay = !this.authService.isVisitor(user.role);
         },
       });

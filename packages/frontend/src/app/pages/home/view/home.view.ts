@@ -77,16 +77,22 @@ import { postList } from "src/app/core/static/post.static";
             </div>
             <div class="row mb-4">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xs-12">
                 <a
                   mat-button
                   routerLink="posts"
                   style="font-size: 25px">
-                  Post
+                  User Star
+                </a>
+                <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <a
+                  mat-button
+                  routerLink="posts"
+                  style="font-size: 25px">
+                  Fantastic Story Teller
                 </a>
                 <home-page-post-controller></home-page-post-controller>
               </div>
@@ -95,16 +101,29 @@ import { postList } from "src/app/core/static/post.static";
                   mat-button
                   routerLink="posts"
                   style="font-size: 25px">
-                  Article
+                  Professional Article
                 </a>
                 <home-page-article-controller></home-page-article-controller>
               </div>
-              <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-xs-12">
+            </div>
+            <div class="row mb-4">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a
                   mat-button
                   routerLink="posts"
                   style="font-size: 25px">
-                  Announce
+                  Podcast & LiveStream
+                </a>
+                <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a
+                  mat-button
+                  routerLink="posts"
+                  style="font-size: 25px">
+                  Announcement
                 </a>
                 <chat-topic-post-controller></chat-topic-post-controller>
               </div>
