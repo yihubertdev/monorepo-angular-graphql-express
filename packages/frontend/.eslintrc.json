@@ -57,7 +57,11 @@
         ],
         "@angular-eslint/component-selector": [
           "error",
-          { "type": "element", "prefix": [], "style": "kebab-case" }
+          {
+            "type": "element",
+            "prefix": [],
+            "style": "kebab-case"
+          }
         ],
         "jsdoc/require-jsdoc": [
           "error",
@@ -99,7 +103,6 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
-        // NOTE: WE ARE OVERRIDING THE DEFAULT CONFIG TO ALWAYS SET THE PARSER TO ANGULAR (SEE BELOW)
         "prettier/prettier": [
           "error",
           {
