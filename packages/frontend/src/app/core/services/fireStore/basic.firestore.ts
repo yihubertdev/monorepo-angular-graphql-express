@@ -149,31 +149,21 @@ export abstract class FireStoreBaseModel<T> {
     limit: number = 10,
     reload: boolean = false
   ): Promise<{ data: T[]; hasFile: boolean }> => {
-    console.log("trigger");
-    if (!reload) {
-      this.lastQueryDocumentSnapshot = undefined;
-    }
     let data: T[] = [];
 
     let querySnapShot = this.collection.ref
       .orderBy("createdAt", "desc")
       .limit(limit);
-    let querySnapshot: QuerySnapshot<T>;
 
     if (this.lastQueryDocumentSnapshot && reload) {
-      querySnapshot = (await querySnapShot
-        .startAfter(this.lastQueryDocumentSnapshot)
-        .get()) as QuerySnapshot<T>;
+      querySnapShot = querySnapShot.startAfter(this.lastQueryDocumentSnapshot);
       this.lastQueryDocumentSnapshot = undefined;
-    } else {
-      querySnapshot = (await querySnapShot.get()) as QuerySnapshot<T>;
     }
 
-    data = querySnapshot.docs.map((doc, index) => {
+    const result = await querySnapShot.get();
+    data = result.docs.map((doc, index) => {
       if (index === limit - 1 && reload) {
-        this.lastQueryDocumentSnapshot = querySnapshot.docs[
-          index
-        ] as QueryDocumentSnapshot<T>;
+        this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
       }
       return doc.data();
     });
