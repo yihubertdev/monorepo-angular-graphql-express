@@ -9,7 +9,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   template: `
     <mat-card
       class="mb-2"
-      *ngFor="let article of articles"
+      *ngFor="let article of articles?.data"
       (click)="navigate(article.id)">
       <mat-card-header>
         <mat-card-title-group>
@@ -30,7 +30,10 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePageArticleController implements OnInit {
-  public articles?: IArticle[];
+  public articles?: {
+    data: IArticle[];
+    hasFile: boolean;
+  };
 
   constructor(
     private _router: Router,

@@ -192,7 +192,6 @@ export class MainViewComponent implements OnInit {
       )
       .subscribe({
         next: (user) => {
-          console.log(user);
           if (!user || isEmpty(user.id)) return;
 
           this.isDisplay = true;

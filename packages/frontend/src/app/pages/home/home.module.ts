@@ -15,9 +15,15 @@ import { UserProfileModule } from "src/app/feature/userProfile/user-profile.modu
 import { ArticleViewComponent } from "./view/article.view";
 import { PostViewComponent } from "./view/post.view";
 import { MatButtonModule } from "@angular/material/button";
+import { ArticlesViewComponent } from "./view/articles.view";
 
 @NgModule({
-  declarations: [HomeViewComponent, ArticleViewComponent, PostViewComponent],
+  declarations: [
+    HomeViewComponent,
+    ArticleViewComponent,
+    PostViewComponent,
+    ArticlesViewComponent,
+  ],
   imports: [
     CommonModule,
     PostRoutingModule,
@@ -33,6 +39,11 @@ import { MatButtonModule } from "@angular/material/button";
     UserProfileModule,
     MatButtonModule,
   ],
-  exports: [HomeViewComponent, ArticleViewComponent, PostViewComponent],
+  exports: [
+    HomeViewComponent,
+    ArticleViewComponent,
+    PostViewComponent,
+    ArticlesViewComponent,
+  ],
 })
 export class PostModule {}

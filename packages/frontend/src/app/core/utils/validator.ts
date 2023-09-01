@@ -9,9 +9,7 @@ export type JoiSchemaBuilder<T> = (
 
 class joiValidator {
   private options: ValidationOptions = { abortEarly: false };
-  constructor() {
-    console.log("validator trigger");
-  }
+
   public formGroup = (
     params: {
       schemaGenerator: JoiSchemaBuilder<any>;

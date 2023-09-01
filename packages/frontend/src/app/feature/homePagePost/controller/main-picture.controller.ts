@@ -28,10 +28,7 @@ export class HomePageMainPictureController implements OnInit {
 
   constructor(private _articleFireStore: ArticleFireStore) {}
 
-  async ngOnInit(): Promise<void> {
-    this.articles = await this._articleFireStore.listPagination(3);
-    console.log(this.articles);
-  }
+  async ngOnInit(): Promise<void> {}
 
   myFunction() {
     console.log(this.myVideo);

@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  AngularFirestoreDocument,
-  DocumentData,
+  QueryDocumentSnapshot,
+  QuerySnapshot,
 } from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
@@ -30,7 +30,7 @@ export abstract class FireStoreBaseModel<T> {
   protected collection: AngularFirestoreCollection<T>;
 
   //Save last document in query document snapshot received. Type set to any first, since firestore.QueryDocumentSnapshot<T> not exported in compat version
-  protected lastQueryDocumentSnapshot?: any;
+  protected lastQueryDocumentSnapshot?: QueryDocumentSnapshot<T>;
 
   constructor(protected firestore: AngularFirestore) {
     this.collection = this.firestore.collection(this.collectionName());
@@ -142,31 +142,45 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
+   * @param {boolean} reload = false
    * @returns {Promise<void>}
    */
-  public listPagination = async (limit: number = 10): Promise<T[]> => {
-    let data: T[] = [];
-    if (this.lastQueryDocumentSnapshot) {
-      const querySnapshotAfter = await this.collection.ref
-        .orderBy("createdAt", "desc")
-        .startAfter(this.lastQueryDocumentSnapshot)
-        .limit(limit)
-        .get();
-      data = querySnapshotAfter.docs.map((doc) => doc.data());
-      return data;
+  public listPagination = async (
+    limit: number = 10,
+    reload: boolean = false
+  ): Promise<{ data: T[]; hasFile: boolean }> => {
+    console.log("trigger");
+    if (!reload) {
+      this.lastQueryDocumentSnapshot = undefined;
     }
-    const querySnapshot = await this.collection.ref
+    let data: T[] = [];
+
+    let querySnapShot = this.collection.ref
       .orderBy("createdAt", "desc")
-      .limit(limit)
-      .get();
-    data = querySnapshot.docs.map((doc, index, array) => {
-      if (index === array.length) {
-        this.lastQueryDocumentSnapshot =
-          querySnapshot.docs[querySnapshot.docs.length - 1];
+      .limit(limit);
+    let querySnapshot: QuerySnapshot<T>;
+
+    if (this.lastQueryDocumentSnapshot && reload) {
+      querySnapshot = (await querySnapShot
+        .startAfter(this.lastQueryDocumentSnapshot)
+        .get()) as QuerySnapshot<T>;
+      this.lastQueryDocumentSnapshot = undefined;
+    } else {
+      querySnapshot = (await querySnapShot.get()) as QuerySnapshot<T>;
+    }
+
+    data = querySnapshot.docs.map((doc, index) => {
+      if (index === limit - 1 && reload) {
+        this.lastQueryDocumentSnapshot = querySnapshot.docs[
+          index
+        ] as QueryDocumentSnapshot<T>;
       }
       return doc.data();
     });
 
-    return data;
+    return {
+      data,
+      hasFile: this.lastQueryDocumentSnapshot ? true : false,
+    };
   };
 }

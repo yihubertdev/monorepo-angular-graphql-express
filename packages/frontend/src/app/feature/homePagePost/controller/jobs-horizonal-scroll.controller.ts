@@ -165,7 +165,5 @@ export class JobsHorizonalScrollController implements OnInit {
 
   constructor(private _articleFireStore: ArticleFireStore) {}
 
-  async ngOnInit(): Promise<void> {
-    this.articles = await this._articleFireStore.listPagination(3);
-  }
+  async ngOnInit(): Promise<void> {}
 }

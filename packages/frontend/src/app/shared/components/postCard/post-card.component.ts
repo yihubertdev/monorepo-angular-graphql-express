@@ -29,11 +29,11 @@ import { IPost } from "blog";
 
       <img
         mat-card-image
-        *ngIf="postCardInfo?.image?.length == 1"
+        *ngIf="postCardInfo?.image?.length === 1"
         [src]="postCardInfo?.image" />
 
       <carousel-slider-component
-        *ngIf="postCardInfo?.image && postCardInfo?.image?.length != 1"
+        *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
         [images]="postCardInfo?.image ?? []"
         [height]="20"
         [isCover]="false"></carousel-slider-component>
@@ -45,7 +45,7 @@ import { IPost } from "blog";
           [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
           [innerHTML]="postCardInfo?.content"></p>
         <p
-          *ngIf="content.scrollHeight > 80"
+          *ngIf="content.scrollHeight > 100"
           class="clickable-pointer"
           (click)="isShowMore = !isShowMore"
           style="text-align: right;">

@@ -68,7 +68,7 @@ import { postList } from "src/app/core/static/post.static";
             }
           }">
           <div
-            class="container responsive-container-overflow max-width-container container-overflow-vertical">
+            class="container responsive-height-container max-width-container container-overflow-vertical">
             <div class="row mb-2">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <carousel-slider-component
@@ -95,6 +95,13 @@ import { postList } from "src/app/core/static/post.static";
                   Fantastic Story Teller
                 </a>
                 <home-page-post-controller></home-page-post-controller>
+                <a
+                  mat-raised-button
+                  color="primary"
+                  routerLink="posts"
+                  style="width: 100%;">
+                  Go To Post
+                </a>
               </div>
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
                 <a
@@ -104,6 +111,13 @@ import { postList } from "src/app/core/static/post.static";
                   Professional Article
                 </a>
                 <home-page-article-controller></home-page-article-controller>
+                <a
+                  mat-raised-button
+                  color="primary"
+                  routerLink="articles"
+                  style="width: 100%;">
+                  Go To Article
+                </a>
               </div>
             </div>
             <div class="row mb-4">
@@ -130,8 +144,6 @@ import { postList } from "src/app/core/static/post.static";
             </div>
           </div>
         </mat-grid-tile>
-
-        <add-text-editor-controller></add-text-editor-controller>
       </mat-grid-list>
     </div>
   `,

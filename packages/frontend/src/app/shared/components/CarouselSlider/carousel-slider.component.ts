@@ -44,7 +44,7 @@ import { AfterViewInit, Component, Input } from "@angular/core";
         class="dot"
         *ngFor="let image of images; let i = index"
         (click)="slideIndex = i"
-        [ngClass]="i == slideIndex ? 'active' : ''"></span>
+        [ngClass]="i === slideIndex ? 'active' : ''"></span>
     </div>`,
   styleUrls: ["./carousel-slider.css"],
 })

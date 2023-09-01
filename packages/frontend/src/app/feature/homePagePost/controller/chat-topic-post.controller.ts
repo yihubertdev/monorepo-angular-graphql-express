@@ -48,11 +48,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   styleUrls: ["../home-page-post.style.css"],
 })
 export class ChatTopicPostController implements OnInit {
-  public articles?: IArticle[];
+  constructor() {}
 
-  constructor(private _articleFireStore: ArticleFireStore) {}
-
-  async ngOnInit(): Promise<void> {
-    this.articles = await this._articleFireStore.listPagination(3);
-  }
+  async ngOnInit(): Promise<void> {}
 }
