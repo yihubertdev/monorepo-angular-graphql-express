@@ -149,6 +149,9 @@ export abstract class FireStoreBaseModel<T> {
     limit: number = 10,
     reload: boolean = false
   ): Promise<{ data: T[]; hasFile: boolean }> => {
+    if (this.lastQueryDocumentSnapshot && !reload) {
+      this.lastQueryDocumentSnapshot = undefined;
+    }
     let data: T[] = [];
 
     let querySnapShot = this.collection.ref
