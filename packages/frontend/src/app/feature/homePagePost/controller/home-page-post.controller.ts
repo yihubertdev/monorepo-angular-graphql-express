@@ -28,7 +28,7 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    const post = await this._PostService.listPagination(5, this.reload);
+    const post = await this._PostService.listPagination(6, false);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }

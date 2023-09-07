@@ -54,10 +54,9 @@ export const postEditFormList: IFormInput[] = [
   {
     id: "content",
     type: InputType.TEXTAREA,
-    label: "Your content",
     key: "content",
     value: "",
-    placeholder: "Edit content",
+    placeholder: "content",
   },
   {
     id: "image",

@@ -149,7 +149,7 @@ export abstract class FireStoreBaseModel<T> {
     limit: number = 10,
     reload: boolean = false
   ): Promise<{ data: T[]; hasFile: boolean }> => {
-    if (this.lastQueryDocumentSnapshot && !reload) {
+    if (!reload) {
       this.lastQueryDocumentSnapshot = undefined;
     }
     let data: T[] = [];
@@ -165,7 +165,7 @@ export abstract class FireStoreBaseModel<T> {
 
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {
-      if (index === limit - 1 && reload) {
+      if (index === limit - 1) {
         this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
       }
       return doc.data();

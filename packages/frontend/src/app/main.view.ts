@@ -99,15 +99,15 @@ import {
                 },
                 md: {
                   colspan: 1,
-                  rowspan: 9
+                  rowspan: 10
                 },
                 lg: {
                   colspan: 1,
-                  rowspan: 9
+                  rowspan: 10
                 },
                 xl: {
                   colspan: 1,
-                  rowspan: 9
+                  rowspan: 10
                 }
               }">
               <ng-container *ngIf="(userAuthObserver$ | async) === null">

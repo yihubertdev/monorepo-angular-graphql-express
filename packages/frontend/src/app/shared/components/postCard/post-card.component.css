@@ -7,7 +7,7 @@
 }
 
 .text-overflow-card {
-  width: 100px;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   /* number of lines to show */

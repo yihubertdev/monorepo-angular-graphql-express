@@ -39,7 +39,7 @@ import { EditorComponent } from "../editor/editor.component";
         </ng-container>
 
         <ng-container *ngIf="input.type === 'textarea'">
-          <mat-label>{{ input.label }}</mat-label>
+          <mat-label *ngIf="input.label">{{ input.label }}</mat-label>
           <textarea
             matInput
             [placeholder]="input.placeholder ?? ''"

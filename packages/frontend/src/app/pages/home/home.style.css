@@ -41,34 +41,34 @@
 }
 
 .responsive-height-container {
-  height: 80dvh;
+  height: 90dvh;
 }
 
 /* sm width */
 @media (min-width: 576px) {
   .responsive-height-container {
-    height: 80dvh;
+    height: 90dvh;
   }
 }
 
 /* md width */
 @media (min-width: 768px) {
   .responsive-height-container {
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
 /* lg width */
 @media (min-width: 992px) {
   .responsive-height-container {
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
 /* xl width */
 @media (min-width: 1200px) {
   .responsive-height-container {
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
