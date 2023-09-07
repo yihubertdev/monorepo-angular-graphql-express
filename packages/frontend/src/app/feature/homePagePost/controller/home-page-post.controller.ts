@@ -27,7 +27,7 @@ export class HomePagePostController implements OnInit {
   constructor(private _PostService: PostFireStore) {}
 
   async ngOnInit(): Promise<void> {
-    const post = await this._PostService.listPagination(5, this.reload);
+    const post = await this._PostService.listPagination(6, false);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }

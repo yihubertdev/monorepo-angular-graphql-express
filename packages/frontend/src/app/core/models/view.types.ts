@@ -3,7 +3,7 @@ import { InputType } from "./constants";
 export interface IFormInput {
   id: string;
   type: InputType;
-  label: string;
+  label?: string;
   key: string;
   value: string;
   placeholder?: string;

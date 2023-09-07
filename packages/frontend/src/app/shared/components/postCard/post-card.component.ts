@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   ViewChild,
 } from "@angular/core";
 import { IPost } from "blog";
@@ -61,5 +62,6 @@ export class PostCardComponent implements AfterViewInit {
   @ViewChild("content", { static: true }) input?: ElementRef;
 
   public isShowMore: boolean = false;
+
   ngAfterViewInit(): void {}
 }
