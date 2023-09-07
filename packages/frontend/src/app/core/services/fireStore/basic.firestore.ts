@@ -157,22 +157,16 @@ export abstract class FireStoreBaseModel<T> {
     let querySnapShot = this.collection.ref
       .orderBy("createdAt", "desc")
       .limit(limit);
-    let querySnapshot: QuerySnapshot<T>;
 
     if (this.lastQueryDocumentSnapshot && reload) {
-      querySnapshot = (await querySnapShot
-        .startAfter(this.lastQueryDocumentSnapshot)
-        .get()) as QuerySnapshot<T>;
+      querySnapShot = querySnapShot.startAfter(this.lastQueryDocumentSnapshot);
       this.lastQueryDocumentSnapshot = undefined;
-    } else {
-      querySnapshot = (await querySnapShot.get()) as QuerySnapshot<T>;
     }
 
-    data = querySnapshot.docs.map((doc, index) => {
+    const result = await querySnapShot.get();
+    data = result.docs.map((doc, index) => {
       if (index === limit - 1) {
-        this.lastQueryDocumentSnapshot = querySnapshot.docs[
-          index
-        ] as QueryDocumentSnapshot<T>;
+        this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
       }
       return doc.data();
     });
