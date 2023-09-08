@@ -1,19 +1,13 @@
 import { Component } from "@angular/core";
-import { map, Observable } from "rxjs";
-import { isEmpty } from "lodash";
-import { IUser } from "src/app/core/models/users.type";
-import { IPostList } from "src/app/core/models/view.types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { postList } from "src/app/core/static/post.static";
 
 @Component({
   selector: "post-view",
   template: `
-    <!-- <ng-container>
-      <mat-spinner></mat-spinner>
-    </ng-container> -->
     <!-- router container 90dvh -->
-    <div class="responsive-post-section">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <div
+      class="responsive-post-section"
+      [ngStyle]="{ display: isLoading ? 'none' : 'block' }">
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <div
         class="container responsive-height-container max-width-container container-overflow-vertical">
@@ -42,7 +36,8 @@ import { postList } from "src/app/core/static/post.static";
               style="font-size: 25px">
               Fantastic Story Teller
             </a>
-            <home-page-post-controller></home-page-post-controller>
+            <home-page-post-controller
+              (isLoading)="isLoading = $event"></home-page-post-controller>
             <a
               mat-raised-button
               color="primary"
@@ -96,41 +91,9 @@ import { postList } from "src/app/core/static/post.static";
   styleUrls: ["../home.style.css"],
 })
 export class HomeViewComponent {
-  postList: IPostList[];
   images = [
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
     "https://material.angular.io/assets/img/examples/shiba2.jpg",
   ];
-  public isDisplay: boolean = false;
-  private userAuthObserver$?: Observable<IUser | null>;
-
-  constructor(private authService: AuthService) {
-    this.postList = postList;
-  }
-
-  ngOnInit() {
-    this.userAuthObserver$ = this.authService.userAuthObserver$;
-    this.userAuthObserver$
-      .pipe(
-        map((user) => {
-          if (!user) {
-            return;
-          }
-          return {
-            id: user.id,
-            role: user.role,
-          };
-        })
-      )
-      .subscribe({
-        next: (user) => {
-          if (!user || isEmpty(user.id)) {
-            this.isDisplay = false;
-            return;
-          }
-
-          this.isDisplay = !this.authService.isVisitor(user.role);
-        },
-      });
-  }
+  public isLoading: boolean = true;
 }

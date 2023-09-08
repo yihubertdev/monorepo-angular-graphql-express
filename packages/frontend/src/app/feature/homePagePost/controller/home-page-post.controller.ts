@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IPost } from "blog";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
@@ -22,6 +22,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 })
 export class HomePagePostController implements OnInit {
   @Input() isPagination: boolean = false;
+  @Output() isLoading = new EventEmitter<boolean>();
 
   public data: IPost[] = [];
   private hasFile: boolean = true;
@@ -33,9 +34,11 @@ export class HomePagePostController implements OnInit {
     const post = await this._PostService.list(6);
     this.hasFile = post.hasFile;
     this.data = post.data;
+    this.isLoading.emit(false);
   }
 
   async onScroll(event: any) {
+    console.log(this.hasFile);
     if (
       event.target.offsetHeight + event.target.scrollTop >=
         event.target.scrollHeight &&

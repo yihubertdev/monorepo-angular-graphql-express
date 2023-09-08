@@ -28,16 +28,6 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
   protected override collection: AngularFirestoreCollection<IPost>;
 
   /**
-   * Post firestore data listener
-   *
-   * @protected
-   */
-  private _userAuth: BehaviorSubject<boolean> =
-    new BehaviorSubject<IPost | null>(null);
-  public readonly userAuthObserver$: Observable<IUser | null> =
-    this._userAuth.asObservable();
-
-  /**
    * Contructor
    *
    * @protected

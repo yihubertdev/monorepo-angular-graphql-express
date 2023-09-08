@@ -3,7 +3,6 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
   QueryDocumentSnapshot,
-  QuerySnapshot,
 } from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "../../models/constants";
@@ -188,7 +187,7 @@ export abstract class FireStoreBaseModel<T> {
       .orderBy("createdAt", "desc")
       .startAfter(this.lastQueryDocumentSnapshot)
       .limit(limit);
-
+    this.lastQueryDocumentSnapshot = undefined;
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {
       if (index === limit - 1) {

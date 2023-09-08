@@ -101,7 +101,7 @@
 @media (min-width: 768px) {
   .responsive-post-section {
     width: 88vw;
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
@@ -109,7 +109,7 @@
 @media (min-width: 992px) {
   .responsive-post-section {
     width: 88vw;
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
@@ -117,7 +117,7 @@
 @media (min-width: 1200px) {
   .responsive-post-section {
     width: 88vw;
-    height: 90dvh;
+    height: 100dvh;
   }
 }
 
