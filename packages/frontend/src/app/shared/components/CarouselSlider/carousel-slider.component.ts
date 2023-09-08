@@ -12,7 +12,7 @@ import { AfterViewInit, Component, Input } from "@angular/core";
         *ngFor="let image of images; let i = index"
         [ngStyle]="{
           'background-image': 'url(' + image + ')',
-          display: i == slideIndex ? 'block' : 'none'
+          display: i === slideIndex ? 'block' : 'none'
         }"
         [ngClass]="
           isCover ? 'slide-image-container' : 'slide-image-center'

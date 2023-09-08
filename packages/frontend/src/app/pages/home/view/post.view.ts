@@ -12,7 +12,7 @@ import { postList } from "src/app/core/static/post.static";
         <!-- container responsive-height-container max-width-container container-overflow-vertical -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12">
           <home-page-post-controller
-            [reload]="true"></home-page-post-controller>
+            [isPagination]="true"></home-page-post-controller>
         </div>
       </div>
 

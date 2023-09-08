@@ -7,7 +7,9 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   template: `
     <div
       [ngClass]="
-        reload ? 'responsive-height-container container-overflow-vertical' : ''
+        isPagination
+          ? 'responsive-height-container container-overflow-vertical'
+          : ''
       "
       #postCardContainer
       (scroll)="onScroll($event)">
@@ -19,7 +21,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
-  @Input() reload: boolean = false;
+  @Input() isPagination: boolean = false;
 
   public data: IPost[] = [];
   private hasFile: boolean = true;
@@ -28,7 +30,7 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    const post = await this._PostService.listPagination(6, false);
+    const post = await this._PostService.list(6);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }
@@ -37,9 +39,10 @@ export class HomePagePostController implements OnInit {
     if (
       event.target.offsetHeight + event.target.scrollTop >=
         event.target.scrollHeight &&
-      this.hasFile
+      this.hasFile &&
+      this.isPagination
     ) {
-      const post = await this._PostService.listPagination(5, this.reload);
+      const post = await this._PostService.listPagination(5);
       this.data.push(...post.data);
       this.hasFile = post.hasFile;
     }

@@ -142,26 +142,52 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
-   * @param {boolean} reload = false
-   * @returns {Promise<void>}
+   * @returns {Promise<{ data: T[]; hasFile: boolean }>} list data response
    */
-  public listPagination = async (
-    limit: number = 10,
-    reload: boolean = false
+  public list = async (
+    limit: number = 10
   ): Promise<{ data: T[]; hasFile: boolean }> => {
-    if (!reload) {
-      this.lastQueryDocumentSnapshot = undefined;
-    }
     let data: T[] = [];
 
     let querySnapShot = this.collection.ref
       .orderBy("createdAt", "desc")
       .limit(limit);
 
-    if (this.lastQueryDocumentSnapshot && reload) {
-      querySnapShot = querySnapShot.startAfter(this.lastQueryDocumentSnapshot);
-      this.lastQueryDocumentSnapshot = undefined;
-    }
+    const result = await querySnapShot.get();
+    data = result.docs.map((doc, index) => {
+      if (index === limit - 1) {
+        this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
+      }
+      return doc.data();
+    });
+
+    return {
+      data,
+      hasFile: this.lastQueryDocumentSnapshot ? true : false,
+    };
+  };
+
+  /**
+   * List collection document with pagination
+   *
+   * @public
+   * @param {number} [limit] = 10 limit pagination
+   * @returns {Promise<void>}
+   */
+  public listPagination = async (
+    limit: number = 10
+  ): Promise<{ data: T[]; hasFile: boolean }> => {
+    let data: T[] = [];
+    if (!this.lastQueryDocumentSnapshot)
+      return {
+        data,
+        hasFile: false,
+      };
+
+    let querySnapShot = this.collection.ref
+      .orderBy("createdAt", "desc")
+      .startAfter(this.lastQueryDocumentSnapshot)
+      .limit(limit);
 
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {

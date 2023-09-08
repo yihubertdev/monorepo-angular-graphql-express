@@ -6,6 +6,8 @@ import {
 import { FIRESTORE_COLLECTION } from "../../models/constants";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { IArticle, IPost } from "blog";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { Observable } from "rxjs/internal/Observable";
 @Injectable()
 export class PostFireStore extends FireStoreBaseModel<IPost> {
   /**
@@ -24,6 +26,16 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
    * @protected
    */
   protected override collection: AngularFirestoreCollection<IPost>;
+
+  /**
+   * Post firestore data listener
+   *
+   * @protected
+   */
+  private _userAuth: BehaviorSubject<boolean> =
+    new BehaviorSubject<IPost | null>(null);
+  public readonly userAuthObserver$: Observable<IUser | null> =
+    this._userAuth.asObservable();
 
   /**
    * Contructor
