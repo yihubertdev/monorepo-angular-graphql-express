@@ -15,10 +15,9 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   selector: "user-profile-controller",
   template: `
     <mat-card style="height: 100%;">
-      <div class="container vertical-horizontal-center">
+      <div class="container">
         <div class="row">
-          <div
-            class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div
               mat-card-avatar
               [ngStyle]="{

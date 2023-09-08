@@ -32,7 +32,8 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
               rowspan: 3
             }
           }">
-          <user-profile-controller></user-profile-controller>
+          <user-profile-controller
+            style="width:95%;height: 95%"></user-profile-controller>
         </mat-grid-tile>
         <mat-grid-tile
           [attrGridColSpan]="{
@@ -106,20 +107,6 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   `,
   styleUrls: ["../auth.style.css"],
 })
-export class AccountViewComponent implements OnInit {
+export class AccountViewComponent {
   panelOpenState = false;
-  constructor(
-    private authService: AuthService,
-    private userService: UserService
-  ) {}
-  async ngOnInit(): Promise<void> {
-    const i = 1;
-    // this.authService.register({1
-    //   email: "hunt1.yuyh@gmail.com",
-    //   password: "123456",
-    //   username: "sdf",
-    // });
-    // const user = await this.userService.getUserWithEmail(false);
-    // console.log(user);
-  }
 }
