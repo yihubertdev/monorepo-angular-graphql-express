@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { isNil } from "lodash";
 import { IArticle } from "blog";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
@@ -45,7 +44,7 @@ export class HomePageArticleController implements OnInit {
   }
 
   public navigate(id?: string) {
-    if (isNil(id)) {
+    if (!id) {
       return;
     }
 

@@ -150,6 +150,7 @@ img {
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .slide-image-center {

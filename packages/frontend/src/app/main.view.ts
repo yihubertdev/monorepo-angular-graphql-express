@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { isEmpty } from "lodash";
 import { map, Observable } from "rxjs";
 import { IMenu } from "./core/models/layout.type";
 import { IUser } from "./core/models/users.type";
@@ -192,7 +191,7 @@ export class MainViewComponent implements OnInit {
       )
       .subscribe({
         next: (user) => {
-          if (!user || isEmpty(user.id)) return;
+          if (!user || !user.id) return;
 
           this.isDisplay = true;
           // this.isDisplay = !this.authService.isVisitor(user.role);

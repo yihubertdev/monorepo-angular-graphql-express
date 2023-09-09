@@ -1,14 +1,14 @@
 import { Injectable, NgZone } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
-import { isEmpty } from "lodash";
-import { POP_UP_ACTION, POP_UP_DISMISS_DURATION } from "../../models/constants";
-import { SNACKBAR_LOCATION } from "../../models/layout.type";
-import { USER_LOGIN_ERROR } from "../../models/users.type";
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from "@angular/router";
 import { AuthService } from "../fireAuth/auth";
 
 @Injectable()
-export class UserGuardService  {
+export class UserGuardService {
   constructor(
     private _router: Router,
     private authService: AuthService,

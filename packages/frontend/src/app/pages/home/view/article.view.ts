@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { isNil } from "lodash";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
@@ -126,7 +125,7 @@ export class ArticleViewComponent implements OnInit {
     );
     const article = await this._articleFireStore.retrieveById(this.articleId);
 
-    if (isNil(article)) {
+    if (!article) {
       this._router.navigateByUrl("posts");
     }
 

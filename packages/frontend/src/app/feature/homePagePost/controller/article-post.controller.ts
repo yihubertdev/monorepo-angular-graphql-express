@@ -1,7 +1,4 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
-import { isNil } from "lodash";
-import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
   selector: "article-post-controller",
