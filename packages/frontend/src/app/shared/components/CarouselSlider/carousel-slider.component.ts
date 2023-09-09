@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from "@angular/core";
+import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
 @Component({
   selector: "carousel-slider-component",
   template: ` <div
@@ -48,9 +48,21 @@ import { AfterViewInit, Component, Input } from "@angular/core";
     </div>`,
   styleUrls: ["./carousel-slider.css"],
 })
-export class CarouselSliderComponent {
+export class CarouselSliderComponent implements OnInit {
   @Input() images: string[] = [];
   @Input() height?: number;
   @Input() isCover: boolean = true;
+  @Input() isSilding?: boolean;
   public slideIndex: number = 0;
+
+  ngOnInit(): void {
+    if (this.isSilding) {
+      setInterval(() => {
+        this.slideIndex =
+          this.slideIndex + 1 >= this.images.length
+            ? (this.slideIndex = 0)
+            : (this.slideIndex = this.slideIndex + 1);
+      }, 2000);
+    }
+  }
 }

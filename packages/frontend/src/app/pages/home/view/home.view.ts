@@ -14,7 +14,8 @@ import { Component } from "@angular/core";
         <div class="row mb-2">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <carousel-slider-component
-              [images]="images"></carousel-slider-component>
+              [images]="images"
+              [isSilding]="true"></carousel-slider-component>
           </div>
         </div>
         <div class="row mb-4">
@@ -95,7 +96,6 @@ export class HomeViewComponent {
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-ai.png?alt=media&token=53d51610-84be-45e6-bbe5-247859b470a7",
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-financing.png?alt=media&token=fe3cee60-5d3f-4523-abf8-8b00e6893388",
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-social.png?alt=media&token=d769f3c7-f55a-438c-a97c-afd1841333d3",
-    "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-platform.png?alt=media&token=b5a8ecd9-8dd5-4dea-82db-87818fa657d3",
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
   ];
   public isLoading: boolean = true;
