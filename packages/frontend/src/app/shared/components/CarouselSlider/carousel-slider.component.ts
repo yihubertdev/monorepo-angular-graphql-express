@@ -15,7 +15,7 @@ import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
           display: i === slideIndex ? 'block' : 'none'
         }"
         [ngClass]="
-          isCover ? 'slide-image-container' : 'slide-image-center'
+          isCover ? 'slide-image-cover-center' : 'slide-image-center'
         "></div>
 
       <a

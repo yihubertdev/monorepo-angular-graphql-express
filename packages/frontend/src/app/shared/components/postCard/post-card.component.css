@@ -19,3 +19,42 @@
 .clickable-pointer:hover {
   cursor: pointer;
 }
+
+.image-frame-rounded {
+  border-radius: 25px;
+  width: 80%;
+  margin: auto;
+}
+
+/* xs width */
+.image-height-responsive {
+  height: 30dvh;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .image-height-responsive {
+    height: 30dvh;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .image-height-responsive {
+    height: 40dvh;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .image-height-responsive {
+    height: 45dvh;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .image-height-responsive {
+    height: 50dvh;
+  }
+}

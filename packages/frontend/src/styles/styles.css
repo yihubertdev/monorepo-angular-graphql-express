@@ -157,3 +157,17 @@ body {
 .ql-editor h6 {
   font-size: xx-large;
 }
+
+.slide-image-cover-center {
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.slide-image-center {
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}

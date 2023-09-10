@@ -12,7 +12,7 @@ import {
       class="slide-show-container"
       *ngIf="images.length !== 0">
       <div
-        class="slide fade slide-image-container"
+        class="slide fade slide-image-cover-center"
         [ngStyle]="{ 'background-image': 'url(' + image + ')' }"
         *ngFor="let image of images"></div>
 

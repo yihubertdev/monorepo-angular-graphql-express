@@ -28,10 +28,12 @@ import { IPost } from "blog";
         }}</mat-card-subtitle>
       </mat-card-header>
 
-      <img
-        mat-card-image
+      <div
         *ngIf="postCardInfo?.image?.length === 1"
-        [src]="postCardInfo?.image" />
+        class="image-frame-rounded slide-image-cover-center image-height-responsive"
+        [ngStyle]="{
+          backgroundImage: 'url(' + postCardInfo?.image + ')',
+        }"></div>
 
       <carousel-slider-component
         *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
