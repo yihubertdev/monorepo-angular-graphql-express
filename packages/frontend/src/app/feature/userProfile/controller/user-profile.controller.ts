@@ -14,58 +14,38 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
 @Component({
   selector: "user-profile-controller",
   template: `
-    <mat-card style="height: 100%;">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div
-              mat-card-avatar
-              [ngStyle]="{
-                backgroundImage: 'url(' + photoUrl + ')',
-                margin: 'auto',
-                backgroundSize: 'cover'
-              }"
-              (click)="triggerUpload()">
-              <input
-                type="file"
-                (change)="uploadImage($event.target)"
-                style="display:none"
-                id="uploadProfile"
-                #uploadProfile
-                name="filedata" />
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
-          <div
-            class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <p>
-              <ng-container>
-                {{
-                  currentUser?.email
-                    | StringTransformPipe : "Email" : currentUser?.isAnonymous
-                }}</ng-container
-              >
-            </p>
-            <p>
-              <ng-container>
-                {{
-                  currentUser?.displayName
-                    | StringTransformPipe : "Name" : currentUser?.isAnonymous
-                }}</ng-container
-              >
-            </p>
-            <p>
-              <ng-container>
-                {{
-                  currentUser?.displayName
-                    | StringTransformPipe : "Role" : currentUser?.isAnonymous
-                }}</ng-container
-              >
-            </p>
-          </div>
-        </div>
+    <mat-card style="height: 30dvh; border-radius: initial;">
+      <div
+        class="profile-background profile-background-size slide-image-cover-center"
+        [ngStyle]="{
+          backgroundImage: 'url(' + photoUrl + ')',
+        }"></div>
+      <div
+        class="user-avatar-size m-0 p-0 user-avatar"
+        [ngStyle]="{
+          backgroundImage:
+            'url(' + (currentUser?.photoURL | UserPhotoPipe) + ')',
+          backgroundSize: 'cover'
+        }"
+        (click)="triggerUpload()">
+        <input
+          type="file"
+          (change)="uploadImage($event.target)"
+          style="display:none"
+          id="uploadProfile"
+          #uploadProfile
+          name="filedata" />
       </div>
+      <div class="position-absolute-vertical-bottom-horizontal-center m-0 p-0">
+        <mat-card-title>{{
+          currentUser?.displayName ?? "Guest"
+        }}</mat-card-title>
+        <mat-card-subtitle>@username</mat-card-subtitle>
+      </div>
+    </mat-card>
+
+    <mat-card style="border-radius: initial;">
+      <mat-card-content>description blablabla</mat-card-content>
     </mat-card>
   `,
   styleUrls: ["../user-profile.style.css"],
@@ -88,18 +68,6 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
         | IUserAuth
         | undefined;
 
-      // this.userService.createSubCollection({
-      //   documentId: "241c489e-4f31-41a0-beeb-289a7f771c9a",
-      //   collectionId: "firstCollection",
-      //   next: {
-      //     documentId: "testid",
-      //     collectionId: "secondCollection",
-      //     next: {
-      //       documentId: "test2",
-      //       documentValue: { random: "random" } as any,
-      //     },
-      //   },
-      // });
       this.photoUrl = this.currentUser?.photoURL ?? this.photoUrl;
     }
   }

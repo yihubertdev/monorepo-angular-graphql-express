@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { IPost } from "blog";
@@ -12,15 +11,17 @@ import { IPost } from "blog";
   selector: "post-card-component",
   template: `
     <mat-card class="mb-2">
-      <mat-card-header>
+      <mat-card-header
+        [routerLink]="['/account', 'users', postCardInfo?.userId]">
         <div
           mat-card-avatar
           [ngStyle]="{
             backgroundImage:
               'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
             backgroundSize: 'cover'
-          }"></div>
-        <mat-card-title>{{
+          }"
+          *ngIf="!isUserProfile"></div>
+        <mat-card-title *ngIf="!isUserProfile">{{
           postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
         }}</mat-card-title>
         <mat-card-subtitle>{{
@@ -59,11 +60,10 @@ import { IPost } from "blog";
   `,
   styleUrls: ["./post-card.component.css"],
 })
-export class PostCardComponent implements AfterViewInit {
+export class PostCardComponent {
   @Input() postCardInfo?: IPost;
+  @Input() isUserProfile: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;
 
   public isShowMore: boolean = false;
-
-  ngAfterViewInit(): void {}
 }

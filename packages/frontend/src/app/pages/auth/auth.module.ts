@@ -11,9 +11,11 @@ import { MatCardModule } from "@angular/material/card";
 import { UserProfileModule } from "src/app/feature/userProfile/user-profile.module";
 import { LoginModule } from "src/app/feature/login/login.module";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
+import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
+import { UserProfileView } from "./view/user-profile.view";
 
 @NgModule({
-  declarations: [AccountViewComponent, LoginView, SignUpView],
+  declarations: [AccountViewComponent, LoginView, SignUpView, UserProfileView],
   imports: [
     CommonModule,
     MatExpansionModule,
@@ -24,7 +26,8 @@ import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/mat
     UserProfileModule,
     LoginModule,
     GridListResponsiveDirectiveModule,
+    HomePagePostModule,
   ],
-  exports: [AccountViewComponent, LoginView, SignUpView],
+  exports: [AccountViewComponent, LoginView, SignUpView, UserProfileView],
 })
 export class AuthModule {}

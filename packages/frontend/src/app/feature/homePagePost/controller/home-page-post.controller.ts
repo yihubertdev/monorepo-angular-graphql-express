@@ -6,22 +6,25 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   selector: "home-page-post-controller",
   template: `
     <div
-      [ngClass]="
-        isPagination
-          ? 'responsive-height-container container-overflow-vertical'
-          : ''
-      "
+      [ngClass]="isPagination ? 'container-overflow-vertical' : ''"
       #postCardContainer
-      (scroll)="onScroll($event)">
+      (scroll)="onScroll($event)"
+      [ngStyle]="{
+        height: isPagination ? height + 'dvh' : ''
+      }">
       <ng-container *ngFor="let post of data">
-        <post-card-component [postCardInfo]="post"></post-card-component>
+        <post-card-component
+          [postCardInfo]="post"
+          [isUserProfile]="isUserProfile"></post-card-component>
       </ng-container>
     </div>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
+  @Input() height: number = 90;
   @Input() isPagination: boolean = false;
+  @Input() isUserProfile: boolean = false;
   @Output() isLoading = new EventEmitter<boolean>();
 
   public data: IPost[] = [];
@@ -38,7 +41,6 @@ export class HomePagePostController implements OnInit {
   }
 
   async onScroll(event: any) {
-    console.log(this.hasFile);
     if (
       event.target.offsetHeight + event.target.scrollTop >=
         event.target.scrollHeight &&

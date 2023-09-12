@@ -105,38 +105,6 @@ div.horizonal-scroll-section > .horizonal-scroll-card {
   height: 60px !important;
 }
 
-.responsive-height-container {
-  height: 90dvh;
-}
-
-/* sm width */
-@media (min-width: 576px) {
-  .responsive-height-container {
-    height: 90dvh;
-  }
-}
-
-/* md width */
-@media (min-width: 768px) {
-  .responsive-height-container {
-    height: 90dvh;
-  }
-}
-
-/* lg width */
-@media (min-width: 992px) {
-  .responsive-height-container {
-    height: 90dvh;
-  }
-}
-
-/* xl width */
-@media (min-width: 1200px) {
-  .responsive-height-container {
-    height: 90dvh;
-  }
-}
-
 .container-overflow-vertical {
   overflow: auto;
 }

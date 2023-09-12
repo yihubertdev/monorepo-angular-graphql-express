@@ -5,6 +5,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatCardModule } from "@angular/material/card";
 import { StringTransformPipeModule } from "angular-shared-ui";
 import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [PostCardComponent],
@@ -12,6 +13,7 @@ import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
     CommonModule,
     MatCardModule,
     MatIconModule,
+    RouterModule,
     StringTransformPipeModule,
     CarouselSliderModule,
   ],

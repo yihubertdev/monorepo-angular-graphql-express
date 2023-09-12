@@ -7,6 +7,10 @@ import { ArticlesViewComponent } from "./view/articles.view";
 
 const routes: Routes = [
   { path: "", component: HomeViewComponent },
+  // URL naming
+  // key1, key2 are paramteres
+  // https//www.hubspotexample.com/page?key1=value1&key2=value2
+  // page is variable
   { path: "article/:id", component: ArticleViewComponent },
   { path: "posts", component: PostViewComponent },
   { path: "articles", component: ArticlesViewComponent },
