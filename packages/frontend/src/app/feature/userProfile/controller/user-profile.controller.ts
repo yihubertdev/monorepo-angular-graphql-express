@@ -15,13 +15,17 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   selector: "user-profile-controller",
   template: `
     <mat-card style="height: 30dvh; border-radius: initial;">
-      <div class="profile-background profile-background-size"></div>
+      <div
+        class="profile-background profile-background-size slide-image-cover-center"
+        [ngStyle]="{
+          backgroundImage: 'url(' + photoUrl + ')',
+        }"></div>
       <div
         class="user-avatar-size m-0 p-0 user-avatar"
         [ngStyle]="{
-          backgroundImage: 'url(' + photoUrl + ')',
-          backgroundSize: 'cover',
-          zIndex: 9
+          backgroundImage:
+            'url(' + (currentUser?.photoURL | UserPhotoPipe) + ')',
+          backgroundSize: 'cover'
         }"
         (click)="triggerUpload()">
         <input

@@ -41,7 +41,6 @@ export class HomePagePostController implements OnInit {
   }
 
   async onScroll(event: any) {
-    console.log(this.hasFile);
     if (
       event.target.offsetHeight + event.target.scrollTop >=
         event.target.scrollHeight &&
