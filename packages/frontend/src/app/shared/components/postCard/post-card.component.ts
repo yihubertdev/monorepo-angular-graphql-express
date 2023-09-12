@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { IPost } from "blog";
@@ -19,8 +18,9 @@ import { IPost } from "blog";
             backgroundImage:
               'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
             backgroundSize: 'cover'
-          }"></div>
-        <mat-card-title>{{
+          }"
+          *ngIf="!isUserProfile"></div>
+        <mat-card-title *ngIf="!isUserProfile">{{
           postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
         }}</mat-card-title>
         <mat-card-subtitle>{{
@@ -61,6 +61,7 @@ import { IPost } from "blog";
 })
 export class PostCardComponent implements AfterViewInit {
   @Input() postCardInfo?: IPost;
+  @Input() isUserProfile: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;
 
   public isShowMore: boolean = false;
