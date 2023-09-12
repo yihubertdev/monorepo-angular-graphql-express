@@ -1,18 +1,69 @@
-.user-profile-avatar {
-  /* background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg"); */
-  background-size: cover;
-}
-
-.mat-card-avatar {
-  height: 80px !important;
-  width: 80px !important;
-}
-
 .vertical-horizontal-center {
-  margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.position-absolute-vertical-bottom-horizontal-center {
+  position: absolute;
+  bottom: 0;
+  left: 40%;
+}
+
+.profile-background {
+  background-color: black;
+  position: absolute;
+  width: 100%;
+}
+
+.user-avatar {
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px gray;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+}
+
+.user-avatar-size {
+  height: 32vw;
+  width: 32vw;
+}
+
+.profile-background-size {
+  height: 75%;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .user-avatar-size {
+    height: 32vw;
+    width: 32vw;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .user-avatar-size {
+    height: 32vw;
+    width: 32vw;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .user-avatar-size {
+    height: 16vw;
+    width: 16vw;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .user-avatar-size {
+    height: 8vw;
+    width: 8vw;
+  }
 }

@@ -15,28 +15,29 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
   selector: "user-profile-controller",
   template: `
     <mat-card style="height: 100%;">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div
-              mat-card-avatar
-              [ngStyle]="{
-                backgroundImage: 'url(' + photoUrl + ')',
-                margin: 'auto',
-                backgroundSize: 'cover'
-              }"
-              (click)="triggerUpload()">
-              <input
-                type="file"
-                (change)="uploadImage($event.target)"
-                style="display:none"
-                id="uploadProfile"
-                #uploadProfile
-                name="filedata" />
-            </div>
-          </div>
-        </div>
-        <div class="row justify-content-center">
+      <div class="profile-background profile-background-size"></div>
+      <div
+        class="user-avatar-size m-0 p-0 user-avatar"
+        [ngStyle]="{
+          backgroundImage: 'url(' + photoUrl + ')',
+          backgroundSize: 'cover',
+          zIndex: 9
+        }"
+        (click)="triggerUpload()">
+        <input
+          type="file"
+          (change)="uploadImage($event.target)"
+          style="display:none"
+          id="uploadProfile"
+          #uploadProfile
+          name="filedata" />
+      </div>
+      <div class="position-absolute-vertical-bottom-horizontal-center m-0 p-0">
+        <p style="display: inline-block;">username: sdfsdfsdf</p>
+        <p style="display: inline-block;">accountId: sdfsdfsdf</p>
+      </div>
+
+      <!-- <div class="row justify-content-center">
           <div
             class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <p>
@@ -64,8 +65,7 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
               >
             </p>
           </div>
-        </div>
-      </div>
+        </div> -->
     </mat-card>
   `,
   styleUrls: ["../user-profile.style.css"],

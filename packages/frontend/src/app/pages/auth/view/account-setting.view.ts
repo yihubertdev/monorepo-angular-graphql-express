@@ -32,8 +32,22 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
               rowspan: 3
             }
           }">
-          <user-profile-controller
-            style="width:95%;height: 95%"></user-profile-controller>
+          <div
+            class="grid-content-up-center m-0 p-0"
+            style="height: 100%;">
+            <div
+              class="container max-width-container container-overflow-vertical"
+              style="height: 100%;">
+              <div
+                class="row justify-content-center m-0 p-0"
+                style="height: 100%;">
+                <div
+                  class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6 m-0 p-0">
+                  <user-profile-controller></user-profile-controller>
+                </div>
+              </div>
+            </div>
+          </div>
         </mat-grid-tile>
         <mat-grid-tile
           [attrGridColSpan]="{
