@@ -23,7 +23,6 @@ import {
   signInAnonymously,
   updateProfile,
 } from "firebase/auth";
-import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
 
@@ -37,11 +36,7 @@ export class AuthService {
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
 
-  constructor(
-    private auth: Auth,
-    private userService: UserService,
-    private sessionStorage: SessionStorageService
-  ) {
+  constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(null);
