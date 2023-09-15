@@ -53,11 +53,11 @@ export class EditPostController implements OnInit {
       this.loading = false;
       return;
     }
-    const { uid, displayName, photoURL } = currentUser;
+    const { id, displayName, photoURL } = currentUser;
     this.loading = true;
     const newBlog = {
       ...formValue,
-      userId: uid,
+      userId: id,
       displayName,
       photoURL,
     } as unknown as IPost;

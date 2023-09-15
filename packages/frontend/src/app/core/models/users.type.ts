@@ -8,6 +8,7 @@ export interface IUser {
   id: string;
   userId: string;
   username: string | null;
+  displayName: string | null;
   email: string | null;
   emailVerified: boolean;
   isAnonymous: boolean;
@@ -19,7 +20,7 @@ export interface IUser {
 export interface IUserRegister {
   email: string;
   password: string;
-  username: string;
+  displayName: string;
 }
 
 export interface IUserSignUpForm extends IUserRegister {

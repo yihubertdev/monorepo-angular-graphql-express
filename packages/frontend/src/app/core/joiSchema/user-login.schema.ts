@@ -36,13 +36,13 @@ export const userSignUpSchema: JoiSchemaBuilder<IUserSignUpForm> = (
   errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
-    username: Joi.string()
+    displayName: Joi.string()
       .required()
       .messages({
         "string.base": `'username' should be a type of 'string', user input is ${String(
-          data.username
+          data.displayName
         )}`,
-        "string.empty": `Please enter your username`,
+        "string.empty": `Please enter your name`,
       }),
     email: Joi.string()
       .required()

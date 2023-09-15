@@ -67,12 +67,12 @@ export const userLoginFormList: IFormInput[] = [
 
 export const userSignUpFormList: IFormInput[] = [
   {
-    id: "username",
+    id: "display_name",
     type: InputType.TEXT,
-    label: "Your Username",
-    key: "username",
+    label: "Your Display Name",
+    key: "display_name",
     value: "",
-    placeholder: "Edit username",
+    placeholder: "Edit Name",
     error: "",
   },
   {

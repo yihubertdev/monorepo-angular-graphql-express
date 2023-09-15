@@ -8,7 +8,8 @@ import { ActivatedRoute, Params } from "@angular/router";
       <div class="container max-width-container">
         <div class="row justify-content-center m-0 p-0 mb-2">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 m-0 p-0">
-            <user-profile-controller></user-profile-controller>
+            <user-profile-controller
+              [userId]="userId"></user-profile-controller>
           </div>
         </div>
 

@@ -24,10 +24,6 @@ import { Component, OnInit } from "@angular/core";
   `,
   styleUrls: ["../auth.style.css"],
 })
-export class AccountViewComponent implements OnInit {
+export class AccountViewComponent {
   panelOpenState = false;
-
-  ngOnInit(): void {
-    window.scrollTo(0, 1);
-  }
 }
