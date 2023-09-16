@@ -22,7 +22,7 @@ import { Component, OnInit } from "@angular/core";
       </div>
     </div>
   `,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
 export class AccountViewComponent {
   panelOpenState = false;

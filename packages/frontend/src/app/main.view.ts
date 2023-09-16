@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { IMenu } from "./core/models/layout.type";
 import { IUser } from "./core/models/users.type";
 import { AuthService } from "./core/services/fireAuth/auth";
@@ -18,7 +18,7 @@ import {
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="isDisplay"
+        *ngIf="userAuthObserver$ | async"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -65,7 +65,7 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        *ngIf="isDisplay"
+        *ngIf="userAuthObserver$ | async"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -109,12 +109,12 @@ import {
                   rowspan: 10
                 }
               }">
-              <ng-container *ngIf="(userAuthObserver$ | async) === null">
+              <!-- <ng-container *ngIf="(userAuthObserver$ | async) === null">
                 <mat-spinner></mat-spinner>
-              </ng-container>
-              <ng-container *ngIf="userAuthObserver$ | async">
-                <router-outlet></router-outlet>
-              </ng-container>
+              </ng-container> -->
+              <!-- <ng-container *ngIf="userAuthObserver$ | async"> -->
+              <router-outlet></router-outlet>
+              <!-- </ng-container> -->
             </mat-grid-tile>
 
             <mat-grid-tile
@@ -151,7 +151,6 @@ import {
   styleUrls: ["./main.style.css"],
 })
 export class MainViewComponent implements OnInit {
-  public isDisplay: boolean = false;
   userAuthObserver$?: Observable<IUser | null>;
   footerIconLayout: IMenu[] = homePageMenus;
   public opened: boolean = false;
@@ -177,25 +176,25 @@ export class MainViewComponent implements OnInit {
 
   ngOnInit() {
     this.userAuthObserver$ = this.authService.userAuthObserver$;
-    this.userAuthObserver$
-      .pipe(
-        map((user) => {
-          if (!user) {
-            return;
-          }
-          return {
-            id: user.id,
-            role: user.role,
-          };
-        })
-      )
-      .subscribe({
-        next: (user) => {
-          if (!user || !user.id) return;
+    // this.userAuthObserver$
+    //   .pipe(
+    //     map((user) => {
+    //       if (!user) {
+    //         return;
+    //       }
+    //       return {
+    //         id: user.id,
+    //         role: user.role,
+    //       };
+    //     })
+    //   )
+    //   .subscribe({
+    //     next: (user) => {
+    //       if (!user || !user.id) return;
 
-          this.isDisplay = true;
-          // this.isDisplay = !this.authService.isVisitor(user.role);
-        },
-      });
+    //       this.isDisplay = true;
+    //       // this.isDisplay = !this.authService.isVisitor(user.role);
+    //     },
+    //   });
   }
 }

@@ -23,7 +23,7 @@ import { Component } from "@angular/core";
         </div>
       </div>
     </div>`,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
 export class SignUpView {
   constructor() {}

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { AccountViewComponent } from "./view/account-setting.view";
 import { AccountSettingModule } from "src/app/feature/accountSettings/account-settings.module";
-import { AuthRoutingModule } from "./auth-routing.module";
+import { AuthRoutingModule } from "./account-routing.module";
 import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -30,4 +30,4 @@ import { UserProfileView } from "./view/user-profile.view";
   ],
   exports: [AccountViewComponent, LoginView, SignUpView, UserProfileView],
 })
-export class AuthModule {}
+export class AccountModule {}

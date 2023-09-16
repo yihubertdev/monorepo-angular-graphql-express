@@ -44,7 +44,7 @@ export class EditArticleController {
 
   public save = async (formValue: Record<string, number | string>) => {
     // Get current login user
-    const currentUser = this.authService.getJSON();
+    const currentUser = this.authService.get();
     if (!currentUser) {
       this.loading = false;
       this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
@@ -60,7 +60,7 @@ export class EditArticleController {
       subTitle,
       description,
       content: quillEditor,
-      userId: currentUser.uid,
+      userId: currentUser.id,
     } as IArticle;
 
     try {

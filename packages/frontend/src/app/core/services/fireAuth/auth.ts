@@ -138,16 +138,6 @@ export class AuthService {
   }
 
   /**
-   * Get current user information
-   *
-   * @public
-   * @returns {IUserAuth | undefined} user auth
-   */
-  public getJSON(): IUserAuth | undefined {
-    return this.auth.currentUser?.toJSON() as IUserAuth | undefined;
-  }
-
-  /**
    * Register user to firebase auth
    *
    * @public

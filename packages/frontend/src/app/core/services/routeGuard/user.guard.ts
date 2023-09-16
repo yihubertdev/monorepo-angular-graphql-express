@@ -6,6 +6,7 @@ import {
   RouterStateSnapshot,
 } from "@angular/router";
 import { AuthService } from "../fireAuth/auth";
+import { takeWhile } from "rxjs";
 
 @Injectable()
 export class UserGuardService {
@@ -26,9 +27,13 @@ export class UserGuardService {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Promise<boolean> {
-    return new Promise((resolve) =>
-      this.authService.get() ? resolve(true) : resolve(false)
-    );
+    return new Promise((resolve) => {
+      this.authService.userAuthObserver$
+        .pipe(takeWhile((user) => user !== null))
+        .subscribe((user) => {
+          resolve(true);
+        });
+    });
   }
 }
 
@@ -55,7 +60,7 @@ export class IsMeRouteGuard {
       this.zone.run(() => {
         next.params["id"] === this.authService.get()?.id
           ? this._router.navigateByUrl("account/me")
-          : resolve(false);
+          : resolve(true);
       });
     });
   }

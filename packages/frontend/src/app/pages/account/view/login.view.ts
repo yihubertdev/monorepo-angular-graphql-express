@@ -93,28 +93,6 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
         </mat-grid-tile>
       </mat-grid-list>
     </div>`,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
-export class LoginView implements OnInit, OnDestroy {
-  authSubscription: Subscription = new Subscription();
-  constructor(
-    private authService: AuthService,
-    private _router: Router,
-    private zone: NgZone
-  ) {}
-  ngOnInit(): void {
-    this.authSubscription = this.authService.userAuthObserver$.subscribe(
-      (user) => {
-        if (user) {
-          this.zone.run(() => {
-            this._router.navigate(["account", "me"]);
-          });
-        }
-      }
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription.unsubscribe();
-  }
-}
+export class LoginView {}

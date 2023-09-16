@@ -24,7 +24,7 @@ import { ActivatedRoute, Params } from "@angular/router";
       </div>
     </div>
   `,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
 export class UserProfileView implements OnInit {
   public userId?: string;
