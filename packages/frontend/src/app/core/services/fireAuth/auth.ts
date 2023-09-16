@@ -25,6 +25,7 @@ import {
 } from "firebase/auth";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class AuthService {
@@ -32,6 +33,7 @@ export class AuthService {
     new BehaviorSubject<IUser | null>(null);
   public readonly userAuthObserver$: Observable<IUser | null> =
     this._userAuth.asObservable();
+  public currentUser: IUser | null = null;
 
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
@@ -41,13 +43,14 @@ export class AuthService {
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(null);
       if (user) {
-        const currentUser = await this.userService.retrieveById(user.uid);
-        this._userAuth.next(currentUser);
+        this.currentUser = await this.userService.retrieveById(user.uid);
+        this._userAuth.next(this.currentUser);
       } else {
         this._userAuth.next({
           id: "",
           userId: "",
           username: null,
+          displayName: null,
           email: null,
           emailVerified: false,
           isAnonymous: false,
@@ -118,20 +121,20 @@ export class AuthService {
    * Get current user information
    *
    * @public
-   * @returns {User | null} get user information
+   * @returns {IUser | null} get user information
    */
-  public get(): User | null {
-    return this.auth.currentUser;
+  public get(): IUser | null {
+    return this.currentUser;
   }
 
   /**
-   * Get current user information
+   * Get current user auth
    *
    * @public
-   * @returns {IUserAuth | undefined} user auth
+   * @returns {User | null} get user auth
    */
-  public getJSON(): IUserAuth | undefined {
-    return this.auth.currentUser?.toJSON() as IUserAuth | undefined;
+  public getAuth(): User | null {
+    return this.auth.currentUser;
   }
 
   /**
@@ -149,21 +152,24 @@ export class AuthService {
       data.password
     );
 
-    // Send verification mail
-    await this.sendVerificationMail(user);
-
-    // Save User info into firestore
-    await this.userService.create({
-      id: user.uid,
-      userId: user.uid,
-      username: data.username,
-      role: IUserRole.VISITOR,
-      email: user.email,
-      emailVerified: user.emailVerified,
-      isAnonymous: user.isAnonymous,
-      phoneNumber: user.phoneNumber,
-      photoURL: user.photoURL,
-    });
+    await Promise.all([
+      this.sendVerificationMail(user),
+      this.userService.create({
+        id: user.uid,
+        userId: user.uid,
+        username:
+          data.displayName.replace(/\s/g, "").toLowerCase() +
+          "-" +
+          uuidv4().substring(0, 5),
+        displayName: data.displayName,
+        role: IUserRole.VISITOR,
+        email: user.email,
+        emailVerified: user.emailVerified,
+        isAnonymous: user.isAnonymous,
+        phoneNumber: user.phoneNumber,
+        photoURL: user.photoURL,
+      }),
+    ]);
 
     const currentUser = await this.userService.retrieveById(user.uid);
     this._userAuth.next(currentUser);

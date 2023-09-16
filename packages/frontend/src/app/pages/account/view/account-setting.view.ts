@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
 
 @Component({
   template: `
@@ -23,15 +22,8 @@ import { ActivatedRoute, Params } from "@angular/router";
       </div>
     </div>
   `,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
-export class UserProfileView implements OnInit {
-  public userId?: string;
-  constructor(private _activatedRouter: ActivatedRoute) {}
-
-  async ngOnInit() {
-    this._activatedRouter.params.subscribe(
-      (params: Params) => (this.userId = params["id"])
-    );
-  }
+export class AccountViewComponent {
+  panelOpenState = false;
 }

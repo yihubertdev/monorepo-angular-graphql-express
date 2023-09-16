@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Params } from "@angular/router";
 
 @Component({
   template: `
@@ -7,7 +8,8 @@ import { Component, OnInit } from "@angular/core";
       <div class="container max-width-container">
         <div class="row justify-content-center m-0 p-0 mb-2">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 m-0 p-0">
-            <user-profile-controller></user-profile-controller>
+            <user-profile-controller
+              [userId]="userId"></user-profile-controller>
           </div>
         </div>
 
@@ -22,12 +24,15 @@ import { Component, OnInit } from "@angular/core";
       </div>
     </div>
   `,
-  styleUrls: ["../auth.style.css"],
+  styleUrls: ["../account.style.css"],
 })
-export class AccountViewComponent implements OnInit {
-  panelOpenState = false;
+export class UserProfileView implements OnInit {
+  public userId?: string;
+  constructor(private _activatedRouter: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    window.scrollTo(0, 1);
+  async ngOnInit() {
+    this._activatedRouter.params.subscribe(
+      (params: Params) => (this.userId = params["id"])
+    );
   }
 }

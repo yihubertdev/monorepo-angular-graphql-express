@@ -3,7 +3,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { userSignUpSchema } from "src/app/core/joiSchema/user-login.schema";
 import {
-  LOGIN_FAILED,
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
   SIGNUP_FAILED,
@@ -37,10 +36,10 @@ export class EmailSignUpController implements OnInit {
   }
 
   async signup(formValue: Record<string, number | string>) {
-    const { username, email, password } =
+    const { displayName, email, password } =
       formValue as unknown as IUserSignUpForm;
     const data = {
-      username,
+      displayName,
       email,
       password,
     };

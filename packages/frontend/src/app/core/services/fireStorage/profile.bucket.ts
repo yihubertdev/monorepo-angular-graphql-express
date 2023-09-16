@@ -6,7 +6,6 @@ import {
   Storage,
   uploadBytesResumable,
 } from "@angular/fire/storage";
-import { IUser } from "../../models/users.type";
 import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
 import { FireStorageBaseModel } from "./basic.bucket";
@@ -27,12 +26,6 @@ export class ProfileStorageService extends FireStorageBaseModel {
    */
   protected category: string = "profile";
 
-  /**
-   * Contructor
-   *
-   * @protected
-   * @param {Storage} storage
-   */
   constructor(
     storage: Storage,
     private userService: UserService,
@@ -45,9 +38,9 @@ export class ProfileStorageService extends FireStorageBaseModel {
    * Upload file into fire storage bucket
    *
    * @public
-   * @param {File} file
-   * @param {string} id
-   * @returns {Promise<string>}
+   * @param {File} file upload file
+   * @param {string} id upload id
+   * @returns {Promise<string>} upload url
    */
   public override upload = async (file: File, id: string): Promise<string> => {
     // Upload file extension
@@ -70,7 +63,7 @@ export class ProfileStorageService extends FireStorageBaseModel {
     const url = await getDownloadURL(storageRef);
 
     // Save user profile on firebase auth
-    const user = this.authService.get();
+    const user = this.authService.getAuth();
 
     // If user is not sign in, throw error
     if (!user) {

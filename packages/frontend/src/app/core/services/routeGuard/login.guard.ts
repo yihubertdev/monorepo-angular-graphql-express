@@ -1,10 +1,14 @@
 import { Injectable, NgZone } from "@angular/core";
-import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import {
+  Router,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from "@angular/router";
 import { takeWhile } from "rxjs";
 import { AuthService } from "../fireAuth/auth";
 
 @Injectable()
-export class LoginGuardService  {
+export class LoginGuardService {
   constructor(
     private _router: Router,
     private authService: AuthService,
@@ -17,18 +21,18 @@ export class LoginGuardService  {
   ): Promise<boolean> {
     return new Promise((resolve) => {
       this.authService.userAuthObserver$
-        .pipe(takeWhile((user) => user === null))
-        .subscribe({
-          complete: () => {
-            const currentUser = this.authService.get()?.toJSON();
-            if (currentUser) {
-              this.zone.run(() => {
-                this._router.navigateByUrl("account/me");
-              });
-              resolve(false);
-            }
-            resolve(true);
-          },
+        //takeWhile allow values until value from source is return false, then complete
+        .pipe(takeWhile((user) => user !== null))
+        .subscribe(() => {
+          const currentUser = this.authService.get();
+          if (currentUser) {
+            this.zone.run(() => {
+              this._router.navigateByUrl("account/me");
+            });
+
+            resolve(false);
+          }
+          resolve(true);
         });
     });
   }

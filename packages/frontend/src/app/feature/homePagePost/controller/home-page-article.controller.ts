@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
 import { IArticle } from "blog";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
@@ -29,6 +29,8 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePageArticleController implements OnInit {
+  @Output() isLoading = new EventEmitter<boolean>();
+
   public articles?: {
     data: IArticle[];
     hasFile: boolean;
@@ -40,7 +42,9 @@ export class HomePageArticleController implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
+    if (this.articles) return;
     this.articles = await this._articleFireStore.list(3);
+    this.isLoading.emit(false);
   }
 
   public navigate(id?: string) {

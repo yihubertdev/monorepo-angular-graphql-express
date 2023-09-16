@@ -4,10 +4,7 @@ import { Component } from "@angular/core";
   selector: "post-view",
   template: `
     <!-- router container 90dvh -->
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <div
-      class="responsive-post-section"
-      [ngStyle]="{ display: isLoading ? 'none' : 'block' }">
+    <div class="responsive-post-section">
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <div
         class="container responsive-height-container max-width-container container-overflow-vertical">
@@ -37,12 +34,17 @@ import { Component } from "@angular/core";
               style="font-size: 25px">
               Fantastic Story Teller
             </a>
+            <mat-spinner
+              [diameter]="35"
+              style="margin: auto;"
+              *ngIf="isLoading"></mat-spinner>
             <home-page-post-controller
               (isLoading)="isLoading = $event"></home-page-post-controller>
             <a
               mat-raised-button
               color="primary"
               routerLink="posts"
+              *ngIf="!isLoading"
               style="width: 100%;">
               Go To Post
             </a>
@@ -54,11 +56,17 @@ import { Component } from "@angular/core";
               style="font-size: 25px">
               Professional Article
             </a>
-            <home-page-article-controller></home-page-article-controller>
+            <mat-spinner
+              [diameter]="35"
+              style="margin: auto;"
+              *ngIf="isLoading"></mat-spinner>
+            <home-page-article-controller
+              (isLoading)="isLoading = $event"></home-page-article-controller>
             <a
               mat-raised-button
               color="primary"
               routerLink="articles"
+              *ngIf="!isLoading"
               style="width: 100%;">
               Go To Article
             </a>

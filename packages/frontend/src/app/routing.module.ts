@@ -30,7 +30,9 @@ const routes: Routes = [
   {
     path: "account",
     loadChildren: () =>
-      import("./pages/auth/auth.module").then((module) => module.AuthModule),
+      import("./pages/account/account.module").then(
+        (module) => module.AccountModule
+      ),
   },
 ];
 
