@@ -4,10 +4,11 @@ import client from "../client";
 /**
  * sdf
  */
-async function get(fireStore: FirebaseFirestore.Firestore) {
+async function get(fireStoreClient?: FirebaseFirestore.Firestore) {
+  const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
   const result = await fireStore.collection("users").get();
 
-  const data = result.docs.map((dataSnapshot) => dataSnapshot.data());
+  return result.docs.map((dataSnapshot) => dataSnapshot.data());
 }
 
 /**

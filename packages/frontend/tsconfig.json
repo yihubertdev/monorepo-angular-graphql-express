@@ -12,9 +12,9 @@
     "sourceMap": true,
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
-      // "angular-shared-ui": ["../frontend-shared/dist/sharedModule"],
+      "angular-shared-ui": ["../frontend-shared/dist/sharedModule"],
       "@angular/*": ["./node_modules/@angular/*"],
-      // "@types/blog": ["../frontend-shared/library/types"]
+      "blog": ["../frontend-shared/library/types"]
     },
     "declaration": false,
     "downlevelIteration": true,
