@@ -18,7 +18,7 @@ import {
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="userAuthObserver$ | async"
+        *ngIf="(userAuthObserver$ | async)?.id"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -65,7 +65,7 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        *ngIf="userAuthObserver$ | async"
+        *ngIf="(userAuthObserver$ | async)?.id"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -175,7 +175,6 @@ export class MainViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userAuthObserver$ = this.authService.userAuthObserver$;
     // this.userAuthObserver$
     //   .pipe(
     //     map((user) => {
@@ -191,7 +190,6 @@ export class MainViewComponent implements OnInit {
     //   .subscribe({
     //     next: (user) => {
     //       if (!user || !user.id) return;
-
     //       this.isDisplay = true;
     //       // this.isDisplay = !this.authService.isVisitor(user.role);
     //     },
