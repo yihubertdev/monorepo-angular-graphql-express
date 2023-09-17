@@ -4,7 +4,6 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from "@angular/router";
-import { takeWhile } from "rxjs";
 import { AuthService } from "../fireAuth/auth";
 
 @Injectable()
@@ -22,10 +21,8 @@ export class LoginGuardService {
     return new Promise((resolve) => {
       this.authService.userAuthObserver$
         //takeWhile allow values until value from source is return false, then complete
-        .pipe(takeWhile((user) => user !== null))
-        .subscribe(() => {
-          const currentUser = this.authService.get();
-          if (currentUser) {
+        .subscribe((user) => {
+          if (user?.id) {
             this.zone.run(() => {
               this._router.navigateByUrl("account/me");
             });
