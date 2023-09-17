@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: "signup", component: SignUpView },
   {
     path: "users/:id",
-    canActivate: [LoginGuardService, IsMeRouteGuard],
+    canActivate: [IsMeRouteGuard],
     component: UserProfileView,
   },
 ];
