@@ -10,3 +10,48 @@
 .active-list-item {
   background-color: #f5f5f5;
 }
+
+.stick-footer {
+  position: fixed !important;
+  left: 0 !important;
+  width: 100% !important;
+  top: initial !important;
+  z-index: 9;
+  -webkit-transition: bottom 0.5s ease;
+  -moz-transition: bottom 0.5s ease;
+  -o-transition: bottom 0.5s ease;
+  transition: bottom 0.5s ease;
+}
+
+/* xs width */
+.responsive-footer {
+  display: block;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .responsive-footer {
+    display: block;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .responsive-footer {
+    display: none;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .responsive-footer {
+    display: none;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .responsive-footer {
+    display: none;
+  }
+}

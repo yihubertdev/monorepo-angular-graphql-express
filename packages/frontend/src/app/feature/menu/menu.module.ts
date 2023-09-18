@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { FooterMenuController } from "./controller/footer.controller";
+import { FooterController } from "./controller/footer.controller";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
 import { RouterModule } from "@angular/router";
@@ -10,12 +10,15 @@ import { MatListModule } from "@angular/material/list";
 import { HeaderMenuController } from "./controller/header.controller";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
+import { FooterMenuController } from "./controller/footer-menu.controllers";
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
 @NgModule({
   declarations: [
-    FooterMenuController,
+    FooterController,
     MainMenuController,
     HeaderMenuController,
+    FooterMenuController,
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,13 @@ import { MatButtonModule } from "@angular/material/button";
     MatListModule,
     MatMenuModule,
     MatButtonModule,
+    MatBottomSheetModule,
   ],
-  exports: [FooterMenuController, MainMenuController, HeaderMenuController],
+  exports: [
+    FooterMenuController,
+    MainMenuController,
+    HeaderMenuController,
+    FooterController,
+  ],
 })
 export class MenuModule {}

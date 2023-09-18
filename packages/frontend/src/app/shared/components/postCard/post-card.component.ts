@@ -27,6 +27,28 @@ import { IPost } from "sources-types";
         <mat-card-subtitle>{{
           postCardInfo?.createdAt | date : "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+          style="margin-left: auto;"
+          *ngIf="isUserProfile">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>delete</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>push_pin</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>grid_3x3_off</mat-icon>
+            <span>Disable alerts</span>
+          </button>
+        </mat-menu>
       </mat-card-header>
 
       <div

@@ -80,12 +80,7 @@ import { IUser } from "sources-types";
       <!-- mat-drawer-content overflow default is auto, scrollable-->
       <mat-drawer-content id="matDrawerContentScroll">
         <router-outlet></router-outlet>
-        <div
-          #footer
-          class="stick-footer responsive-footer"
-          [ngStyle]="{ bottom: hideFooter ? '-50px' : '0px' }">
-          <footer-menu-controller></footer-menu-controller>
-        </div>
+        <footer-controller></footer-controller>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
@@ -93,7 +88,6 @@ import { IUser } from "sources-types";
 })
 export class MainViewComponent implements OnInit {
   @ViewChild("footer") footer?: ElementRef;
-  private _position: number = 0;
   public userAuthObserver$?: Observable<IUser | null>;
   public opened: boolean = false;
   public hideFooter: boolean = false;
@@ -119,19 +113,5 @@ export class MainViewComponent implements OnInit {
 
   ngOnInit() {
     this.userAuthObserver$ = this.authService.userAuthObserver$;
-  }
-
-  ngAfterViewInit(): void {
-    (
-      document.getElementById("matDrawerContentScroll") as HTMLElement
-    ).onscroll = async (scroll) => {
-      const event = scroll.target as HTMLElement;
-      // ! used to remove The left-hand side of an assignment expression may not be an optional property access
-
-      event.scrollTop > this._position
-        ? (this.hideFooter = true)
-        : (this.hideFooter = false);
-      this._position = event.scrollTop;
-    };
   }
 }
