@@ -1,3 +1,4 @@
+import { FieldValue } from "firebase-admin/firestore";
 import client from "../../client";
 import modelsFirestore from "../../modelsFirestore";
 import { v4 as uuidv4 } from "uuid";
@@ -6,22 +7,18 @@ import { v4 as uuidv4 } from "uuid";
  * Sync user display name and name id
  * @returns {Promise<void>}
  */
-export async function migrationUserDisplayName(): Promise<void> {
+export async function migrationDeleteUserId(): Promise<void> {
   const fireStore = client.firebase.firestoreInstance;
 
   const batch = fireStore.batch();
 
-  const users = await modelsFirestore.users.get();
-
   try {
+    const users = await modelsFirestore.users.get();
     await Promise.all(
       users.map(async (user) => {
         const userRef = fireStore.collection("users").doc(user["userId"]);
         batch.update(userRef, {
-          username:
-            user["displayName"].replace(/\s/g, "").toLowerCase() +
-            "-" +
-            uuidv4().substring(0, 5),
+          username: FieldValue.delete(),
         });
 
         const blogs = await fireStore
@@ -47,4 +44,4 @@ export async function migrationUserDisplayName(): Promise<void> {
   }
 }
 
-migrationUserDisplayName();
+migrationDeleteUserId();
