@@ -1,16 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
-  height: 100%;
+  height: 100dvh;
+  overflow: auto;
 }
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.full-height-container {
-  display: block;
-  height: 100dvh;
+.mat-grid-tile-content {
+  /* make grid content start from the top of the div, default is center */
+  align-items: initial !important;
 }
 
 .mat-chip-list-wrapper {

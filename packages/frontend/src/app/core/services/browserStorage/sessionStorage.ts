@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { EMPTY_JSON_PARSE } from "../../models/constants";
 
 @Injectable()
 export class SessionStorageService {
@@ -9,8 +8,8 @@ export class SessionStorageService {
    * Get session storage
    *
    * @public
-   * @param {string} key
-   * @return {T}
+   * @param {string} key session storage key
+   * @returns {T} session storage value
    */
   public getSessionStorage<T>(key: string): T | null {
     const result = sessionStorage.getItem(key);
@@ -32,8 +31,7 @@ export class SessionStorageService {
    * Get all session storage
    *
    * @public
-   * @param {string} key
-   * @return {T}
+   * @returns {Storage} session storage
    */
   public getAllSessionStorage(): Storage {
     return sessionStorage;
@@ -43,9 +41,9 @@ export class SessionStorageService {
    * Set session storage
    *
    * @public
-   * @param {string} key
-   * @param {T} value
-   * @return {T}
+   * @param {string} key session storage key
+   * @param {T} value session storage value
+   * @returns {T} storage
    */
   public setSessionStorage<T>(key: string, value: T): T {
     sessionStorage.setItem(key, JSON.stringify(value));
@@ -56,8 +54,8 @@ export class SessionStorageService {
    * Remove session storage
    *
    * @public
-   * @param {string} key
-   * @return {void}
+   * @param {string} key session storage key
+   * @returns {void}
    */
   public deleteSessionStorage(key: string): void {
     sessionStorage.removeItem(key);

@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { IMenu } from "src/app/core/models/layout.type";
+import { IMenu } from "sources-types";
 import { homePageMenus } from "src/app/core/static/post.static";
 
 @Component({

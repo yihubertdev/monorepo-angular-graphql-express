@@ -17,7 +17,6 @@ import { ActivatedRoute, Params } from "@angular/router";
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 m-0 p-0">
             <home-page-post-controller
               [isPagination]="true"
-              [height]="58"
               [isUserProfile]="true"></home-page-post-controller>
           </div>
         </div>

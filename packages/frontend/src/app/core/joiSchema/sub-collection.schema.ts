@@ -1,6 +1,6 @@
 import * as Joi from "joi";
 import { JoiSchemaBuilder } from "../utils/validator";
-import { ICollectionQueryBuilder } from "blog";
+import { ICollectionQueryBuilder } from "sources-types";
 
 export const subCollectionBuilderSchema: JoiSchemaBuilder<
   ICollectionQueryBuilder<any>

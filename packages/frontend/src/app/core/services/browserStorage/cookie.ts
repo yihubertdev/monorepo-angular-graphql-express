@@ -7,9 +7,11 @@ export class CookieService {
   /**
    * Get cookie
    *
+   * @param {string} name cookie name
    * @public
+   * @returns {string} cookie
    */
-  public getCookie(name: string) {
+  public getCookie(name: string): string {
     const cookiesArray: Array<string> = document.cookie.split(";");
     const cookieName: string = `${name}=`;
     let value: string;
@@ -28,6 +30,7 @@ export class CookieService {
   /**
    * Delete cookie
    *
+   * @param {string} name cookie name
    * @public
    */
   public deleteCookie(name: string) {
@@ -37,6 +40,10 @@ export class CookieService {
   /**
    * Set cookie
    *
+   * @param {string} name cookie name
+   * @param {string} value cookie name
+   * @param {string} expireHours cookie name
+   * @param {string} path cookie name
    * @public
    */
   public setCookie(

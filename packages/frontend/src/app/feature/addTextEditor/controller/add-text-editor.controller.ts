@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatBottomSheet } from "@angular/material/bottom-sheet";
 import { Observable } from "rxjs";
-import { IUser } from "src/app/core/models/users.type";
+import { IUser } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { TextEditorOptionsComponent } from "./text-editor-options.controller";
 

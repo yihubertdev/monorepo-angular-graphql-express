@@ -5,7 +5,6 @@ import {
   Input,
   Output,
   ViewChild,
-  Inject,
 } from "@angular/core";
 import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
 import { quillEditorModule } from "src/app/core/static/post.static";
@@ -13,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material/dialog";
 import { UploadVideoDialog } from "../../dialog/uploadVideo/upload-video.dialog";
-import { EMBED_YOUTUBE_URL } from "src/app/core/models/constants";
+import { EMBED_YOUTUBE_URL } from "sources-types";
 
 @Component({
   selector: "editor-component",

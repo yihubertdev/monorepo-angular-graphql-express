@@ -6,8 +6,8 @@ import {
   LOGIN_FAILED,
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
-} from "src/app/core/models/constants";
-import { IFormInput } from "src/app/core/models/view.types";
+  IFormInput,
+} from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userLoginFormList } from "src/app/core/static/auth.static";
 

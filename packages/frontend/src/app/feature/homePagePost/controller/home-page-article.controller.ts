@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { Router } from "@angular/router";
-import { IArticle } from "blog";
+import { IArticle } from "sources-types";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({

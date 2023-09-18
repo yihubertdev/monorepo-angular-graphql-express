@@ -10,13 +10,7 @@ import {
   signInWithPopup,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
-import {
-  IUser,
-  IUserAuth,
-  IUserProfile,
-  IUserRegister,
-  IUserRole,
-} from "../../models/users.type";
+import { IUser, IUserProfile, IUserRegister, IUserRole } from "sources-types";
 import {
   browserSessionPersistence,
   GoogleAuthProvider,
@@ -41,22 +35,10 @@ export class AuthService {
   constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
+      console.log(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
         this._userAuth.next(this.currentUser);
-      } else {
-        this._userAuth.next({
-          id: "",
-          userId: "",
-          username: null,
-          displayName: null,
-          email: null,
-          emailVerified: false,
-          isAnonymous: false,
-          phoneNumber: null,
-          photoURL: null,
-          role: IUserRole.VISITOR,
-        });
       }
     });
 

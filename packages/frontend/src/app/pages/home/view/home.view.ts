@@ -4,95 +4,94 @@ import { Component } from "@angular/core";
   selector: "post-view",
   template: `
     <!-- router container 90dvh -->
-    <div class="responsive-post-section">
-      <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
-      <div
-        class="container responsive-height-container max-width-container container-overflow-vertical">
-        <div class="row mb-2">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <carousel-slider-component
-              [images]="images"
-              [isSilding]="true"></carousel-slider-component>
-          </div>
+    <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
+    <div
+      class="container"
+      style="max-width: 100% !important">
+      <div class="row mb-2">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <carousel-slider-component
+            [images]="images"
+            [isSilding]="true"></carousel-slider-component>
         </div>
-        <div class="row mb-4">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a
-              mat-button
-              routerLink="posts"
-              style="font-size: 25px">
-              User Star
-            </a>
-            <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
-          </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <a
+            mat-button
+            routerLink="posts"
+            style="font-size: 25px">
+            User Star
+          </a>
+          <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
         </div>
-        <div class="row">
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <a
-              mat-button
-              routerLink="posts"
-              style="font-size: 25px">
-              Fantastic Story Teller
-            </a>
-            <mat-spinner
-              [diameter]="35"
-              style="margin: auto;"
-              *ngIf="isLoading"></mat-spinner>
-            <home-page-post-controller
-              (isLoading)="isLoading = $event"></home-page-post-controller>
-            <a
-              mat-raised-button
-              color="primary"
-              routerLink="posts"
-              *ngIf="!isLoading"
-              style="width: 100%;">
-              Go To Post
-            </a>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
-            <a
-              mat-button
-              routerLink="posts"
-              style="font-size: 25px">
-              Professional Article
-            </a>
-            <mat-spinner
-              [diameter]="35"
-              style="margin: auto;"
-              *ngIf="isLoading"></mat-spinner>
-            <home-page-article-controller
-              (isLoading)="isLoading = $event"></home-page-article-controller>
-            <a
-              mat-raised-button
-              color="primary"
-              routerLink="articles"
-              *ngIf="!isLoading"
-              style="width: 100%;">
-              Go To Article
-            </a>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <a
+            mat-button
+            routerLink="posts"
+            style="font-size: 25px">
+            Fantastic Story Teller
+          </a>
+          <mat-spinner
+            [diameter]="35"
+            style="margin: auto;"
+            *ngIf="isLoading"></mat-spinner>
+          <home-page-post-controller
+            (isLoading)="isLoading = $event"></home-page-post-controller>
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="posts"
+            *ngIf="!isLoading"
+            style="width: 100%;">
+            Go To Post
+          </a>
         </div>
-        <div class="row mb-4">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a
-              mat-button
-              routerLink="posts"
-              style="font-size: 25px">
-              Podcast & LiveStream
-            </a>
-            <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
-          </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+          <a
+            mat-button
+            routerLink="posts"
+            style="font-size: 25px">
+            Professional Article
+          </a>
+          <mat-spinner
+            [diameter]="35"
+            style="margin: auto;"
+            *ngIf="isLoading"></mat-spinner>
+          <home-page-article-controller
+            (isLoading)="isLoading = $event"></home-page-article-controller>
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="articles"
+            *ngIf="!isLoading"
+            style="width: 100%;">
+            Go To Article
+          </a>
         </div>
-        <div class="row">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <a
-              mat-button
-              routerLink="posts"
-              style="font-size: 25px">
-              Announcement
-            </a>
-            <chat-topic-post-controller></chat-topic-post-controller>
-          </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <a
+            mat-button
+            routerLink="posts"
+            style="font-size: 25px">
+            Podcast & LiveStream
+          </a>
+          <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <a
+            mat-button
+            routerLink="posts"
+            style="font-size: 25px">
+            Announcement
+          </a>
+          <chat-topic-post-controller></chat-topic-post-controller>
         </div>
       </div>
     </div>

@@ -1,28 +1,27 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { IPost } from "blog";
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { IPost } from "sources-types";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
   selector: "home-page-post-controller",
   template: `
-    <div
-      [ngClass]="isPagination ? 'container-overflow-vertical' : ''"
-      #postCardContainer
-      (scroll)="onScroll($event)"
-      [ngStyle]="{
-        height: isPagination ? height + 'dvh' : ''
-      }">
-      <ng-container *ngFor="let post of data">
-        <post-card-component
-          [postCardInfo]="post"
-          [isUserProfile]="isUserProfile"></post-card-component>
-      </ng-container>
-    </div>
+    <ng-container *ngFor="let post of data">
+      <post-card-component
+        [postCardInfo]="post"
+        [isUserProfile]="isUserProfile"></post-card-component>
+    </ng-container>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
-export class HomePagePostController implements OnInit {
-  @Input() height: number = 90;
+export class HomePagePostController implements OnInit, AfterViewInit {
   @Input() isPagination: boolean = false;
   @Input() isUserProfile: boolean = false;
   @Output() isLoading = new EventEmitter<boolean>();
@@ -34,22 +33,27 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    const post = await this._PostService.list(6);
+    const post = await this._PostService.list(7);
     this.hasFile = post.hasFile;
     this.data = post.data;
     this.isLoading.emit(false);
   }
 
-  async onScroll(event: any) {
-    if (
-      event.target.offsetHeight + event.target.scrollTop >=
-        event.target.scrollHeight &&
-      this.hasFile &&
-      this.isPagination
-    ) {
-      const post = await this._PostService.listPagination(5);
-      this.data.push(...post.data);
-      this.hasFile = post.hasFile;
-    }
+  ngAfterViewInit(): void {
+    (
+      document.getElementById("matDrawerContentScroll") as HTMLElement
+    ).addEventListener("scroll", async (scroll) => {
+      const event = scroll.target as HTMLElement;
+
+      if (
+        event.offsetHeight + event.scrollTop >= event.scrollHeight &&
+        this.hasFile &&
+        this.isPagination
+      ) {
+        const post = await this._PostService.listPagination(7);
+        this.data.push(...post.data);
+        this.hasFile = post.hasFile;
+      }
+    });
   }
 }

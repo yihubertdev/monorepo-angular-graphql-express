@@ -3,8 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION } from "../../models/constants";
-import { IUser } from "../../models/users.type";
+import { FIRESTORE_COLLECTION, IUser } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 @Injectable()
 export class UserService extends FireStoreBaseModel<IUser> {
