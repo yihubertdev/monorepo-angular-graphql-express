@@ -3,12 +3,12 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { userSignUpSchema } from "src/app/core/joiSchema/user-login.schema";
 import {
+  IUserSignUpForm,
+  IFormInput,
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
   SIGNUP_FAILED,
-} from "src/app/core/models/constants";
-import { IUserSignUpForm } from "src/app/core/models/users.type";
-import { IFormInput } from "src/app/core/models/view.types";
+} from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userSignUpFormList } from "src/app/core/static/auth.static";
 

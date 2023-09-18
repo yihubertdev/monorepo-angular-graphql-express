@@ -3,11 +3,10 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION } from "../../models/constants";
+import { FIRESTORE_COLLECTION } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
-import { IArticle, IPost } from "blog";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { Observable } from "rxjs/internal/Observable";
+import { IArticle, IPost } from "sources-types";
+
 @Injectable()
 export class PostFireStore extends FireStoreBaseModel<IPost> {
   /**

@@ -2,12 +2,12 @@ import { Component, Inject, NgZone } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { GoogleHttpService } from "src/app/core/services/http/google.http";
-import { VALIDATE_VIDEO_ERROR } from "src/app/core/models/users.type";
 import {
+  VALIDATE_VIDEO_ERROR,
   POP_UP_ACTION,
   POP_UP_DISMISS_DURATION,
   POP_UP_VERTICAL_POSITION,
-} from "src/app/core/models/constants";
+} from "sources-types";
 
 @Component({
   selector: "upload-video-dialog",

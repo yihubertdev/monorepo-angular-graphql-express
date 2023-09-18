@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { IPost } from "blog";
+import { IPost } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
 export const blogEditSchema: JoiSchemaBuilder<IPost> = (

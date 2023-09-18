@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IPostList } from "src/app/core/models/view.types";
+import { IPostList } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { postList } from "src/app/core/static/post.static";
 

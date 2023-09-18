@@ -20,6 +20,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { HomePagePostModule } from "./feature/homePagePost/home-page-post.module";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from "@angular/material/tabs";
+import { DomScrollDirectiveModule } from "./shared/directives/domScrollDetector/dom-scroll-detector.module";
 
 @NgModule({
   declarations: [MainViewComponent],
@@ -35,6 +36,7 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatSidenavModule,
     MatDrawerResponsiveDirectiveModule,
     GridListResponsiveDirectiveModule,
+    DomScrollDirectiveModule,
     MatIconModule,
     MatTabsModule,
     MatMenuModule,

@@ -1,16 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable } from "rxjs";
-import { IMenu } from "./core/models/layout.type";
-import { IUser } from "./core/models/users.type";
 import { AuthService } from "./core/services/fireAuth/auth";
 import {
   googleIconSvg,
-  homePageMenus,
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
+import { IUser } from "sources-types";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -18,7 +16,7 @@ import {
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="(userAuthObserver$ | async)?.id"
+        *ngIf="userAuthObserver$ | async"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -65,7 +63,7 @@ import {
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        *ngIf="(userAuthObserver$ | async)?.id"
+        *ngIf="userAuthObserver$ | async"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -79,71 +77,14 @@ import {
         style="width: 12vw">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
-
-      <mat-drawer-content style="overflow: initial !important;">
-        <div style="width: 100%; height: 100%">
-          <!-- desktop: top tool bar 10vh, main content 90vh, no footer. mobile: no top toolbar, main content 90vh, footer 10vh -->
-          <mat-grid-list
-            cols="1"
-            rowHeight="10dvh">
-            <mat-grid-tile
-              [attrGridColSpan]="{
-                xs: {
-                  colspan: 1,
-                  rowspan: 9
-                },
-                sm: {
-                  colspan: 1,
-                  rowspan: 9
-                },
-                md: {
-                  colspan: 1,
-                  rowspan: 10
-                },
-                lg: {
-                  colspan: 1,
-                  rowspan: 10
-                },
-                xl: {
-                  colspan: 1,
-                  rowspan: 10
-                }
-              }">
-              <!-- <ng-container *ngIf="(userAuthObserver$ | async) === null">
-                <mat-spinner></mat-spinner>
-              </ng-container> -->
-              <!-- <ng-container *ngIf="userAuthObserver$ | async"> -->
-              <router-outlet></router-outlet>
-              <!-- </ng-container> -->
-            </mat-grid-tile>
-
-            <mat-grid-tile
-              [attrGridColSpan]="{
-                xs: {
-                  colspan: 1,
-                  rowspan: 1
-                },
-                sm: {
-                  colspan: 1,
-                  rowspan: 1
-                },
-                md: {
-                  colspan: 1,
-                  rowspan: 0
-                },
-                lg: {
-                  colspan: 1,
-                  rowspan: 0
-                },
-                xl: {
-                  colspan: 1,
-                  rowspan: 0
-                }
-              }"
-              class="stick-footer">
-              <footer-menu-controller></footer-menu-controller>
-            </mat-grid-tile>
-          </mat-grid-list>
+      <!-- mat-drawer-content overflow default is auto, scrollable-->
+      <mat-drawer-content id="matDrawerContentScroll">
+        <router-outlet></router-outlet>
+        <div
+          #footer
+          class="stick-footer responsive-footer"
+          [ngStyle]="{ bottom: hideFooter ? '-50px' : '0px' }">
+          <footer-menu-controller></footer-menu-controller>
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
@@ -151,9 +92,11 @@ import {
   styleUrls: ["./main.style.css"],
 })
 export class MainViewComponent implements OnInit {
-  userAuthObserver$?: Observable<IUser | null>;
-  footerIconLayout: IMenu[] = homePageMenus;
+  @ViewChild("footer") footer?: ElementRef;
+  private _position: number = 0;
+  public userAuthObserver$?: Observable<IUser | null>;
   public opened: boolean = false;
+  public hideFooter: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -175,24 +118,20 @@ export class MainViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.userAuthObserver$
-    //   .pipe(
-    //     map((user) => {
-    //       if (!user) {
-    //         return;
-    //       }
-    //       return {
-    //         id: user.id,
-    //         role: user.role,
-    //       };
-    //     })
-    //   )
-    //   .subscribe({
-    //     next: (user) => {
-    //       if (!user || !user.id) return;
-    //       this.isDisplay = true;
-    //       // this.isDisplay = !this.authService.isVisitor(user.role);
-    //     },
-    //   });
+    this.userAuthObserver$ = this.authService.userAuthObserver$;
+  }
+
+  ngAfterViewInit(): void {
+    (
+      document.getElementById("matDrawerContentScroll") as HTMLElement
+    ).onscroll = async (scroll) => {
+      const event = scroll.target as HTMLElement;
+      // ! used to remove The left-hand side of an assignment expression may not be an optional property access
+
+      event.scrollTop > this._position
+        ? (this.hideFooter = true)
+        : (this.hideFooter = false);
+      this._position = event.scrollTop;
+    };
   }
 }

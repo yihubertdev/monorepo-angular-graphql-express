@@ -1,10 +1,9 @@
-import { InputType } from "../models/constants";
-import { IFormInput } from "../models/view.types";
+import { IFormInput, INPUT_TYPE } from "sources-types";
 
 export const yourAccountFormList: IFormInput[] = [
   {
     id: "displayName",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Your Profile Name",
     key: "displayName",
     value: "",
@@ -12,7 +11,7 @@ export const yourAccountFormList: IFormInput[] = [
   },
   {
     id: "location",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Your location",
     key: "location",
     value: "",
@@ -20,7 +19,7 @@ export const yourAccountFormList: IFormInput[] = [
   },
   {
     id: "email",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Email",
     key: "email",
     value: "",
@@ -28,7 +27,7 @@ export const yourAccountFormList: IFormInput[] = [
   },
   {
     id: "phone",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Your phone",
     key: "phone",
     value: "",
@@ -36,7 +35,7 @@ export const yourAccountFormList: IFormInput[] = [
   },
   {
     id: "image",
-    type: InputType.UPLOAD,
+    type: INPUT_TYPE.UPLOAD,
     label: "Your Image",
     key: "image",
     value: "",
@@ -49,7 +48,7 @@ export const yourAccountFormList: IFormInput[] = [
 export const userLoginFormList: IFormInput[] = [
   {
     id: "email",
-    type: InputType.EMAIL,
+    type: INPUT_TYPE.EMAIL,
     label: "Your Email",
     key: "email",
     value: "",
@@ -57,7 +56,7 @@ export const userLoginFormList: IFormInput[] = [
   },
   {
     id: "password",
-    type: InputType.PASSWROD,
+    type: INPUT_TYPE.PASSWROD,
     label: "Your Password",
     key: "password",
     value: "",
@@ -68,7 +67,7 @@ export const userLoginFormList: IFormInput[] = [
 export const userSignUpFormList: IFormInput[] = [
   {
     id: "display_name",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Your Display Name",
     key: "display_name",
     value: "",
@@ -77,7 +76,7 @@ export const userSignUpFormList: IFormInput[] = [
   },
   {
     id: "email",
-    type: InputType.EMAIL,
+    type: INPUT_TYPE.EMAIL,
     label: "Your Email",
     key: "email",
     value: "",
@@ -86,7 +85,7 @@ export const userSignUpFormList: IFormInput[] = [
   },
   {
     id: "password",
-    type: InputType.PASSWROD,
+    type: INPUT_TYPE.PASSWROD,
     label: "Your Password",
     key: "password",
     value: "",
@@ -95,7 +94,7 @@ export const userSignUpFormList: IFormInput[] = [
   },
   {
     id: "repeat_password",
-    type: InputType.PASSWROD,
+    type: INPUT_TYPE.PASSWROD,
     label: "Repeat your Password",
     key: "repeat_password",
     value: "",

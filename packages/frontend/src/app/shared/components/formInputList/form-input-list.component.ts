@@ -9,7 +9,7 @@ import {
 import { UntypedFormGroup } from "@angular/forms";
 import { UntypedFormBuilder } from "@angular/forms";
 import joiValidator, { JoiSchemaBuilder } from "src/app/core/utils/validator";
-import { IFormInput } from "src/app/core/models/view.types";
+import { IFormInput } from "sources-types";
 import { EditorComponent } from "../editor/editor.component";
 
 @Component({

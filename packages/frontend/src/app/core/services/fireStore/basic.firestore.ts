@@ -5,10 +5,10 @@ import {
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
 import { firstValueFrom } from "rxjs";
-import { FIRESTORE_COLLECTION } from "../../models/constants";
+import { FIRESTORE_COLLECTION } from "sources-types";
 import { v4 as uuidv4 } from "uuid";
 import getTime from "date-fns/getTime";
-import { ICollectionQueryBuilder } from "blog";
+import { ICollectionQueryBuilder } from "sources-types";
 import joiValidator from "../../utils/validator";
 import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 
@@ -187,6 +187,7 @@ export abstract class FireStoreBaseModel<T> {
       .orderBy("createdAt", "desc")
       .startAfter(this.lastQueryDocumentSnapshot)
       .limit(limit);
+    // reset lastQuerySnapshot, otherwise hasFile will keep return true even if its already the last query
     this.lastQueryDocumentSnapshot = undefined;
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {

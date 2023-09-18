@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { accountSchema } from "src/app/core/joiSchema/auth.schema";
-import { IFormInput } from "src/app/core/models/view.types";
+import { IFormInput } from "sources-types";
 import { yourAccountFormList } from "src/app/core/static/auth.static";
 
 @Component({

@@ -3,18 +3,16 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
 import {
-  POP_UP_ACTION,
-  POP_UP_DISMISS_DURATION,
-} from "src/app/core/models/constants";
-import {
   ADD_BLOG_ERROR,
   USER_LOGIN_ERROR,
-} from "src/app/core/models/users.type";
-import { IFormInput } from "src/app/core/models/view.types";
+  POP_UP_ACTION,
+  POP_UP_DISMISS_DURATION,
+  IFormInput,
+} from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
 import { postEditFormList } from "src/app/core/static/post.static";
-import { IPost } from "blog";
+import { IPost } from "sources-types";
 
 @Component({
   selector: "edit-blog-controller",

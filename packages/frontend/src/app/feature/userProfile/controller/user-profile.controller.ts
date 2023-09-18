@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { IUser } from "src/app/core/models/users.type";
+import { IUser } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";

@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { IUserProfile } from "../models/users.type";
+import { IUserProfile } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
 export const accountSchema: JoiSchemaBuilder<IUserProfile> = (

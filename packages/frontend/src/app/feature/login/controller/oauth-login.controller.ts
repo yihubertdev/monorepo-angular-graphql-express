@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { DomSanitizer } from "@angular/platform-browser";
 import { userLoginSchema } from "src/app/core/joiSchema/user-login.schema";
-import { IFormInput } from "src/app/core/models/view.types";
+import { IFormInput } from "sources-types";
 import { userLoginFormList } from "src/app/core/static/auth.static";
 import {
   MatBottomSheet,

@@ -1,6 +1,4 @@
-import { InputType } from "../models/constants";
-import { IMenu } from "../models/layout.type";
-import { IFormInput } from "../models/view.types";
+import { IMenu, IFormInput, INPUT_TYPE } from "sources-types";
 
 export const postList = [
   {
@@ -53,14 +51,14 @@ export const postList = [
 export const postEditFormList: IFormInput[] = [
   {
     id: "content",
-    type: InputType.TEXTAREA,
+    type: INPUT_TYPE.TEXTAREA,
     key: "content",
     value: "",
     placeholder: "content",
   },
   {
     id: "image",
-    type: InputType.UPLOAD,
+    type: INPUT_TYPE.UPLOAD,
     label: "Your Image",
     key: "image",
     value: "",
@@ -73,7 +71,7 @@ export const postEditFormList: IFormInput[] = [
 export const editArticleFormList: IFormInput[] = [
   {
     id: "title",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Blog Title",
     key: "title",
     value: "",
@@ -81,7 +79,7 @@ export const editArticleFormList: IFormInput[] = [
   },
   {
     id: "subTitle",
-    type: InputType.TEXT,
+    type: INPUT_TYPE.TEXT,
     label: "Blog SubTitle",
     key: "subTitle",
     value: "",
@@ -89,7 +87,7 @@ export const editArticleFormList: IFormInput[] = [
   },
   {
     id: "description",
-    type: InputType.TEXTAREA,
+    type: INPUT_TYPE.TEXTAREA,
     label: "Blog Description",
     key: "description",
     value: "",
