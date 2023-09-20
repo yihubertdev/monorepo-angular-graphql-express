@@ -1,11 +1,7 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from "@angular/core";
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { IPost } from "sources-types";
+import { postCardMenu } from "../../../core/static/post.static";
+import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
   selector: "post-card-component",
@@ -36,17 +32,12 @@ import { IPost } from "sources-types";
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>Redial</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>push_pin</mat-icon>
-            <span>Disable alerts</span>
-          </button>
-          <button mat-menu-item>
-            <mat-icon>grid_3x3_off</mat-icon>
-            <span>Disable alerts</span>
+          <button
+            mat-menu-item
+            *ngFor="let post of postCardMenu"
+            (click)="submit(post.link)">
+            <mat-icon>{{ post.iconName }}</mat-icon>
+            <span>{{ post.description }}</span>
           </button>
         </mat-menu>
       </mat-card-header>
@@ -87,5 +78,31 @@ export class PostCardComponent {
   @Input() isUserProfile: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;
 
+  public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
+  constructor(private _PostService: PostFireStore) {}
+  submit(link: string) {
+    switch (link) {
+      case "delete": {
+        if (this.postCardInfo) {
+          this._PostService.delete(this.postCardInfo.id);
+        }
+
+        break;
+      }
+      case "pin": {
+        if (this.postCardInfo) {
+          this._PostService.update({
+            pin: true,
+            id: this.postCardInfo.id,
+          });
+        }
+        break;
+      }
+      default: {
+        //statements;
+        break;
+      }
+    }
+  }
 }

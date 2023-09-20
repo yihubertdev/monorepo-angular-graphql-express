@@ -47,7 +47,7 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           >{{ currentUser?.displayName ?? "Guest" }}
         </mat-card-title>
         <mat-card-subtitle style="display: inline !important;"
-          >@{{ currentUser?.username ?? "guest" }}</mat-card-subtitle
+          >@{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
         >
       </mat-card-header>
 
@@ -75,9 +75,9 @@ export class UserProfileControllerComponent implements OnInit, OnChanges {
   }
 
   async ngOnChanges() {
-    this.currentUser = this.userId
-      ? await this.userService.retrieveById(this.userId)
-      : null;
+    [this.currentUser] = this.userId
+      ? await this.userService.retrieve({ userId: this.userId })
+      : [null];
   }
 
   async uploadImage(eventTarget: EventTarget | null) {

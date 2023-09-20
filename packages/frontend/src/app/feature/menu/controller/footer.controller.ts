@@ -49,11 +49,15 @@ export class FooterController {
       document.getElementById("matDrawerContentScroll") as HTMLElement
     ).onscroll = async (scroll) => {
       const event = scroll.target as HTMLElement;
-      // ! used to remove The left-hand side of an assignment expression may not be an optional property access
-
-      event.scrollTop > this._position
-        ? (this.hideFooter = true)
-        : (this.hideFooter = false);
+      if (event.scrollTop === 0) {
+        this.hideFooter = false;
+      } else if (event.offsetHeight + event.scrollTop >= event.scrollHeight) {
+        this.hideFooter = true;
+      } else {
+        event.scrollTop > this._position
+          ? (this.hideFooter = true)
+          : (this.hideFooter = false);
+      }
       this._position = event.scrollTop;
     };
   }

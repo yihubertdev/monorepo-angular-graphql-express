@@ -2,7 +2,6 @@ import {
   AfterViewInit,
   Component,
   EventEmitter,
-  HostListener,
   Input,
   OnInit,
   Output,

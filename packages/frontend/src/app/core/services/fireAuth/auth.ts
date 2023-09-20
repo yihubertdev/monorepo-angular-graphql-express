@@ -19,7 +19,6 @@ import {
 } from "firebase/auth";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
-import { v4 as uuidv4 } from "uuid";
 
 @Injectable()
 export class AuthService {
@@ -35,7 +34,6 @@ export class AuthService {
   constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
-      console.log(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
         this._userAuth.next(this.currentUser);
@@ -59,11 +57,9 @@ export class AuthService {
     data: Partial<Pick<IUserProfile, "displayName" | "photoURL">>
   ): Promise<boolean> {
     try {
-      console.log(data);
       await updateProfile(user, data);
       return true;
     } catch (err) {
-      console.log(err);
       return false;
     }
   }
@@ -137,11 +133,10 @@ export class AuthService {
       this.sendVerificationMail(user),
       this.userService.create({
         id: user.uid,
-        userId: user.uid,
-        username:
+        userId:
           data.displayName.replace(/\s/g, "").toLowerCase() +
           "-" +
-          uuidv4().substring(0, 5),
+          user.uid.substring(0, 5),
         displayName: data.displayName,
         role: IUserRole.VISITOR,
         email: user.email,

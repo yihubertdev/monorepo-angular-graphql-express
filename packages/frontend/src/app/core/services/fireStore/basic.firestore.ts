@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Query } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -62,6 +62,23 @@ export abstract class FireStoreBaseModel<T> {
   };
 
   /**
+   * Retrieve document from collection by docs id
+   *
+   * @public
+   * @param {string} filter document user id
+   * @param {string} [filter.userId] document user id
+   * @returns {Promise<T[]>} retrieve
+   */
+  public retrieve = async (filter: { userId?: string }): Promise<T[]> => {
+    const { userId } = filter;
+    let query = this.collection.ref.where("userId", "==", userId);
+
+    const result = await query.get();
+    // return document;
+    return result.docs.map((data) => data.data());
+  };
+
+  /**
    * Create document in that collection
    *
    * @public
@@ -107,9 +124,7 @@ export abstract class FireStoreBaseModel<T> {
   public createSubCollection = (
     queryBuilder: ICollectionQueryBuilder<T>
   ): void => {
-    const query = this.buildSubCollectionQuery(this.collection, queryBuilder);
-
-    console.log(query);
+    this.buildSubCollectionQuery(this.collection, queryBuilder);
   };
 
   /**

@@ -159,3 +159,24 @@ export const homePageMenus: IMenu[] = [
     width: "75px",
   },
 ];
+
+export const postCardMenu: IMenu[] = [
+  {
+    link: "delete",
+    description: "Delete",
+    iconName: "delete",
+    width: "75px",
+  },
+  {
+    link: "pin",
+    description: "Pin",
+    iconName: "push_pin",
+    width: "75px",
+  },
+  {
+    link: "edit",
+    description: "Edit",
+    iconName: "grid_3x3_off",
+    width: "75px",
+  },
+];

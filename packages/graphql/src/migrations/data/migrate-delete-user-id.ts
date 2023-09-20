@@ -1,7 +1,6 @@
 import { FieldValue } from "firebase-admin/firestore";
 import client from "../../client";
 import modelsFirestore from "../../modelsFirestore";
-import { v4 as uuidv4 } from "uuid";
 
 /**
  * Sync user display name and name id
@@ -18,6 +17,12 @@ export async function migrationDeleteUserId(): Promise<void> {
       users.map(async (user) => {
         const userRef = fireStore.collection("users").doc(user["userId"]);
         batch.update(userRef, {
+          userId:
+            user.displayName.replace(/\s/g, "").toLowerCase() +
+            "-" +
+            user.id.substring(0, 5),
+        });
+        batch.update(userRef, {
           username: FieldValue.delete(),
         });
 
@@ -29,11 +34,15 @@ export async function migrationDeleteUserId(): Promise<void> {
           const blogRef = docs.ref;
           // Do not use batch set, it will overwrite the whole document
           batch.update(blogRef, {
-            username:
-              user["displayName"].replace(/\s/g, "").toLowerCase() +
+            userId:
+              user.displayName.replace(/\s/g, "").toLowerCase() +
               "-" +
-              uuidv4().substring(0, 5),
+              user.id.substring(0, 5),
             displayName: user["displayName"],
+          });
+
+          batch.update(userRef, {
+            username: FieldValue.delete(),
           });
         });
       })

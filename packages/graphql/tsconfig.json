@@ -5,7 +5,10 @@
     "rootDirs": ["src"],
     "baseUrl": ".",
     "outDir": "./.build",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "paths": {
+      "sources-types": ["../frontend-shared/library/types"]
+    },
   },
   "include": ["./src"]
 }

@@ -65,12 +65,13 @@ export interface IArticle {
 }
 
 export interface IPost {
-  id?: string;
+  id: string;
   userId: string;
   image?: string[];
   content: string;
   displayName?: string;
   photoURL?: string;
+  pin?: boolean;
   createdAt?: Date;
   updatedA?: Date;
 }
@@ -92,8 +93,7 @@ export interface IMenu {
 export interface IUser {
   id: string;
   userId: string;
-  username: string | null;
-  displayName: string | null;
+  displayName: string;
   email: string | null;
   emailVerified: boolean;
   isAnonymous: boolean;
