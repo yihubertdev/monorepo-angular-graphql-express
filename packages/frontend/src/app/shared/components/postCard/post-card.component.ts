@@ -2,13 +2,13 @@ import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/post.static";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "post-card-component",
   template: `
     <mat-card class="mb-2">
-      <mat-card-header
-        [routerLink]="['/account', 'users', postCardInfo?.userId]">
+      <mat-card-header (click)="(redirect)">
         <div
           mat-card-avatar
           [ngStyle]="{
@@ -80,7 +80,12 @@ export class PostCardComponent {
 
   public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
-  constructor(private _PostService: PostFireStore) {}
+  constructor(private _PostService: PostFireStore, private _router: Router) {}
+  redirect() {
+    if (!this.isUserProfile) {
+      this._router.navigate(["/account", "users", this.postCardInfo?.userId]);
+    }
+  }
   submit(link: string) {
     switch (link) {
       case "delete": {
