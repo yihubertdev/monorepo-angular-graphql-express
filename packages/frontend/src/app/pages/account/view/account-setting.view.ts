@@ -15,7 +15,8 @@ import { Component, OnInit } from "@angular/core";
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12 m-0 p-0">
             <home-page-post-controller
               [isPagination]="true"
-              [isUserProfile]="true"></home-page-post-controller>
+              [isUserProfile]="true"
+              [isMe]="true"></home-page-post-controller>
           </div>
         </div>
       </div>

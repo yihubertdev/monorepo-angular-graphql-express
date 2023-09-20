@@ -39,7 +39,10 @@ import { Component } from "@angular/core";
             style="margin: auto;"
             *ngIf="isLoading"></mat-spinner>
           <home-page-post-controller
-            (isLoading)="isLoading = $event"></home-page-post-controller>
+            (isLoading)="isLoading = $event"
+            [isPagination]="false"
+            [isUserProfile]="false"
+            [isMe]="false"></home-page-post-controller>
           <a
             mat-raised-button
             color="primary"

@@ -15,7 +15,8 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
     <ng-container *ngFor="let post of data">
       <post-card-component
         [postCardInfo]="post"
-        [isUserProfile]="isUserProfile"></post-card-component>
+        [isUserProfile]="isUserProfile"
+        [isMe]="isMe"></post-card-component>
     </ng-container>
   `,
   styleUrls: ["../home-page-post.style.css"],
@@ -23,6 +24,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 export class HomePagePostController implements OnInit, AfterViewInit {
   @Input() isPagination: boolean = false;
   @Input() isUserProfile: boolean = false;
+  @Input() isMe: boolean = false;
   @Output() isLoading = new EventEmitter<boolean>();
 
   public data: IPost[] = [];

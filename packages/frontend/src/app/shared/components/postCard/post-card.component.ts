@@ -1,14 +1,18 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/post.static";
-import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
-import { Router } from "@angular/router";
+import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 
 @Component({
   selector: "post-card-component",
   template: `
     <mat-card class="mb-2">
-      <mat-card-header (click)="(redirect)">
+      <mat-card-header
+        [routerLink]="
+          !isUserProfile && !isMe
+            ? ['/account', 'users', postCardInfo?.userId]
+            : []
+        ">
         <div
           mat-card-avatar
           [ngStyle]="{
@@ -16,8 +20,8 @@ import { Router } from "@angular/router";
               'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
             backgroundSize: 'cover'
           }"
-          *ngIf="!isUserProfile"></div>
-        <mat-card-title *ngIf="!isUserProfile">{{
+          *ngIf="!isUserProfile && !isMe"></div>
+        <mat-card-title *ngIf="!isUserProfile && !isMe">{{
           postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
         }}</mat-card-title>
         <mat-card-subtitle>{{
@@ -28,7 +32,7 @@ import { Router } from "@angular/router";
           [matMenuTriggerFor]="menu"
           aria-label="Example icon-button with a menu"
           style="margin-left: auto;"
-          *ngIf="isUserProfile">
+          *ngIf="isMe">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -76,16 +80,12 @@ import { Router } from "@angular/router";
 export class PostCardComponent {
   @Input() postCardInfo?: IPost;
   @Input() isUserProfile: boolean = false;
+  @Input() isMe: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;
 
   public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
-  constructor(private _PostService: PostFireStore, private _router: Router) {}
-  redirect() {
-    if (!this.isUserProfile) {
-      this._router.navigate(["/account", "users", this.postCardInfo?.userId]);
-    }
-  }
+  constructor(private _PostService: PostFireStore) {}
   submit(link: string) {
     switch (link) {
       case "delete": {
