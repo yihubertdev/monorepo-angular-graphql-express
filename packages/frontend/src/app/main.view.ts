@@ -78,7 +78,9 @@ import { IUser } from "sources-types";
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
       <!-- mat-drawer-content overflow default is auto, scrollable-->
-      <mat-drawer-content id="matDrawerContentScroll">
+      <mat-drawer-content
+        id="matDrawerContentScroll"
+        style="overflow-y: visible;">
         <router-outlet></router-outlet>
         <footer-controller></footer-controller>
       </mat-drawer-content>
@@ -113,5 +115,11 @@ export class MainViewComponent implements OnInit {
 
   ngOnInit() {
     this.userAuthObserver$ = this.authService.userAuthObserver$;
+  }
+
+  ngAfterViewInit(): void {
+    window.addEventListener("load", () => {
+      window.scrollTo(0, 1);
+    });
   }
 }

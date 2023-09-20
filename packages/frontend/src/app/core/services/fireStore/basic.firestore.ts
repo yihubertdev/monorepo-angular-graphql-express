@@ -217,4 +217,16 @@ export abstract class FireStoreBaseModel<T> {
       hasFile: this.lastQueryDocumentSnapshot ? true : false,
     };
   };
+
+  /**
+   * Generate user Id
+   *
+   * @public
+   * @param {string} userId delete document
+   * @param {string} name delete document
+   * @returns {string} user id
+   */
+  public generateUserId(userId: string, name: string): string {
+    return name.replace(/\s/g, "").toLowerCase() + "-" + userId.substring(0, 5);
+  }
 }

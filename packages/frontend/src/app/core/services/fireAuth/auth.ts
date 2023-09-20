@@ -133,10 +133,7 @@ export class AuthService {
       this.sendVerificationMail(user),
       this.userService.create({
         id: user.uid,
-        userId:
-          data.displayName.replace(/\s/g, "").toLowerCase() +
-          "-" +
-          user.uid.substring(0, 5),
+        userId: this.userService.generateUserId(user.uid, data.displayName),
         displayName: data.displayName,
         role: IUserRole.VISITOR,
         email: user.email,

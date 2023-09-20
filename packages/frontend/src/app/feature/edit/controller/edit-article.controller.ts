@@ -58,7 +58,7 @@ export class EditArticleController {
       subTitle,
       description,
       content: quillEditor,
-      userId: currentUser.id,
+      userId: currentUser.userId,
     } as IArticle;
 
     try {
