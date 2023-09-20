@@ -171,3 +171,7 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: initial !important;
+}

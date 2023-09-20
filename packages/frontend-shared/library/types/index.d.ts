@@ -84,10 +84,14 @@ export interface ICollectionQueryBuilder<T> {
 }
 
 export interface IMenu {
-  link: string;
+  link: string | string[];
   description: string;
   iconName: string;
   width: string;
+}
+
+export interface INestedMenu extends IMenu {
+  subMenu?: INestedMenu[];
 }
 
 export interface IUser {

@@ -21,14 +21,7 @@ import { IUser } from "sources-types";
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>Yihu Tech</span>
-      <button mat-button>
-        <a
-          style="text-decoration: none; color: black;"
-          routerLink="account/login">
-          Login</a
-        >
-      </button>
+      <span>Whatever Site Name</span>
       <header-menu-controller></header-menu-controller>
       <span class="example-spacer"></span>
       <button

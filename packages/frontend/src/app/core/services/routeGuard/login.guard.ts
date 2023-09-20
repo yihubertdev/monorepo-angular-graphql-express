@@ -19,18 +19,11 @@ export class LoginGuardService {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return new Promise((resolve) => {
-      this.authService.userAuthObserver$
-        //takeWhile allow values until value from source is return false, then complete
-        .subscribe((user) => {
-          if (user?.id) {
-            this.zone.run(() => {
-              this._router.navigateByUrl("account/me");
-            });
-
-            resolve(false);
-          }
-          resolve(true);
-        });
+      this.zone.run(() => {
+        this.authService.get()?.userId
+          ? this._router.navigateByUrl("account/me")
+          : resolve(true);
+      });
     });
   }
 }

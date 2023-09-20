@@ -1,4 +1,4 @@
-import { IMenu, IFormInput, INPUT_TYPE } from "sources-types";
+import { IMenu, IFormInput, INPUT_TYPE, INestedMenu } from "sources-types";
 
 export const postList = [
   {
@@ -178,5 +178,92 @@ export const postCardMenu: IMenu[] = [
     description: "Edit",
     iconName: "grid_3x3_off",
     width: "75px",
+  },
+];
+
+export const headerMenu: INestedMenu[] = [
+  {
+    link: ["/account", "login"],
+    description: "Login",
+    iconName: "account_circle",
+    width: "75px",
+  },
+  {
+    link: ["/account", "signup"],
+    description: "Sign Up",
+    iconName: "account_circle",
+    width: "75px",
+  },
+  {
+    link: "",
+    description: "Account",
+    iconName: "account_circle",
+    width: "75px",
+    subMenu: [
+      {
+        link: ["/account", "me"],
+        description: "My Post",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: "",
+        description: "Personal Profile",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: "",
+        description: "Business Profile",
+        iconName: "account_circle",
+        width: "75px",
+      },
+    ],
+  },
+  {
+    link: "",
+    description: "Home",
+    iconName: "account_circle",
+    width: "75px",
+    subMenu: [
+      {
+        link: "home",
+        description: "Main",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: "home/posts",
+        description: "Short Post",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: "home/articles",
+        description: "Article",
+        iconName: "account_circle",
+        width: "75px",
+      },
+    ],
+  },
+  {
+    link: "",
+    description: "Finance",
+    iconName: "account_circle",
+    width: "75px",
+    subMenu: [
+      {
+        link: "home/posts",
+        description: "Banker",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: "home/articles",
+        description: "Valuation",
+        iconName: "account_circle",
+        width: "75px",
+      },
+    ],
   },
 ];

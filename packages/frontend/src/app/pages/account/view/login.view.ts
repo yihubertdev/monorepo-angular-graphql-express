@@ -1,87 +1,25 @@
-import { Component, NgZone, OnDestroy, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { Component } from "@angular/core";
 
 @Component({
   template: ` <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
-    <div class="responsive-post-section">
-      <mat-grid-list
-        [attrGridCols]="{ xs: 1, sm: 1, md: 1, lg: 1, xl: 1 }"
-        rowHeight="10dvh">
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 5
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 5
-            },
-            md: {
-              colspan: 1,
-              rowspan: 5
-            },
-            lg: {
-              colspan: 1,
-              rowspan: 5
-            },
-            xl: {
-              colspan: 1,
-              rowspan: 5
-            }
-          }">
+    <div class="container">
+      <div class="row mb-4 justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <h1>Log In</h1>
+        </div>
+      </div>
+      <div class="row mb-4 justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <email-login-controller></email-login-controller>
-        </mat-grid-tile>
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 2
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 2
-            },
-            md: {
-              colspan: 1,
-              rowspan: 2
-            },
-            lg: {
-              colspan: 1,
-              rowspan: 2
-            },
-            xl: {
-              colspan: 1,
-              rowspan: 2
-            }
-          }">
+        </div>
+      </div>
+      <div class="row mb-4 justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <oauth-login-controller></oauth-login-controller>
-        </mat-grid-tile>
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 1
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 1
-            },
-            md: {
-              colspan: 1,
-              rowspan: 2
-            },
-            lg: {
-              colspan: 1,
-              rowspan: 2
-            },
-            xl: {
-              colspan: 1,
-              rowspan: 2
-            }
-          }">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <h3>
             No account?
             <a
@@ -90,9 +28,11 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
               Register</a
             >
           </h3>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
+      </div>
     </div>`,
   styleUrls: ["../account.style.css"],
 })
-export class LoginView {}
+export class LoginView {
+  constructor() {}
+}

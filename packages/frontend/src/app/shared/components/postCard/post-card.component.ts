@@ -86,7 +86,7 @@ export class PostCardComponent {
   public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
   constructor(private _PostService: PostFireStore) {}
-  submit(link: string) {
+  submit(link: string | string[]) {
     switch (link) {
       case "delete": {
         if (this.postCardInfo) {

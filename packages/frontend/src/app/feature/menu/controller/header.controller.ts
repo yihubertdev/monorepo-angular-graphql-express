@@ -1,84 +1,39 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { IMenu } from "sources-types";
-import { homePageMenus } from "src/app/core/static/post.static";
+import { headerMenu } from "../../../core/static/post.static";
 
 @Component({
   selector: "header-menu-controller",
-  template: ` <ng-container>
-    <button
-      mat-button
-      [matMenuTriggerFor]="animals">
-      Bla
-    </button>
-    <mat-menu #animals="matMenu">
+  template: `
+    <ng-container *ngFor="let menus of headerMenuLayout">
       <button
-        mat-menu-item
-        [matMenuTriggerFor]="vertebrates">
-        Vertebrates
+        *ngIf="menus.subMenu"
+        mat-button
+        [matMenuTriggerFor]="subMenu"
+        [routerLink]="menus.link ? menus.link : []">
+        {{ menus.description }}
+        <mat-menu #subMenu="matMenu">
+          <button
+            mat-menu-item
+            *ngFor="let menu of menus.subMenu"
+            [routerLink]="menu.link ? menu.link : []">
+            {{ menu.description }}
+          </button>
+        </mat-menu>
       </button>
-      <button
-        mat-menu-item
-        [matMenuTriggerFor]="invertebrates">
-        Invertebrates
-      </button>
-    </mat-menu>
 
-    <mat-menu #vertebrates="matMenu">
-      <button mat-menu-item>Birds</button>
-      <button mat-menu-item>Mammals</button>
-    </mat-menu>
-
-    <mat-menu #invertebrates="matMenu">
-      <button mat-menu-item>Insects</button>
-      <button mat-menu-item>Molluscs</button>
-      <button mat-menu-item>Crustaceans</button>
-      <button mat-menu-item>Corals</button>
-      <button mat-menu-item>Arachnids</button>
-      <button mat-menu-item>Velvet worms</button>
-      <button mat-menu-item>Horseshoe crabs</button>
-    </mat-menu>
-
-    <button
-      mat-button
-      [matMenuTriggerFor]="animals">
-      Bla
-    </button>
-    <mat-menu #animals="matMenu">
       <button
-        mat-menu-item
-        [matMenuTriggerFor]="vertebrates">
-        Vertebrates
+        *ngIf="!menus.subMenu"
+        mat-button
+        [routerLink]="menus.link ? menus.link : []">
+        {{ menus.description }}
       </button>
-      <button
-        mat-menu-item
-        [matMenuTriggerFor]="invertebrates">
-        Invertebrates
-      </button>
-    </mat-menu>
-
-    <button
-      mat-button
-      [matMenuTriggerFor]="animals">
-      Bla
-    </button>
-    <mat-menu #animals="matMenu">
-      <button
-        mat-menu-item
-        [matMenuTriggerFor]="vertebrates">
-        Vertebrates
-      </button>
-      <button
-        mat-menu-item
-        [matMenuTriggerFor]="invertebrates">
-        Invertebrates
-      </button>
-    </mat-menu>
-  </ng-container>`,
+    </ng-container>
+  `,
   styleUrls: [],
 })
 export class HeaderMenuController {
-  footerIconLayout: IMenu[] = homePageMenus;
+  headerMenuLayout = headerMenu;
 
   constructor(private router: Router) {}
 }

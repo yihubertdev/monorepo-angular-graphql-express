@@ -5,6 +5,11 @@ import { Component } from "@angular/core";
     <div class="container">
       <div class="row mb-4 justify-content-center">
         <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <h1>Sign Up</h1>
+        </div>
+      </div>
+      <div class="row mb-4 justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <email-signup-controller></email-signup-controller>
         </div>
       </div>
