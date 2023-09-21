@@ -3,9 +3,7 @@ import { Component } from "@angular/core";
 @Component({
   selector: "post-view",
   template: `
-    <div
-      class="container "
-      style="max-width: 100% !important">
+    <div class="container">
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <!--justify-content-center center the inner col-->
       <div class="row mb-3 justify-content-center">

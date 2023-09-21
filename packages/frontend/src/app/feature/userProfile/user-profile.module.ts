@@ -4,6 +4,8 @@ import { UserProfileControllerComponent } from "./controller/user-profile.contro
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { StringTransformPipeModule } from "angular-shared-ui";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [UserProfileControllerComponent],
@@ -12,6 +14,8 @@ import { StringTransformPipeModule } from "angular-shared-ui";
     MatCardModule,
     MatGridListModule,
     StringTransformPipeModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   exports: [UserProfileControllerComponent],
 })

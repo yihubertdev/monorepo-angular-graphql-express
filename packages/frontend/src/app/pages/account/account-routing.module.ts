@@ -10,6 +10,7 @@ import { AccountViewComponent } from "./view/account-setting.view";
 import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { UserProfileView } from "./view/user-profile.view";
+import { PersonalProfileView } from "./view/personal-profile.view";
 
 const routes: Routes = [
   { path: "", redirectTo: "me", pathMatch: "full" },
@@ -24,6 +25,10 @@ const routes: Routes = [
     path: "users/:id",
     canActivate: [IsMeRouteGuard],
     component: UserProfileView,
+  },
+  {
+    path: "personal-profile/:id",
+    component: PersonalProfileView,
   },
 ];
 

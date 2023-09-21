@@ -20,24 +20,46 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
         [ngStyle]="{
           backgroundImage: currentUser?.photoURL ? 'url(' + currentUser?.photoURL + ')' : 'url(' + photoUrl + ')',
         }"></div>
+
       <div
-        class="user-avatar-size m-0 p-0 user-avatar"
-        [ngStyle]="{
-          backgroundImage:
-            'url(' + (currentUser?.photoURL ?? undefined | UserPhotoPipe) + ')',
-          backgroundSize: 'cover'
-        }"
-        (click)="triggerUpload()">
-        <input
-          type="file"
-          (change)="uploadImage($event.target)"
-          style="display:none"
-          id="uploadProfile"
-          #uploadProfile
-          name="filedata" />
-      </div>
-      <div class="position-absolute-vertical-bottom-horizontal-center m-0 p-0">
-        <h1>test</h1>
+        class="position-absolute-bottom m-0 p-0"
+        style="width: 100%;">
+        <div
+          class="user-avatar-size m-0 p-0 user-avatar"
+          [ngStyle]="{
+            backgroundImage:
+              'url(' +
+              (currentUser?.photoURL ?? undefined | UserPhotoPipe) +
+              ')',
+            backgroundSize: 'cover'
+          }"
+          (click)="triggerUpload()">
+          <input
+            type="file"
+            (change)="uploadImage($event.target)"
+            style="display:none"
+            id="uploadProfile"
+            #uploadProfile
+            name="filedata" />
+        </div>
+        <div class="position-absolute-bottom-right">
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="posts"
+            style="float: right; ">
+            Business
+            <mat-icon>account_box</mat-icon>
+          </a>
+          <a
+            mat-raised-button
+            color="primary"
+            routerLink="posts"
+            style="float: right; margin-right: 1%;">
+            Personal
+            <mat-icon>person</mat-icon>
+          </a>
+        </div>
       </div>
     </mat-card>
 
