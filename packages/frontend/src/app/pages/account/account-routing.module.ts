@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: "", redirectTo: "me", pathMatch: "full" },
   {
     path: "me",
-    canActivate: [UserGuardService],
+    canActivate: [],
     component: AccountViewComponent,
   },
   { path: "login", canActivate: [LoginGuardService], component: LoginView },

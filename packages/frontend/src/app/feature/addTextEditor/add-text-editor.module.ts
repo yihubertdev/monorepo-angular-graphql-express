@@ -5,10 +5,17 @@ import { AddTextEditorControllerComponent } from "./controller/add-text-editor.c
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { MatListModule } from "@angular/material/list";
 import { TextEditorOptionsComponent } from "./controller/text-editor-options.controller";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [AddTextEditorControllerComponent, TextEditorOptionsComponent],
-  imports: [CommonModule, MatIconModule, MatBottomSheetModule, MatListModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatBottomSheetModule,
+    MatListModule,
+    RouterModule,
+  ],
   exports: [AddTextEditorControllerComponent, TextEditorOptionsComponent],
 })
 export class AddTextEditorModule {}

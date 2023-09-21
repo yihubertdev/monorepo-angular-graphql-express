@@ -2,10 +2,6 @@
   width: 100%;
 }
 
-.example-form {
-  width: 100%;
-}
-
 .text-overflow-card {
   width: 100%;
   overflow: hidden;
@@ -24,6 +20,13 @@
   border-radius: 25px;
   width: 80%;
   margin: auto;
+  display: block;
+}
+
+.video-frame-center {
+  width: 100%;
+  margin: auto;
+  display: block;
 }
 
 /* xs width */

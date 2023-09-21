@@ -68,6 +68,7 @@ export interface IPost {
   id: string;
   userId: string;
   image?: string[];
+  video?: string;
   content: string;
   displayName?: string;
   photoURL?: string;

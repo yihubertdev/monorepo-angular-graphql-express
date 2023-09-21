@@ -71,9 +71,7 @@ import { IUser } from "sources-types";
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
       <!-- mat-drawer-content overflow default is auto, scrollable-->
-      <mat-drawer-content
-        id="matDrawerContentScroll"
-        style="overflow-y: visible;">
+      <mat-drawer-content id="matDrawerContentScroll">
         <router-outlet></router-outlet>
         <footer-controller></footer-controller>
       </mat-drawer-content>
@@ -111,8 +109,11 @@ export class MainViewComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    window.addEventListener("load", () => {
-      window.scrollTo(0, 1);
+    const drawerContainerScroll = document.getElementById(
+      "matDrawerContentScroll"
+    ) as HTMLElement;
+    drawerContainerScroll.addEventListener("load", () => {
+      drawerContainerScroll.scrollTo(0, 1);
     });
   }
 }
