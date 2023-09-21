@@ -62,7 +62,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
           [src]="videoByPass(postCardInfo?.video ?? '')"
           frameborder="0"
           allowfullscreen=""
-          class="image-frame-rounded image-height-responsive"></iframe>
+          class="video-frame-center image-height-responsive"></iframe>
 
         <!--multiple image display-->
         <carousel-slider-component

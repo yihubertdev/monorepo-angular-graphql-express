@@ -23,6 +23,12 @@
   display: block;
 }
 
+.video-frame-center {
+  width: 100%;
+  margin: auto;
+  display: block;
+}
+
 /* xs width */
 .image-height-responsive {
   height: 30dvh;
