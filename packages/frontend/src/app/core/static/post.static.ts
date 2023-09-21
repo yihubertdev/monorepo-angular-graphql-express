@@ -57,6 +57,14 @@ export const postEditFormList: IFormInput[] = [
     placeholder: "content",
   },
   {
+    id: "video",
+    type: INPUT_TYPE.TEXT,
+    label: "Video Embed URL",
+    key: "video",
+    value: "",
+    placeholder: "Add embed video url",
+  },
+  {
     id: "image",
     type: INPUT_TYPE.UPLOAD,
     label: "Your Image",
@@ -178,6 +186,21 @@ export const postCardMenu: IMenu[] = [
     description: "Edit",
     iconName: "grid_3x3_off",
     width: "75px",
+  },
+];
+
+export const addBlogMenu: IMenu[] = [
+  {
+    link: ["/edit", "blog"],
+    description: "Add Post",
+    iconName: "post_add",
+    width: "50px",
+  },
+  {
+    link: ["/edit", "article"],
+    description: "Add Article",
+    iconName: "feed",
+    width: "50px",
   },
 ];
 
