@@ -3,6 +3,7 @@ import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/post.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import { EMBED_YOUTUBE_URL } from "sources-types";
 
 @Component({
   selector: "post-card-component",
@@ -104,7 +105,9 @@ export class PostCardComponent {
   ) {}
 
   videoByPass(videoUrl: string) {
-    return this._domSanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(
+      `${EMBED_YOUTUBE_URL}${videoUrl}`
+    );
   }
   submit(link: string | string[]) {
     switch (link) {
