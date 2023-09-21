@@ -1,40 +1,24 @@
 import { Component, OnInit } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { Router } from "@angular/router";
+import { addBlogMenu } from "../../../core/static/post.static";
 
 @Component({
   selector: "bottom-sheet-overview-example-sheet",
   template: `<mat-nav-list>
-    <a
-      mat-list-item
-      (click)="addBlog($event)">
-      <span mat-line>Add Blog</span>
-      <span mat-line>Edit new blog</span>
-    </a>
-
-    <a
-      mat-list-item
-      (click)="addArticle($event)">
-      <span mat-line>Add Article</span>
-      <span mat-line>Edit new article</span>
-    </a>
+    <ng-container *ngFor="let icon of addBlogIconLayout">
+      <a
+        mat-list-item
+        (click)="bottomSheetRef.dismiss()"
+        [routerLink]="icon.link">
+        <span mat-line>{{ icon.description }}</span>
+      </a>
+    </ng-container>
   </mat-nav-list>`,
 })
 export class TextEditorOptionsComponent {
+  public addBlogIconLayout = addBlogMenu;
   constructor(
-    private _bottomSheetRef: MatBottomSheetRef<TextEditorOptionsComponent>,
-    private _router: Router
+    public bottomSheetRef: MatBottomSheetRef<TextEditorOptionsComponent>
   ) {}
-
-  async addBlog(event: MouseEvent) {
-    this._router.navigateByUrl("edit/blog");
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
-
-  async addArticle(event: MouseEvent) {
-    this._router.navigateByUrl("edit/article");
-    this._bottomSheetRef.dismiss();
-    event.preventDefault();
-  }
 }

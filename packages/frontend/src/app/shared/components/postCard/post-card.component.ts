@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/post.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
   selector: "post-card-component",
@@ -46,20 +47,31 @@ import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
         </mat-menu>
       </mat-card-header>
 
-      <div
-        *ngIf="postCardInfo?.image?.length === 1"
-        class="image-frame-rounded slide-image-cover-center image-height-responsive"
-        [ngStyle]="{
+      <mat-card-content>
+        <!--single image display-->
+        <div
+          *ngIf="postCardInfo?.image?.length === 1"
+          class="image-frame-rounded slide-image-cover-center image-height-responsive"
+          [ngStyle]="{
           backgroundImage: 'url(' + postCardInfo?.image + ')',
         }"></div>
 
-      <carousel-slider-component
-        *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
-        [images]="postCardInfo?.image ?? []"
-        [height]="20"
-        [isCover]="false"></carousel-slider-component>
+        <!--single video display-->
+        <iframe
+          *ngIf="postCardInfo?.video"
+          [src]="videoByPass(postCardInfo?.video ?? '')"
+          frameborder="0"
+          allowfullscreen=""
+          class="image-frame-rounded image-height-responsive"></iframe>
 
-      <mat-card-content>
+        <!--multiple image display-->
+        <carousel-slider-component
+          *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
+          [images]="postCardInfo?.image ?? []"
+          [height]="20"
+          [isCover]="false"></carousel-slider-component>
+
+        <!--content-->
         <p
           #content
           class="text-overflow-card"
@@ -85,7 +97,15 @@ export class PostCardComponent {
 
   public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
-  constructor(private _PostService: PostFireStore) {}
+  public safeSrc: SafeResourceUrl | null = null;
+  constructor(
+    private _PostService: PostFireStore,
+    private _domSanitizer: DomSanitizer
+  ) {}
+
+  videoByPass(videoUrl: string) {
+    return this._domSanitizer.bypassSecurityTrustResourceUrl(videoUrl);
+  }
   submit(link: string | string[]) {
     switch (link) {
       case "delete": {

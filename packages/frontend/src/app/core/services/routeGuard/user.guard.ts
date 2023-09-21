@@ -28,11 +28,9 @@ export class UserGuardService {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return new Promise((resolve) => {
-      this.zone.run(() => {
-        this.authService.get()?.userId
-          ? resolve(true)
-          : this._router.navigateByUrl("account/login");
-      });
+      this.authService.userAuthObserver$.subscribe((user) =>
+        user ? resolve(true) : this._router.navigate(["/account", "me"])
+      );
     });
   }
 }
