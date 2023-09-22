@@ -4,7 +4,7 @@ import { Component, OnInit } from "@angular/core";
   template: `
     <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div
-      class="container max-width-container"
+      class="container "
       style="max-width: 100% !important">
       <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12">

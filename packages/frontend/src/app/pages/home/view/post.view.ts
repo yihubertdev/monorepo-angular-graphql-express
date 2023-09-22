@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <!--justify-content-center center the inner col-->
       <div class="row mb-3 justify-content-center">
-        <!-- container responsive-height-container max-width-container container-overflow-vertical -->
+        <!-- container responsive-height-container  container-overflow-vertical -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12">
           <home-page-post-controller
             [isPagination]="true"

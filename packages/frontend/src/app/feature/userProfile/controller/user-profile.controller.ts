@@ -46,18 +46,18 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           <a
             mat-raised-button
             color="primary"
-            routerLink="posts"
             style="float: right; ">
-            Business
-            <mat-icon>account_box</mat-icon>
+            Follow
+            <mat-icon>person</mat-icon>
           </a>
           <a
             mat-raised-button
             color="primary"
             routerLink="posts"
+            [routerLink]="['/account', 'personal-profile', currentUser?.userId]"
             style="float: right; margin-right: 1%;">
-            Personal
-            <mat-icon>person</mat-icon>
+            Profile
+            <mat-icon>account_box</mat-icon>
           </a>
         </div>
       </div>

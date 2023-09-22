@@ -6,7 +6,7 @@ import { postList } from "src/app/core/static/post.static";
 @Component({
   selector: "post-view",
   template: `
-    <div class="responsive-post-section">
+    <div class="responsive-width-height-main-view">
       <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <div class="row mb-3 mx-2">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -14,7 +14,7 @@ import { postList } from "src/app/core/static/post.static";
         </div>
       </div>
       <div class="row mb-3 mx-2 justify-content-center">
-        <!-- container responsive-height-container max-width-container container-overflow-vertical -->
+        <!-- container responsive-height-container  container-overflow-vertical -->
         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12">
           <home-page-article-controller></home-page-article-controller>
         </div>
