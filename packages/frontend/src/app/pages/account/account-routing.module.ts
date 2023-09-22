@@ -13,18 +13,17 @@ import { UserProfileView } from "./view/user-profile.view";
 import { PersonalProfileView } from "./view/personal-profile.view";
 
 const routes: Routes = [
-  { path: "", redirectTo: "me", pathMatch: "full" },
-  {
-    path: "me",
-    canActivate: [],
-    component: AccountViewComponent,
-  },
+  { path: "", redirectTo: "users/me", pathMatch: "full" },
   { path: "login", canActivate: [LoginGuardService], component: LoginView },
   { path: "signup", component: SignUpView },
   {
     path: "users/:id",
     canActivate: [IsMeRouteGuard],
     component: UserProfileView,
+    loadChildren: () =>
+      import("../profile/profile.module").then(
+        (module) => module.ProfileModule
+      ),
   },
   {
     path: "personal-profile/:id",

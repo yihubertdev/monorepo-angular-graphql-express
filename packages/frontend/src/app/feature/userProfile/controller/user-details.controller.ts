@@ -8,7 +8,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
     <mat-tab label="Personal Profile">
       <div class="container">
         <div class="row">
-          <div class="col-4 mb-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-4">
             <mat-card class="example-card">
               <mat-card-header>
                 <mat-card-title>Home Address</mat-card-title>
@@ -31,7 +31,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
               </mat-card-actions>
             </mat-card>
           </div>
-          <div class="col-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <mat-card class="example-card">
               <mat-card-header>
                 <div
@@ -54,7 +54,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
               </mat-card-actions>
             </mat-card>
           </div>
-          <div class="col-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <mat-card class="example-card">
               <mat-card-header>
                 <div
@@ -77,7 +77,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
               </mat-card-actions>
             </mat-card>
           </div>
-          <div class="col-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <mat-card class="example-card">
               <mat-card-header>
                 <div
@@ -100,7 +100,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
               </mat-card-actions>
             </mat-card>
           </div>
-          <div class="col-4">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <mat-card class="example-card">
               <mat-card-header>
                 <div

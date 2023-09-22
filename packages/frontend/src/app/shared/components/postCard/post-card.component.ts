@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from "@angular/core";
 import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/post.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
@@ -7,6 +13,7 @@ import { EMBED_YOUTUBE_URL } from "sources-types";
 
 @Component({
   selector: "post-card-component",
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-card class="mb-2">
       <mat-card-header
