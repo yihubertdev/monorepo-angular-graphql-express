@@ -7,7 +7,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
   template: `
     <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div
-      class="responsive-post-section"
+      class="responsive-width-height-main-view"
       style="overflow: auto; height: 90dvh;">
       <mat-grid-list
         [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
@@ -37,7 +37,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
             }
           }">
           <div
-            class="container article-container-height-responsive max-width-container container-overflow-vertical">
+            class="container article-container-height-responsive  container-overflow-vertical">
             <div class="row">
               <div class="article-container-center">
                 <article-post-controller

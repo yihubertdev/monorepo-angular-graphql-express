@@ -27,17 +27,20 @@ import { Component } from "@angular/core";
         </div>
       </div>
       <div class="row">
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <mat-progress-bar
+          mode="indeterminate"
+          *ngIf="isLoading"></mat-progress-bar>
+        <div
+          class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12"
+          [ngStyle]="{
+            display: isLoading ? 'none' : 'block'
+          }">
           <a
             mat-button
             routerLink="posts"
             style="font-size: 25px">
             Fantastic Story Teller
           </a>
-          <mat-spinner
-            [diameter]="35"
-            style="margin: auto;"
-            *ngIf="isLoading"></mat-spinner>
           <home-page-post-controller
             (isLoading)="isLoading = $event"
             [isPagination]="false"
@@ -47,29 +50,26 @@ import { Component } from "@angular/core";
             mat-raised-button
             color="primary"
             routerLink="posts"
-            *ngIf="!isLoading"
             style="width: 100%;">
             Go To Post
           </a>
         </div>
-        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12">
+        <div
+          class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12"
+          [ngStyle]="{
+            display: isLoading ? 'none' : 'block'
+          }">
           <a
             mat-button
             routerLink="posts"
             style="font-size: 25px">
             Professional Article
           </a>
-          <mat-spinner
-            [diameter]="35"
-            style="margin: auto;"
-            *ngIf="isLoading"></mat-spinner>
-          <home-page-article-controller
-            (isLoading)="isLoading = $event"></home-page-article-controller>
+          <home-page-article-controller></home-page-article-controller>
           <a
             mat-raised-button
             color="primary"
             routerLink="articles"
-            *ngIf="!isLoading"
             style="width: 100%;">
             Go To Article
           </a>

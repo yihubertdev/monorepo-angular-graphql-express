@@ -66,44 +66,6 @@
   -webkit-box-orient: vertical;
 }
 
-/* xs width */
-.responsive-post-section {
-  width: 100vw;
-  height: 95dvh;
-}
-
-/* sm width */
-@media (min-width: 576px) {
-  .responsive-post-section {
-    width: 100vw;
-    height: 95dvh;
-  }
-}
-
-/* md width */
-@media (min-width: 768px) {
-  .responsive-post-section {
-    width: 88vw;
-    height: 100dvh;
-  }
-}
-
-/* lg width */
-@media (min-width: 992px) {
-  .responsive-post-section {
-    width: 88vw;
-    height: 100dvh;
-  }
-}
-
-/* xl width */
-@media (min-width: 1200px) {
-  .responsive-post-section {
-    width: 88vw;
-    height: 100dvh;
-  }
-}
-
 .video-container {
   height: 50dvh;
   background-size: cover;

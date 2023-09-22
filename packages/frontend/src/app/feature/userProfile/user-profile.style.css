@@ -6,10 +6,16 @@
   transform: translate(-50%, -50%);
 }
 
-.position-absolute-vertical-bottom-horizontal-center {
+.position-absolute-bottom {
   position: absolute;
-  bottom: 2%;
-  left: 40%;
+  bottom: 0;
+}
+
+.position-absolute-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
 }
 
 .profile-background {
@@ -22,13 +28,16 @@
   border-radius: 50%;
   box-shadow: 0 0 5px gray;
   display: inline-block;
-  position: absolute;
-  bottom: 0;
 }
 
+/* xs width */
 .user-avatar-size {
-  height: 32vw;
-  width: 32vw;
+  height: 28vw;
+  width: 28vw;
+}
+
+.flex-box {
+  display: flex;
 }
 
 .profile-background-size {
@@ -38,8 +47,8 @@
 /* sm width */
 @media (min-width: 576px) {
   .user-avatar-size {
-    height: 32vw;
-    width: 32vw;
+    height: 28vw;
+    width: 28vw;
   }
 }
 
