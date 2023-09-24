@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
 } from "@angular/router";
 import { AuthService } from "../fireAuth/auth";
-import { takeWhile } from "rxjs";
 
 @Injectable()
 export class UserGuardService {
@@ -28,9 +27,10 @@ export class UserGuardService {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return new Promise((resolve) => {
-      this.authService.userAuthObserver$.subscribe((user) =>
-        user ? resolve(true) : this._router.navigate(["/account", "me"])
-      );
+      this.authService.userAuthObserver$.subscribe((user) => {
+        console.log(user);
+        resolve(true);
+      });
     });
   }
 }

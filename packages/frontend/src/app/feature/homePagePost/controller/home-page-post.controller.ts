@@ -1,10 +1,12 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from "@angular/core";
 import { IPost } from "sources-types";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
@@ -26,6 +28,7 @@ export class HomePagePostController implements OnInit, AfterViewInit {
   @Input() isUserProfile: boolean = false;
   @Input() isMe: boolean = false;
   @Output() isLoading = new EventEmitter<boolean>();
+  @ViewChild("matDrawerContentScroll") matDrawerContent!: ElementRef;
 
   public data: IPost[] = [];
   private hasFile: boolean = true;

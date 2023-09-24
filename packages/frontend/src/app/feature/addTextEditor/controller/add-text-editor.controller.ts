@@ -6,7 +6,7 @@ import { TextEditorOptionsComponent } from "./text-editor-options.controller";
 @Component({
   selector: "add-text-editor-controller",
   template: `
-    <ng-container *ngIf="(authService.userAuthObserver$ | async)?.id">
+    <ng-container *ngIf="authService.userAuthObserver$ | async">
       <mat-icon
         class="fab-button icon-display"
         (click)="openOAuthOptions()"

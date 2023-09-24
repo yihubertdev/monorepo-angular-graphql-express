@@ -22,9 +22,9 @@ import { TwitterAuthProvider } from "firebase/auth";
 
 @Injectable()
 export class AuthService {
-  private _userAuth: BehaviorSubject<IUser | null> =
-    new BehaviorSubject<IUser | null>(null);
-  public readonly userAuthObserver$: Observable<IUser | null> =
+  private _userAuth: BehaviorSubject<User | null> =
+    new BehaviorSubject<User | null>(null);
+  public readonly userAuthObserver$: Observable<User | null> =
     this._userAuth.asObservable();
   public currentUser: IUser | null = null;
 
@@ -34,9 +34,9 @@ export class AuthService {
   constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
+      this._userAuth.next(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
-        this._userAuth.next(this.currentUser);
       }
     });
 
@@ -144,8 +144,7 @@ export class AuthService {
       }),
     ]);
 
-    const currentUser = await this.userService.retrieveById(user.uid);
-    this._userAuth.next(currentUser);
+    this._userAuth.next(user);
     return user;
   }
 

@@ -13,10 +13,28 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
               <mat-card-header>
                 <mat-card-title>Home Address</mat-card-title>
               </mat-card-header>
+              <mat-card-actions>
+                <button
+                  mat-button
+                  (click)="isDisplay = true">
+                  Display
+                </button>
+                <button
+                  mat-button
+                  (click)="isDisplay = false">
+                  Edit
+                </button>
+              </mat-card-actions>
               <mat-card-content>
                 <div class="row">
                   <div class="col">
+                    <ng-container *ngIf="isDisplay">
+                      <p *ngFor="let form of formInputList">
+                        {{ form.label }}: {{ form.value }}
+                      </p>
+                    </ng-container>
                     <form-input-list-component
+                      *ngIf="!isDisplay"
                       [formInputList]="formInputList"
                       errorLocation="AuthModule.YourAccountController"
                       [validatorSchema]="accountSchema"
@@ -25,10 +43,6 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
                   </div>
                 </div>
               </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>Edit</button>
-                <button mat-button>Close Edit</button>
-              </mat-card-actions>
             </mat-card>
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -135,6 +149,7 @@ export class UserDetailsController {
   @Input() userId?: string;
   public formInputList = yourAccountFormList;
   public accountSchema: any = accountSchema;
+  public isDisplay: boolean = true;
 
   save(formValue: any) {
     console.log(formValue);

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import { Observable } from "rxjs";
@@ -8,7 +8,7 @@ import {
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
-import { IUser } from "sources-types";
+import { User } from "firebase/auth";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -16,7 +16,7 @@ import { IUser } from "sources-types";
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="userAuthObserver$ | async"
+        *ngIf="authService.userAuthObserver$ | async"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -56,7 +56,7 @@ import { IUser } from "sources-types";
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container class="responsive-main-container">
       <mat-drawer
-        *ngIf="userAuthObserver$ | async"
+        *ngIf="authService.userAuthObserver$ | async"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -79,14 +79,13 @@ import { IUser } from "sources-types";
   `,
   styleUrls: ["./main.style.css"],
 })
-export class MainViewComponent implements OnInit {
-  @ViewChild("footer") footer?: ElementRef;
-  public userAuthObserver$?: Observable<IUser | null>;
+export class MainViewComponent {
+  public userAuthObserver$?: Observable<User | null>;
   public opened: boolean = false;
   public hideFooter: boolean = false;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer
   ) {
@@ -104,16 +103,13 @@ export class MainViewComponent implements OnInit {
     );
   }
 
-  ngOnInit() {
-    this.userAuthObserver$ = this.authService.userAuthObserver$;
-  }
-
   ngAfterViewInit(): void {
-    const drawerContainerScroll = document.getElementById(
-      "matDrawerContentScroll"
-    ) as HTMLElement;
-    drawerContainerScroll.addEventListener("load", () => {
-      drawerContainerScroll.scrollTo(0, 1);
+    (
+      document.getElementById("matDrawerContentScroll") as HTMLElement
+    ).addEventListener("scroll", async (scroll) => {
+      const event = scroll.target as HTMLElement;
+
+      event.scrollTo(0, 1);
     });
   }
 }
