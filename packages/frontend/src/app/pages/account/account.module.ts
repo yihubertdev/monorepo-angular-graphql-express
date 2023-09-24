@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { AccountViewComponent } from "./view/account-setting.view";
 import { AccountSettingModule } from "src/app/feature/accountSettings/account-settings.module";
 import { AuthRoutingModule } from "./account-routing.module";
 import { LoginView } from "./view/login.view";
@@ -13,16 +12,9 @@ import { LoginModule } from "src/app/feature/login/login.module";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
 import { UserProfileView } from "./view/user-profile.view";
-import { PersonalProfileView } from "./view/personal-profile.view";
 
 @NgModule({
-  declarations: [
-    AccountViewComponent,
-    LoginView,
-    SignUpView,
-    UserProfileView,
-    PersonalProfileView,
-  ],
+  declarations: [LoginView, SignUpView, UserProfileView],
   imports: [
     CommonModule,
     MatExpansionModule,
@@ -35,12 +27,6 @@ import { PersonalProfileView } from "./view/personal-profile.view";
     GridListResponsiveDirectiveModule,
     HomePagePostModule,
   ],
-  exports: [
-    AccountViewComponent,
-    LoginView,
-    SignUpView,
-    UserProfileView,
-    PersonalProfileView,
-  ],
+  exports: [LoginView, SignUpView, UserProfileView],
 })
 export class AccountModule {}

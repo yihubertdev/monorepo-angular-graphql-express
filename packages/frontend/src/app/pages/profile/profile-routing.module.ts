@@ -1,16 +1,31 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { GuardServiceModule } from "src/app/core/services/routeGuard/guard.module";
-import { LoginGuardService } from "src/app/core/services/routeGuard/login.guard";
-import { IsMeRouteGuard } from "src/app/core/services/routeGuard/user.guard";
 import { MeView } from "./view/me.view";
+import { UsersView } from "./view/users.view";
+import { DetailsView } from "./view/details.view";
 
 const routes: Routes = [
+  { path: "", redirectTo: "me", pathMatch: "full" },
   {
-    path: "",
+    path: "me/posts",
     canActivate: [],
     component: MeView,
-    pathMatch: "full",
+  },
+  {
+    path: ":id/posts",
+    canActivate: [],
+    component: UsersView,
+  },
+  {
+    path: "me/personal-profile",
+    canActivate: [],
+    component: DetailsView,
+  },
+  {
+    path: ":id/personal-profile",
+    canActivate: [],
+    component: DetailsView,
   },
 ];
 

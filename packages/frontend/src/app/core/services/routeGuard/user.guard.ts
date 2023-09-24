@@ -57,7 +57,7 @@ export class IsMeRouteGuard {
     return new Promise((resolve) => {
       this.zone.run(() => {
         next.params["id"] === this.authService.get()?.userId
-          ? this._router.navigateByUrl("account/me")
+          ? this._router.navigate(["/account", "users", "me", "posts"])
           : resolve(true);
       });
     });

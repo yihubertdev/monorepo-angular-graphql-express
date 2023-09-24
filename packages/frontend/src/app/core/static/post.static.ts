@@ -224,13 +224,13 @@ export const headerMenu: INestedMenu[] = [
     width: "75px",
     subMenu: [
       {
-        link: ["/account", "me"],
+        link: ["/account", "users", "me", "posts"],
         description: "My Post",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: "",
+        link: ["/account", "users", "me", "personal-profile"],
         description: "Personal Profile",
         iconName: "account_circle",
         width: "75px",
