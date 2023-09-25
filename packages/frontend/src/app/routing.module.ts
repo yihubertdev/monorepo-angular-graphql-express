@@ -28,11 +28,9 @@ const routes: Routes = [
       ),
   },
   {
-    path: "account",
+    path: "users",
     loadChildren: () =>
-      import("./pages/account/account.module").then(
-        (module) => module.AccountModule
-      ),
+      import("./pages/users/users.module").then((module) => module.UserModule),
   },
 ];
 

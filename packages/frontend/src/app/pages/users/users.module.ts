@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { AccountSettingModule } from "src/app/feature/accountSettings/account-settings.module";
-import { AuthRoutingModule } from "./account-routing.module";
+import { UserRouting } from "./users-routing.module";
 import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -19,7 +19,7 @@ import { UserProfileView } from "./view/user-profile.view";
     CommonModule,
     MatExpansionModule,
     AccountSettingModule,
-    AuthRoutingModule,
+    UserRouting,
     MatGridListModule,
     MatCardModule,
     UserProfileModule,
@@ -29,4 +29,4 @@ import { UserProfileView } from "./view/user-profile.view";
   ],
   exports: [LoginView, SignUpView, UserProfileView],
 })
-export class AccountModule {}
+export class UserModule {}

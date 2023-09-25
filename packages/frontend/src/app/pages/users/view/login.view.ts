@@ -5,29 +5,34 @@ import { Component } from "@angular/core";
     <div class="container">
       <div class="row mb-4 justify-content-center">
         <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <h1>Sign Up</h1>
+          <h1>Log In</h1>
         </div>
       </div>
       <div class="row mb-4 justify-content-center">
         <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <email-signup-controller></email-signup-controller>
+          <email-login-controller></email-login-controller>
+        </div>
+      </div>
+      <div class="row mb-4 justify-content-center">
+        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
+          <oauth-login-controller></oauth-login-controller>
         </div>
       </div>
       <div class="row justify-content-center">
         <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <h3>
-            Already have account?
+            No account?
             <a
               mat-tab-link
-              routerLink="../login">
-              Login</a
+              routerLink="../signup">
+              Register</a
             >
           </h3>
         </div>
       </div>
     </div>`,
-  styleUrls: ["../account.style.css"],
+  styleUrls: ["../user.style.css"],
 })
-export class SignUpView {
+export class LoginView {
   constructor() {}
 }
