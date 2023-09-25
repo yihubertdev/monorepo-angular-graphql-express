@@ -9,6 +9,7 @@ import {
   twitterIconSvg,
 } from "./core/static/post.static";
 import { User } from "firebase/auth";
+import { Store } from "@ngrx/store";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -87,7 +88,8 @@ export class MainViewComponent {
   constructor(
     public authService: AuthService,
     iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer
+    sanitizer: DomSanitizer,
+    private store: Store<{ count: number }>
   ) {
     iconRegistry.addSvgIconLiteral(
       "twitter-icon",
@@ -101,6 +103,8 @@ export class MainViewComponent {
       "linkedln-icon",
       sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
     );
+
+    store.select("count").subscribe((data) => console.log(data));
   }
 
   ngAfterViewInit(): void {

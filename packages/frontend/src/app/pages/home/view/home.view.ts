@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { increment } from "../../../core/store/actions/course.action";
 
 @Component({
   selector: "post-view",
@@ -109,4 +111,9 @@ export class HomeViewComponent {
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
   ];
   public isLoading: boolean = true;
+
+  constructor(private store: Store<{ count: number }>) {
+    store.select("count").subscribe((data) => console.log(data));
+    this.store.dispatch(increment({ payload: "sdf" }));
+  }
 }

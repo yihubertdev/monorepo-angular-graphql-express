@@ -22,6 +22,8 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from "@angular/material/tabs";
 import { DomScrollDirectiveModule } from "./shared/directives/domScrollDetector/dom-scroll-detector.module";
 import { UserSignalsStateService } from "./core/services/signal/userAuth.signal";
+import { StoreModule } from "@ngrx/store";
+import { counterReducer } from "./core/store/reducers/course.reducer";
 
 @NgModule({
   declarations: [MainViewComponent],
@@ -45,6 +47,9 @@ import { UserSignalsStateService } from "./core/services/signal/userAuth.signal"
     MatButtonModule,
     HomePagePostModule.forChatTopic(),
     QuillModule.forRoot(),
+    StoreModule.forRoot({
+      count: counterReducer,
+    }),
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
