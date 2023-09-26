@@ -21,7 +21,6 @@ import { HomePagePostModule } from "./feature/homePagePost/home-page-post.module
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from "@angular/material/tabs";
 import { DomScrollDirectiveModule } from "./shared/directives/domScrollDetector/dom-scroll-detector.module";
-import { UserSignalsStateService } from "./core/services/signal/userAuth.signal";
 import { BrowserStorageServiceModule } from "./core/services/browserStorage/browserStorage.module";
 
 @NgModule({
@@ -50,7 +49,6 @@ import { BrowserStorageServiceModule } from "./core/services/browserStorage/brow
   ],
   providers: [
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
-    UserSignalsStateService,
   ],
   bootstrap: [MainViewComponent],
 })
