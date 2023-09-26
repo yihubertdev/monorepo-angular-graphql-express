@@ -1,14 +1,21 @@
-import { createReducer, on } from "@ngrx/store";
-import { increment, decrement, reset } from "../actions/course.action";
+import { State, createReducer, on } from "@ngrx/store";
+import { addUser, fetch } from "../actions/course.action";
+import { User } from "firebase/auth";
 
-export const initialState = 0;
+const initialState: User[] = [];
 
 export const counterReducer = createReducer(
   initialState,
-  on(increment, (state, payload) => {
-    console.log(payload);
-    return state + 1;
+  on(addUser, (state, { user }) => {
+    return {
+      ...state,
+      user,
+    };
   }),
-  on(decrement, (state) => state - 1),
-  on(reset, (state) => 0)
+  on(fetch, (state, payload) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  })
 );

@@ -1,14 +1,15 @@
 import { Component } from "@angular/core";
+import { AuthService } from "../../../core/services/fireAuth/auth";
 
 @Component({
   selector: "post-view",
   template: `
+    <!-- container responsive-height-container -->
+    <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
     <div class="container">
-      <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
       <!--justify-content-center center the inner col-->
-      <div class="row mb-3 justify-content-center">
-        <!-- container responsive-height-container  container-overflow-vertical -->
-        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-sm-12">
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
           <home-page-post-controller
             [isPagination]="true"
             [isUserProfile]="false"
@@ -16,9 +17,20 @@ import { Component } from "@angular/core";
         </div>
       </div>
 
-      <add-text-editor-controller></add-text-editor-controller>
+      <div
+        class="fab-button icon-display"
+        *ngIf="hasUser">
+        <add-text-editor-controller></add-text-editor-controller>
+      </div>
     </div>
   `,
   styleUrls: ["../home.style.css"],
 })
-export class PostViewComponent {}
+export class PostViewComponent {
+  public hasUser?: boolean;
+  constructor(private _authService: AuthService) {
+    this._authService.userAuthObserver$.subscribe((user) => {
+      this.hasUser = Boolean(user);
+    });
+  }
+}

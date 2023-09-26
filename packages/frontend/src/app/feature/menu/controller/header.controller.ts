@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { headerMenu } from "../../../core/static/post.static";
+import { headerMenu } from "../../../core/static/menu.static";
 
 @Component({
   selector: "header-menu-controller",

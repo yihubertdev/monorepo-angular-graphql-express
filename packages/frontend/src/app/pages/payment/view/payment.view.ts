@@ -5,7 +5,7 @@ import { postList } from "src/app/core/static/post.static";
 @Component({
   selector: "post-view",
   template: ` <div>payment</div> `,
-  styleUrls: ["./payment.view.css"],
+  styleUrls: [],
 })
 export class PaymentViewComponent {
   postList: IPostList[];

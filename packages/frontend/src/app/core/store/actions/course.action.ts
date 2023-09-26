@@ -1,8 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { User } from "firebase/auth";
 
-export const increment = createAction(
-  "[Counter Component] Increment",
-  props<{ payload: string }>()
-);
-export const decrement = createAction("[Counter Component] Decrement");
-export const reset = createAction("[Counter Component] Reset");
+export const fetch = createAction("fetch", props<{ loading: boolean }>());
+export const addUser = createAction("addUser", props<{ user: User | null }>());

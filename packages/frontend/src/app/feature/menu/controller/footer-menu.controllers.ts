@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { IMenu } from "sources-types";
-import { homePageMenus } from "src/app/core/static/post.static";
+import { homePageMenus } from "../../../core/static/menu.static";
 
 @Component({
   selector: "bottom-sheet-overview-example-sheet",

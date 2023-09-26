@@ -104,7 +104,3 @@ div.horizonal-scroll-section > .horizonal-scroll-card {
 .list-item-height {
   height: 60px !important;
 }
-
-.container-overflow-vertical {
-  overflow: auto;
-}

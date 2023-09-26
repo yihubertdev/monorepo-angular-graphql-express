@@ -1,15 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { Observable } from "rxjs";
-import { AuthService } from "./core/services/fireAuth/auth";
 import {
   googleIconSvg,
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
-import { User } from "firebase/auth";
-import { Store } from "@ngrx/store";
+import { AuthService } from "./core/services/fireAuth/auth";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -17,7 +14,7 @@ import { Store } from "@ngrx/store";
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="authService.userAuthObserver$ | async"
+        *ngIf="hasUser"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -55,9 +52,9 @@ import { Store } from "@ngrx/store";
     </mat-toolbar>
 
     <!-- desktop: 90dvh mobile: 100dvh -->
-    <mat-drawer-container class="responsive-main-container">
+    <mat-drawer-container>
       <mat-drawer
-        *ngIf="authService.userAuthObserver$ | async"
+        *ngIf="hasUser"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -68,28 +65,29 @@ import { Store } from "@ngrx/store";
           lg: true,
           xl: true
         }"
-        style="width: 12vw">
+        [ngStyle]="{
+          width: '12dvw'
+        }">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
       <!-- mat-drawer-content overflow default is auto, scrollable-->
-      <mat-drawer-content id="matDrawerContentScroll">
+      <!-- mat-drawer-content desktop width 88dvw, mobile width 100 dvw -->
+      <mat-drawer-content>
         <router-outlet></router-outlet>
-        <footer-controller></footer-controller>
+        <footer-controller class="responsive-footer"></footer-controller>
       </mat-drawer-content>
     </mat-drawer-container>
   `,
   styleUrls: ["./main.style.css"],
 })
 export class MainViewComponent {
-  public userAuthObserver$?: Observable<User | null>;
   public opened: boolean = false;
-  public hideFooter: boolean = false;
+  public hasUser?: boolean;
 
   constructor(
-    public authService: AuthService,
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private store: Store<{ count: number }>
+    private _authService: AuthService
   ) {
     iconRegistry.addSvgIconLiteral(
       "twitter-icon",
@@ -104,16 +102,8 @@ export class MainViewComponent {
       sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
     );
 
-    store.select("count").subscribe((data) => console.log(data));
-  }
-
-  ngAfterViewInit(): void {
-    (
-      document.getElementById("matDrawerContentScroll") as HTMLElement
-    ).addEventListener("scroll", async (scroll) => {
-      const event = scroll.target as HTMLElement;
-
-      event.scrollTo(0, 1);
+    this._authService.userAuthObserver$.subscribe((user) => {
+      this.hasUser = Boolean(user);
     });
   }
 }

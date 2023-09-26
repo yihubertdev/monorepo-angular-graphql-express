@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
-import { Router } from "@angular/router";
-import { addBlogMenu } from "../../../core/static/post.static";
+import { addBlogMenu } from "../../../core/static/menu.static";
 
 @Component({
   selector: "bottom-sheet-overview-example-sheet",

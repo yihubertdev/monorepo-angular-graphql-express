@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IMenu } from "sources-types";
-import { homePageMenus } from "src/app/core/static/post.static";
+import { homePageMenus } from "../../../core/static/menu.static";
 
 @Component({
   selector: "drawer-menu-controller",

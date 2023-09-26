@@ -11,19 +11,18 @@ export class SessionStorageService {
    * @param {string} key session storage key
    * @returns {T} session storage value
    */
-  public getSessionStorage<T>(key: string): T | null {
+  public getSessionStorage<T>(key: string): T | undefined {
     const result = sessionStorage.getItem(key);
-
     // If session data is not existed, return null
     if (!result) {
-      return null;
+      return undefined;
     }
 
     try {
       // If session data is not json format, return null
       return JSON.parse(result);
     } catch {
-      return null;
+      return undefined;
     }
   }
 
@@ -34,6 +33,7 @@ export class SessionStorageService {
    * @returns {Storage} session storage
    */
   public getAllSessionStorage(): Storage {
+    console.log("test");
     return sessionStorage;
   }
 

@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { GuardServiceModule } from "src/app/core/services/routeGuard/guard.module";
 import { MeView } from "./view/me.view";
 import { UsersView } from "./view/users.view";
 import { DetailsView } from "./view/details.view";
@@ -30,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), GuardServiceModule],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class ProfileRouting {}

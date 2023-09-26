@@ -1,30 +1,29 @@
-import { NgModule } from "@angular/core";
+import { NgModule, inject } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { GuardServiceModule } from "src/app/core/services/routeGuard/guard.module";
-import { UserGuardService } from "src/app/core/services/routeGuard/user.guard";
+import { isUserLogin } from "../../core/services/routeGuard/login.guard";
 import { EditArticleView } from "./view/edit-article.view";
 import { EditBlogViewComponent } from "./view/edit-blog.view";
 
 const routes: Routes = [
   {
     path: "",
-    redirectTo: "me",
+    redirectTo: "article",
     pathMatch: "full",
   },
   {
     path: "article",
-    canActivate: [UserGuardService],
+    canActivate: [isUserLogin],
     component: EditArticleView,
   },
   {
-    path: "blog",
-    canActivate: [UserGuardService],
+    path: "post",
+    canActivate: [isUserLogin],
     component: EditBlogViewComponent,
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), GuardServiceModule],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class EditRoutingModule {}

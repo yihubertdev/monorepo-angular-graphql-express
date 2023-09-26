@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostListener,
   Input,
   OnInit,
   Output,
@@ -14,7 +15,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 @Component({
   selector: "home-page-post-controller",
   template: `
-    <ng-container *ngFor="let post of data">
+    <ng-container *ngFor="let post of data; trackBy: identify">
       <post-card-component
         [postCardInfo]="post"
         [isUserProfile]="isUserProfile"
@@ -23,7 +24,7 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
-export class HomePagePostController implements OnInit, AfterViewInit {
+export class HomePagePostController implements OnInit {
   @Input() isPagination: boolean = false;
   @Input() isUserProfile: boolean = false;
   @Input() isMe: boolean = false;
@@ -35,6 +36,21 @@ export class HomePagePostController implements OnInit, AfterViewInit {
 
   constructor(private _PostService: PostFireStore) {}
 
+  @HostListener("window:scroll", ["$event"])
+  async onWindowScroll($event: Event) {
+    const event = $event.target as HTMLElement;
+
+    if (
+      event.offsetHeight + event.scrollTop >= event.scrollHeight &&
+      this.hasFile &&
+      this.isPagination
+    ) {
+      const post = await this._PostService.listPagination(7);
+      this.data.push(...post.data);
+      this.hasFile = post.hasFile;
+    }
+  }
+
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
     const post = await this._PostService.list(7);
@@ -43,21 +59,7 @@ export class HomePagePostController implements OnInit, AfterViewInit {
     this.isLoading.emit(false);
   }
 
-  ngAfterViewInit(): void {
-    (
-      document.getElementById("matDrawerContentScroll") as HTMLElement
-    ).addEventListener("scroll", async (scroll) => {
-      const event = scroll.target as HTMLElement;
-
-      if (
-        event.offsetHeight + event.scrollTop >= event.scrollHeight &&
-        this.hasFile &&
-        this.isPagination
-      ) {
-        const post = await this._PostService.listPagination(7);
-        this.data.push(...post.data);
-        this.hasFile = post.hasFile;
-      }
-    });
+  identify(index: number, post: IPost) {
+    return post.id;
   }
 }

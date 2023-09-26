@@ -15,7 +15,7 @@ import { postEditFormList } from "src/app/core/static/post.static";
 import { IPost } from "sources-types";
 
 @Component({
-  selector: "edit-blog-controller",
+  selector: "edit-po-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
     errorLocation="EditBlogView"

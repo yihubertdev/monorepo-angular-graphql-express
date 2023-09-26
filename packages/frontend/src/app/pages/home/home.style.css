@@ -1,7 +1,3 @@
-.container-overflow-vertical {
-  overflow: auto;
-}
-
 .responsive-height-container {
   height: 90dvh;
 }
@@ -86,4 +82,14 @@
   flex-direction: column;
   justify-content: flex-start;
   text-align: center;
+}
+.fab-button {
+  position: fixed;
+  bottom: 12dvh;
+  right: 12vw;
+}
+
+.icon-display {
+  transform: scale(3);
+  color: #c0c0c0;
 }

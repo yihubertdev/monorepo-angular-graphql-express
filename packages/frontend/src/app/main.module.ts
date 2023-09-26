@@ -24,6 +24,7 @@ import { DomScrollDirectiveModule } from "./shared/directives/domScrollDetector/
 import { UserSignalsStateService } from "./core/services/signal/userAuth.signal";
 import { StoreModule } from "@ngrx/store";
 import { counterReducer } from "./core/store/reducers/course.reducer";
+import { BrowserStorageServiceModule } from "./core/services/browserStorage/browserStorage.module";
 
 @NgModule({
   declarations: [MainViewComponent],
@@ -45,6 +46,7 @@ import { counterReducer } from "./core/store/reducers/course.reducer";
     MatMenuModule,
     MatToolbarModule,
     MatButtonModule,
+    BrowserStorageServiceModule,
     HomePagePostModule.forChatTopic(),
     QuillModule.forRoot(),
     StoreModule.forRoot({

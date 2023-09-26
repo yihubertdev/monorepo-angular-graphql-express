@@ -1,19 +1,27 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable, NgZone, inject } from "@angular/core";
 import {
   Router,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
+  CanActivateFn,
 } from "@angular/router";
-import { AuthService } from "../fireAuth/auth";
-import { UserSignalsStateService } from "../signal/userAuth.signal";
+import { SessionStorageService } from "../browserStorage/sessionStorage";
+
+export const isUserLogin: CanActivateFn = () =>
+  Boolean(inject(SessionStorageService).getAllSessionStorage().length)
+    ? true
+    : inject(Router).navigate(["users", "login"]);
+export const isUserLoginToUser: CanActivateFn = () =>
+  Boolean(inject(SessionStorageService).getAllSessionStorage().length)
+    ? inject(Router).navigate(["users", "me", "posts"])
+    : true;
 
 @Injectable()
 export class LoginGuardService {
   constructor(
     private _router: Router,
-    private authService: AuthService,
     private zone: NgZone,
-    private userSignal: UserSignalsStateService
+    private _sessionStorage: SessionStorageService
   ) {}
 
   canActivate(
@@ -21,10 +29,9 @@ export class LoginGuardService {
     state: RouterStateSnapshot
   ): Promise<boolean> {
     return new Promise((resolve) => {
-      console.log(this.userSignal.state);
-      this.authService.userAuthObserver$.subscribe((user) =>
-        user ? this._router.navigateByUrl("account/me") : resolve(true)
-      );
+      this.zone.run(() => {
+        resolve(true);
+      });
     });
   }
 }

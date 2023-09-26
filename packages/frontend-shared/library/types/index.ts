@@ -16,6 +16,22 @@ export const enum INPUT_TYPE {
   EDITOR = "editor",
 }
 
+export const SITE_ROUTE_PAGE = {
+  ADD_ARTICLE: ["edit", "article"],
+  ADD_POST: ["edit", "post"],
+  HOME: ["home"],
+  ARTICLES: ["home", "articles"],
+  POSTS: ["home", "posts"],
+  ARTICLE: ["home", "article"],
+  USERS_POSTS: ["users", "_", "posts"],
+  MY_POSTS: ["users", "me", "posts"],
+  USERS_PROFILE: ["users", "_", "peronsal-profile"],
+  My_PROFILE: ["users", "me", "peronsal-profile"],
+  LOGIN: ["users", "login"],
+  SIGNUP: ["users", "signup"],
+  PAYMENT: ["payment"],
+};
+
 export const LOGIN_FAILED = "Email/Password wrong, please try again";
 export const SIGNUP_FAILED = "Account sign up failed, please try again";
 export const POP_UP_ACTION = "CLOSED";

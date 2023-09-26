@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { GuardServiceModule } from "src/app/core/services/routeGuard/guard.module";
-import { LoginGuardService } from "src/app/core/services/routeGuard/login.guard";
+import { isUserLoginToUser } from "../../core/services/routeGuard/login.guard";
 import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { UserProfileView } from "./view/user-profile.view";
@@ -15,12 +14,12 @@ const routes: Routes = [
         (module) => module.ProfileModule
       ),
   },
-  { path: "login", canActivate: [LoginGuardService], component: LoginView },
-  { path: "signup", component: SignUpView },
+  { path: "login", canActivate: [isUserLoginToUser], component: LoginView },
+  { path: "signup", canActivate: [isUserLoginToUser], component: SignUpView },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), GuardServiceModule],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class UserRouting {}

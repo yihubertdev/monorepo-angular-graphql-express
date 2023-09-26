@@ -3,18 +3,12 @@ import { Component } from "@angular/core";
 @Component({
   selector: "edit-blog-view",
   template: `
-    <div style="width: 100vw; height: 90dvh">
-      <mat-grid-list
-        cols="1"
-        rowHeight="90dvh">
-        <mat-grid-tile
-          colspan="1"
-          rowspan="1">
-          <div class="grid-content-up-center">
-            <edit-blog-controller></edit-blog-controller>
-          </div>
-        </mat-grid-tile>
-      </mat-grid-list>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
+          <edit-po-controller></edit-po-controller>
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ["../edit.style.css"],

@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { IPost } from "sources-types";
-import { postCardMenu } from "../../../core/static/post.static";
+import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { EMBED_YOUTUBE_URL } from "sources-types";
