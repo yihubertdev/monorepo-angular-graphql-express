@@ -15,6 +15,6 @@ npm uninstall @types/sources-types --legacy-peer-deps
 
 npm install $GCC_VERSION --save-dev --legacy-peer-deps
 
-ng build
+# ng build
 
-firebase deploy
+# firebase deploy

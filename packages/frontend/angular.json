@@ -29,12 +29,11 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles/bootstrap.min.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css",
               "src/styles/styles.css",
               "src/styles/roboto.css",
-              "src/styles/material-icon.css",
-              "src/styles/quill.bubble.css",
-              "src/styles/quill.snow.css"
+              "src/styles/material-icon.css"
             ],
             "scripts": []
           },
@@ -99,12 +98,11 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles/bootstrap.min.css",
+              "node_modules/quill/dist/quill.bubble.css",
+              "node_modules/quill/dist/quill.snow.css",
               "src/styles/styles.css",
               "src/styles/roboto.css",
-              "src/styles/material-icon.css",
-              "src/styles/quill.bubble.css",
-              "src/styles/quill.snow.css"
+              "src/styles/material-icon.css"
             ],
             "scripts": []
           }
