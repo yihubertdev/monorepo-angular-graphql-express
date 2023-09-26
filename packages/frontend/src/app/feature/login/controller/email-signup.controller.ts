@@ -5,9 +5,8 @@ import { userSignUpSchema } from "src/app/core/joiSchema/user-login.schema";
 import {
   IUserSignUpForm,
   IFormInput,
-  POP_UP_ACTION,
-  POP_UP_DISMISS_DURATION,
-  SIGNUP_FAILED,
+  SNACKBAR_ERROR,
+  SNACKBAR_ACTION,
 } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userSignUpFormList } from "src/app/core/static/auth.static";
@@ -48,9 +47,13 @@ export class EmailSignUpController implements OnInit {
       await this.authService.register(data);
       this._router.navigateByUrl("/account/login");
     } catch (err) {
-      this._snackBar.open(SIGNUP_FAILED, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.SIGNUP_FAILED,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+        }
+      );
     }
   }
 }

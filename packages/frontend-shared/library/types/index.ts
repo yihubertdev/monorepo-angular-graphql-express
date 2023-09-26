@@ -16,19 +16,22 @@ export const enum INPUT_TYPE {
   EDITOR = "editor",
 }
 
-export const LOGIN_FAILED = "Email/Password wrong, please try again";
-export const SIGNUP_FAILED = "Account sign up failed, please try again";
-export const POP_UP_ACTION = "CLOSED";
-export const POP_UP_DISMISS_DURATION = 1000;
-export const POP_UP_VERTICAL_POSITION = "top";
-
 export const enum FIREAUTH_PERSISTENCE {
   SESSION = "SESSION",
   LOCAL = "LOCAL",
   NONE = "NONE",
 }
 
-export const enum SNACKBAR_LOCATION {
+export const enum SNACKBAR_ERROR {
+  USER_LOGIN_ERROR = "User not login, Please Login first",
+  ADD_BLOG_ERROR = "Blog created failed.",
+  VALIDATE_VIDEO_ERROR = "Youtube video embed Id invalid",
+  ADD_ARTICLE_ERROR = "Article added successfully",
+  LOGIN_FAILED = "Email/Password wrong, please try again",
+  SIGNUP_FAILED = "Account sign up failed, please try again",
+}
+
+export const enum SNACKBAR_ACTION {
   TOP = "top",
   BOTTOM = "bottom",
   START = "start",
@@ -36,6 +39,8 @@ export const enum SNACKBAR_LOCATION {
   END = "end",
   LEFT = "left",
   RIGHT = "right",
+  POP_UP_ACTION = "CLOSED",
+  POP_UP_DISMISS_DURATION = 1000,
 }
 
 export const EMPTY_JSON_PARSE = "{}";
@@ -47,11 +52,6 @@ export const enum IUserRole {
   VISITOR = "VISITOR",
   ADMIN = "ADMIN",
 }
-
-export const USER_LOGIN_ERROR = "User not login, Please Login first";
-export const ADD_BLOG_ERROR = "Blog created failed.";
-export const VALIDATE_VIDEO_ERROR = "Youtube video embed Id invalid";
-export const ADD_ARTICLE_ERROR = "Article added successfully";
 
 export interface IArticle {
   id?: string;

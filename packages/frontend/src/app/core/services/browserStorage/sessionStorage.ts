@@ -33,7 +33,6 @@ export class SessionStorageService {
    * @returns {Storage} session storage
    */
   public getAllSessionStorage(): Storage {
-    console.log("test");
     return sessionStorage;
   }
 

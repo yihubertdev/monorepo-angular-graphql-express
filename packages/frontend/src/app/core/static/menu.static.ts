@@ -120,6 +120,12 @@ export const addBlogMenu: IMenu[] = [
 
 export const headerMenu: INestedMenu[] = [
   {
+    link: SITE_ROUTE_PAGE.HOME,
+    description: "Home",
+    iconName: "account_circle",
+    width: "75px",
+  },
+  {
     link: SITE_ROUTE_PAGE.LOGIN,
     description: "Login",
     iconName: "account_circle",
@@ -159,16 +165,10 @@ export const headerMenu: INestedMenu[] = [
   },
   {
     link: "",
-    description: "Home",
+    description: "Blogs",
     iconName: "account_circle",
     width: "75px",
     subMenu: [
-      {
-        link: "home",
-        description: "Main",
-        iconName: "account_circle",
-        width: "75px",
-      },
       {
         link: "home/posts",
         description: "Short Post",

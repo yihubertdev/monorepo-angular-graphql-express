@@ -2,14 +2,7 @@ import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "src/app/core/joiSchema/article-edit.schema";
-import {
-  ADD_ARTICLE_ERROR,
-  ADD_BLOG_ERROR,
-  USER_LOGIN_ERROR,
-  POP_UP_ACTION,
-  POP_UP_DISMISS_DURATION,
-  IFormInput,
-} from "sources-types";
+import { SNACKBAR_ACTION, SNACKBAR_ERROR, IFormInput } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { editArticleFormList } from "src/app/core/static/post.static";
@@ -45,9 +38,13 @@ export class EditArticleController {
     const currentUser = this.authService.get();
     if (!currentUser) {
       this.loading = false;
-      this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.USER_LOGIN_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+        }
+      );
       return;
     }
     const { title, subTitle, description, quillEditor } = formValue;
@@ -64,18 +61,26 @@ export class EditArticleController {
     try {
       await this._articleFireStore.create(newArticle);
       this._router.navigate(["posts"]);
-      this._snackBar.open(ADD_ARTICLE_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.ADD_ARTICLE_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        }
+      );
       this.loading = false;
     } catch (err) {
-      this._snackBar.open(ADD_BLOG_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.ADD_BLOG_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        }
+      );
       this.loading = false;
       return;
     }

@@ -2,13 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
-import {
-  ADD_BLOG_ERROR,
-  USER_LOGIN_ERROR,
-  POP_UP_ACTION,
-  POP_UP_DISMISS_DURATION,
-  IFormInput,
-} from "sources-types";
+import { IFormInput, SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
 import { postEditFormList } from "src/app/core/static/post.static";
@@ -43,11 +37,15 @@ export class EditPostController implements OnInit {
     // Get current login user
     const currentUser = this.authService.get();
     if (!currentUser) {
-      this._snackBar.open(USER_LOGIN_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.ADD_ARTICLE_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        }
+      );
       this.loading = false;
       return;
     }
@@ -65,11 +63,15 @@ export class EditPostController implements OnInit {
       this._router.navigate(["home", "posts"]);
       this.loading = false;
     } catch (err) {
-      this._snackBar.open(ADD_BLOG_ERROR, POP_UP_ACTION, {
-        duration: POP_UP_DISMISS_DURATION,
-        horizontalPosition: "center",
-        verticalPosition: "top",
-      });
+      this._snackBar.open(
+        SNACKBAR_ERROR.ADD_ARTICLE_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        }
+      );
       this.loading = false;
       return;
     }

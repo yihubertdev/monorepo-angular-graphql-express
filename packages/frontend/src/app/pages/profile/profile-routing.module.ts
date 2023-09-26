@@ -3,12 +3,13 @@ import { RouterModule, Routes } from "@angular/router";
 import { MeView } from "./view/me.view";
 import { UsersView } from "./view/users.view";
 import { DetailsView } from "./view/details.view";
+import { isUserLogin } from "src/app/core/services/routeGuard/login.guard";
 
 const routes: Routes = [
   { path: "", redirectTo: "me", pathMatch: "full" },
   {
     path: "me/posts",
-    canActivate: [],
+    canActivate: [isUserLogin],
     component: MeView,
   },
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   {
     path: "me/personal-profile",
-    canActivate: [],
+    canActivate: [isUserLogin],
     component: DetailsView,
   },
   {

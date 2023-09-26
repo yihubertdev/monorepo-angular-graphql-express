@@ -2,12 +2,7 @@ import { Component, Inject, NgZone } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { GoogleHttpService } from "src/app/core/services/http/google.http";
-import {
-  VALIDATE_VIDEO_ERROR,
-  POP_UP_ACTION,
-  POP_UP_DISMISS_DURATION,
-  POP_UP_VERTICAL_POSITION,
-} from "sources-types";
+import { SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
 
 @Component({
   selector: "upload-video-dialog",
@@ -68,10 +63,14 @@ export class UploadVideoDialog {
         this.dialogRef.close(this.data.id);
       } catch {
         this.loading = false;
-        this._snackBar.open(VALIDATE_VIDEO_ERROR, POP_UP_ACTION, {
-          duration: POP_UP_DISMISS_DURATION,
-          verticalPosition: POP_UP_VERTICAL_POSITION,
-        });
+        this._snackBar.open(
+          SNACKBAR_ERROR.VALIDATE_VIDEO_ERROR,
+          SNACKBAR_ACTION.POP_UP_ACTION,
+          {
+            duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+            verticalPosition: SNACKBAR_ACTION.TOP,
+          }
+        );
       }
     });
   }

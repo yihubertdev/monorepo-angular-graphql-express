@@ -34,7 +34,6 @@ export class AuthService {
   constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
-      console.log(user);
       this._userAuth.next(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
