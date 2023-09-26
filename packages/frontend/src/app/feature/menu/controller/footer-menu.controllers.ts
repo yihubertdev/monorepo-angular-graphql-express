@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { IMenu } from "sources-types";
-import { homePageMenus } from "../../../core/static/menu.static";
+import { footerMenus } from "../../../core/static/menu.static";
 
 @Component({
   selector: "bottom-sheet-overview-example-sheet",
@@ -17,7 +17,7 @@ import { homePageMenus } from "../../../core/static/menu.static";
   </mat-nav-list>`,
 })
 export class FooterMenuController {
-  public footerIconLayout: IMenu[] = homePageMenus;
+  public footerIconLayout: IMenu[] = footerMenus;
 
   constructor(
     public _bottomSheetRef: MatBottomSheetRef<FooterMenuController>

@@ -1,4 +1,20 @@
-import { IMenu, INestedMenu, SITE_ROUTE_PAGE } from "sources-types";
+import { IMenu, INestedMenu } from "sources-types";
+
+export const SITE_ROUTE_PAGE = {
+  ADD_ARTICLE: ["edit", "article"],
+  ADD_POST: ["edit", "post"],
+  HOME: ["home"],
+  ARTICLES: ["home", "articles"],
+  POSTS: ["home", "posts"],
+  ARTICLE: ["home", "article"],
+  USERS_POSTS: ["users", "_", "posts"],
+  MY_POSTS: ["users", "me", "posts"],
+  USERS_PROFILE: ["users", "_", "peronsal-profile"],
+  My_PROFILE: ["users", "me", "peronsal-profile"],
+  LOGIN: ["users", "login"],
+  SIGNUP: ["users", "signup"],
+  PAYMENT: ["payment"],
+};
 
 export const footerMenus: IMenu[] = [
   {
@@ -27,7 +43,7 @@ export const footerMenus: IMenu[] = [
   },
   {
     link: "menu",
-    description: "Menu",
+    description: "Close",
     iconName: "menu",
     width: "75px",
   },
@@ -50,12 +66,6 @@ export const homePageMenus: IMenu[] = [
     link: SITE_ROUTE_PAGE.LOGIN,
     description: "Login",
     iconName: "account_circle",
-    width: "75px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.PAYMENT,
-    description: "Donation",
-    iconName: "credit_card",
     width: "75px",
   },
   {
@@ -110,13 +120,13 @@ export const addBlogMenu: IMenu[] = [
 
 export const headerMenu: INestedMenu[] = [
   {
-    link: ["/users", "login"],
+    link: SITE_ROUTE_PAGE.LOGIN,
     description: "Login",
     iconName: "account_circle",
     width: "75px",
   },
   {
-    link: ["/users", "signup"],
+    link: SITE_ROUTE_PAGE.SIGNUP,
     description: "Sign Up",
     iconName: "account_circle",
     width: "75px",
@@ -128,19 +138,19 @@ export const headerMenu: INestedMenu[] = [
     width: "75px",
     subMenu: [
       {
-        link: ["/users", "users", "me", "posts"],
+        link: SITE_ROUTE_PAGE.MY_POSTS,
         description: "My Post",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: ["/users", "users", "me", "personal-profile"],
+        link: SITE_ROUTE_PAGE.My_PROFILE,
         description: "Personal Profile",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: "",
+        link: SITE_ROUTE_PAGE.My_PROFILE,
         description: "Business Profile",
         iconName: "account_circle",
         width: "75px",

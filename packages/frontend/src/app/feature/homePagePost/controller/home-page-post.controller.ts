@@ -37,15 +37,14 @@ export class HomePagePostController implements OnInit {
   constructor(private _PostService: PostFireStore) {}
 
   @HostListener("window:scroll", ["$event"])
-  async onWindowScroll($event: Event) {
-    const event = $event.target as HTMLElement;
-
+  async onWindowScroll() {
     if (
-      event.offsetHeight + event.scrollTop >= event.scrollHeight &&
+      // Check scroll position at the bottom of the page
+      window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       this.hasFile &&
       this.isPagination
     ) {
-      const post = await this._PostService.listPagination(7);
+      const post = await this._PostService.listPagination(5);
       this.data.push(...post.data);
       this.hasFile = post.hasFile;
     }
@@ -53,7 +52,7 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    const post = await this._PostService.list(7);
+    const post = await this._PostService.list(5);
     this.hasFile = post.hasFile;
     this.data = post.data;
     this.isLoading.emit(false);

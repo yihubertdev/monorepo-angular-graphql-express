@@ -19,7 +19,7 @@ import { EMBED_YOUTUBE_URL } from "sources-types";
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe
-            ? ['/account', 'users', postCardInfo?.userId, 'posts']
+            ? ['/users', postCardInfo?.userId, 'posts']
             : []
         ">
         <div
