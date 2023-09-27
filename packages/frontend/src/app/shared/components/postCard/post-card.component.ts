@@ -80,19 +80,27 @@ import { EMBED_YOUTUBE_URL } from "sources-types";
           [isCover]="false"></carousel-slider-component>
 
         <!--content-->
-        <p
-          #content
-          class="text-overflow-card"
-          [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
-          [innerHTML]="postCardInfo?.content"></p>
-        <p
-          *ngIf="content.scrollHeight > 100"
-          class="clickable-pointer"
-          (click)="isShowMore = !isShowMore"
-          style="text-align: right;">
-          {{ isShowMore ? "Show Less" : "Show More" }}
-        </p></mat-card-content
-      >
+        <ng-container
+          *ngIf="
+            postCardInfo?.content | linkPreview : 'test' : true as linkPreview
+          ">
+          <p
+            #content
+            class="text-overflow-card"
+            [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
+            [innerHTML]="linkPreview.value"></p>
+          <p
+            *ngIf="content.scrollHeight > 100"
+            class="clickable-pointer"
+            (click)="isShowMore = !isShowMore"
+            style="text-align: right;">
+            {{ isShowMore ? "Show Less" : "Show More" }}
+          </p>
+          <preview-link-card
+            *ngFor="let link of linkPreview.links; trackBy: identify"
+            [url]="linkPreview.links"></preview-link-card>
+        </ng-container>
+      </mat-card-content>
     </mat-card>
   `,
   styleUrls: ["./post-card.component.css"],
@@ -110,6 +118,10 @@ export class PostCardComponent {
     private _PostService: PostFireStore,
     private _domSanitizer: DomSanitizer
   ) {}
+
+  identify(index: number, link: string) {
+    return link;
+  }
 
   videoByPass(videoUrl: string) {
     return this._domSanitizer.bypassSecurityTrustResourceUrl(

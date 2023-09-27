@@ -8,6 +8,8 @@ import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
 import { RouterModule } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
+import { LinkPreview } from "../../directives/convertLinkPreview.pipe";
+import { PreviewLinkComponent } from "./previewlink.component";
 
 @NgModule({
   declarations: [PostCardComponent],
@@ -20,6 +22,8 @@ import { MatButtonModule } from "@angular/material/button";
     CarouselSliderModule,
     MatMenuModule,
     MatButtonModule,
+    LinkPreview,
+    PreviewLinkComponent,
   ],
   exports: [PostCardComponent],
 })
