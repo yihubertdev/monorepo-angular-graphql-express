@@ -8,6 +8,11 @@ body {
   cursor: pointer;
 }
 
+.unset-tag-a {
+  color: black;
+  text-decoration: none;
+}
+
 .mat-grid-tile-content {
   /* make grid content start from the top of the div, default is center */
   align-items: initial !important;
