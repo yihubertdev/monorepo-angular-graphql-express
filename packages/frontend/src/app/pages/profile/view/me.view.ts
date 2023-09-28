@@ -6,8 +6,8 @@ import { Component } from "@angular/core";
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12 m-0 p-0">
         <home-page-post-controller
           [isPagination]="true"
-          [isUserProfile]="true"
-          [isMe]="false"></home-page-post-controller>
+          [isUserProfile]="false"
+          [isMe]="true"></home-page-post-controller>
       </div>
     </div>
   `,

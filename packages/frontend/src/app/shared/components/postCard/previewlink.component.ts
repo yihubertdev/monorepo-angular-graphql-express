@@ -4,22 +4,17 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
-  NgZone,
   OnInit,
+  Output,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
+import { RouterModule } from "@angular/router";
 import { LINK_PREVIEW } from "sources-types";
-
-export interface ILinkPreview {
-  description: string;
-  image: string;
-  title: string;
-  url: string;
-}
-
+import { ILinkPreview } from "sources-types";
 @Component({
   standalone: true,
   imports: [
@@ -28,25 +23,30 @@ export interface ILinkPreview {
     MatCardModule,
     MatIconModule,
     HttpClientModule,
+    RouterModule,
   ],
   selector: "preview-link-card",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card *ngIf="preview">
+    <mat-card
+      [routerLink]="preview!.url"
+      class="cursor-pointer">
+      <div
+        class="image-frame-rounded slide-image-cover-center image-height-responsive"
+        [ngStyle]="{
+          backgroundImage: 'url(' + preview!.image + ')',
+        }"></div>
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-subtitle
             ><a
-              [href]="url"
+              [href]="preview!.url"
               target="_blank"
-              >{{ preview.url }}</a
+              >{{ preview!.url }}</a
             ></mat-card-subtitle
           >
-
-          <mat-card-title>{{ preview.title }}</mat-card-title>
-          <img
-            mat-card-lg-image
-            [src]="preview.image" />
+          <mat-card-title>{{ preview!.title }}</mat-card-title>
+          <!--single image display-->
         </mat-card-title-group>
       </mat-card-header>
       <mat-card-content>
@@ -54,34 +54,12 @@ export interface ILinkPreview {
           #content
           class="text-overflow-card"
           [ngStyle]="{ display: '-webkit-box' }"
-          [innerHTML]="preview.description"></p>
+          [innerHTML]="preview!.description"></p>
       </mat-card-content>
     </mat-card>
   `,
   styleUrls: ["./post-card.component.css"],
 })
-export class PreviewLinkComponent implements OnInit {
-  @Input() url?: string;
-
-  public preview?: ILinkPreview;
-  public isShowMore: boolean = false;
-  constructor(private http: HttpClient, private ref: ChangeDetectorRef) {
-    ref.detach();
-  }
-
-  ngOnInit(): void {
-    if (!this.url) return;
-    this.http
-      .get(
-        LINK_PREVIEW.LINK_PREVIEW_NET_URL +
-          LINK_PREVIEW.LINK_PREVIEW_NET_KEY +
-          `&q=${this.url}`
-      )
-      .subscribe({
-        next: (data: any) => {
-          this.preview = data;
-          this.ref.detectChanges();
-        },
-      });
-  }
+export class PreviewLinkComponent {
+  @Input({ required: true }) preview?: ILinkPreview;
 }

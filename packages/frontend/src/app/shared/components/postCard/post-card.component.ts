@@ -21,7 +21,8 @@ import { EMBED_YOUTUBE } from "sources-types";
           !isUserProfile && !isMe
             ? ['/users', postCardInfo?.userId, 'posts']
             : []
-        ">
+        "
+        class="cursor-pointer">
         <div
           mat-card-avatar
           [ngStyle]="{
@@ -56,6 +57,23 @@ import { EMBED_YOUTUBE } from "sources-types";
       </mat-card-header>
 
       <mat-card-content>
+        <!--content-->
+        <p
+          #content
+          class="text-overflow-card"
+          [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
+          [innerHTML]="postCardInfo?.content"></p>
+        <p
+          *ngIf="content.scrollHeight > 100"
+          class="cursor-pointer"
+          (click)="isShowMore = !isShowMore"
+          style="text-align: right;">
+          {{ isShowMore ? "Show Less" : "Show More" }}
+        </p>
+        <ng-container *ngIf="postCardInfo?.preview">
+          <preview-link-card
+            [preview]="postCardInfo?.preview"></preview-link-card>
+        </ng-container>
         <!--single image display-->
         <div
           *ngIf="postCardInfo?.image?.length === 1"
@@ -78,28 +96,6 @@ import { EMBED_YOUTUBE } from "sources-types";
           [images]="postCardInfo?.image ?? []"
           [height]="20"
           [isCover]="false"></carousel-slider-component>
-
-        <!--content-->
-        <ng-container
-          *ngIf="
-            postCardInfo?.content | linkPreview : 'test' : true as linkPreview
-          ">
-          <p
-            #content
-            class="text-overflow-card"
-            [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
-            [innerHTML]="linkPreview.value"></p>
-          <p
-            *ngIf="content.scrollHeight > 100"
-            class="clickable-pointer"
-            (click)="isShowMore = !isShowMore"
-            style="text-align: right;">
-            {{ isShowMore ? "Show Less" : "Show More" }}
-          </p>
-          <ng-container *ngIf="linkPreview.links">
-            <preview-link-card [url]="linkPreview.links[0]"></preview-link-card>
-          </ng-container>
-        </ng-container>
       </mat-card-content>
     </mat-card>
   `,
@@ -128,7 +124,7 @@ export class PostCardComponent {
       `${EMBED_YOUTUBE.EMBED_YOUTUBE_URL}${videoUrl}`
     );
   }
-  submit(link: string | string[]) {
+  submit(link: string | string[], data?: any) {
     switch (link) {
       case "delete": {
         if (this.postCardInfo) {

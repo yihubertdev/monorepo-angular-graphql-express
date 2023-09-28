@@ -6,16 +6,6 @@ export const enum FIRESTORE_COLLECTION {
   article = "article",
 }
 
-export const enum INPUT_TYPE {
-  TEXT = "text",
-  TEXTAREA = "textarea",
-  SELECT = "select",
-  EMAIL = "email",
-  PASSWROD = "password",
-  UPLOAD = "upload",
-  EDITOR = "editor",
-}
-
 export const enum FIREAUTH_PERSISTENCE {
   SESSION = "SESSION",
   LOCAL = "LOCAL",
@@ -52,11 +42,20 @@ export const enum LINK_PREVIEW {
   LINK_PREVIEW_NET_KEY = "caa011bf961ade9bcdcf3e3c822e9f04",
   LINK_PREVIEW_NET_URL = "https://api.linkpreview.net/?key=",
 }
-
 export const enum IUserRole {
   EDITOR = "EDITOR",
   VISITOR = "VISITOR",
   ADMIN = "ADMIN",
+}
+
+export const enum INPUT_TYPE {
+  TEXT = "text",
+  TEXTAREA = "textarea",
+  SELECT = "select",
+  EMAIL = "email",
+  PASSWROD = "password",
+  UPLOAD = "upload",
+  EDITOR = "editor",
 }
 
 export interface IArticle {
@@ -70,6 +69,19 @@ export interface IArticle {
   updatedA?: Date;
 }
 
+export interface ILinkExtractor {
+  value: string;
+  links?: string[];
+}
+
+
+export interface ILinkPreview {
+  description: string;
+  image: string;
+  title: string;
+  url: string;
+}
+
 export interface IPost {
   id: string;
   userId: string;
@@ -79,6 +91,7 @@ export interface IPost {
   displayName?: string;
   photoURL?: string;
   pin?: boolean;
+  preview?: ILinkPreview;
   createdAt?: Date;
   updatedA?: Date;
 }

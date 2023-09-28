@@ -4,6 +4,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
 .mat-grid-tile-content {
   /* make grid content start from the top of the div, default is center */
   align-items: initial !important;

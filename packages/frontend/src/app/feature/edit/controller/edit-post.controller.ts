@@ -2,11 +2,19 @@ import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
-import { IFormInput, SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
+import {
+  IFormInput,
+  SNACKBAR_ERROR,
+  SNACKBAR_ACTION,
+  LINK_PREVIEW,
+  ILinkPreview,
+} from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
 import { postEditFormList } from "src/app/core/static/post.static";
 import { IPost } from "sources-types";
+import { HttpClient } from "@angular/common/http";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "edit-po-controller",
@@ -23,11 +31,19 @@ export class EditPostController implements OnInit {
   formInputList: IFormInput[] = postEditFormList;
   blogEditSchema: any = blogEditSchema;
   public loading: boolean = false;
+  private _urlRegex =
+    /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+  private _tranformURL(value: string) {
+    return value.replace(this._urlRegex, function (url) {
+      return '<a href="' + url + '" target="_blank">' + url + "</a>";
+    });
+  }
   constructor(
     private _router: Router,
     private _postService: PostService,
     private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private http: HttpClient
   ) {}
   ngOnInit(): void {
     const i = 1;
@@ -51,17 +67,32 @@ export class EditPostController implements OnInit {
     }
     const { userId, displayName, photoURL } = currentUser;
     this.loading = true;
-    const newBlog = {
-      ...formValue,
-      userId,
-      displayName,
-      photoURL,
-    } as unknown as IPost;
 
     try {
+      const content = this._tranformURL(formValue["content"] as string);
+      const links = content.match(this._urlRegex);
+      let preview: ILinkPreview | undefined = undefined;
+      if (links) {
+        preview = (await firstValueFrom(
+          this.http.get(
+            LINK_PREVIEW.LINK_PREVIEW_NET_URL +
+              LINK_PREVIEW.LINK_PREVIEW_NET_KEY +
+              `&q=${links[0]}`
+          )
+        )) as ILinkPreview;
+      }
+
+      const newBlog = {
+        ...formValue,
+        content,
+        preview,
+        userId,
+        displayName,
+        photoURL,
+      } as unknown as IPost;
+
       await this._postService.create(newBlog);
       this._router.navigate(["home", "posts"]);
-      this.loading = false;
     } catch (err) {
       this._snackBar.open(
         SNACKBAR_ERROR.ADD_ARTICLE_ERROR,

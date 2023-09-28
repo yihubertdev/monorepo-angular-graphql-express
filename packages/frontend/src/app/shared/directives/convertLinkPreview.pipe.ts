@@ -1,10 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
-interface ILinkPreview {
-  value: string | undefined;
-  links?: string[];
-}
-
 @Pipe({
   name: "linkPreview",
   standalone: true,
@@ -19,19 +14,7 @@ export class LinkPreviewPipe implements PipeTransform {
     });
   }
 
-  public transform(
-    value?: string,
-    key?: string,
-    isDisplay?: boolean
-  ): ILinkPreview {
-    return value
-      ? {
-          value: this._tranformURL(value),
-          links: value.match(this._urlRegex) ?? undefined,
-        }
-      : {
-          value,
-          links: undefined,
-        };
+  public transform(value?: string, key?: string, isDisplay?: boolean): string {
+    return value ? this._tranformURL(value) : "";
   }
 }

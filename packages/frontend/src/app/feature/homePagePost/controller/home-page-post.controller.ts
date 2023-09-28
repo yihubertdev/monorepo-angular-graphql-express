@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
@@ -56,6 +55,7 @@ export class HomePagePostController implements OnInit {
     this.hasFile = post.hasFile;
     this.data = post.data;
     this.isLoading.emit(false);
+    console.log(this.data);
   }
 
   identify(index: number, post: IPost) {

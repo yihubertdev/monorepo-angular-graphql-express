@@ -12,10 +12,6 @@
   -webkit-box-orient: vertical;
 }
 
-.clickable-pointer:hover {
-  cursor: pointer;
-}
-
 .image-frame-rounded {
   border-radius: 25px;
   margin: auto;
