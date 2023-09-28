@@ -71,7 +71,8 @@ export class EditPostController implements OnInit {
     try {
       const content = this._tranformURL(formValue["content"] as string);
       const links = content.match(this._urlRegex);
-      let preview: ILinkPreview | undefined = undefined;
+      let preview: ILinkPreview | null = null; // firestore only accept null value.
+
       if (links) {
         preview = (await firstValueFrom(
           this.http.get(

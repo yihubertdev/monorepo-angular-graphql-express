@@ -15,9 +15,8 @@ import { JobsHorizonalScrollController } from "./controller/jobs-horizonal-scrol
 import { QuillModule } from "ngx-quill";
 import { ArticlePostControllerComponent } from "./controller/article-post.controller";
 import { HomePageArticleController } from "./controller/home-page-article.controller";
-import { StringTransformPipeModule } from "angular-shared-ui";
-import { PostCardModule } from "src/app/shared/components/postCard/post-card.module";
-import { LinkPreviewPipe } from "src/app/shared/directives/convertLinkPreview.pipe";
+import { LinkPreviewPipe, StringTransformPipe } from "angular-shared-ui";
+import { PostCardComponent } from "src/app/shared/components/postCard/post-card.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +29,7 @@ import { LinkPreviewPipe } from "src/app/shared/directives/convertLinkPreview.pi
     HomePageArticleController,
   ],
   imports: [
-    PostCardModule,
+    PostCardComponent,
     CommonModule,
     MatGridListModule,
     MatCardModule,
@@ -40,7 +39,7 @@ import { LinkPreviewPipe } from "src/app/shared/directives/convertLinkPreview.pi
     MatToolbarModule,
     MatButtonModule,
     QuillModule,
-    StringTransformPipeModule,
+    StringTransformPipe,
     LinkPreviewPipe,
   ],
   exports: [

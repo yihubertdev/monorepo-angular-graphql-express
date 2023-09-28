@@ -7,11 +7,11 @@ import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
-import { UserProfileModule } from "src/app/feature/userProfile/user-profile.module";
 import { LoginModule } from "src/app/feature/login/login.module";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
 import { UserProfileView } from "./view/user-profile.view";
+import { UserProfileController } from "src/app/feature/userProfile/user-profile.controller";
 
 @NgModule({
   declarations: [LoginView, SignUpView, UserProfileView],
@@ -22,7 +22,7 @@ import { UserProfileView } from "./view/user-profile.view";
     UserRouting,
     MatGridListModule,
     MatCardModule,
-    UserProfileModule,
+    UserProfileController,
     LoginModule,
     GridListResponsiveDirectiveModule,
     HomePagePostModule,

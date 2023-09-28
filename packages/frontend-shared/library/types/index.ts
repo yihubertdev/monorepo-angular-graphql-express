@@ -42,6 +42,11 @@ export const enum LINK_PREVIEW {
   LINK_PREVIEW_NET_KEY = "caa011bf961ade9bcdcf3e3c822e9f04",
   LINK_PREVIEW_NET_URL = "https://api.linkpreview.net/?key=",
 }
+
+export const enum DEFAULT_CONSTANTS {
+  DEFAULT_USER_PHOTO = "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/profiles%2Fprofile-CaOTPL0jHQfPAcehSVlfCcEFNAN2.png?alt=media&token=3565cc80-420f-4f22-b642-bb1885fb2982",
+}
+
 export const enum IUserRole {
   EDITOR = "EDITOR",
   VISITOR = "VISITOR",
@@ -73,7 +78,6 @@ export interface ILinkExtractor {
   value: string;
   links?: string[];
 }
-
 
 export interface ILinkPreview {
   description: string;

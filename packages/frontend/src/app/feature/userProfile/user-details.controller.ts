@@ -1,8 +1,29 @@
 import { Component, Input } from "@angular/core";
-import { accountSchema } from "../../../core/joiSchema/auth.schema";
-import { yourAccountFormList } from "../../../core/static/auth.static";
+import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { RouterModule } from "@angular/router";
+import { MatTabsModule } from "@angular/material/tabs";
+import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
+import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
+import { yourAccountFormList } from "src/app/core/static/auth.static";
+import { accountSchema } from "src/app/core/joiSchema/auth.schema";
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatGridListModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+    MatTabsModule,
+    GridListResponsiveDirectiveModule,
+    FormInputListModule,
+  ],
   selector: "user-details-controller",
   template: `<mat-tab-group>
     <mat-tab label="Personal Profile">
@@ -411,7 +432,7 @@ import { yourAccountFormList } from "../../../core/static/auth.static";
       </div>
     </mat-tab>
   </mat-tab-group>`,
-  styleUrls: ["../user-profile.style.css"],
+  styleUrls: ["./user-profile.style.css"],
 })
 export class UserDetailsController {
   @Input() userId?: string;

@@ -12,6 +12,7 @@
     "sourceMap": true,
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
+      "@angular/*": ["./node_modules/@angular/*"],
     },
     "declaration": false,
     "downlevelIteration": true,

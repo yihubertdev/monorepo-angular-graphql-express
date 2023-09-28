@@ -1,3 +1,4 @@
+import { CommonModule } from "@angular/common";
 import {
   Component,
   ElementRef,
@@ -6,13 +7,36 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule } from "@angular/material/icon";
+import { MatTabsModule } from "@angular/material/tabs";
+import { RouterModule } from "@angular/router";
+import { StringTransformPipe, UserPhotoPipe } from "angular-shared-ui";
 import { IUser } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
+import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
+import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 
 @Component({
+  standalone: true,
   selector: "user-profile-controller",
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatGridListModule,
+    StringTransformPipe,
+    UserPhotoPipe,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule,
+    MatTabsModule,
+    GridListResponsiveDirectiveModule,
+    FormInputListModule,
+  ],
   template: `
     <mat-card style="height: 30dvh; border-radius: initial;">
       <div
@@ -29,7 +53,7 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
           [ngStyle]="{
             backgroundImage:
               'url(' +
-              (currentUser?.photoURL ?? undefined | UserPhotoPipe) +
+              (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
               ')',
             backgroundSize: 'cover'
           }"
@@ -75,9 +99,9 @@ import { UserService } from "src/app/core/services/fireStore/users.firestore";
       <mat-card-content>description blablabla</mat-card-content>
     </mat-card>
   `,
-  styleUrls: ["../user-profile.style.css"],
+  styleUrls: ["./user-profile.style.css"],
 })
-export class UserProfileControllerComponent implements OnInit, OnChanges {
+export class UserProfileController implements OnInit, OnChanges {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser: IUser | null = null;

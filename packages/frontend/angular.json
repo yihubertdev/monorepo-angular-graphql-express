@@ -25,7 +25,6 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -40,10 +39,11 @@
           },
           "configurations": {
             "production": {
+              "tsConfig": "tsconfig.prod.json",
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "3mb",
                   "maximumError": "4mb"
                 },
                 {
@@ -61,6 +61,7 @@
               "outputHashing": "all"
             },
             "development": {
+              "tsConfig": "tsconfig.dev.json",
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,

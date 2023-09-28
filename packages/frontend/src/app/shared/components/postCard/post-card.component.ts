@@ -10,8 +10,29 @@ import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { EMBED_YOUTUBE } from "sources-types";
+import { CommonModule } from "@angular/common";
+import { MatCardModule } from "@angular/material/card";
+import { MatIconModule } from "@angular/material/icon";
+import { RouterModule } from "@angular/router";
+import { UserPhotoPipe } from "angular-shared-ui";
+import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
+import { PreviewLinkComponent } from "./previewlink.component";
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatIconModule,
+    RouterModule,
+    UserPhotoPipe,
+    CarouselSliderModule,
+    MatMenuModule,
+    MatButtonModule,
+    PreviewLinkComponent,
+  ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
@@ -27,7 +48,7 @@ import { EMBED_YOUTUBE } from "sources-types";
           mat-card-avatar
           [ngStyle]="{
             backgroundImage:
-              'url(' + (postCardInfo?.photoURL | UserPhotoPipe) + ')',
+              'url(' + (postCardInfo?.photoURL | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"
           *ngIf="!isUserProfile && !isMe"></div>

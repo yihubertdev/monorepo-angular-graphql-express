@@ -5,15 +5,23 @@ cd ../frontend-shared/library/types
 
 npm pack
 
-GCC_VERSION=$(find . -type f -name "*.tgz")
+SHARED_TYPES=$(find . -type f -name "*.tgz")
 
-mv $GCC_VERSION ../../../frontend/dependencies
+mv $SHARED_TYPES ../../../frontend/dependencies
 
 cd ../../../frontend/dependencies
 
 npm uninstall @types/sources-types --legacy-peer-deps
 
-npm install $GCC_VERSION --save-dev --legacy-peer-deps
+npm install $SHARED_TYPES --save-dev --legacy-peer-deps
+
+cd ../ui
+
+npm pack
+
+SHARED_COMPONENTS=$(find . -type f -name "*.tgz")
+
+mv $SHARED_COMPONENTS ../../../frontend/dependencies
 
 # ng build
 
