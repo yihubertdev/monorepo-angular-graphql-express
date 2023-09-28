@@ -8,7 +8,7 @@ import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
 import { RouterModule } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
-import { LinkPreview } from "../../directives/convertLinkPreview.pipe";
+import { LinkPreviewPipe } from "../../directives/convertLinkPreview.pipe";
 import { PreviewLinkComponent } from "./previewlink.component";
 
 @NgModule({
@@ -22,7 +22,7 @@ import { PreviewLinkComponent } from "./previewlink.component";
     CarouselSliderModule,
     MatMenuModule,
     MatButtonModule,
-    LinkPreview,
+    LinkPreviewPipe,
     PreviewLinkComponent,
   ],
   exports: [PostCardComponent],

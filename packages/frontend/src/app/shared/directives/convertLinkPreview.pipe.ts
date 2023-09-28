@@ -1,15 +1,15 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
 interface ILinkPreview {
-  value: string;
-  links: string[];
+  value: string | undefined;
+  links?: string[];
 }
 
 @Pipe({
   name: "linkPreview",
   standalone: true,
 })
-export class LinkPreview implements PipeTransform {
+export class LinkPreviewPipe implements PipeTransform {
   private _urlRegex =
     /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
@@ -20,15 +20,18 @@ export class LinkPreview implements PipeTransform {
   }
 
   public transform(
-    value: string | undefined,
-    key: string,
-    isDisplay: boolean | undefined
-  ): ILinkPreview | undefined {
+    value?: string,
+    key?: string,
+    isDisplay?: boolean
+  ): ILinkPreview {
     return value
       ? {
           value: this._tranformURL(value),
-          links: value.match(this._urlRegex) as string[],
+          links: value.match(this._urlRegex) ?? undefined,
         }
-      : undefined;
+      : {
+          value,
+          links: undefined,
+        };
   }
 }

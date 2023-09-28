@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material/dialog";
 import { UploadVideoDialog } from "../../dialog/uploadVideo/upload-video.dialog";
-import { EMBED_YOUTUBE_URL } from "sources-types";
+import { EMBED_YOUTUBE } from "sources-types";
 
 @Component({
   selector: "editor-component",
@@ -115,7 +115,7 @@ export class EditorComponent {
       this.editorRef.insertEmbed(
         range.index,
         "video",
-        `${EMBED_YOUTUBE_URL}${id}`
+        `${EMBED_YOUTUBE.EMBED_YOUTUBE_URL}${id}`
       );
       this.editorRef.setSelection(range.index + 1);
     });

@@ -43,9 +43,15 @@ export const enum SNACKBAR_ACTION {
   POP_UP_DISMISS_DURATION = 1000,
 }
 
-export const EMPTY_JSON_PARSE = "{}";
+export const enum EMBED_YOUTUBE {
+  EMBED_YOUTUBE_URL = "https://www.youtube.com/embed/",
+  EMPTY_JSON_PARSE = "{}",
+}
 
-export const EMBED_YOUTUBE_URL = "https://www.youtube.com/embed/";
+export const enum LINK_PREVIEW {
+  LINK_PREVIEW_NET_KEY = "caa011bf961ade9bcdcf3e3c822e9f04",
+  LINK_PREVIEW_NET_URL = "http://api.linkpreview.net/?key=",
+}
 
 export const enum IUserRole {
   EDITOR = "EDITOR",
@@ -75,6 +81,10 @@ export interface IPost {
   pin?: boolean;
   createdAt?: Date;
   updatedA?: Date;
+}
+
+export interface IPostWithLinks extends IPost {
+  links: string[] | undefined;
 }
 
 export interface ICollectionQueryBuilder<T> {

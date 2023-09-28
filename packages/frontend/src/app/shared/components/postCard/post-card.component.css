@@ -30,14 +30,14 @@
 /* xs width */
 .image-height-responsive {
   height: 30dvh;
-  width: 80%;
+  width: 100%;
 }
 
 /* sm width */
 @media (min-width: 576px) {
   .image-height-responsive {
     height: 30dvh;
-    width: 80%;
+    width: 100%;
   }
 }
 
@@ -61,6 +61,6 @@
 @media (min-width: 1200px) {
   .image-height-responsive {
     height: 40dvh;
-    width: 75%;
+    width: 85%;
   }
 }

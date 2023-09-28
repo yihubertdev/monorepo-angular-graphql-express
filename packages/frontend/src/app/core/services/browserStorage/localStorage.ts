@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { EMPTY_JSON_PARSE } from "sources-types";
+import { EMBED_YOUTUBE } from "sources-types";
 
 @Injectable()
 export class LocalStorageService {
@@ -13,7 +13,9 @@ export class LocalStorageService {
    * @returns {T} local storage
    */
   public getLocalStorage<T>(key: string): T {
-    return JSON.parse(localStorage.getItem(key) ?? EMPTY_JSON_PARSE);
+    return JSON.parse(
+      localStorage.getItem(key) ?? EMBED_YOUTUBE.EMPTY_JSON_PARSE
+    );
   }
 
   /**

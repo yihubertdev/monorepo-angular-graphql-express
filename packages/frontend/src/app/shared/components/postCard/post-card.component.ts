@@ -9,7 +9,7 @@ import { IPost } from "sources-types";
 import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { EMBED_YOUTUBE_URL } from "sources-types";
+import { EMBED_YOUTUBE } from "sources-types";
 
 @Component({
   selector: "post-card-component",
@@ -96,9 +96,9 @@ import { EMBED_YOUTUBE_URL } from "sources-types";
             style="text-align: right;">
             {{ isShowMore ? "Show Less" : "Show More" }}
           </p>
-          <preview-link-card
-            *ngFor="let link of linkPreview.links; trackBy: identify"
-            [url]="linkPreview.links"></preview-link-card>
+          <ng-container *ngIf="linkPreview.links">
+            <preview-link-card [url]="linkPreview.links[0]"></preview-link-card>
+          </ng-container>
         </ng-container>
       </mat-card-content>
     </mat-card>
@@ -125,7 +125,7 @@ export class PostCardComponent {
 
   videoByPass(videoUrl: string) {
     return this._domSanitizer.bypassSecurityTrustResourceUrl(
-      `${EMBED_YOUTUBE_URL}${videoUrl}`
+      `${EMBED_YOUTUBE.EMBED_YOUTUBE_URL}${videoUrl}`
     );
   }
   submit(link: string | string[]) {
