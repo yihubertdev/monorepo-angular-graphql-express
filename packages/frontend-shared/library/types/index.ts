@@ -50,7 +50,7 @@ export const enum EMBED_YOUTUBE {
 
 export const enum LINK_PREVIEW {
   LINK_PREVIEW_NET_KEY = "caa011bf961ade9bcdcf3e3c822e9f04",
-  LINK_PREVIEW_NET_URL = "http://api.linkpreview.net/?key=",
+  LINK_PREVIEW_NET_URL = "https://api.linkpreview.net/?key=",
 }
 
 export const enum IUserRole {
