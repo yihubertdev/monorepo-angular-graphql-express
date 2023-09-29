@@ -1,6 +1,6 @@
 import { NgModule, inject } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { isUserLogin } from "../../core/services/routeGuard/login.guard";
+import { isUserLogin } from "../../core/services/routeGuard/index.guard";
 import { EditArticleView } from "./view/edit-article.view";
 import { EditBlogViewComponent } from "./view/edit-blog.view";
 

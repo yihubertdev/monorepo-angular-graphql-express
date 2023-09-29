@@ -85,7 +85,7 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document create document
    * @returns {Promise<void>}
    */
-  public create = async (document: T): Promise<void> => {
+  public create = async (document: T): Promise<string> => {
     const id = uuidv4();
     await this.collection.doc(id).set({
       ...document,
@@ -93,6 +93,7 @@ export abstract class FireStoreBaseModel<T> {
       createdAt: getTime(new Date()),
       updatedAt: getTime(new Date()),
     });
+    return id;
   };
 
   protected buildSubCollectionQuery = (

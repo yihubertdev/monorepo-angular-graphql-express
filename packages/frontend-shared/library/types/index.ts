@@ -16,7 +16,8 @@ export const enum SNACKBAR_ERROR {
   USER_LOGIN_ERROR = "User not login, Please Login first",
   ADD_BLOG_ERROR = "Blog created failed.",
   VALIDATE_VIDEO_ERROR = "Youtube video embed Id invalid",
-  ADD_ARTICLE_ERROR = "Article added successfully",
+  ADD_ARTICLE_ERROR = "Article created failed",
+  ADD_ARTICLE_SUCCESS = "Article created successfully",
   LOGIN_FAILED = "Email/Password wrong, please try again",
   SIGNUP_FAILED = "Account sign up failed, please try again",
 }
@@ -92,8 +93,8 @@ export interface IPost {
   image?: string[];
   video?: string;
   content: string;
-  displayName?: string;
-  photoURL?: string;
+  displayName?: string; // user display name
+  photoURL?: string; // user photo url
   pin?: boolean;
   preview?: ILinkPreview;
   createdAt?: Date;

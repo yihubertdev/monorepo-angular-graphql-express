@@ -14,11 +14,11 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { UserPhotoPipe } from "angular-shared-ui";
 import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { PreviewLinkComponent } from "./previewlink.component";
+import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 
 @Component({
   standalone: true,
@@ -36,7 +36,7 @@ import { PreviewLinkComponent } from "./previewlink.component";
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card class="mb-2">
+    <mat-card class="mb-3">
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe

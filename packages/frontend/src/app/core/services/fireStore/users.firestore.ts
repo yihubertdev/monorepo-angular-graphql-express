@@ -55,5 +55,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   public override create = async (document: IUser) => {
     await this.collection.doc(document.id).set(document);
+    return document.id;
   };
 }

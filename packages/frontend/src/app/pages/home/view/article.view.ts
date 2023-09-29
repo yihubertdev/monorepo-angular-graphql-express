@@ -5,105 +5,22 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 @Component({
   selector: "article-view",
   template: `
-    <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
-    <div
-      class="responsive-width-height-main-view"
-      style="overflow: auto; height: 90dvh;">
-      <mat-grid-list
-        [attrGridCols]="{ xs: 1, sm: 1, md: 10, lg: 10, xl: 10 }"
-        rowHeight="10dvh">
-        <!-- article section 70% width -->
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 9
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 9
-            },
-            md: {
-              colspan: 7,
-              rowspan: 9
-            },
-            lg: {
-              colspan: 7,
-              rowspan: 9
-            },
-            xl: {
-              colspan: 7,
-              rowspan: 9
-            }
-          }">
-          <div
-            class="container article-container-height-responsive  container-overflow-vertical">
-            <div class="row">
-              <div class="article-container-center">
-                <article-post-controller
-                  [articleContent]="articleContent"
-                  [articleTitle]="articleTitle"></article-post-controller>
-              </div>
-            </div>
-          </div>
-        </mat-grid-tile>
-        <!-- desktop 90dvh content, mobile 10dvh category and 80dvh content-->
-        <!-- width 30% -->
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 4
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 4
-            },
-            md: {
-              colspan: 3,
-              rowspan: 4
-            },
-            lg: {
-              colspan: 3,
-              rowspan: 4
-            },
-            xl: {
-              colspan: 3,
-              rowspan: 4
-            }
-          }">
+    <div class="container">
+      <div class="row mb-4 justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <article-post-controller
+            [articleContent]="articleContent"
+            [articleTitle]="articleTitle"></article-post-controller>
+        </div>
+      </div>
+
+      <div class="row mb-4 justify-content-center">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <user-profile-controller
             [userId]="articleUserId"
             style="width: 100%; height: 100%; margin-bottom: 5%;"></user-profile-controller>
-        </mat-grid-tile>
-
-        <mat-grid-tile
-          [attrGridColSpan]="{
-            xs: {
-              colspan: 1,
-              rowspan: 5
-            },
-            sm: {
-              colspan: 1,
-              rowspan: 5
-            },
-            md: {
-              colspan: 3,
-              rowspan: 5
-            },
-            lg: {
-              colspan: 3,
-              rowspan: 5
-            },
-            xl: {
-              colspan: 3,
-              rowspan: 5
-            }
-          }">
-          <chat-topic-post-controller
-            style="width: 100%; height: 100%; margin-bottom: 5%;"></chat-topic-post-controller>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
+      </div>
     </div>
   `,
   styleUrls: ["../home.style.css"],

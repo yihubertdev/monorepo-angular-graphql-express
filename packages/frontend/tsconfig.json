@@ -1,36 +1,43 @@
 {
-    "compileOnSave": false,
-    "compilerOptions": {
-      "baseUrl": "./",
-      "outDir": "./dist",
-      "forceConsistentCasingInFileNames": true,
-      "strict": true,
-      "noImplicitOverride": true,
-      "noPropertyAccessFromIndexSignature": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true,
-      "sourceMap": true,
-      "paths": {
-        "rxjs": ["./node_modules/rxjs"],
-        "@angular/*": ["./node_modules/@angular/*"],
-        "angular-shared-ui": ["../frontend-shared/library/ui/src/index.ts"],
-        "sources-types": ["../frontend-shared/library/types/index.ts"],
-      },
-      "declaration": false,
-      "downlevelIteration": true,
-      "experimentalDecorators": true,
-      "moduleResolution": "node",
-      "importHelpers": true,
-      "target": "es2022",
-      "module": "es2020",
-      "lib": ["es2020", "dom"],
-      "skipLibCheck": true
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "paths": {
+      "rxjs": ["./node_modules/rxjs"],
+      "@angular/*": ["./node_modules/@angular/*"],
+      // "angular-shared-ui": ["../frontend-shared/library/ui/src/index.ts"],
+      "sources-types": ["../frontend-shared/library/types/index.ts"]
     },
-    "angularCompilerOptions": {
-      "enableI18nLegacyMessageIdFormat": false,
-      "strictInjectionParameters": true,
-      "strictInputAccessModifiers": true,
-      "strictTemplates": true
-    }
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2022",
+    "module": "es2020",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true
+  },
+  "files": ["src/main.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.d.ts"],
+  "exclude": [
+    "src/test/*",
+    "**/*.spec.ts",
+    "src/environments/*",
+    "src/test.ts"
+  ],
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
-  
+}

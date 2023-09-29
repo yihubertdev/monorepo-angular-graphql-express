@@ -3,7 +3,9 @@ import { Component, Input, OnInit } from "@angular/core";
 @Component({
   selector: "article-post-controller",
   template: `
-    <h1 style="font-size: xx-large">{{ this.articleTitle }}</h1>
+    <h1 style="font-size: xx-large; text-align: center;">
+      {{ this.articleTitle }}
+    </h1>
     <quill-view
       [content]="articleContent"
       format="html"

@@ -13,13 +13,14 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
 import { RouterModule } from "@angular/router";
-import { StringTransformPipe, UserPhotoPipe } from "angular-shared-ui";
 import { IUser } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
+import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
+import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 
 @Component({
   standalone: true,

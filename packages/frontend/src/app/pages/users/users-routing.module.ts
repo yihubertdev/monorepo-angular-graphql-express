@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { isUserLoginToUser } from "../../core/services/routeGuard/login.guard";
+import { isUserLoginToUser } from "../../core/services/routeGuard/index.guard";
 import { LoginView } from "./view/login.view";
 import { SignUpView } from "./view/sign-up.view";
 import { UserProfileView } from "./view/user-profile.view";

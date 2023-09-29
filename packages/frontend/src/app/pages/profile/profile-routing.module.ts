@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { MeView } from "./view/me.view";
 import { UsersView } from "./view/users.view";
 import { DetailsView } from "./view/details.view";
-import { isUserLogin } from "src/app/core/services/routeGuard/login.guard";
+import { isUserLogin } from "src/app/core/services/routeGuard/index.guard";
 
 const routes: Routes = [
   { path: "", redirectTo: "me", pathMatch: "full" },

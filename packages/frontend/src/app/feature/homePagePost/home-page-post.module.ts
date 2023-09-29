@@ -15,7 +15,8 @@ import { JobsHorizonalScrollController } from "./controller/jobs-horizonal-scrol
 import { QuillModule } from "ngx-quill";
 import { ArticlePostControllerComponent } from "./controller/article-post.controller";
 import { HomePageArticleController } from "./controller/home-page-article.controller";
-import { LinkPreviewPipe, StringTransformPipe } from "angular-shared-ui";
+import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
+import { LinkPreviewPipe } from "../../shared/pipes/convert-link-preview.pipe";
 import { PostCardComponent } from "src/app/shared/components/postCard/post-card.component";
 
 @NgModule({

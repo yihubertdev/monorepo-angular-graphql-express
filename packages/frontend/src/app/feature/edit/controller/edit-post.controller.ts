@@ -27,7 +27,7 @@ import { firstValueFrom } from "rxjs";
     [loading]="loading"></form-input-list-component>`,
   styleUrls: ["../edit.style.css"],
 })
-export class EditPostController implements OnInit {
+export class EditPostController {
   formInputList: IFormInput[] = postEditFormList;
   blogEditSchema: any = blogEditSchema;
   public loading: boolean = false;
@@ -45,10 +45,6 @@ export class EditPostController implements OnInit {
     private _snackBar: MatSnackBar,
     private http: HttpClient
   ) {}
-  ngOnInit(): void {
-    const i = 1;
-  }
-
   async save(formValue: Record<string, number | string | string[]>) {
     // Get current login user
     const currentUser = this.authService.get();

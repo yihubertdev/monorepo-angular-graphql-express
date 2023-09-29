@@ -11,7 +11,6 @@ import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { CarouselSliderModule } from "src/app/shared/components/CarouselSlider/carousel-slider.module";
 import { ArticleViewComponent } from "./view/article.view";
-import { PostViewComponent } from "./view/post.view";
 import { MatButtonModule } from "@angular/material/button";
 import { ArticlesViewComponent } from "./view/articles.view";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -21,7 +20,6 @@ import { UserProfileController } from "src/app/feature/userProfile/user-profile.
   declarations: [
     HomeViewComponent,
     ArticleViewComponent,
-    PostViewComponent,
     ArticlesViewComponent,
   ],
   imports: [
@@ -39,11 +37,6 @@ import { UserProfileController } from "src/app/feature/userProfile/user-profile.
     UserProfileController,
     MatButtonModule,
   ],
-  exports: [
-    HomeViewComponent,
-    ArticleViewComponent,
-    PostViewComponent,
-    ArticlesViewComponent,
-  ],
+  exports: [HomeViewComponent, ArticleViewComponent, ArticlesViewComponent],
 })
 export class PostModule {}

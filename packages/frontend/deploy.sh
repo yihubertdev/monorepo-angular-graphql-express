@@ -9,19 +9,36 @@ SHARED_TYPES=$(find . -type f -name "*.tgz")
 
 mv $SHARED_TYPES ../../../frontend/dependencies
 
-cd ../../../frontend/dependencies
+DIR="../../dist/sharedModule"
+if [ -d "$DIR" ]; then
+    rm -r ../../dist/sharedModule
 
-npm uninstall @types/sources-types --legacy-peer-deps
+    cd ../ui
 
-npm install $SHARED_TYPES --save-dev --legacy-peer-deps
+    ng build --configuration development
+else
+    cd ../ui
 
-cd ../ui
+    ng build --configuration development
+fi
+
+cd ../../dist/sharedModule
 
 npm pack
 
 SHARED_COMPONENTS=$(find . -type f -name "*.tgz")
 
 mv $SHARED_COMPONENTS ../../../frontend/dependencies
+
+cd ../../../frontend/dependencies
+
+npm uninstall @types/sources-types
+
+npm uninstall angular-shared-ui
+
+npm install $SHARED_TYPES --save-dev
+
+npm install $SHARED_COMPONENTS --save-dev
 
 # ng build
 
