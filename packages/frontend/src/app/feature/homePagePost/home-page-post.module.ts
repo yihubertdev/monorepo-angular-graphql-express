@@ -18,6 +18,7 @@ import { HomePageArticleController } from "./controller/home-page-article.contro
 import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { LinkPreviewPipe } from "../../shared/pipes/convert-link-preview.pipe";
 import { PostCardComponent } from "src/app/shared/components/postCard/post-card.component";
+import { ArticleCardComponent } from "../../shared/components/postCard/article-card.component";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { PostCardComponent } from "src/app/shared/components/postCard/post-card.
     QuillModule,
     StringTransformPipe,
     LinkPreviewPipe,
+    ArticleCardComponent,
   ],
   exports: [
     HomePagePostController,

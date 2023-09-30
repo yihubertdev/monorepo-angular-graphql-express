@@ -54,12 +54,6 @@ export class FooterController {
     if (position === screenHeight) {
       // Check scroll position at the top of the page
       this.hideFooter = false;
-    } else if (
-      // Check scroll position at the bottom of the page
-      window.innerHeight + window.scrollY >=
-      document.body.offsetHeight
-    ) {
-      this.hideFooter = true;
     } else {
       position >= this._position
         ? (this.hideFooter = true)
