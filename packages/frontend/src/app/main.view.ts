@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatIconRegistry } from "@angular/material/icon";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
   googleIconSvg,
@@ -7,9 +7,32 @@ import {
   twitterIconSvg,
 } from "./core/static/post.static";
 import { AuthService } from "./core/services/fireAuth/auth";
+import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { CommonModule } from "@angular/common";
+import { MenuModule } from "./feature/menu/menu.module";
+import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLinkWithHref,
+    MatIconModule,
+    MatTabsModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MenuModule,
+    MatDrawerResponsiveDirectiveModule,
+    MatSidenavModule,
+    FireAuthServiceModule,
+  ],
   selector: "main-view",
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
@@ -80,7 +103,7 @@ import { AuthService } from "./core/services/fireAuth/auth";
   `,
   styleUrls: ["./main.style.css"],
 })
-export class MainViewComponent {
+export class MainView {
   public opened: boolean = false;
   public hasUser?: boolean;
 

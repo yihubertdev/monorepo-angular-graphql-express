@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { Router } from "@angular/router";
+import { Router, RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { userSignUpSchema } from "src/app/core/joiSchema/user-login.schema";
 import {
   IUserSignUpForm,
@@ -10,8 +10,17 @@ import {
 } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userSignUpFormList } from "src/app/core/static/auth.static";
+import { CommonModule } from "@angular/common";
+import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLinkWithHref,
+    FormInputListModule,
+  ],
   selector: "email-signup-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"

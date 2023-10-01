@@ -1,6 +1,10 @@
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { LoginModule } from "../../feature/login/login.module";
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, LoginModule],
   template: ` <div class="container">
     <div class="row mb-5 mt-5 justify-content-center">
       <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -17,7 +21,7 @@ import { Component } from "@angular/core";
         <email-login-controller></email-login-controller>
       </div>
     </div>
-    <div class="row mb-5 mt-5 pt-5 pb-5 justify-content-center">
+    <div class="row mb-5 mt-5 justify-content-center">
       <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <oauth-login-controller></oauth-login-controller>
       </div>
@@ -35,7 +39,7 @@ import { Component } from "@angular/core";
       </div>
     </div>
   </div>`,
-  styleUrls: ["../user.style.css"],
+  styleUrls: [],
 })
 export class LoginView {
   constructor() {}

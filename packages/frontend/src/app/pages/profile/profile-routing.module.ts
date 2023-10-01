@@ -1,9 +1,8 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { UsersView } from "./view/users.view";
-import { DetailsView } from "./view/details.view";
+import { Routes } from "@angular/router";
+import { UsersView } from "./users.view";
+import { DetailsView } from "./details.view";
 
-const routes: Routes = [
+export const ProfileRoutes: Routes = [
   { path: "", redirectTo: "me/posts", pathMatch: "full" },
   {
     path: ":id/posts",
@@ -16,9 +15,3 @@ const routes: Routes = [
     component: DetailsView,
   },
 ];
-
-@NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
-})
-export class ProfileRouting {}

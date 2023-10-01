@@ -6,10 +6,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
-import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
+import { yourAccountFormList } from "../../core/static/auth.static";
+import { accountSchema } from "../../core/joiSchema/auth.schema";
 import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
-import { yourAccountFormList } from "src/app/core/static/auth.static";
-import { accountSchema } from "src/app/core/joiSchema/auth.schema";
 
 @Component({
   standalone: true,
@@ -21,7 +20,6 @@ import { accountSchema } from "src/app/core/joiSchema/auth.schema";
     MatButtonModule,
     RouterModule,
     MatTabsModule,
-    GridListResponsiveDirectiveModule,
     FormInputListModule,
   ],
   selector: "user-details-controller",

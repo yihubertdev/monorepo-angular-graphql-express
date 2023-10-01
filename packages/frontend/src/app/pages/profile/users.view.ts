@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, Params } from "@angular/router";
-import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
+import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 
 @Component({
   standalone: true,
@@ -33,7 +33,7 @@ import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.
       </mat-tab>
     </mat-tab-group>
   `,
-  styleUrls: ["../profile.style.css"],
+  styleUrls: [],
 })
 export class UsersView implements OnInit {
   public userId?: string;

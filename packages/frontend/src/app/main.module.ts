@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { RoutingModule } from "./routing.module";
 import { MainViewComponent } from "./main.view";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -22,12 +21,12 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from "@angular/material/tabs";
 import { DomScrollDirectiveModule } from "./shared/directives/domScrollDetector/dom-scroll-detector.module";
 import { BrowserStorageServiceModule } from "./core/services/browserStorage/browserStorage.module";
+import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 
 @NgModule({
   declarations: [MainViewComponent],
   imports: [
     BrowserModule,
-    RoutingModule,
     BrowserAnimationsModule,
     MatGridListModule,
     MenuModule,
@@ -44,6 +43,8 @@ import { BrowserStorageServiceModule } from "./core/services/browserStorage/brow
     MatToolbarModule,
     MatButtonModule,
     BrowserStorageServiceModule,
+    RouterOutlet,
+    RouterLinkWithHref,
     HomePagePostModule.forChatTopic(),
     QuillModule.forRoot(),
   ],

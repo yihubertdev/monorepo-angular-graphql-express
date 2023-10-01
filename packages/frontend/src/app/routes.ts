@@ -1,8 +1,12 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 
-const routes: Routes = [
-  { path: "", redirectTo: "home/posts", pathMatch: "full" },
+export default [
+  // { path: "", redirectTo: "home/posts", pathMatch: "full" },
+  {
+    path: "",
+    loadComponent: () =>
+      import("./pages/home/view/post.view").then((module) => module.PostView),
+  },
   {
     path: "home",
     loadChildren: () =>
@@ -29,13 +33,6 @@ const routes: Routes = [
   },
   {
     path: "users",
-    loadChildren: () =>
-      import("./pages/users/users.module").then((module) => module.UserModule),
+    loadChildren: () => import("./pages/users/routes"),
   },
-];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class RoutingModule {}
+] as Routes;

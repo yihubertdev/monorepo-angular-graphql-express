@@ -9,12 +9,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { OAuthOptionsComponent } from "./controller/oauth-options.controller";
-import { EmailSignUpController } from "./controller/email-signup.controller";
 
 @NgModule({
   declarations: [
     EmailLoginControllerComponent,
-    EmailSignUpController,
     OAuthLoginControllerComponent,
     OAuthOptionsComponent,
   ],
@@ -29,7 +27,6 @@ import { EmailSignUpController } from "./controller/email-signup.controller";
   ],
   exports: [
     EmailLoginControllerComponent,
-    EmailSignUpController,
     OAuthLoginControllerComponent,
     OAuthOptionsComponent,
   ],

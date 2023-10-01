@@ -1,7 +1,16 @@
+import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    UserProfileController,
+    RouterOutlet,
+    RouterLinkWithHref,
+  ],
   template: `
     <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div class="container">
@@ -14,7 +23,7 @@ import { Router } from "@angular/router";
       <router-outlet></router-outlet>
     </div>
   `,
-  styleUrls: ["../user.style.css"],
+  styleUrls: [],
 })
 export class UserProfileView implements OnInit {
   public userId?: string;

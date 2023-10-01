@@ -1,6 +1,16 @@
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { EmailSignUpController } from "../../feature/login/controller/email-signup.controller";
+import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 
 @Component({
+  standalone: true,
+  imports: [
+    CommonModule,
+    EmailSignUpController,
+    RouterOutlet,
+    RouterLinkWithHref,
+  ],
   template: ` <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
     <div class="container">
       <div class="row mt-5 justify-content-center">
@@ -18,7 +28,7 @@ import { Component } from "@angular/core";
           <email-signup-controller></email-signup-controller>
         </div>
       </div>
-      <div class="row mb-5 mt-5 pt-5 justify-content-center">
+      <div class="row mb-5 mt-5 justify-content-center">
         <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
           <h3>
             Already have account?
@@ -31,7 +41,7 @@ import { Component } from "@angular/core";
         </div>
       </div>
     </div>`,
-  styleUrls: ["../user.style.css"],
+  styleUrls: [],
 })
 export class SignUpView {
   constructor() {}
