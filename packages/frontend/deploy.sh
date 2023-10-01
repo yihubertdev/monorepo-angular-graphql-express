@@ -3,26 +3,31 @@ echo "packing the dependencies"
 
 cd ../frontend-shared/library/types
 
-npm pack
-
 SHARED_TYPES=$(find . -type f -name "*.tgz")
 
-mv $SHARED_TYPES ../../../frontend/dependencies
+rm $SHARED_TYPES
 
+npm pack
+
+cp $SHARED_TYPES ../../../frontend/dependencies
+
+cp $SHARED_TYPES ../ui/dependencies
+echo "finish file copy"
 DIR="../../dist/sharedModule"
 if [ -d "$DIR" ]; then
     rm -r ../../dist/sharedModule
-
-    cd ../ui
-
-    ng build --configuration development
 else
-    cd ../ui
-
-    ng build --configuration development
+    echo "old build package cleared, continue"
 fi
 
-cd ../../dist/sharedModule
+cd ../ui/dependencies
+
+npm uninstall @types/sources-types
+npm install $SHARED_TYPES --save-dev
+
+ng build --configuration development
+
+cd ../../../dist/sharedModule
 
 npm pack
 
@@ -40,6 +45,6 @@ npm install $SHARED_TYPES --save-dev
 
 npm install $SHARED_COMPONENTS --save-dev
 
-# ng build
+ng build
 
-# firebase deploy
+firebase deploy

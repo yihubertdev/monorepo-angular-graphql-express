@@ -8,14 +8,13 @@ import { LoginModule } from "src/app/feature/login/login.module";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
 import { ProfileRouting } from "./profile-routing.module";
-import { MeView } from "./view/me.view";
 import { UsersView } from "./view/users.view";
 import { DetailsView } from "./view/details.view";
 import { UserProfileController } from "src/app/feature/userProfile/user-profile.controller";
 import { UserDetailsController } from "src/app/feature/userProfile/user-details.controller";
 
 @NgModule({
-  declarations: [MeView, UsersView, DetailsView],
+  declarations: [DetailsView],
   imports: [
     CommonModule,
     MatExpansionModule,
@@ -29,6 +28,6 @@ import { UserDetailsController } from "src/app/feature/userProfile/user-details.
     HomePagePostModule,
     ProfileRouting,
   ],
-  exports: [MeView, UsersView, DetailsView],
+  exports: [DetailsView],
 })
 export class ProfileModule {}

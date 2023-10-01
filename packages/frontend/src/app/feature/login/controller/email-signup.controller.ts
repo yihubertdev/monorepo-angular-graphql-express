@@ -21,7 +21,7 @@ import { userSignUpFormList } from "src/app/core/static/auth.static";
     (formValue)="signup($event)"></form-input-list-component>`,
   styleUrls: [],
 })
-export class EmailSignUpController implements OnInit {
+export class EmailSignUpController {
   formInputList: IFormInput[] = userSignUpFormList;
   validatorSchema: any = userSignUpSchema;
   error: string = "";
@@ -30,9 +30,6 @@ export class EmailSignUpController implements OnInit {
     private authService: AuthService,
     private _snackBar: MatSnackBar
   ) {}
-  ngOnInit(): void {
-    const i = 1;
-  }
 
   async signup(formValue: Record<string, number | string>) {
     const { displayName, email, password } =
@@ -45,13 +42,16 @@ export class EmailSignUpController implements OnInit {
 
     try {
       await this.authService.register(data);
-      this._router.navigateByUrl("/account/login");
+      this._router.navigate(["/users", "me", "posts"]);
     } catch (err) {
+      console.log(err);
       this._snackBar.open(
         SNACKBAR_ERROR.SIGNUP_FAILED,
         SNACKBAR_ACTION.POP_UP_ACTION,
         {
           duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+          horizontalPosition: "center",
+          verticalPosition: "top",
         }
       );
     }

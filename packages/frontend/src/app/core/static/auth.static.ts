@@ -66,10 +66,10 @@ export const userLoginFormList: IFormInput[] = [
 
 export const userSignUpFormList: IFormInput[] = [
   {
-    id: "display_name",
+    id: "displayName",
     type: INPUT_TYPE.TEXT,
     label: "Your Display Name",
-    key: "display_name",
+    key: "displayName",
     value: "",
     placeholder: "Edit Name",
     error: "",
@@ -93,10 +93,10 @@ export const userSignUpFormList: IFormInput[] = [
     error: "",
   },
   {
-    id: "repeat_password",
+    id: "repeatPassword",
     type: INPUT_TYPE.PASSWROD,
     label: "Repeat your Password",
-    key: "repeat_password",
+    key: "repeatPassword",
     value: "",
     placeholder: "Repeat password",
     error: "",

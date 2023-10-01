@@ -34,10 +34,10 @@ export class AuthService {
   constructor(private auth: Auth, private userService: UserService) {
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
-      this._userAuth.next(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
       }
+      this._userAuth.next(user);
     });
 
     this.googleProvider = new GoogleAuthProvider();
@@ -143,6 +143,7 @@ export class AuthService {
         photoURL: user.photoURL,
       }),
     ]);
+    this.currentUser = await this.userService.retrieveById(user.uid);
     return user;
   }
 

@@ -9,15 +9,13 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
     <a
       mat-list-item
       (click)="signInWithGoogle($event)">
-      <span mat-line>Google Account</span>
       <span mat-line>Sign In With Google</span>
     </a>
 
     <a
       mat-list-item
       (click)="signInAnonymously($event)">
-      <span mat-line>Anonymous</span>
-      <span mat-line>Sign In Anonymously</span>
+      <span mat-line>Sign In With Guest</span>
     </a>
   </mat-nav-list>`,
 })

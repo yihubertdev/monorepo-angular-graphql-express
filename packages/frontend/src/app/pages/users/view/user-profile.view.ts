@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   template: `
@@ -18,11 +18,11 @@ import { ActivatedRoute, Params } from "@angular/router";
 })
 export class UserProfileView implements OnInit {
   public userId?: string;
-  constructor(private _activatedRouter: ActivatedRoute) {}
+  constructor(private _router: Router) {}
 
-  async ngOnInit() {
-    this._activatedRouter.params.subscribe(
-      (params: Params) => (this.userId = params["id"])
-    );
+  ngOnInit() {
+    const id = this._router.url.split("/")[2];
+
+    this.userId = id === "me" ? undefined : id;
   }
 }

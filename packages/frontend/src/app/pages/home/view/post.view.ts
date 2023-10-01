@@ -24,9 +24,7 @@ import { MatTabsModule } from "@angular/material/tabs";
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
               <home-page-post-controller
-                [isPagination]="true"
-                [isUserProfile]="false"
-                [isMe]="false"></home-page-post-controller>
+                [isPagination]="true"></home-page-post-controller>
             </div>
           </div>
 

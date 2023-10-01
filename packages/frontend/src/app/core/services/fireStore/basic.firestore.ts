@@ -157,16 +157,25 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
+   * @param {string} [userId] user id
    * @returns {Promise<{ data: T[]; hasFile: boolean }>} list data response
    */
   public list = async (
-    limit: number = 10
+    limit: number = 10,
+    userId?: string
   ): Promise<{ data: T[]; hasFile: boolean }> => {
     let data: T[] = [];
 
     let querySnapShot = this.collection.ref
       .orderBy("createdAt", "desc")
       .limit(limit);
+
+    if (userId) {
+      querySnapShot = this.collection.ref
+        .where("userId", "==", userId)
+        .orderBy("createdAt", "desc")
+        .limit(limit);
+    }
 
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {
@@ -187,10 +196,12 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
+   * @param {string} [userId] user id
    * @returns {Promise<void>}
    */
   public listPagination = async (
-    limit: number = 10
+    limit: number = 10,
+    userId?: string
   ): Promise<{ data: T[]; hasFile: boolean }> => {
     let data: T[] = [];
     if (!this.lastQueryDocumentSnapshot)
@@ -203,6 +214,9 @@ export abstract class FireStoreBaseModel<T> {
       .orderBy("createdAt", "desc")
       .startAfter(this.lastQueryDocumentSnapshot)
       .limit(limit);
+    if (userId) {
+      querySnapShot = querySnapShot.where("userId", "==", userId);
+    }
     // reset lastQuerySnapshot, otherwise hasFile will keep return true even if its already the last query
     this.lastQueryDocumentSnapshot = undefined;
     const result = await querySnapShot.get();

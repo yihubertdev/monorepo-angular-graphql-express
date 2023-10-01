@@ -17,16 +17,15 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
     <ng-container *ngFor="let post of data; trackBy: identify">
       <post-card-component
         [postCardInfo]="post"
-        [isUserProfile]="isUserProfile"
-        [isMe]="isMe"></post-card-component>
+        [isUserProfile]="!!userId"
+        [isMe]="userId === 'me' ? true : false"></post-card-component>
     </ng-container>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
   @Input() isPagination: boolean = false;
-  @Input() isUserProfile: boolean = false;
-  @Input() isMe: boolean = false;
+  @Input() userId?: string;
   @Output() isLoading = new EventEmitter<boolean>();
   @ViewChild("matDrawerContentScroll") matDrawerContent!: ElementRef;
 
@@ -51,6 +50,7 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
+
     const post = await this._PostService.list(5);
     this.hasFile = post.hasFile;
     this.data = post.data;

@@ -1,5 +1,7 @@
 import { CommonModule } from "@angular/common";
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
@@ -24,6 +26,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 
 @Component({
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "user-profile-controller",
   imports: [
     CommonModule,
@@ -102,28 +105,31 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
   `,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserProfileController implements OnInit, OnChanges {
+export class UserProfileController implements OnChanges {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser: IUser | null = null;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
-    private authService: AuthService,
+    private _authService: AuthService,
     private userService: UserService,
-    private profileStorage: ProfileStorageService
+    private profileStorage: ProfileStorageService,
+    private _ref: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {
-    if (!this.userId) {
-      this.currentUser = this.authService.get();
-    }
-  }
-
   async ngOnChanges() {
-    [this.currentUser] = this.userId
-      ? await this.userService.retrieve({ userId: this.userId })
-      : [null];
+    if (!this.userId) {
+      this._authService.userAuthObserver$.subscribe(() => {
+        this.currentUser = this._authService.get();
+        this._ref.detach();
+        this._ref.detectChanges();
+      });
+    } else {
+      [this.currentUser] = await this.userService.retrieve({
+        userId: this.userId,
+      });
+    }
   }
 
   async uploadImage(eventTarget: EventTarget | null) {

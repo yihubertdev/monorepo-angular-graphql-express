@@ -142,7 +142,7 @@ export interface IUserRegister {
 }
 
 export interface IUserSignUpForm extends IUserRegister {
-  repeat_password: string;
+  repeatPassword: string;
 }
 
 export interface IUserProfile {

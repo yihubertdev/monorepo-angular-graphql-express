@@ -67,12 +67,12 @@ export const userSignUpSchema: JoiSchemaBuilder<IUserSignUpForm> = (
         )}`,
         "string.empty": `Please enter your password.`,
       }),
-    repeat_password: Joi.string()
+    repeatPassword: Joi.string()
       .required()
       .valid(Joi.ref("password"))
       .messages({
         "string.base": `password should be a type of 'string', user input is ${String(
-          data.repeat_password
+          data.repeatPassword
         )}`,
         "any.only": "Password and repeat password must be equal",
         "string.empty": `Please enter your password.`,

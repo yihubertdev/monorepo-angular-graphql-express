@@ -43,9 +43,7 @@ import { Component } from "@angular/core";
           </a>
           <home-page-post-controller
             (isLoading)="isLoading = $event"
-            [isPagination]="false"
-            [isUserProfile]="false"
-            [isMe]="false"></home-page-post-controller>
+            [isPagination]="false"></home-page-post-controller>
           <a
             mat-raised-button
             color="primary"
