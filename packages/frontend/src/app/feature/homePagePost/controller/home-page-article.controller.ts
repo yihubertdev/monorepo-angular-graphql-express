@@ -13,6 +13,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
 })
 export class HomePageArticleController implements OnInit {
   @Input() isPagination: boolean = false;
+  @Input() userId?: string;
 
   public data: IArticle[] = [];
   private hasFile: boolean = true;
@@ -20,7 +21,7 @@ export class HomePageArticleController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    const post = await this._articleFireStore.list(5);
+    const post = await this._articleFireStore.list(5, this.userId);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }
@@ -33,7 +34,7 @@ export class HomePageArticleController implements OnInit {
       this.hasFile &&
       this.isPagination
     ) {
-      const post = await this._articleFireStore.listPagination(5);
+      const post = await this._articleFireStore.listPagination(5, this.userId);
       this.data.push(...post.data);
       this.hasFile = post.hasFile;
     }

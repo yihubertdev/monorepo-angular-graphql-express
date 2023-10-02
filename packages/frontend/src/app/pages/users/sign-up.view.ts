@@ -43,6 +43,6 @@ import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
     </div>`,
   styleUrls: [],
 })
-export class SignUpView {
+export default class SignUpView {
   constructor() {}
 }

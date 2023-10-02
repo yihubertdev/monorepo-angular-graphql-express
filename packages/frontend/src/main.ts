@@ -1,4 +1,4 @@
-import { enableProdMode } from "@angular/core";
+import { enableProdMode, importProvidersFrom } from "@angular/core";
 import { environment } from "./environments/environment.dev";
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
@@ -9,7 +9,8 @@ import {
 } from "@angular/router";
 import APP_ROUTES from "./app/routes";
 import { MainView } from "./app/main.view";
-import { FIREBASE_OPTIONS } from "@angular/fire/compat";
+import { BrowserStorageServiceModule } from "./app/core/services/browserStorage/browserStorage.module";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 if (environment.production) {
   enableProdMode();
@@ -17,11 +18,8 @@ if (environment.production) {
 
 bootstrapApplication(MainView, {
   providers: [
-    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
-    provideRouter(
-      APP_ROUTES,
-      withPreloading(PreloadAllModules),
-      withDebugTracing()
-    ),
+    importProvidersFrom(BrowserAnimationsModule),
+    importProvidersFrom(BrowserStorageServiceModule),
+    provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
   ],
 });

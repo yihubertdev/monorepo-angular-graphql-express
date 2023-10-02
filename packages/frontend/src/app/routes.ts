@@ -1,38 +1,21 @@
 import { Routes } from "@angular/router";
 
 export default [
-  // { path: "", redirectTo: "home/posts", pathMatch: "full" },
-  {
-    path: "",
-    loadComponent: () =>
-      import("./pages/home/view/post.view").then((module) => module.PostView),
-  },
+  { path: "", redirectTo: "home/posts", pathMatch: "full" },
   {
     path: "home",
-    loadChildren: () =>
-      import("./pages/home/home.module").then((module) => module.PostModule),
+    loadChildren: () => import("./pages/home"),
   },
   {
     path: "edit",
-    loadChildren: () =>
-      import("./pages/edit/edit.module").then((module) => module.EditModule),
-  },
-  {
-    path: "search",
-    loadChildren: () =>
-      import("./pages/search/search.module").then(
-        (module) => module.SearchModule
-      ),
+    loadChildren: () => import("./pages/edit"),
   },
   {
     path: "payment",
-    loadChildren: () =>
-      import("./pages/payment/payment.module").then(
-        (module) => module.PaymentModule
-      ),
+    loadChildren: () => import("./pages/payment"),
   },
   {
     path: "users",
-    loadChildren: () => import("./pages/users/routes"),
+    loadChildren: () => import("./pages/users"),
   },
 ] as Routes;

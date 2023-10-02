@@ -1,20 +1,24 @@
 import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { articleEditSchema } from "src/app/core/joiSchema/article-edit.schema";
+import { articleEditSchema } from "../../core/joiSchema/article-edit.schema";
 import {
   SNACKBAR_ACTION,
   SNACKBAR_ERROR,
   IFormInput,
   IPost,
 } from "sources-types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
-import { editArticleFormList } from "src/app/core/static/post.static";
+import { AuthService } from "../../core/services/fireAuth/auth";
+import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
+import { editArticleFormList } from "../../core/static/post.static";
 import { IArticle } from "sources-types";
-import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
+import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
+import { CommonModule } from "@angular/common";
+import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, FormInputListModule],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"

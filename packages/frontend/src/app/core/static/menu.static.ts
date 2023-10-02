@@ -5,7 +5,6 @@ export const SITE_ROUTE_PAGE = {
   ADD_POST: ["edit", "post"],
   HOME: ["home"],
   ARTICLES: ["home", "articles"],
-  POSTS: ["home", "posts"],
   ARTICLE: ["home", "article"],
   USERS_POSTS: ["users", "_", "posts"],
   MY_POSTS: ["users", "me", "posts"],
@@ -17,12 +16,6 @@ export const SITE_ROUTE_PAGE = {
 };
 
 export const footerMenus: IMenu[] = [
-  {
-    link: SITE_ROUTE_PAGE.POSTS,
-    description: "Posts",
-    iconName: "feed",
-    width: "75px",
-  },
   {
     link: SITE_ROUTE_PAGE.HOME,
     description: "Home",
@@ -50,12 +43,6 @@ export const footerMenus: IMenu[] = [
 ];
 
 export const homePageMenus: IMenu[] = [
-  {
-    link: SITE_ROUTE_PAGE.POSTS,
-    description: "Posts",
-    iconName: "feed",
-    width: "75px",
-  },
   {
     link: SITE_ROUTE_PAGE.HOME,
     description: "Home",

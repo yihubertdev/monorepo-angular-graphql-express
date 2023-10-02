@@ -19,6 +19,7 @@ import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { LinkPreviewPipe } from "../../shared/pipes/convert-link-preview.pipe";
 import { PostCardComponent } from "src/app/shared/components/postCard/post-card.component";
 import { ArticleCardComponent } from "../../shared/components/postCard/article-card.component";
+import { CarouselSliderModule } from "../../shared/components/CarouselSlider/carousel-slider.module";
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ArticleCardComponent } from "../../shared/components/postCard/article-c
     StringTransformPipe,
     LinkPreviewPipe,
     ArticleCardComponent,
+    CarouselSliderModule,
   ],
   exports: [
     HomePagePostController,

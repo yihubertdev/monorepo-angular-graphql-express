@@ -1,6 +1,10 @@
+import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
+import { EditArticleController } from "../../feature/edit/edit-article.controller";
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, EditArticleController],
   selector: "post-view",
   template: `
     <div class="container">
@@ -11,8 +15,8 @@ import { Component } from "@angular/core";
       </div>
     </div>
   `,
-  styleUrls: ["../edit.style.css"],
+  styleUrls: [],
 })
-export class EditArticleView {
+export default class EditArticleView {
   constructor() {}
 }

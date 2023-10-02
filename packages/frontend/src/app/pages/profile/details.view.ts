@@ -15,7 +15,7 @@ import { UserDetailsController } from "../../feature/userProfile/user-details.co
   `,
   styleUrls: [],
 })
-export class DetailsView implements OnInit {
+export default class DetailsView implements OnInit {
   public userId?: string;
   constructor(private _activatedRouter: ActivatedRoute) {}
 

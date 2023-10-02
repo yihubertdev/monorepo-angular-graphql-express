@@ -129,6 +129,9 @@ export class UserProfileController implements OnChanges {
       [this.currentUser] = await this.userService.retrieve({
         userId: this.userId,
       });
+
+      this._ref.detach();
+      this._ref.detectChanges();
     }
   }
 

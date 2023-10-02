@@ -1,10 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { LoginModule } from "../../feature/login/login.module";
+import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, LoginModule],
+  imports: [CommonModule, LoginModule, RouterOutlet, RouterLinkWithHref],
   template: ` <div class="container">
     <div class="row mb-5 mt-5 justify-content-center">
       <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -41,6 +42,6 @@ import { LoginModule } from "../../feature/login/login.module";
   </div>`,
   styleUrls: [],
 })
-export class LoginView {
+export default class LoginView {
   constructor() {}
 }

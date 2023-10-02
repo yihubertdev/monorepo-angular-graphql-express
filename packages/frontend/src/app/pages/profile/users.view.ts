@@ -26,7 +26,9 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
           <!--justify-content-center center the inner col-->
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
-              <home-page-article-controller></home-page-article-controller>
+              <home-page-article-controller
+                [isPagination]="true"
+                [userId]="userId"></home-page-article-controller>
             </div>
           </div>
         </div>
@@ -35,7 +37,7 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
   `,
   styleUrls: [],
 })
-export class UsersView implements OnInit {
+export default class UsersView implements OnInit {
   public userId?: string;
   constructor(private _activatedRouter: ActivatedRoute) {}
 

@@ -36,7 +36,7 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card class="mb-3">
+    <mat-card class="mt-3 mb-3">
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe

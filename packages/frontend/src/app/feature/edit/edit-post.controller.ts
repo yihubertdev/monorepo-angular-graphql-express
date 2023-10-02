@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { blogEditSchema } from "src/app/core/joiSchema/blog-edit.schema";
+import { blogEditSchema } from "../../core/joiSchema/blog-edit.schema";
 import {
   IFormInput,
   SNACKBAR_ERROR,
@@ -9,15 +9,19 @@ import {
   LINK_PREVIEW,
   ILinkPreview,
 } from "sources-types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { PostFireStore as PostService } from "src/app/core/services/fireStore/blog.firestore";
-import { postEditFormList } from "src/app/core/static/post.static";
+import { AuthService } from "../../core/services/fireAuth/auth";
+import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
+import { postEditFormList } from "../../core/static/post.static";
 import { IPost } from "sources-types";
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
+import { CommonModule } from "@angular/common";
+import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
 
 @Component({
-  selector: "edit-po-controller",
+  standalone: true,
+  imports: [CommonModule, FormInputListModule],
+  selector: "edit-post-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
     errorLocation="EditBlogView"
@@ -25,7 +29,7 @@ import { firstValueFrom } from "rxjs";
     buttonName="Add Blog"
     (formValue)="save($event)"
     [loading]="loading"></form-input-list-component>`,
-  styleUrls: ["../edit.style.css"],
+  styleUrls: ["./edit.style.css"],
 })
 export class EditPostController {
   formInputList: IFormInput[] = postEditFormList;

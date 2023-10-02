@@ -7,7 +7,7 @@ import {
   twitterIconSvg,
 } from "./core/static/post.static";
 import { AuthService } from "./core/services/fireAuth/auth";
-import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { RouterOutlet } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -16,6 +16,7 @@ import { MenuModule } from "./feature/menu/menu.module";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
+import { ServiceModule } from "./core/services/services.module";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -23,7 +24,6 @@ import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
   imports: [
     CommonModule,
     RouterOutlet,
-    RouterLinkWithHref,
     MatIconModule,
     MatTabsModule,
     MatMenuModule,
@@ -32,6 +32,7 @@ import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
     MatDrawerResponsiveDirectiveModule,
     MatSidenavModule,
     FireAuthServiceModule,
+    ServiceModule,
   ],
   selector: "main-view",
   template: `

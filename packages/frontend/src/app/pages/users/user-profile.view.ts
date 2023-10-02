@@ -25,7 +25,7 @@ import { UserProfileController } from "../../feature/userProfile/user-profile.co
   `,
   styleUrls: [],
 })
-export class UserProfileView implements OnInit {
+export default class UserProfileView implements OnInit {
   public userId?: string;
   constructor(private _router: Router) {}
 

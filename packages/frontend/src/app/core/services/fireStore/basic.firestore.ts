@@ -171,10 +171,7 @@ export abstract class FireStoreBaseModel<T> {
       .limit(limit);
 
     if (userId) {
-      querySnapShot = this.collection.ref
-        .where("userId", "==", userId)
-        .orderBy("createdAt", "desc")
-        .limit(limit);
+      querySnapShot = querySnapShot.where("userId", "==", userId);
     }
 
     const result = await querySnapShot.get();

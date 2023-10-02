@@ -1,8 +1,13 @@
+import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
+import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
+import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
+import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 
 @Component({
+  standalone: true,
+  imports: [CommonModule, HomePagePostModule, UserProfileController],
   selector: "article-view",
   template: `
     <div class="container">
@@ -23,9 +28,9 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       </div>
     </div>
   `,
-  styleUrls: ["../home.style.css"],
+  styleUrls: ["./home.style.css"],
 })
-export class ArticleViewComponent implements OnInit {
+export default class ArticleView implements OnInit {
   public articleId: string = "";
   public articleContent: string = "";
   public articleTitle: string = "";

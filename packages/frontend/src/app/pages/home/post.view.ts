@@ -1,21 +1,21 @@
 import { Component } from "@angular/core";
-import { AuthService } from "../../../core/services/fireAuth/auth";
+import { AuthService } from "../../core/services/fireAuth/auth";
 import { CommonModule } from "@angular/common";
-import { AddTextEditorModule } from "src/app/feature/addTextEditor/add-text-editor.module";
-import { HomePagePostModule } from "src/app/feature/homePagePost/home-page-post.module";
+import { AddTextEditorModule } from "../../feature/addTextEditor/add-text-editor.module";
+import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { MatTabsModule } from "@angular/material/tabs";
+import { PostCategoryModule } from "../../feature/postCategory/post-category.module";
 
 @Component({
   standalone: true,
-  selector: "post-view",
   imports: [
     CommonModule,
     AddTextEditorModule,
     HomePagePostModule,
     MatTabsModule,
+    PostCategoryModule,
   ],
   template: `
-    <!-- container responsive-height-container -->
     <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
     <mat-tab-group>
       <mat-tab label="Posts">
@@ -37,10 +37,16 @@ import { MatTabsModule } from "@angular/material/tabs";
       </mat-tab>
       <mat-tab label="Articles">
         <div class="container">
+          <div class="row mb-3 mx-2">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <post-category-controller></post-category-controller>
+            </div>
+          </div>
           <!--justify-content-center center the inner col-->
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
-              <home-page-article-controller></home-page-article-controller>
+              <home-page-article-controller
+                [isPagination]="true"></home-page-article-controller>
             </div>
           </div>
 
@@ -53,9 +59,9 @@ import { MatTabsModule } from "@angular/material/tabs";
       </mat-tab>
     </mat-tab-group>
   `,
-  styleUrls: ["../home.style.css"],
+  styleUrls: ["./home.style.css"],
 })
-export class PostView {
+export default class PostView {
   public hasUser?: boolean;
   constructor(private _authService: AuthService) {
     this._authService.userAuthObserver$.subscribe((user) => {
