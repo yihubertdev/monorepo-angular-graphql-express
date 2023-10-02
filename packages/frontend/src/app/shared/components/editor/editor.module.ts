@@ -12,7 +12,7 @@ import { GoogleHttpService } from "src/app/core/services/http/google.http";
   imports: [
     CommonModule,
     MatProgressBarModule,
-    QuillModule,
+    QuillModule.forRoot(),
     FormsModule,
     UploadVideoDialogModule,
   ],

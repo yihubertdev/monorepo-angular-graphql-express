@@ -4,6 +4,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import {
   PreloadAllModules,
   provideRouter,
+  withComponentInputBinding,
   withDebugTracing,
   withPreloading,
 } from "@angular/router";
@@ -20,6 +21,10 @@ bootstrapApplication(MainView, {
   providers: [
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(BrowserStorageServiceModule),
-    provideRouter(APP_ROUTES, withPreloading(PreloadAllModules)),
+    provideRouter(
+      APP_ROUTES,
+      withPreloading(PreloadAllModules),
+      withComponentInputBinding()
+    ),
   ],
 });

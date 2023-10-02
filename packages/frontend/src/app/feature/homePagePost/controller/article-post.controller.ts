@@ -13,13 +13,9 @@ import { Component, Input, OnInit } from "@angular/core";
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
-export class ArticlePostControllerComponent implements OnInit {
+export class ArticlePostControllerComponent {
   @Input() articleContent: string = "";
   @Input() articleTitle: string = "";
 
   constructor() {}
-
-  ngOnInit(): void {
-    console.log(this.articleContent);
-  }
 }

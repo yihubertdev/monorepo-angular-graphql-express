@@ -1,28 +1,26 @@
-import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
+import { IArticle } from "sources-types";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HomePagePostModule, UserProfileController],
-  selector: "article-view",
+  imports: [HomePagePostModule, UserProfileController],
   template: `
     <div class="container">
       <div class="row mb-4 justify-content-center">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <article-post-controller
-            [articleContent]="articleContent"
-            [articleTitle]="articleTitle"></article-post-controller>
+            [articleContent]="article?.content ?? ''"
+            [articleTitle]="article?.title ?? ''"></article-post-controller>
         </div>
       </div>
 
       <div class="row mb-4 justify-content-center">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <user-profile-controller
-            [userId]="articleUserId"
+            [userId]="article?.userId"
             style="width: 100%; height: 100%; margin-bottom: 5%;"></user-profile-controller>
         </div>
       </div>
@@ -31,30 +29,15 @@ import { UserProfileController } from "../../feature/userProfile/user-profile.co
   styleUrls: ["./home.style.css"],
 })
 export default class ArticleView implements OnInit {
-  public articleId: string = "";
-  public articleContent: string = "";
-  public articleTitle: string = "";
-  public articleUserId: string = "";
-  constructor(
-    private _router: Router,
-    private _activatedRouter: ActivatedRoute,
-    private _articleFireStore: ArticleFireStore
-  ) {}
+  @Input() id?: string;
+  public articleId?: string;
+  public article?: IArticle;
+
+  constructor(private _articleFireStore: ArticleFireStore) {}
 
   async ngOnInit() {
-    this._activatedRouter.params.subscribe(
-      (params: Params) => (this.articleId = params["id"])
-    );
-    const article = await this._articleFireStore.retrieveById(this.articleId);
-
-    if (!article) {
-      this._router.navigateByUrl("posts");
-    }
-
-    const { content, title, userId } = article;
-
-    this.articleContent = content;
-    this.articleTitle = title;
-    this.articleUserId = userId;
+    if (!this.id) return;
+    this.articleId = this.id;
+    this.article = await this._articleFireStore.retrieveById(this.articleId);
   }
 }
