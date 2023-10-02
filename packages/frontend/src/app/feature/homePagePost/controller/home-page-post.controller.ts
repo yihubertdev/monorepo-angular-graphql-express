@@ -18,13 +18,13 @@ import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
         [isUserProfile]="!!userId"
         [isMe]="userId === 'me' ? true : false"></post-card-component>
 
-      <ng-container *ngIf="i === 3">
+      <ng-container *ngIf="i === 3 && !userId">
         <carousel-slider-component
           [images]="images"
           [isSilding]="true"></carousel-slider-component>
       </ng-container>
 
-      <ng-container *ngIf="i === 6">
+      <ng-container *ngIf="i === 6 && !userId">
         <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
       </ng-container>
     </ng-container>

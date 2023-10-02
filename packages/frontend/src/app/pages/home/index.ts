@@ -3,6 +3,11 @@ import { Routes } from "@angular/router";
 export default [
   {
     path: "",
+    redirectTo: "posts",
+    pathMatch: "full",
+  },
+  {
+    path: "posts",
     loadComponent: () => import("./post.view"),
   },
   // URL naming
