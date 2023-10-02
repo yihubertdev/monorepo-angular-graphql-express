@@ -10,11 +10,11 @@ export default [
   {
     path: "article",
     canActivate: [isUserLogin],
-    loadChildren: () => import("./edit-article.view"),
+    loadComponent: () => import("./edit-article.view"),
   },
   {
     path: "post",
     canActivate: [isUserLogin],
-    loadChildren: () => import("./edit-blog.view"),
+    loadComponent: () => import("./edit-blog.view"),
   },
 ] as Routes;

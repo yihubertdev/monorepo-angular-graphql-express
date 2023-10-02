@@ -7,6 +7,7 @@ import {
   Output,
 } from "@angular/core";
 import { IPost } from "sources-types";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
@@ -44,7 +45,10 @@ export class HomePagePostController implements OnInit {
   public data: IPost[] = [];
   private hasFile: boolean = true;
 
-  constructor(private _PostService: PostFireStore) {}
+  constructor(
+    private _PostService: PostFireStore,
+    private _authService: AuthService
+  ) {}
 
   @HostListener("window:scroll", ["$event"])
   async onWindowScroll() {
@@ -62,7 +66,11 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-
+    if (this.userId === "me") {
+      this._authService.userAuthObserver$.subscribe(() => {
+        this.userId = this._authService.get()?.userId;
+      });
+    }
     const post = await this._PostService.list(5, this.userId);
     this.hasFile = post.hasFile;
     this.data = post.data;

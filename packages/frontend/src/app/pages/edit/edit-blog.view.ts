@@ -5,7 +5,6 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
 @Component({
   standalone: true,
   imports: [CommonModule, EditPostController],
-  selector: "edit-blog-view",
   template: `
     <div
       class="container"
@@ -19,6 +18,6 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
   `,
   styleUrls: [],
 })
-export default class EditBlogViewComponent {
+export default class EditPostView {
   constructor() {}
 }

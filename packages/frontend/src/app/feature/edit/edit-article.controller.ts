@@ -15,10 +15,11 @@ import { IArticle } from "sources-types";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { CommonModule } from "@angular/common";
 import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
+import { HttpClientModule } from "@angular/common/http";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListModule],
+  imports: [CommonModule, FormInputListModule, HttpClientModule],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"

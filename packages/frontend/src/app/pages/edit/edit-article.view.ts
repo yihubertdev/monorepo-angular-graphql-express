@@ -5,7 +5,6 @@ import { EditArticleController } from "../../feature/edit/edit-article.controlle
 @Component({
   standalone: true,
   imports: [CommonModule, EditArticleController],
-  selector: "post-view",
   template: `
     <div class="container">
       <div class="row justify-content-center">

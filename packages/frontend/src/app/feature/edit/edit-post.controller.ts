@@ -13,14 +13,14 @@ import { AuthService } from "../../core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { postEditFormList } from "../../core/static/post.static";
 import { IPost } from "sources-types";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListModule],
+  imports: [CommonModule, FormInputListModule, HttpClientModule],
   selector: "edit-post-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
