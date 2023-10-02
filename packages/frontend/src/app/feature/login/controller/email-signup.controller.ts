@@ -11,7 +11,7 @@ import {
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userSignUpFormList } from "src/app/core/static/auth.static";
 import { CommonModule } from "@angular/common";
-import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
 
 @Component({
   standalone: true,
@@ -19,7 +19,7 @@ import { FormInputListModule } from "src/app/shared/components/formInputList/for
     CommonModule,
     RouterOutlet,
     RouterLinkWithHref,
-    FormInputListModule,
+    FormInputListComponent,
   ],
   selector: "email-signup-controller",
   template: ` <form-input-list-component

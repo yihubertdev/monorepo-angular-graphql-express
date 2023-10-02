@@ -6,15 +6,19 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
-import { quillEditorModule } from "src/app/core/static/post.static";
 import { v4 as uuidv4 } from "uuid";
-import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog } from "@angular/material/dialog";
-import { UploadVideoDialog } from "../../dialog/uploadVideo/upload-video.dialog";
+import { UploadVideoDialog } from "../../dialog/upload-video.dialog";
 import { EMBED_YOUTUBE } from "sources-types";
+import { QuillModule } from "ngx-quill";
+import { FormsModule } from "@angular/forms";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { quillEditorModule } from "../../../core/static/post.static";
+import { FormFileStorageService } from "../../../core/services/fireStorage/form-file.bucket";
 
 @Component({
+  standalone: true,
+  imports: [QuillModule, FormsModule, MatProgressBarModule],
   selector: "editor-component",
   template: ` <ng-container>
     <input
@@ -52,7 +56,6 @@ export class EditorComponent {
 
   constructor(
     private formFileStorage: FormFileStorageService,
-    private _sanitizer: DomSanitizer,
     public dialog: MatDialog
   ) {}
 

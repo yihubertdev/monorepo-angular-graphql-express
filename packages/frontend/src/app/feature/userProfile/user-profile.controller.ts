@@ -6,7 +6,6 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -19,7 +18,7 @@ import { IUser } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
-import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
@@ -39,7 +38,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
     RouterModule,
     MatTabsModule,
     GridListResponsiveDirectiveModule,
-    FormInputListModule,
+    FormInputListComponent,
   ],
   template: `
     <mat-card style="height: 30dvh; border-radius: initial;">

@@ -1,9 +1,14 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IUploadMultipleFileRes } from "src/app/core/services/fireStorage/basic.bucket";
-import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
+import { IUploadMultipleFileRes } from "../../../core/services/fireStorage/basic.bucket";
+import { FormFileStorageService } from "../../../core/services/fireStorage/form-file.bucket";
 import { v4 as uuidv4 } from "uuid";
+import { MatListModule } from "@angular/material/list";
+import { DocumentUploadListComponent } from "./document-upload-list.component";
+import { NgFor } from "@angular/common";
 
 @Component({
+  standalone: true,
+  imports: [MatListModule, DocumentUploadListComponent, NgFor],
   selector: "document-uploader-component",
   template: ` <section style="display: block">
     <input
@@ -24,7 +29,6 @@ import { v4 as uuidv4 } from "uuid";
       </mat-list-item>
     </mat-list>
   </section>`,
-  styleUrls: ["./document-uploader.component.css"],
 })
 export class DocumentUploaderComponent {
   @Input() documentPath?: string;

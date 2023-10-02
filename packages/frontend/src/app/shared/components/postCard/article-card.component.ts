@@ -1,5 +1,4 @@
-import { CommonModule } from "@angular/common";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { IArticle } from "sources-types";
 import { RouterModule } from "@angular/router";
@@ -8,9 +7,9 @@ import { MatIconModule } from "@angular/material/icon";
 @Component({
   standalone: true,
   selector: "article-card-component",
-  imports: [CommonModule, MatCardModule, MatIconModule, RouterModule],
-  template: `<mat-card class="mb-3">
-    <mat-card-header [routerLink]="['home', 'article', article!.id]">
+  imports: [MatCardModule, MatIconModule, RouterModule],
+  template: `<mat-card class="mb-3 cursor-pointer">
+    <mat-card-header [routerLink]="['../', 'article', article!.id]">
       <mat-card-title-group>
         <mat-card-title>{{ article!.title }}</mat-card-title>
         <mat-card-subtitle>{{ article!.subTitle }}</mat-card-subtitle>
@@ -28,5 +27,5 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrls: [],
 })
 export class ArticleCardComponent {
-  @Input() article?: IArticle;
+  @Input({ required: true }) article?: IArticle;
 }

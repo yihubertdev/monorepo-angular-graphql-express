@@ -14,12 +14,12 @@ import { editArticleFormList } from "../../core/static/post.static";
 import { IArticle } from "sources-types";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { CommonModule } from "@angular/common";
-import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
 import { HttpClientModule } from "@angular/common/http";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListModule, HttpClientModule],
+  imports: [CommonModule, FormInputListComponent, HttpClientModule],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
@@ -29,7 +29,6 @@ import { HttpClientModule } from "@angular/common/http";
     (formValue)="save($event)"
     [haveEditor]="true"
     [loading]="loading"></form-input-list-component>`,
-  styleUrls: [],
 })
 export class EditArticleController {
   public formInputList: IFormInput[] = editArticleFormList;

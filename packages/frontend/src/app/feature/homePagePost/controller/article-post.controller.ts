@@ -1,21 +1,21 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { IArticle } from "sources-types";
 
 @Component({
   selector: "article-post-controller",
   template: `
     <h1 style="font-size: xx-large; text-align: center;">
-      {{ this.articleTitle }}
+      {{ article?.title }}
     </h1>
     <quill-view
-      [content]="articleContent"
+      [content]="article?.content"
       format="html"
       theme="snow"></quill-view>
   `,
   styleUrls: ["../home-page-post.style.css"],
 })
 export class ArticlePostControllerComponent {
-  @Input() articleContent: string = "";
-  @Input() articleTitle: string = "";
+  @Input() article?: IArticle;
 
   constructor() {}
 }

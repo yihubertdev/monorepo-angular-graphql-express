@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { EmailLoginControllerComponent } from "./controller/email-login.controller";
-import { FormInputListModule } from "src/app/shared/components/formInputList/form-input-list.module";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { OAuthLoginControllerComponent } from "./controller/oauth-login.controller";
@@ -18,12 +18,12 @@ import { OAuthOptionsComponent } from "./controller/oauth-options.controller";
   ],
   imports: [
     CommonModule,
-    FormInputListModule,
     MatFormFieldModule,
     MatSnackBarModule,
     MatIconModule,
     MatListModule,
     MatBottomSheetModule,
+    FormInputListComponent,
   ],
   exports: [
     EmailLoginControllerComponent,

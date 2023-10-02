@@ -12,8 +12,7 @@ import { IArticle } from "sources-types";
       <div class="row mb-4 justify-content-center">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <article-post-controller
-            [articleContent]="article?.content ?? ''"
-            [articleTitle]="article?.title ?? ''"></article-post-controller>
+            [article]="article"></article-post-controller>
         </div>
       </div>
 

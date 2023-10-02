@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { accountSchema } from "src/app/core/joiSchema/auth.schema";
+import { accountSchema } from "../../../core/joiSchema/auth.schema";
 import { IFormInput } from "sources-types";
-import { yourAccountFormList } from "src/app/core/static/auth.static";
+import { yourAccountFormList } from "../../../core/static/auth.static";
 
 @Component({
   selector: "account-setting-controller",

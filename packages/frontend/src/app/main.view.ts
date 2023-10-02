@@ -17,6 +17,7 @@ import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawe
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
 import { ServiceModule } from "./core/services/services.module";
+import { MatButtonModule } from "@angular/material/button";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -33,6 +34,7 @@ import { ServiceModule } from "./core/services/services.module";
     MatSidenavModule,
     FireAuthServiceModule,
     ServiceModule,
+    MatButtonModule,
   ],
   selector: "main-view",
   template: `

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "../../core/joiSchema/blog-edit.schema";
@@ -16,11 +16,11 @@ import { IPost } from "sources-types";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { CommonModule } from "@angular/common";
-import { FormInputListModule } from "../../shared/components/formInputList/form-input-list.module";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListModule, HttpClientModule],
+  imports: [CommonModule, FormInputListComponent, HttpClientModule],
   selector: "edit-post-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
@@ -29,7 +29,6 @@ import { FormInputListModule } from "../../shared/components/formInputList/form-
     buttonName="Add Blog"
     (formValue)="save($event)"
     [loading]="loading"></form-input-list-component>`,
-  styleUrls: ["./edit.style.css"],
 })
 export class EditPostController {
   formInputList: IFormInput[] = postEditFormList;

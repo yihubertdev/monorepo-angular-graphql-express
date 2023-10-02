@@ -44,6 +44,7 @@ export class HomePageArticleController implements OnInit {
       this.isPagination
     ) {
       const post = await this._articleFireStore.listPagination(5, this.userId);
+      console.log(post);
       this.data.push(...post.data);
       this.hasFile = post.hasFile;
     }

@@ -175,11 +175,12 @@ export interface IUserAuth {
 export interface IFormInput {
   id: string;
   type: INPUT_TYPE;
-  label?: string;
   key: string;
   value: string;
+  label?: string;
   placeholder?: string;
-  select?: (string | number)[];
+  required?: boolean;
+  selection?: (string | number)[];
   documentPath?: string;
   documentCategory?: string;
   error?: string;

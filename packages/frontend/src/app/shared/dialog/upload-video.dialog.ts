@@ -1,10 +1,19 @@
 import { Component, Inject, NgZone } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from "@angular/material/dialog";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { GoogleHttpService } from "src/app/core/services/http/google.http";
 import { SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
+import { FormsModule } from "@angular/forms";
+import { MatInputModule } from "@angular/material/input";
 
 @Component({
+  standalone: true,
+  imports: [FormsModule, MatDialogModule, MatInputModule, MatSnackBarModule],
+  providers: [GoogleHttpService],
   selector: "upload-video-dialog",
   template: `<h1 mat-dialog-title>Validate Video</h1>
     <div mat-dialog-content>

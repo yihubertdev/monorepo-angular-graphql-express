@@ -6,13 +6,29 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { UntypedFormGroup } from "@angular/forms";
+import { ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { UntypedFormBuilder } from "@angular/forms";
-import joiValidator, { JoiSchemaBuilder } from "src/app/core/utils/validator";
+import joiValidator, { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { IFormInput } from "sources-types";
-import { EditorComponent } from "../editor/editor.component";
+import { EditorComponent } from "./editor.component";
+import { MatInputModule } from "@angular/material/input";
+import { MatSelectModule } from "@angular/material/select";
+import { NgFor, NgIf } from "@angular/common";
+import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatSelectModule,
+    DocumentUploaderComponent,
+    EditorComponent,
+  ],
   selector: "form-input-list-component",
   template: `
     <form
@@ -32,7 +48,27 @@ import { EditorComponent } from "../editor/editor.component";
           <input
             [type]="input.type"
             matInput
-            [formControlName]="input.key" />
+            [formControlName]="input.key"
+            [attr.required]="input.required" />
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </ng-container>
+
+        <ng-container *ngIf="input.type === 'select'">
+          <mat-label>{{ input.label }}</mat-label>
+          <mat-select
+            [formControlName]="input.key"
+            multiple>
+            <mat-select-trigger>
+              <span> province </span>
+            </mat-select-trigger>
+            <mat-option
+              *ngFor="let select of input.selection"
+              [value]="select"
+              >{{ select }}</mat-option
+            >
+          </mat-select>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>

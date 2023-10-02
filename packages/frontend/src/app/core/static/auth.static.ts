@@ -102,3 +102,56 @@ export const userSignUpFormList: IFormInput[] = [
     error: "",
   },
 ];
+
+export const HOME_ADDRESS_PROFILE: IFormInput[] = [
+  {
+    id: "address_line_1",
+    type: INPUT_TYPE.TEXT,
+    label: "Address Line 1*",
+    key: "address_line_1",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "address_line_2",
+    type: INPUT_TYPE.TEXT,
+    label: "Address Line 2",
+    key: "address_line_2",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "city",
+    type: INPUT_TYPE.TEXT,
+    label: "City*",
+    key: "city",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "postal_code",
+    type: INPUT_TYPE.TEXT,
+    label: "Postal Code",
+    key: "postal_code",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "province",
+    type: INPUT_TYPE.SELECT,
+    label: "Select Province",
+    key: "province",
+    value: "",
+    placeholder: "",
+    selection: ["Ontario"],
+  },
+  {
+    id: "province",
+    type: INPUT_TYPE.SELECT,
+    label: "Select Province",
+    key: "province",
+    value: "",
+    placeholder: "",
+    selection: ["Ontario"],
+  },
+];
