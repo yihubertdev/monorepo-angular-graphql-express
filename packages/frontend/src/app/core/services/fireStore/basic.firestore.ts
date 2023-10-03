@@ -79,33 +79,6 @@ export abstract class FireStoreBaseModel<T> {
   };
 
   /**
-   * Retrieve document from collection by docs id
-   *
-   * @public
-   * @param {string} filter document user id
-   * @param {string} [filter.userId] document user id
-   * @returns {Promise<T[]>} retrieve
-   */
-  public retrieveCollectionDocs = async (filter: {
-    userId?: string;
-  }): Promise<void> => {
-    const { userId } = filter;
-    let query = this.collection.ref.where("userId", "==", userId);
-
-    const result = await query.get();
-    // return document;
-    const [test] = result.docs.map((data) =>
-      data.ref.collection("home_address")
-    );
-
-    const sdf = await test.get();
-
-    const [document] = sdf.docs.map((data) => data.data());
-
-    console.log(document);
-  };
-
-  /**
    * Create document in that collection
    *
    * @public

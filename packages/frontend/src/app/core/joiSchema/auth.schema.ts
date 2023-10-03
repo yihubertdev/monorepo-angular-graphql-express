@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { IUserProfile } from "sources-types";
+import { IProfileHomeAddress, IUserProfile } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
 export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
@@ -63,4 +63,11 @@ export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
         )}`,
       }),
   });
+};
+
+export const homeAdressSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
+  data: IProfileHomeAddress,
+  errorLocation?: string
+): Joi.ObjectSchema => {
+  return Joi.object({});
 };

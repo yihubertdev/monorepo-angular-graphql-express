@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -7,12 +7,18 @@ import { MatButtonModule } from "@angular/material/button";
 import { Router, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
-import { accountSchema } from "../../core/joiSchema/auth.schema";
+import { homeAdressSchema } from "../../core/joiSchema/auth.schema";
 import {
-  IUserDetailCollection,
+  IUserDetailCard,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
+import {
+  ICollectionQueryBuilder,
+  IProfile,
+  IProfileHomeAddress,
+  IUser,
+} from "sources-types";
 @Component({
   standalone: true,
   imports: [
@@ -33,7 +39,7 @@ import { UserService } from "../../core/services/fireStore/users.firestore";
         <div class="row">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <user-details-card
-              [collection]="collection"
+              [userDetails]="userDetails"
               (formValue)="save($event)"></user-details-card>
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -310,29 +316,24 @@ import { UserService } from "../../core/services/fireStore/users.firestore";
 export class UserDetailsController implements OnInit {
   @Input({ required: true }) userId?: string;
   public isDisplay: boolean = true;
-  public collection?: IUserDetailCollection<any>;
+  public userDetails?: IUserDetailCard<IUser, IProfileHomeAddress>;
 
   constructor(private _userService: UserService, private _router: Router) {}
 
   async ngOnInit() {
     if (this.userId) {
-      const [user] = await this._userService.retrieve({
+      const info = await this._userService.retrieveSubCollectionProfile({
         userId: this.userId,
       });
 
-      await this._userService.retrieveCollectionDocs({
-        userId: this.userId,
-      });
-
-      console.log(user);
-
-      if (user) {
-        this.collection = {
-          uid: user.id,
+      if (info.user) {
+        this.userDetails = {
+          userSnapshot: info.user,
+          details: info.profile,
           title: "Home Address",
-          collectionId: "home_address",
+          documentId: "homeAddress",
           formInputList: HOME_ADDRESS_PROFILE,
-          formInputSchema: accountSchema,
+          formInputSchema: homeAdressSchema,
         };
         return;
       }
@@ -341,9 +342,11 @@ export class UserDetailsController implements OnInit {
     }
   }
 
-  async save(formValue: any) {
-    console.log(formValue);
-
-    this._userService.createSubCollection(formValue);
+  async save(formValue: ICollectionQueryBuilder<IProfile>) {
+    if (!this.userDetails?.userSnapshot) return;
+    this._userService.addSubCollectionByUserId(
+      this.userDetails!.userSnapshot,
+      formValue
+    );
   }
 }

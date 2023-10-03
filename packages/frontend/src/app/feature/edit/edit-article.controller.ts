@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "../../core/joiSchema/article-edit.schema";
 import {
@@ -13,13 +13,18 @@ import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { editArticleFormList } from "../../core/static/post.static";
 import { IArticle } from "sources-types";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
-import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListComponent, HttpClientModule],
+  imports: [
+    FormInputListComponent,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatDialogModule,
+  ],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
@@ -35,7 +40,6 @@ export class EditArticleController {
   public loading: boolean = false;
   public validatorSchema = articleEditSchema;
   public content: string = "";
-  private _extractImageRex = /<img[^>]+src="?([^"\s]+)"?\s*\/>/g;
 
   constructor(
     private _router: Router,

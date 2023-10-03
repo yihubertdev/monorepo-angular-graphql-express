@@ -10,7 +10,11 @@ export const subCollectionBuilderSchema: JoiSchemaBuilder<
 ): Joi.ObjectSchema => {
   return Joi.object({
     next: Joi.object().optional(),
-    documentId: Joi.string().required(),
+    documentId: Joi.when(Joi.ref("next"), {
+      is: Joi.exist(),
+      then: Joi.forbidden(),
+      otherwise: Joi.string().required(),
+    }),
     collectionId: Joi.when(Joi.ref("next"), {
       is: Joi.exist(),
       then: Joi.string().required(),

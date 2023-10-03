@@ -106,10 +106,32 @@ export interface IPostWithLinks extends IPost {
 }
 
 export interface ICollectionQueryBuilder<T> {
-  documentId: string;
+  documentId?: string;
   collectionId?: string;
   documentValue?: T;
   next?: ICollectionQueryBuilder<T>;
+}
+
+export interface IProfileHomeAddress {
+  title: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  postalCode: string;
+  province: string;
+  country: string;
+}
+
+export interface IProfileEducation {
+  title: string;
+  institution: string;
+  degree: string;
+  year: string;
+}
+
+export interface IProfile {
+  homeAddress?: IProfileHomeAddress[];
+  education?: IProfileEducation[];
 }
 
 export interface IMenu {

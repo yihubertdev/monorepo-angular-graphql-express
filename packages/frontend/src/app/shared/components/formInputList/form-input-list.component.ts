@@ -60,9 +60,6 @@ import { MatButtonModule } from "@angular/material/button";
           <mat-select
             [formControlName]="input.key"
             multiple>
-            <mat-select-trigger>
-              <span> province </span>
-            </mat-select-trigger>
             <mat-option
               *ngFor="let select of input.selection"
               [value]="select"
@@ -148,7 +145,6 @@ export class FormInputListComponent implements OnInit {
     this.formInputList.forEach((form) => {
       this.defaultFormGroupValue[form.key] = form.value;
     });
-
     // Create the form
     this.newForm = this.formBuilder.group(
       this.defaultFormGroupValue,

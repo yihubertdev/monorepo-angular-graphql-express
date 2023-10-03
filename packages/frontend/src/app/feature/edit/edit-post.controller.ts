@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "../../core/joiSchema/blog-edit.schema";
 import {
@@ -15,12 +15,11 @@ import { postEditFormList } from "../../core/static/post.static";
 import { IPost } from "sources-types";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
-import { CommonModule } from "@angular/common";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormInputListComponent, HttpClientModule],
+  imports: [FormInputListComponent, HttpClientModule, MatSnackBarModule],
   selector: "edit-post-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"
