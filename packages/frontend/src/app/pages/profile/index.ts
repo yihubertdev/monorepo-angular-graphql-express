@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { isUserLogin } from "src/app/core/services/routeGuard/index.guard";
 
 export default [
   { path: "", redirectTo: "me/posts", pathMatch: "full" },
@@ -9,7 +10,7 @@ export default [
   },
   {
     path: ":id/personal-profile",
-    canActivate: [],
+    canActivate: [isUserLogin],
     loadComponent: () => import("./details.view"),
   },
 ] as Routes;

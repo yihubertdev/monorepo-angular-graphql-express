@@ -1,5 +1,17 @@
-import { AfterViewInit, Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { FireStorageServiceModule } from "../../../core/services/fireStorage/fire-storage.module";
+import { NgClass, NgForOf, NgIf, NgStyle } from "@angular/common";
 @Component({
+  standalone: true,
+  imports: [
+    MatProgressBarModule,
+    FireStorageServiceModule,
+    NgStyle,
+    NgClass,
+    NgIf,
+    NgForOf,
+  ],
   selector: "carousel-slider-component",
   template: ` <div
       class="slide-show-container"

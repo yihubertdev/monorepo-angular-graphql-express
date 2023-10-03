@@ -18,6 +18,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
 import { ServiceModule } from "./core/services/services.module";
 import { MatButtonModule } from "@angular/material/button";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -35,6 +36,7 @@ import { MatButtonModule } from "@angular/material/button";
     FireAuthServiceModule,
     ServiceModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
   selector: "main-view",
   template: `

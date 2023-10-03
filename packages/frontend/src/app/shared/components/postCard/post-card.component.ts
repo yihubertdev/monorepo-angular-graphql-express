@@ -14,7 +14,7 @@ import { CommonModule } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { CarouselSliderModule } from "../CarouselSlider/carousel-slider.module";
+import { CarouselSliderComponent } from "../CarouselSlider/carousel-slider.component";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { PreviewLinkComponent } from "./previewlink.component";
@@ -28,10 +28,10 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
     MatIconModule,
     RouterModule,
     UserPhotoPipe,
-    CarouselSliderModule,
     MatMenuModule,
     MatButtonModule,
     PreviewLinkComponent,
+    CarouselSliderComponent,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -111,11 +111,12 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
           allowfullscreen=""
           class="video-frame-center image-height-responsive"></iframe>
 
-        <!--multiple image display-->
+        <!-- <image-slider-component
+          [images]="postCardInfo?.image ?? []"></image-slider-component> -->
         <carousel-slider-component
           *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
           [images]="postCardInfo?.image ?? []"
-          [height]="20"
+          [height]="40"
           [isCover]="false"></carousel-slider-component>
       </mat-card-content>
     </mat-card>

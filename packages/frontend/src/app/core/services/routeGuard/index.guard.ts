@@ -6,22 +6,11 @@ import {
   CanActivateFn,
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { SNACKBAR_ACTION, SNACKBAR_ERROR } from "sources-types";
 
 export const isUserLogin: CanActivateFn = () => {
   if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
     return true;
   } else {
-    inject(MatSnackBar).open(
-      SNACKBAR_ERROR.USER_LOGIN_ERROR,
-      SNACKBAR_ACTION.POP_UP_ACTION,
-      {
-        duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
-        horizontalPosition: SNACKBAR_ACTION.CENTER,
-        verticalPosition: SNACKBAR_ACTION.TOP,
-      }
-    );
     inject(Router).navigate(["users", "login"]);
     return false;
   }
