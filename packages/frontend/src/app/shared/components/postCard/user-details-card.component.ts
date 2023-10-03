@@ -12,6 +12,7 @@ import { IFormInput } from "sources-types";
 import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 
 export interface IUserDetailCollection<T> {
+  userId: string;
   title: string;
   collectionId: string;
   formInputList: IFormInput[];

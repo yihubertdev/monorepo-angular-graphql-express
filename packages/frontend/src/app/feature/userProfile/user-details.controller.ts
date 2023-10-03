@@ -311,6 +311,7 @@ export class UserDetailsController {
   @Input() userId?: string;
   public isDisplay: boolean = true;
   public collection: IUserDetailCollection<any> = {
+    userId: this.userId,
     title: "HomeAddress",
     collectionId: "home_address",
     formInputList: HOME_ADDRESS_PROFILE,
