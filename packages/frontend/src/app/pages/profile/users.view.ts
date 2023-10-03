@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, Params } from "@angular/router";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
@@ -16,7 +16,7 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
               <home-page-post-controller
                 [isPagination]="true"
-                [userId]="userId"></home-page-post-controller>
+                [userId]="id"></home-page-post-controller>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
               <home-page-article-controller
                 [isPagination]="true"
-                [userId]="userId"></home-page-article-controller>
+                [userId]="id"></home-page-article-controller>
             </div>
           </div>
         </div>
@@ -37,13 +37,6 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
   `,
   styleUrls: [],
 })
-export default class UsersView implements OnInit {
-  public userId?: string;
-  constructor(private _activatedRouter: ActivatedRoute) {}
-
-  async ngOnInit() {
-    this._activatedRouter.params.subscribe((params: Params) => {
-      this.userId = params["id"];
-    });
-  }
+export default class UsersView {
+  @Input() id?: string;
 }

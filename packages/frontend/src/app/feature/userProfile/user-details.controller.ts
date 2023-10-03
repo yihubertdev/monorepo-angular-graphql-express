@@ -1,20 +1,18 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
-import {
-  HOME_ADDRESS_PROFILE,
-  yourAccountFormList,
-} from "../../core/static/auth.static";
+import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
 import { accountSchema } from "../../core/joiSchema/auth.schema";
 import {
   IUserDetailCollection,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
+import { UserService } from "../../core/services/fireStore/users.firestore";
 @Component({
   standalone: true,
   imports: [
@@ -34,7 +32,9 @@ import {
       <div class="container">
         <div class="row">
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <user-details-card [collection]="collection"></user-details-card>
+            <user-details-card
+              [collection]="collection"
+              (formValue)="save($event)"></user-details-card>
           </div>
           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
             <mat-card class="example-card">
@@ -307,18 +307,43 @@ import {
   </mat-tab-group>`,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserDetailsController {
-  @Input() userId?: string;
+export class UserDetailsController implements OnInit {
+  @Input({ required: true }) userId?: string;
   public isDisplay: boolean = true;
-  public collection: IUserDetailCollection<any> = {
-    userId: this.userId,
-    title: "HomeAddress",
-    collectionId: "home_address",
-    formInputList: HOME_ADDRESS_PROFILE,
-    formInputSchema: accountSchema,
-  };
+  public collection?: IUserDetailCollection<any>;
 
-  save(formValue: any) {
+  constructor(private _userService: UserService, private _router: Router) {}
+
+  async ngOnInit() {
+    if (this.userId) {
+      const [user] = await this._userService.retrieve({
+        userId: this.userId,
+      });
+
+      await this._userService.retrieveCollectionDocs({
+        userId: this.userId,
+      });
+
+      console.log(user);
+
+      if (user) {
+        this.collection = {
+          uid: user.id,
+          title: "Home Address",
+          collectionId: "home_address",
+          formInputList: HOME_ADDRESS_PROFILE,
+          formInputSchema: accountSchema,
+        };
+        return;
+      }
+
+      this._router.navigate(["me", "posts"]);
+    }
+  }
+
+  async save(formValue: any) {
     console.log(formValue);
+
+    this._userService.createSubCollection(formValue);
   }
 }

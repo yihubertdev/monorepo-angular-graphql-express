@@ -5,6 +5,9 @@ import {
 } from "@angular/fire/compat/firestore";
 import { FIRESTORE_COLLECTION, IUser } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
+import joiValidator from "../../utils/validator";
+import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
+import { ICollectionQueryBuilder } from "sources-types";
 @Injectable()
 export class UserService extends FireStoreBaseModel<IUser> {
   /**

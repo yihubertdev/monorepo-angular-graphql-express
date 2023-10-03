@@ -9,7 +9,6 @@ import {
   UploadTaskSnapshot,
   StorageReference,
   deleteObject,
-  UploadTask,
 } from "@angular/fire/storage";
 
 export interface IUploadFile {

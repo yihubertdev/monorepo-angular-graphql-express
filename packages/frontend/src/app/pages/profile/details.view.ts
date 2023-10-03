@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { Component, Input, OnInit } from "@angular/core";
 import { UserDetailsController } from "../../feature/userProfile/user-details.controller";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 @Component({
   standalone: true,
@@ -16,12 +16,20 @@ import { UserDetailsController } from "../../feature/userProfile/user-details.co
   styleUrls: [],
 })
 export default class DetailsView implements OnInit {
+  @Input() id?: string;
   public userId?: string;
-  constructor(private _activatedRouter: ActivatedRoute) {}
 
-  async ngOnInit() {
-    this._activatedRouter.params.subscribe(
-      (params: Params) => (this.userId = params["id"])
-    );
+  constructor(private _authService: AuthService) {}
+
+  ngOnInit() {
+    if (!this.id) return;
+
+    this.userId = this.id === "me" ? undefined : this.id;
+
+    if (!this.userId) {
+      this._authService.userAuthObserver$.subscribe(() => {
+        this.userId = this._authService.get()?.userId;
+      });
+    }
   }
 }

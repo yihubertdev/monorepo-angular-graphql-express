@@ -1,18 +1,20 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
+  Output,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { NgFor, NgIf } from "@angular/common";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
-import { IFormInput } from "sources-types";
-import { JoiSchemaBuilder } from "src/app/core/utils/validator";
+import { ICollectionQueryBuilder, IFormInput } from "sources-types";
+import { JoiSchemaBuilder } from "../../../core/utils/validator";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IUserDetailCollection<T> {
-  userId: string;
+  uid: string;
   title: string;
   collectionId: string;
   formInputList: IFormInput[];
@@ -32,7 +34,7 @@ export interface IUserDetailCollection<T> {
   ],
   template: `<mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title>{{ collection!.title }}</mat-card-title>
+      <mat-card-title>{{ collection?.title }}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
       <button
@@ -46,11 +48,11 @@ export interface IUserDetailCollection<T> {
         Edit
       </button>
     </mat-card-actions>
-    <mat-card-content>
+    <mat-card-content *ngIf="collection">
       <div class="row">
         <div class="col">
           <ng-container *ngIf="isDisplay">
-            <p *ngFor="let form of collection?.formInputList">
+            <p *ngFor="let form of collection!.formInputList">
               {{ form.label }}: {{ form.value }}
             </p>
           </ng-container>
@@ -68,11 +70,17 @@ export interface IUserDetailCollection<T> {
 })
 export class UserDetailCardComponent {
   @Input({ required: true }) collection?: IUserDetailCollection<any>;
+  @Output() formValue = new EventEmitter<ICollectionQueryBuilder<any>>();
   public isDisplay: boolean = false;
 
-  constructor(private _ref: ChangeDetectorRef) {}
-
   save(value: any) {
-    console.log(value);
+    this.formValue.emit({
+      documentId: this.collection!.uid,
+      collectionId: this.collection!.collectionId,
+      next: {
+        documentId: uuidv4(),
+        documentValue: value,
+      },
+    });
   }
 }

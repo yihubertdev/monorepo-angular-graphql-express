@@ -19,7 +19,7 @@ export const subCollectionBuilderSchema: JoiSchemaBuilder<
     documentValue: Joi.when(Joi.ref("next"), {
       is: Joi.exist(),
       then: Joi.forbidden(),
-      otherwise: Joi.string().required(),
+      otherwise: Joi.object().required(),
     }),
   });
 };
