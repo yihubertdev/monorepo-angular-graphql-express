@@ -16,6 +16,9 @@ import { MatSelectModule } from "@angular/material/select";
 import { NgFor, NgIf } from "@angular/common";
 import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
 import { MatButtonModule } from "@angular/material/button";
+import { MentionModule } from "angular-mentions";
+import { UserService } from "../../../core/services/fireStore/users.firestore";
+import { IUser } from "sources-types";
 
 @Component({
   standalone: true,
@@ -28,6 +31,7 @@ import { MatButtonModule } from "@angular/material/button";
     MatSelectModule,
     DocumentUploaderComponent,
     EditorComponent,
+    MentionModule,
   ],
   selector: "form-input-list-component",
   template: `
@@ -77,7 +81,8 @@ import { MatButtonModule } from "@angular/material/button";
             matInput
             [placeholder]="input.placeholder ?? ''"
             style="height: 20dvh;"
-            [formControlName]="input.key"></textarea>
+            [formControlName]="input.key"
+            [mentionConfig]="mentionConfig"></textarea>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -133,14 +138,19 @@ export class FormInputListComponent implements OnInit {
   private defaultFormGroupValue: Record<string, number | string> = {};
   public editorContent: string = "";
   public hasError: boolean = false;
+  public allUsers: IUser[] = [];
+  public mentionConfig = {};
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(private formBuilder: UntypedFormBuilder) {
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private _userService: UserService
+  ) {
     this.newForm = formBuilder.group({});
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // Generate default form group value
     this.formInputList.forEach((form) => {
       this.defaultFormGroupValue[form.key] = form.value;
@@ -163,6 +173,17 @@ export class FormInputListComponent implements OnInit {
           }
         : {}
     );
+
+    this.allUsers = await this._userService.retrieveAll();
+
+    this.mentionConfig = {
+      mentions: [
+        {
+          items: this.allUsers.map((user) => user.userId),
+          triggerChar: "@",
+        },
+      ],
+    };
   }
 
   saveFile = (filesUrl: string[], formControlName: string) => {

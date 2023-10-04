@@ -40,6 +40,12 @@ export class EditPostController {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
     });
   }
+  private _mentionRegex = /\B@[a-z0-9_-]+/gi;
+  private _transformMention(value: string) {
+    return value.replace(this._mentionRegex, function (url) {
+      return '<a href="/users/' + url.substring(1) + '/posts">' + url + "</a>";
+    });
+  }
   constructor(
     private _router: Router,
     private _postService: PostService,
@@ -67,7 +73,7 @@ export class EditPostController {
     this.loading = true;
 
     try {
-      const content = this._tranformURL(formValue["content"] as string);
+      let content = this._tranformURL(formValue["content"] as string);
       const links = content.match(this._urlRegex);
       let preview: ILinkPreview | null = null; // firestore only accept null value.
 
@@ -81,6 +87,8 @@ export class EditPostController {
         )) as ILinkPreview;
       }
 
+      content = this._transformMention(content);
+      console.log(content);
       const newBlog = {
         ...formValue,
         content,

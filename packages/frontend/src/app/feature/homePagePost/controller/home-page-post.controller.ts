@@ -66,12 +66,17 @@ export class HomePagePostController implements OnInit {
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
-    if (this.userId === "me") {
-      this._authService.userAuthObserver$.subscribe(() => {
-        this.userId = this._authService.get()?.userId;
+    let userId = this.userId;
+    if (userId === "me") {
+      this._authService.userAuthObserver$.subscribe(async () => {
+        userId = this._authService.get()?.userId;
+        const post = await this._PostService.list(5, userId);
+        this.hasFile = post.hasFile;
+        this.data = post.data;
       });
+      return;
     }
-    const post = await this._PostService.list(5, this.userId);
+    const post = await this._PostService.list(5, userId);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }
