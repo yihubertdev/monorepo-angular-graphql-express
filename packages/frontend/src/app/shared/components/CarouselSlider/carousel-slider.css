@@ -138,3 +138,47 @@ img {
     font-size: 11px;
   }
 }
+
+.image-frame-rounded {
+  border-radius: 25px;
+  margin: auto;
+  display: block;
+}
+
+/* xs width */
+.image-height-responsive {
+  height: 30dvh;
+  width: 100%;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .image-height-responsive {
+    height: 30dvh;
+    width: 100%;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .image-height-responsive {
+    height: 30dvh;
+    width: 85%;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .image-height-responsive {
+    height: 30dvh;
+    width: 85%;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .image-height-responsive {
+    height: 40dvh;
+    width: 85%;
+  }
+}

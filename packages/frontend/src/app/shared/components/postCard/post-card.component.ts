@@ -19,6 +19,7 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { PreviewLinkComponent } from "./previewlink.component";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
+import { ImageComponent } from "../CarouselSlider/image.component";
 
 @Component({
   standalone: true,
@@ -32,6 +33,7 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
     MatButtonModule,
     PreviewLinkComponent,
     CarouselSliderComponent,
+    ImageComponent,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -96,12 +98,9 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
             [preview]="postCardInfo?.preview"></preview-link-card>
         </ng-container>
         <!--single image display-->
-        <div
+        <image-component
           *ngIf="postCardInfo?.image?.length === 1"
-          class="image-frame-rounded slide-image-cover-center image-height-responsive"
-          [ngStyle]="{
-          backgroundImage: 'url(' + postCardInfo?.image + ')',
-        }"></div>
+          [images]="postCardInfo?.image ?? []"></image-component>
 
         <!--single video display-->
         <iframe
