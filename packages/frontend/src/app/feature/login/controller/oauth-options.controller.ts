@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
-import { Router } from "@angular/router";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 @Component({

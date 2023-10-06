@@ -24,8 +24,7 @@ import { HomePagePostController } from "../../feature/homePagePost/controller/ho
           <!--justify-content-center center the inner col-->
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
-              <home-page-post-controller
-                [isPagination]="true"></home-page-post-controller>
+              <home-page-post-controller></home-page-post-controller>
             </div>
           </div>
 
@@ -44,8 +43,7 @@ import { HomePagePostController } from "../../feature/homePagePost/controller/ho
           <!--justify-content-center center the inner col-->
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
-              <home-page-article-controller
-                [isPagination]="true"></home-page-article-controller>
+              <home-page-article-controller></home-page-article-controller>
             </div>
           </div>
 

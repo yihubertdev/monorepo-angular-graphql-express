@@ -7,6 +7,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 @Component({
   standalone: true,
   imports: [MatProgressBarModule],
+  providers: [FormFileStorageService],
   selector: "document-upload-list-component",
   template: ` <ng-container>
     {{ documentName }}

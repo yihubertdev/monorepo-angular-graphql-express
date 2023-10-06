@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Storage } from "@angular/fire/storage";
 import { FireStorageBaseModel } from "./basic.bucket";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class FormFileStorageService extends FireStorageBaseModel {
   /**
    * Form document path

@@ -20,7 +20,6 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
               <home-page-post-controller
-                [isPagination]="true"
                 [userId]="id"></home-page-post-controller>
             </div>
           </div>
@@ -32,7 +31,6 @@ import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.mo
           <div class="row justify-content-center">
             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
               <home-page-article-controller
-                [isPagination]="true"
                 [userId]="id"></home-page-article-controller>
             </div>
           </div>

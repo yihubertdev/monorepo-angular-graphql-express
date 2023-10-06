@@ -21,6 +21,7 @@ import { FormInputListComponent } from "src/app/shared/components/formInputList/
     RouterLinkWithHref,
     FormInputListComponent,
   ],
+  providers: [AuthService],
   selector: "email-signup-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"

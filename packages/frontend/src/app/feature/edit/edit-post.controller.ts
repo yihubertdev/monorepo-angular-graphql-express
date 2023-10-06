@@ -19,6 +19,7 @@ import { FormInputListComponent } from "../../shared/components/formInputList/fo
 
 @Component({
   standalone: true,
+  providers: [AuthService],
   imports: [FormInputListComponent, HttpClientModule, MatSnackBarModule],
   selector: "edit-post-controller",
   template: ` <form-input-list-component

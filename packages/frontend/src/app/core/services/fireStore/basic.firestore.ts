@@ -12,7 +12,7 @@ import { ICollectionQueryBuilder } from "sources-types";
 import joiValidator from "../../utils/validator";
 import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export abstract class FireStoreBaseModel<T> {
   /**
    * Collection Name.

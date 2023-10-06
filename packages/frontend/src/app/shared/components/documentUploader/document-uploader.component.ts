@@ -9,6 +9,7 @@ import { NgFor } from "@angular/common";
 @Component({
   standalone: true,
   imports: [MatListModule, DocumentUploadListComponent, NgFor],
+  providers: [FormFileStorageService],
   selector: "document-uploader-component",
   template: ` <section style="display: block">
     <input

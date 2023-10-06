@@ -25,7 +25,7 @@ export interface IUploadMultipleFileRes {
   }>;
 }
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export abstract class FireStorageBaseModel {
   /**
    * uploadPercent

@@ -17,11 +17,10 @@ import {
   signInAnonymously,
   updateProfile,
 } from "firebase/auth";
-import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class AuthService {
   // private _userAuth: BehaviorSubject<User | null> =
   //   new BehaviorSubject<User | null>(null);

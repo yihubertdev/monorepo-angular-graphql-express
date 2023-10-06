@@ -9,7 +9,7 @@ export default [
   },
   {
     path: "posts",
-    // resolve: { posts: postResolver },
+    resolve: { posts: postResolver },
     loadComponent: () => import("./post.view"),
   },
   // URL naming

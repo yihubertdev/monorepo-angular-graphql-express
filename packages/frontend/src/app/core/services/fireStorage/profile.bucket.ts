@@ -10,7 +10,7 @@ import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
 import { FireStorageBaseModel } from "./basic.bucket";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class ProfileStorageService extends FireStorageBaseModel {
   /**
    * Profile image path

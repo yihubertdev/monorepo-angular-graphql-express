@@ -6,6 +6,7 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnInit,
   ViewChild,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -15,7 +16,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
 import { RouterModule } from "@angular/router";
 import { IUser } from "sources-types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
@@ -26,7 +26,6 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
 
 @Component({
   standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "user-profile-controller",
   imports: [
     CommonModule,
@@ -41,6 +40,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
     GridListResponsiveDirectiveModule,
     FormInputListComponent,
   ],
+  providers: [ProfileStorageService],
   template: `
     <mat-card style="height: 30dvh; border-radius: initial;">
       <div
@@ -105,7 +105,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   `,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserProfileController implements OnChanges {
+export class UserProfileController implements OnInit {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser?: IUser;
@@ -118,18 +118,13 @@ export class UserProfileController implements OnChanges {
     private _sessionStorage: SessionStorageService
   ) {}
 
-  async ngOnChanges() {
+  async ngOnInit() {
     if (!this.userId) {
       this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
-      this._ref.detach();
-      this._ref.detectChanges();
     } else {
       [this.currentUser] = await this.userService.retrieve({
         userId: this.userId,
       });
-
-      this._ref.detach();
-      this._ref.detectChanges();
     }
   }
 

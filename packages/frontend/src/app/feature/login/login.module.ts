@@ -9,6 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 import { OAuthOptionsComponent } from "./controller/oauth-options.controller";
+import { AuthService } from "../../core/services/fireAuth/auth";
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { OAuthOptionsComponent } from "./controller/oauth-options.controller";
     MatBottomSheetModule,
     FormInputListComponent,
   ],
+  providers: [AuthService],
   exports: [
     EmailLoginControllerComponent,
     OAuthLoginControllerComponent,

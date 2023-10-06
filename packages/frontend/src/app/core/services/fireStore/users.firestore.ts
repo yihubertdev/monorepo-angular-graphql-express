@@ -16,7 +16,8 @@ import { FireStoreBaseModel } from "./basic.firestore";
 import joiValidator from "../../utils/validator";
 import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
 import { ICollectionQueryBuilder } from "sources-types";
-@Injectable()
+
+@Injectable({ providedIn: "root" })
 export class UserService extends FireStoreBaseModel<IUser> {
   /**
    * Collection Name.

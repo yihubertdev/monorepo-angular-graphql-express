@@ -16,6 +16,22 @@ export const isUserLogin: CanActivateFn = () => {
   }
 };
 
+export const isMeLogin: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  if (route.params["id"] === "me") {
+    if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
+      return true;
+    } else {
+      inject(Router).navigate(["users", "login"]);
+      return false;
+    }
+  }
+
+  return true;
+};
+
 export const isUserLoginToUser: CanActivateFn = () =>
   Boolean(inject(SessionStorageService).getAllSessionStorage().length)
     ? inject(Router).navigate(["users", "me", "posts"])

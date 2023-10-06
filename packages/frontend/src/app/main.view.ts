@@ -6,7 +6,14 @@ import {
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
-import { RouterOutlet } from "@angular/router";
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+  RouterOutlet,
+} from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -14,13 +21,12 @@ import { CommonModule } from "@angular/common";
 import { MenuModule } from "./feature/menu/menu.module";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
-import { ServiceModule } from "./core/services/services.module";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { intlFormat } from "date-fns";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -35,8 +41,6 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MenuModule,
     MatDrawerResponsiveDirectiveModule,
     MatSidenavModule,
-    FireAuthServiceModule,
-    ServiceModule,
     MatButtonModule,
     MatSnackBarModule,
     MatProgressBarModule,
@@ -53,7 +57,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
       <span>Whatever Site Name</span>
       <header-menu-controller></header-menu-controller>
       <span class="example-spacer"></span>
-      <button
+      <!-- <button
         mat-icon-button
         class="twitter-icon"
         aria-label="twitter">
@@ -79,9 +83,11 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
           svgIcon="linkedln-icon"
           aria-hidden="false"
           aria-label="linkedln"></mat-icon>
-      </button>
+      </button> -->
     </mat-toolbar>
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <mat-progress-bar
+      *ngIf="isLoading"
+      mode="indeterminate"></mat-progress-bar>
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container>
       <mat-drawer
@@ -114,24 +120,45 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 export class MainView implements OnInit {
   public opened: boolean = false;
   public hasUser?: IUser | undefined;
+  public isLoading: boolean = false;
 
   constructor(
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer,
+    // iconRegistry: MatIconRegistry,
+    // sanitizer: DomSanitizer,
+    private _router: Router,
     private _sessionStorage: SessionStorageService
   ) {
-    iconRegistry.addSvgIconLiteral(
-      "twitter-icon",
-      sanitizer.bypassSecurityTrustHtml(twitterIconSvg)
-    );
-    iconRegistry.addSvgIconLiteral(
-      "google-icon",
-      sanitizer.bypassSecurityTrustHtml(googleIconSvg)
-    );
-    iconRegistry.addSvgIconLiteral(
-      "linkedln-icon",
-      sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
-    );
+    // iconRegistry.addSvgIconLiteral(
+    //   "twitter-icon",
+    //   sanitizer.bypassSecurityTrustHtml(twitterIconSvg)
+    // );
+    // iconRegistry.addSvgIconLiteral(
+    //   "google-icon",
+    //   sanitizer.bypassSecurityTrustHtml(googleIconSvg)
+    // );
+    // iconRegistry.addSvgIconLiteral(
+    //   "linkedln-icon",
+    //   sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
+    // );
+
+    this._router.events.subscribe((event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.isLoading = true;
+          break;
+        }
+
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.isLoading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
 
   ngOnInit(): void {

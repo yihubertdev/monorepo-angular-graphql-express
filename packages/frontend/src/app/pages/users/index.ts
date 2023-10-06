@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { isUserLoginToUser } from "../../core/services/routeGuard/index.guard";
+import { userProfileResolver } from "../../shared/resolvers/post.resolver";
 
 export default [
   {

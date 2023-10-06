@@ -6,6 +6,7 @@ import { PostCardComponent } from "../../../shared/components/postCard/post-card
 import { NgFor, NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   standalone: true,
@@ -38,7 +39,6 @@ import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controlle
   styleUrls: ["../home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
-  @Input() isPagination: boolean = false;
   @Input() userId?: string;
   public images = [
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-ai.png?alt=media&token=53d51610-84be-45e6-bbe5-247859b470a7",
@@ -52,7 +52,7 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private _sessionStorage: SessionStorageService
+    private route: ActivatedRoute
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -60,8 +60,7 @@ export class HomePagePostController implements OnInit {
     if (
       // Check scroll position at the bottom of the page
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-      this.hasFile &&
-      this.isPagination
+      this.hasFile
     ) {
       const post = await this._PostService.listPagination(5, this.userId);
       this.data.push(...post.data);
@@ -69,20 +68,17 @@ export class HomePagePostController implements OnInit {
     }
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit(): void {
     if (this.data.length) return;
-    let userId = this.userId;
-    let post: { data: IPost[]; hasFile: boolean } = {
-      data: [],
-      hasFile: false,
+    console.log(this.route.snapshot.data);
+    const preloadData = this.route.snapshot.data as {
+      posts: {
+        data: IPost[];
+        hasFile: boolean;
+      };
     };
-    if (userId === "me") {
-      userId = this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
-      post = await this._PostService.list(5, userId);
-    }
-    post = await this._PostService.list(5);
-    this.hasFile = post.hasFile;
-    this.data = post.data;
+    this.hasFile = preloadData.posts.hasFile;
+    this.data = preloadData.posts.data;
   }
 
   identify(index: number, post: IPost) {

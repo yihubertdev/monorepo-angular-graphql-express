@@ -25,6 +25,7 @@ import { MatDialogModule } from "@angular/material/dialog";
     MatSnackBarModule,
     MatDialogModule,
   ],
+  providers: [AuthService],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [formInputList]="formInputList"

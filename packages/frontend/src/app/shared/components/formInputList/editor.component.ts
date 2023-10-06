@@ -19,6 +19,7 @@ import { FormFileStorageService } from "../../../core/services/fireStorage/form-
 @Component({
   standalone: true,
   imports: [QuillModule, FormsModule, MatProgressBarModule],
+  providers: [FormFileStorageService],
   selector: "editor-component",
   template: ` <ng-container>
     <input

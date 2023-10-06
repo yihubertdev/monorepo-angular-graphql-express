@@ -38,7 +38,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
   }
 }
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class ArticleFireStore extends FireStoreBaseModel<IArticle> {
   /**
    * Collection Name.
