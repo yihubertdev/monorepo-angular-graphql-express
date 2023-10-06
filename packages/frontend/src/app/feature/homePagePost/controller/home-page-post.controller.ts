@@ -70,7 +70,6 @@ export class HomePagePostController implements OnInit {
 
   ngOnInit(): void {
     if (this.data.length) return;
-    console.log(this.route.snapshot.data);
     const preloadData = this.route.snapshot.data as {
       posts: {
         data: IPost[];

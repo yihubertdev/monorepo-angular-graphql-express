@@ -31,6 +31,7 @@
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-lightbox/lightbox.css",
               "src/styles/styles.css",
               "src/styles/roboto.css",
               "src/styles/material-icon.css"
@@ -103,6 +104,7 @@
               "node_modules/quill/dist/quill.bubble.css",
               "node_modules/quill/dist/quill.snow.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-lightbox/lightbox.css",
               "src/styles/styles.css",
               "src/styles/roboto.css",
               "src/styles/material-icon.css"
