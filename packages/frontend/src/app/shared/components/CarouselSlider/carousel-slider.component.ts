@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { NgClass, NgForOf, NgIf, NgStyle } from "@angular/common";
 import { LightboxModule, Lightbox, IAlbum } from "ngx-lightbox";
+import { lightBoxConfig } from "src/app/core/static/post.static";
 
 @Component({
   standalone: true,
@@ -75,6 +76,7 @@ export class CarouselSliderComponent implements OnInit {
     this._album = this.images.map((image) => ({
       src: image,
       thumb: image,
+      downloadUrl: image,
     }));
     if (this.isSilding) {
       setInterval(() => {
@@ -88,7 +90,7 @@ export class CarouselSliderComponent implements OnInit {
 
   openImagePopup(index: number): void {
     // open lightbox
-    this._lightbox.open(this._album, index);
+    this._lightbox.open(this._album, index, lightBoxConfig);
   }
 }
 

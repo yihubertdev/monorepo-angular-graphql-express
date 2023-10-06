@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgStyle } from "@angular/common";
 import { LightboxModule, Lightbox, IAlbum } from "ngx-lightbox";
+import { lightBoxConfig } from "src/app/core/static/post.static";
 
 @Component({
   standalone: true,
@@ -28,11 +29,12 @@ export class ImageComponent implements OnInit {
     this._album = this.images.map((image) => ({
       src: image,
       thumb: image,
+      downloadUrl: image,
     }));
   }
 
   openImagePopup(): void {
     // open lightbox
-    this._lightbox.open(this._album);
+    this._lightbox.open(this._album, 1, lightBoxConfig);
   }
 }
