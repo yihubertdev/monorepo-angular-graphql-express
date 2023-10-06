@@ -1,7 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { UserDetailsController } from "../../feature/userProfile/user-details.controller";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { SessionStorageService } from "../../core/services/browserStorage/sessionStorage";
+import { IUser } from "sources-types";
 
 @Component({
   standalone: true,
@@ -19,17 +20,15 @@ export default class DetailsView implements OnInit {
   @Input() id?: string;
   public userId?: string;
 
-  constructor(private _authService: AuthService) {}
+  constructor(private _sessionStorage: SessionStorageService) {}
 
   ngOnInit() {
     if (!this.id) return;
 
     this.userId = this.id === "me" ? undefined : this.id;
-
     if (!this.userId) {
-      this._authService.userAuthObserver$.subscribe(() => {
-        this.userId = this._authService.get()?.userId;
-      });
+      this.userId =
+        this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
     }
   }
 }

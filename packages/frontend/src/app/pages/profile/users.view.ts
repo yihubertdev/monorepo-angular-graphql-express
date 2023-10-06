@@ -1,12 +1,17 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { MatTabsModule } from "@angular/material/tabs";
-import { ActivatedRoute, Params } from "@angular/router";
+import { HomePagePostController } from "../../feature/homePagePost/controller/home-page-post.controller";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, HomePagePostModule, MatTabsModule],
+  imports: [
+    CommonModule,
+    HomePagePostModule,
+    MatTabsModule,
+    HomePagePostController,
+  ],
   template: `
     <mat-tab-group>
       <mat-tab label="Posts">

@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import {
@@ -6,7 +6,6 @@ import {
   linkedlnIconSvg,
   twitterIconSvg,
 } from "./core/static/post.static";
-import { AuthService } from "./core/services/fireAuth/auth";
 import { RouterOutlet } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
@@ -19,6 +18,9 @@ import { FireAuthServiceModule } from "./core/services/fireAuth/auth.module";
 import { ServiceModule } from "./core/services/services.module";
 import { MatButtonModule } from "@angular/material/button";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
+import { IUser } from "sources-types";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -37,6 +39,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     ServiceModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatProgressBarModule,
   ],
   selector: "main-view",
   template: `
@@ -78,7 +81,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
           aria-label="linkedln"></mat-icon>
       </button>
     </mat-toolbar>
-
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container>
       <mat-drawer
@@ -108,14 +111,14 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
   `,
   styleUrls: ["./main.style.css"],
 })
-export class MainView {
+export class MainView implements OnInit {
   public opened: boolean = false;
-  public hasUser?: boolean;
+  public hasUser?: IUser | undefined;
 
   constructor(
     iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer,
-    private _authService: AuthService
+    private _sessionStorage: SessionStorageService
   ) {
     iconRegistry.addSvgIconLiteral(
       "twitter-icon",
@@ -129,9 +132,9 @@ export class MainView {
       "linkedln-icon",
       sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
     );
+  }
 
-    this._authService.userAuthObserver$.subscribe((user) => {
-      this.hasUser = Boolean(user);
-    });
+  ngOnInit(): void {
+    this.hasUser = this._sessionStorage.getSessionStorage<IUser>("user");
   }
 }

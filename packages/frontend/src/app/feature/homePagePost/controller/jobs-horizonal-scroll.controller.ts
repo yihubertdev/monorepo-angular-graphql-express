@@ -1,8 +1,12 @@
 import { Component, OnInit } from "@angular/core";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from "@angular/material/card";
 import { IArticle } from "sources-types";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
+  standalone: true,
+  imports: [MatCardModule, MatButtonModule],
   selector: "jobs-horizonal-scroll-controller",
   template: `
     <div class="horizonal-scroll-section">

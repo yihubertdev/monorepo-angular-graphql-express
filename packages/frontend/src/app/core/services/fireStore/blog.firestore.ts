@@ -7,7 +7,7 @@ import { FIRESTORE_COLLECTION } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { IArticle, IPost } from "sources-types";
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class PostFireStore extends FireStoreBaseModel<IPost> {
   /**
    * Collection Name.

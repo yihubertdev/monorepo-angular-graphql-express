@@ -22,6 +22,7 @@ import { FormInputListComponent } from "../../shared/components/formInputList/fo
 import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
+import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 
 @Component({
   standalone: true,
@@ -107,23 +108,21 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 export class UserProfileController implements OnChanges {
   @Input() userId?: string;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
-  currentUser: IUser | null = null;
+  currentUser?: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
-    private _authService: AuthService,
     private userService: UserService,
     private profileStorage: ProfileStorageService,
-    private _ref: ChangeDetectorRef
+    private _ref: ChangeDetectorRef,
+    private _sessionStorage: SessionStorageService
   ) {}
 
   async ngOnChanges() {
     if (!this.userId) {
-      this._authService.userAuthObserver$.subscribe(() => {
-        this.currentUser = this._authService.get();
-        this._ref.detach();
-        this._ref.detectChanges();
-      });
+      this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
+      this._ref.detach();
+      this._ref.detectChanges();
     } else {
       [this.currentUser] = await this.userService.retrieve({
         userId: this.userId,

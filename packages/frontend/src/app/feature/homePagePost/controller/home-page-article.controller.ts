@@ -1,6 +1,6 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IArticle } from "sources-types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { IArticle, IUser } from "sources-types";
+import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
 
 @Component({
@@ -20,15 +20,14 @@ export class HomePageArticleController implements OnInit {
   private hasFile: boolean = true;
   constructor(
     private _articleFireStore: ArticleFireStore,
-    private _authService: AuthService
+    private _sessionStorage: SessionStorageService
   ) {}
 
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
     if (this.userId === "me") {
-      this._authService.userAuthObserver$.subscribe(() => {
-        this.userId = this._authService.get()?.userId;
-      });
+      this.userId =
+        this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
     }
     const post = await this._articleFireStore.list(5, this.userId);
     this.hasFile = post.hasFile;

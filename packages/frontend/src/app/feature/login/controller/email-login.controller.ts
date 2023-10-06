@@ -35,6 +35,7 @@ export class EmailLoginControllerComponent {
       await this.authService.login(data);
       this._router.navigate(SITE_ROUTE_PAGE.MY_POSTS);
     } catch (err) {
+      console.log(err);
       this._snackBar.open(
         SNACKBAR_ERROR.ADD_ARTICLE_ERROR,
         SNACKBAR_ACTION.POP_UP_ACTION,

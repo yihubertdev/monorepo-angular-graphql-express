@@ -1,16 +1,21 @@
-import {
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { IPost } from "sources-types";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
+import { IPost, IUser } from "sources-types";
+import { SessionStorageService } from "../../../core/services/browserStorage/sessionStorage";
+import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
+import { PostCardComponent } from "../../../shared/components/postCard/post-card.component";
+import { NgFor, NgIf } from "@angular/common";
+import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
+import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 
 @Component({
+  standalone: true,
+  imports: [
+    NgFor,
+    NgIf,
+    PostCardComponent,
+    CarouselSliderComponent,
+    JobsHorizonalScrollController,
+  ],
   selector: "home-page-post-controller",
   template: `
     <ng-container *ngFor="let post of data; index as i; trackBy: identify">
@@ -47,7 +52,7 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private _authService: AuthService
+    private _sessionStorage: SessionStorageService
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -67,16 +72,15 @@ export class HomePagePostController implements OnInit {
   async ngOnInit(): Promise<void> {
     if (this.data.length) return;
     let userId = this.userId;
+    let post: { data: IPost[]; hasFile: boolean } = {
+      data: [],
+      hasFile: false,
+    };
     if (userId === "me") {
-      this._authService.userAuthObserver$.subscribe(async () => {
-        userId = this._authService.get()?.userId;
-        const post = await this._PostService.list(5, userId);
-        this.hasFile = post.hasFile;
-        this.data = post.data;
-      });
-      return;
+      userId = this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
+      post = await this._PostService.list(5, userId);
     }
-    const post = await this._PostService.list(5, userId);
+    post = await this._PostService.list(5);
     this.hasFile = post.hasFile;
     this.data = post.data;
   }

@@ -1,4 +1,5 @@
 import { Routes } from "@angular/router";
+import { postResolver } from "../../shared/resolvers/post.resolver";
 
 export default [
   {
@@ -8,6 +9,7 @@ export default [
   },
   {
     path: "posts",
+    // resolve: { posts: postResolver },
     loadComponent: () => import("./post.view"),
   },
   // URL naming

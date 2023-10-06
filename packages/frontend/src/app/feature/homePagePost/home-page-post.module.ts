@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { HomePagePostController } from "./controller/home-page-post.controller";
 import { MatIconModule } from "@angular/material/icon";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatCardModule } from "@angular/material/card";
@@ -23,11 +22,9 @@ import { CarouselSliderComponent } from "src/app/shared/components/CarouselSlide
 
 @NgModule({
   declarations: [
-    HomePagePostController,
     ChatTopicPostController,
     HomePageMainPictureController,
     TopToolMenuController,
-    JobsHorizonalScrollController,
     ArticlePostControllerComponent,
     HomePageArticleController,
   ],
@@ -48,12 +45,10 @@ import { CarouselSliderComponent } from "src/app/shared/components/CarouselSlide
     CarouselSliderComponent,
   ],
   exports: [
-    HomePagePostController,
     HomePageArticleController,
     ChatTopicPostController,
     HomePageMainPictureController,
     TopToolMenuController,
-    JobsHorizonalScrollController,
     ArticlePostControllerComponent,
   ],
 })

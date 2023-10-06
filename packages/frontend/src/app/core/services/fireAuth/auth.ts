@@ -19,25 +19,44 @@ import {
 } from "firebase/auth";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TwitterAuthProvider } from "firebase/auth";
+import { SessionStorageService } from "../browserStorage/sessionStorage";
 
 @Injectable()
 export class AuthService {
-  private _userAuth: BehaviorSubject<User | null> =
-    new BehaviorSubject<User | null>(null);
-  public readonly userAuthObserver$: Observable<User | null> =
-    this._userAuth.asObservable();
+  // private _userAuth: BehaviorSubject<User | null> =
+  //   new BehaviorSubject<User | null>(null);
+  // public readonly userAuthObserver$: Observable<User | null> =
+  //   this._userAuth.asObservable();
   public currentUser: IUser | null = null;
 
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
 
-  constructor(private auth: Auth, private userService: UserService) {
+  constructor(
+    private auth: Auth,
+    private userService: UserService,
+    private _sessionStorage: SessionStorageService
+  ) {
     this.auth.setPersistence(browserSessionPersistence);
+    // before user auth change, check the auth and save
+    // this.auth.beforeAuthStateChanged(async (user) => {
+    //   if (user) {
+    //     this.currentUser = await this.userService.retrieveById(user.uid);
+    //     inject(SessionStorageService).setSessionStorage(
+    //       "user",
+    //       this.currentUser
+    //     );
+    //   }
+    // });
     this.auth.onAuthStateChanged(async (user) => {
+      console.log(user);
       if (user) {
         this.currentUser = await this.userService.retrieveById(user.uid);
+        this._sessionStorage.setSessionStorage("user", this.currentUser);
+      } else {
+        this._sessionStorage.deleteSessionStorage("user");
       }
-      this._userAuth.next(user);
+      // this._userAuth.next(user);
     });
 
     this.googleProvider = new GoogleAuthProvider();

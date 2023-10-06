@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { AuthService } from "../../core/services/fireAuth/auth";
 import { CommonModule } from "@angular/common";
 import { AddTextEditorModule } from "../../feature/addTextEditor/add-text-editor.module";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { MatTabsModule } from "@angular/material/tabs";
 import { PostCategoryModule } from "../../feature/postCategory/post-category.module";
+import { HomePagePostController } from "../../feature/homePagePost/controller/home-page-post.controller";
 
 @Component({
   standalone: true,
@@ -14,6 +14,7 @@ import { PostCategoryModule } from "../../feature/postCategory/post-category.mod
     HomePagePostModule,
     MatTabsModule,
     PostCategoryModule,
+    HomePagePostController,
   ],
   template: `
     <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
@@ -28,9 +29,7 @@ import { PostCategoryModule } from "../../feature/postCategory/post-category.mod
             </div>
           </div>
 
-          <div
-            class="fab-button icon-display"
-            *ngIf="hasUser">
+          <div class="fab-button icon-display">
             <add-text-editor-controller></add-text-editor-controller>
           </div>
         </div>
@@ -50,9 +49,7 @@ import { PostCategoryModule } from "../../feature/postCategory/post-category.mod
             </div>
           </div>
 
-          <div
-            class="fab-button icon-display"
-            *ngIf="hasUser">
+          <div class="fab-button icon-display">
             <add-text-editor-controller></add-text-editor-controller>
           </div>
         </div>
@@ -61,11 +58,4 @@ import { PostCategoryModule } from "../../feature/postCategory/post-category.mod
   `,
   styleUrls: ["./home.style.css"],
 })
-export default class PostView {
-  public hasUser?: boolean;
-  constructor(private _authService: AuthService) {
-    this._authService.userAuthObserver$.subscribe((user) => {
-      this.hasUser = Boolean(user);
-    });
-  }
-}
+export default class PostView {}
