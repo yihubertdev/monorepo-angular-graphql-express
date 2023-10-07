@@ -26,6 +26,7 @@ import { NgFor } from "@angular/common";
           [documentPercent$]="task.uploadPercent"
           [documentName]="task.file.name"
           [storageRef]="task.storageRef"
+          [task]="task.task"
           (urlEmitter)="saveImage($event)"></document-upload-list-component>
       </mat-list-item>
     </mat-list>
@@ -66,7 +67,6 @@ export class DocumentUploaderComponent {
       this.documentPath,
       this.documentCategory
     );
-
     return;
   }
 

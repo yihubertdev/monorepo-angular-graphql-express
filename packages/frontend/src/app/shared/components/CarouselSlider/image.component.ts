@@ -35,6 +35,6 @@ export class ImageComponent implements OnInit {
 
   openImagePopup(): void {
     // open lightbox
-    this._lightbox.open(this._album, 1, lightBoxConfig);
+    this._lightbox.open(this._album, 0, lightBoxConfig);
   }
 }

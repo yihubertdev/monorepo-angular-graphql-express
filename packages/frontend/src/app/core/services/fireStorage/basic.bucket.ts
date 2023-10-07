@@ -9,6 +9,7 @@ import {
   UploadTaskSnapshot,
   StorageReference,
   deleteObject,
+  UploadTask,
 } from "@angular/fire/storage";
 
 export interface IUploadFile {
@@ -23,6 +24,7 @@ export interface IUploadMultipleFileRes {
     progress: number;
     snapshot: UploadTaskSnapshot;
   }>;
+  task: UploadTask;
 }
 
 @Injectable({ providedIn: "root" })
@@ -152,6 +154,7 @@ export abstract class FireStorageBaseModel {
         storageRef: storageRef,
         file: uploadFile.file,
         uploadPercent: percentage(task),
+        task,
       };
     });
 
