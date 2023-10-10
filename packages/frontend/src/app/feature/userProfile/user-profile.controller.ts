@@ -14,7 +14,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import { IUser } from "sources-types";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
@@ -112,20 +112,16 @@ export class UserProfileController implements OnInit {
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
-    private userService: UserService,
     private profileStorage: ProfileStorageService,
-    private _ref: ChangeDetectorRef,
-    private _sessionStorage: SessionStorageService
+    private route: ActivatedRoute
   ) {}
 
-  async ngOnInit() {
-    if (!this.userId) {
-      this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
-    } else {
-      [this.currentUser] = await this.userService.retrieve({
-        userId: this.userId,
-      });
-    }
+  ngOnInit() {
+    const preloadData = this.route.snapshot.data as {
+      user: IUser;
+    };
+
+    this.currentUser = preloadData.user;
   }
 
   async uploadImage(eventTarget: EventTarget | null) {

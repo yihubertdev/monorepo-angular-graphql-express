@@ -82,7 +82,7 @@ export interface ILinkExtractor {
 
 export interface ILinkPreview {
   description: string;
-  image: string;
+  image: string | null;
   title: string;
   url: string;
 }
@@ -122,11 +122,18 @@ export interface IProfileHomeAddress {
   country: string;
 }
 
+export const enum EMPLOYMENT_TYPE {
+  SELF_EMPLOYED = "Self-employed",
+  PERMANENT_FULL_TIME = "Permanent-full-time",
+  PERMANENT_PART_TIME = "Permanent-part-time",
+}
+
 export interface IProfileEducation {
   title: string;
   institution: string;
   degree: string;
   year: string;
+  type: EMPLOYMENT_TYPE;
 }
 
 export interface IProfile {

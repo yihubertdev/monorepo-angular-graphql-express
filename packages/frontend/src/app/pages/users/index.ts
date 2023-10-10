@@ -6,6 +6,7 @@ export default [
   {
     path: "",
     loadComponent: () => import("./user-profile.view"),
+    resolve: { user: userProfileResolver },
     loadChildren: () => import("../profile"),
   },
   {
@@ -17,5 +18,9 @@ export default [
     path: "signup",
     canActivate: [isUserLoginToUser],
     loadComponent: () => import("./sign-up.view"),
+  },
+  {
+    path: "profile-signup",
+    loadComponent: () => import("./profile-sign-up.view"),
   },
 ] as Routes;

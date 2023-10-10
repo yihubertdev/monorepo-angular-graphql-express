@@ -155,3 +155,38 @@ export const HOME_ADDRESS_PROFILE: IFormInput[] = [
     selection: ["Ontario"],
   },
 ];
+
+export const EMPLOYMENT: IFormInput[] = [
+  {
+    id: "title",
+    type: INPUT_TYPE.TEXT,
+    label: "Most Recent Job Title",
+    key: "title",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "institution",
+    type: INPUT_TYPE.TEXT,
+    label: "Most Recent Company",
+    key: "institution",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "degree",
+    type: INPUT_TYPE.TEXT,
+    label: "Degree",
+    key: "degree",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "year",
+    type: INPUT_TYPE.TEXT,
+    label: "Year",
+    key: "year",
+    value: "",
+    placeholder: "",
+  },
+];

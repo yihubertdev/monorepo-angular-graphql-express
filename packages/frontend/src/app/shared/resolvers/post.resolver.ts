@@ -2,12 +2,12 @@ import { inject } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   ResolveFn,
-  Router,
   RouterStateSnapshot,
 } from "@angular/router";
 import { IPost, IUser } from "sources-types";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
+import { UserService } from "../../core/services/fireStore/users.firestore";
 
 export const postResolver: ResolveFn<{
   data: IPost[];
@@ -21,7 +21,6 @@ export const postByUserResolver: ResolveFn<{
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   let userId = route.params["id"];
-  console.log("post by user reolsver");
   if (userId == "me") {
     userId = inject(SessionStorageService).getSessionStorage<IUser>(
       "user"
@@ -31,12 +30,19 @@ export const postByUserResolver: ResolveFn<{
   return inject(PostFireStore).list(5, userId);
 };
 
-export const userProfileResolver: ResolveFn<{
-  data: IPost[];
-  hasFile: boolean;
-}> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  console.log(inject(Router).url);
-  let userId = route.params["id"];
+export const userProfileResolver: ResolveFn<IUser | undefined> = async (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const userId = route.firstChild?.params["id"];
 
-  return inject(PostFireStore).list(5, userId);
+  if (userId !== "me") {
+    const [user] = await inject(UserService).retrieve({
+      userId,
+    });
+
+    return user;
+  } else {
+    return inject(SessionStorageService).getSessionStorage<IUser>("user");
+  }
 };

@@ -8,4 +8,5 @@
 
 .btn-full-width {
   width: 100%;
+  z-index: 9;
 }

@@ -95,7 +95,7 @@ import { ImageComponent } from "../CarouselSlider/image.component";
         </p>
         <ng-container *ngIf="postCardInfo?.preview">
           <preview-link-card
-            [preview]="postCardInfo?.preview"></preview-link-card>
+            [preview]="postCardInfo!.preview!"></preview-link-card>
         </ng-container>
         <!--single image display-->
         <image-component
