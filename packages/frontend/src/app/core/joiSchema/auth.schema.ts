@@ -71,3 +71,10 @@ export const homeAdressSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
 ): Joi.ObjectSchema => {
   return Joi.object({});
 };
+
+export const employmentSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
+  data: IProfileHomeAddress,
+  errorLocation?: string
+): Joi.ObjectSchema => {
+  return Joi.object({});
+};

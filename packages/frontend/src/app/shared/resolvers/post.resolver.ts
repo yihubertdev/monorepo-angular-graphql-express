@@ -34,7 +34,7 @@ export const userProfileResolver: ResolveFn<IUser | undefined> = async (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const userId = route.firstChild?.params["id"];
+  const userId = route.params["id"] ?? route.firstChild?.params["id"];
 
   if (userId !== "me") {
     const [user] = await inject(UserService).retrieve({

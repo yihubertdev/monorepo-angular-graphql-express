@@ -140,7 +140,7 @@ export const lightBoxConfig = {
   wrapAround: true,
   disableKeyboardNav: true,
   centerVertically: true,
-  showZoom: false,
+  showZoom: true,
   showRotate: false,
-  showDownloadButton: false,
+  showDownloadButton: true,
 };

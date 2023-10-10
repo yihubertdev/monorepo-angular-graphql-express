@@ -20,7 +20,8 @@ export default [
     loadComponent: () => import("./sign-up.view"),
   },
   {
-    path: "profile-signup",
+    path: "profile-signup/:id",
+    resolve: { user: userProfileResolver },
     loadComponent: () => import("./profile-sign-up.view"),
   },
 ] as Routes;

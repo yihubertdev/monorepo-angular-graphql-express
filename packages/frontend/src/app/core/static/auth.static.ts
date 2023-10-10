@@ -1,4 +1,5 @@
-import { IFormInput, INPUT_TYPE } from "sources-types";
+import { EMPLOYMENT_TYPE, IFormInput, INPUT_TYPE } from "sources-types";
+import { JoiSchemaBuilder } from "../utils/validator";
 
 export const yourAccountFormList: IFormInput[] = [
   {
@@ -189,4 +190,23 @@ export const EMPLOYMENT: IFormInput[] = [
     value: "",
     placeholder: "",
   },
+  {
+    id: "employment_type",
+    type: INPUT_TYPE.SELECT,
+    label: "Employment type",
+    key: "employment_type",
+    value: "",
+    placeholder: "",
+    selection: [EMPLOYMENT_TYPE.PERMANENT_FULL_TIME],
+  },
 ];
+
+export interface IFormStepper {
+  label: string;
+  title: string;
+  subTitle: string;
+  formInput: IFormInput[];
+  formValidate: JoiSchemaBuilder<any>;
+}
+
+export type IStepper = IFormStepper[];

@@ -139,7 +139,7 @@ export class AuthService {
    * @param {IUserRegister} data user register data
    * @returns {Promise<IUserRegister>} user register
    */
-  public async register(data: IUserRegister): Promise<User> {
+  public async register(data: IUserRegister): Promise<IUser> {
     // Create user with firebase auth
     const { user } = await createUserWithEmailAndPassword(
       this.auth,
@@ -162,7 +162,7 @@ export class AuthService {
       }),
     ]);
     this.currentUser = await this.userService.retrieveById(user.uid);
-    return user;
+    return this.currentUser;
   }
 
   /**
