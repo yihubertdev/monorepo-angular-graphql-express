@@ -52,7 +52,7 @@ export class EmailSignUpController {
 
     try {
       const user = await this.authService.register(data);
-      this._router.navigate(["profile-signup", user.userId]);
+      this._router.navigate(["users", "profile-signup", user.userId]);
     } catch (err) {
       console.log(err);
       this._snackBar.open(

@@ -20,6 +20,7 @@ import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 export interface IUserDetailCard<T, S> {
   userSnapshot: QueryDocumentSnapshot<T>;

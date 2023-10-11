@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -19,6 +19,7 @@ import {
   IProfileHomeAddress,
   IUser,
 } from "sources-types";
+import { MatExpansionModule } from "@angular/material/expansion";
 @Component({
   standalone: true,
   imports: [
@@ -31,183 +32,40 @@ import {
     RouterModule,
     MatTabsModule,
     UserDetailCardComponent,
+    MatExpansionModule,
   ],
   selector: "user-details-controller",
   template: `<mat-tab-group>
     <mat-tab label="Personal Profile">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <user-details-card
-              [userDetails]="userDetails"
-              (formValue)="save($event)"></user-details-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
+      <mat-accordion>
+        <div class="container">
+          <div class="row">
+            <div
+              *ngFor="let userDetail of userDetails"
+              class="col-xl-6 col-lg-6
+              col-md-6 col-sm-12 col-xs-12 mb-4">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> Home Address </mat-panel-title>
+                </mat-expansion-panel-header>
+                <user-details-card
+                  [userDetails]="userDetail"
+                  (formValue)="save($event)"></user-details-card>
+              </mat-expansion-panel>
+            </div>
           </div>
         </div>
-      </div>
+      </mat-accordion>
     </mat-tab>
     <mat-tab label="Business Profile">
       <div class="container">
         <div class="row">
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
+          <div
+            *ngFor="let userDetail of userDetails"
+            class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-4">
+            <user-details-card
+              [userDetails]="userDetail"
+              (formValue)="save($event)"></user-details-card>
           </div>
         </div>
       </div>
@@ -215,97 +73,12 @@ import {
     <mat-tab label="Professional Profile">
       <div class="container">
         <div class="row">
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
-          </div>
-          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <mat-card class="example-card">
-              <mat-card-header>
-                <div
-                  mat-card-avatar
-                  class="example-header-image"></div>
-                <mat-card-title>Shiba Inu</mat-card-title>
-                <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p>
-                  The Shiba Inu is the smallest of the six original and distinct
-                  spitz breeds of dog from Japan. A small, agile dog that copes
-                  very well with mountainous terrain, the Shiba Inu was
-                  originally bred for hunting.
-                </p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>LIKE</button>
-                <button mat-button>SHARE</button>
-              </mat-card-actions>
-            </mat-card>
+          <div
+            *ngFor="let userDetail of userDetails"
+            class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 mb-4">
+            <user-details-card
+              [userDetails]="userDetail"
+              (formValue)="save($event)"></user-details-card>
           </div>
         </div>
       </div>
@@ -316,7 +89,7 @@ import {
 export class UserDetailsController implements OnInit {
   @Input({ required: true }) userId?: string;
   public isDisplay: boolean = true;
-  public userDetails?: IUserDetailCard<IUser, IProfileHomeAddress>;
+  public userDetails!: IUserDetailCard<IUser, IProfileHomeAddress>[];
 
   constructor(private _userService: UserService, private _router: Router) {}
 
@@ -327,14 +100,104 @@ export class UserDetailsController implements OnInit {
       });
 
       if (info.user) {
-        this.userDetails = {
-          userSnapshot: info.user,
-          details: info.profile,
-          title: "Home Address",
-          documentId: "homeAddress",
-          formInputList: HOME_ADDRESS_PROFILE,
-          formInputSchema: homeAdressSchema,
-        };
+        this.userDetails = [
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+          {
+            userSnapshot: info.user,
+            details: info.profile,
+            title: "Home Address",
+            documentId: "homeAddress",
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          },
+        ];
         return;
       }
 
@@ -343,9 +206,9 @@ export class UserDetailsController implements OnInit {
   }
 
   async save(formValue: ICollectionQueryBuilder<IProfile>) {
-    if (!this.userDetails?.userSnapshot) return;
+    if (!this.userDetails[0].userSnapshot) return;
     this._userService.addSubCollectionByUserId(
-      this.userDetails!.userSnapshot,
+      this.userDetails[0].userSnapshot,
       formValue
     );
   }
