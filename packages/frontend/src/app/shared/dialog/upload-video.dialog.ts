@@ -14,7 +14,6 @@ import { MatInputModule } from "@angular/material/input";
   standalone: true,
   imports: [FormsModule, MatDialogModule, MatInputModule, MatSnackBarModule],
   providers: [GoogleHttpService],
-  selector: "upload-video-dialog",
   template: `<h1 mat-dialog-title>Validate Video</h1>
     <div mat-dialog-content>
       <mat-form-field appearance="fill">

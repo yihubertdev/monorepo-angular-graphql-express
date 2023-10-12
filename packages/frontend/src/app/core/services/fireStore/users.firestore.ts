@@ -73,7 +73,7 @@ export class UserService extends FireStoreBaseModel<IUser> {
   public retrieveSubCollectionProfile = async (filter: {
     userId: string;
   }): Promise<{
-    profile: IProfileHomeAddress;
+    profile: IProfileHomeAddress[];
     user: QueryDocumentSnapshot<IUser>;
   }> => {
     const { userId } = filter;
@@ -85,9 +85,12 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
     const profile = await subCollectionProfile.get();
 
-    const [document] = profile.docs.map((data) => data.data());
+    const document = profile.docs.map((data) => ({
+      ...data.data(),
+      documentId: data.id,
+    }));
 
-    return { profile: document as IProfileHomeAddress, user: user };
+    return { profile: document as IProfileHomeAddress[], user: user };
   };
 
   protected buildSubCollection(

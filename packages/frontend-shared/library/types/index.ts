@@ -64,6 +64,12 @@ export const enum INPUT_TYPE {
   EDITOR = "editor",
 }
 
+export const enum PROFILE_TITLE {
+  PERSONAL_PROFILE = "Personal Profile",
+  BUSINESS_PROFILE = "Business Profile",
+  PROFESSIONAL_PROFILE = "Professional Profile",
+}
+
 export interface IArticle {
   id?: string;
   userId: string;
@@ -113,6 +119,7 @@ export interface ICollectionQueryBuilder<T> {
 }
 
 export interface IProfileHomeAddress {
+  documentId: string;
   title: string;
   addressLine1: string;
   addressLine2: string;

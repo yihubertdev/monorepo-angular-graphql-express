@@ -40,7 +40,7 @@ import { ActivatedRoute, Router } from "@angular/router";
           [formInputList]="stepper.formInput"
           errorLocation="AuthModule.YourAccountController"
           [validatorSchema]="stepper.formValidate"
-          buttonName="Save"
+          buttonName="Next"
           (formValue)="save($event, i)"></form-input-list-component
       ></mat-step>
     </mat-stepper>
@@ -89,7 +89,7 @@ export class UserProfileSignUpController {
     this.myStepper.next();
 
     if (index === this.steppers.length - 1) {
-      this._router.navigate(["/users", "me", "posts"]);
+      this._router.navigate(["/users", "me", "personal-profile"]);
     }
   }
 }

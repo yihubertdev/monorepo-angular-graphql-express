@@ -10,7 +10,7 @@ import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { EMBED_YOUTUBE } from "sources-types";
-import { CommonModule } from "@angular/common";
+import { NgIf, NgStyle, DatePipe, NgFor } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
@@ -24,7 +24,10 @@ import { ImageComponent } from "../CarouselSlider/image.component";
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgStyle,
+    NgIf,
+    NgFor,
+    DatePipe,
     MatCardModule,
     MatIconModule,
     RouterModule,

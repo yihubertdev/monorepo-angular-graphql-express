@@ -18,17 +18,16 @@ import { IUser } from "sources-types";
 })
 export default class DetailsView implements OnInit {
   @Input() id?: string;
-  public userId?: string;
+  public userId!: string;
 
   constructor(private _sessionStorage: SessionStorageService) {}
 
   ngOnInit() {
     if (!this.id) return;
 
-    this.userId = this.id === "me" ? undefined : this.id;
-    if (!this.userId) {
-      this.userId =
-        this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
-    }
+    this.userId =
+      this.id === "me"
+        ? this._sessionStorage.getSessionStorage<IUser>("user")!.userId
+        : this.id;
   }
 }

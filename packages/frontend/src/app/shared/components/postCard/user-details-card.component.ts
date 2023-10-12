@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
@@ -15,12 +14,15 @@ import {
   IFormInput,
   IProfileHomeAddress,
   IUser,
+  PROFILE_TITLE,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
-import { MatExpansionModule } from "@angular/material/expansion";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { AddProfileSectionDialog } from "../../dialog/add-profile-section.dialog";
+import { MatIconModule } from "@angular/material/icon";
 
 export interface IUserDetailCard<T, S> {
   userSnapshot: QueryDocumentSnapshot<T>;
@@ -42,57 +44,42 @@ export interface IUserDetailCard<T, S> {
     MatButtonModule,
     MatDividerModule,
     MatListModule,
-    FormInputListComponent,
+    MatDialogModule,
+    MatIconModule,
   ],
   template: `<mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title>{{ userDetails?.title }}</mat-card-title>
+      <mat-card-title
+        >{{ userDetails.title }}
+        <a
+          mat-button
+          (click)="openDialog()">
+          <mat-icon>edit</mat-icon>
+        </a></mat-card-title
+      >
     </mat-card-header>
-    <mat-card-actions>
-      <button
-        mat-button
-        (click)="isDisplay = true">
-        Display
-      </button>
-      <button
-        mat-button
-        (click)="isDisplay = false">
-        Edit
-      </button>
-    </mat-card-actions>
     <mat-card-content *ngIf="userDetails">
-      <div class="row">
-        <div class="col">
-          <ng-container *ngIf="isDisplay">
-            <mat-list>
-              <ng-container *ngFor="let info of userDetails.formInputList">
-                <mat-divider></mat-divider>
-                <mat-list-item
-                  >{{ info.label }} : {{ info.value }}</mat-list-item
-                >
-              </ng-container>
-            </mat-list>
-          </ng-container>
-          <form-input-list-component
-            *ngIf="!isDisplay"
-            [formInputList]="userDetails!.formInputList"
-            errorLocation="AuthModule.YourAccountController"
-            [validatorSchema]="userDetails!.formInputSchema"
-            buttonName="Save"
-            (formValue)="save($event)"></form-input-list-component>
+      <mat-list>
+        <div class="row">
+          <div
+            class="col-xl-4 col-lg-4
+              col-md-4 col-sm-12 col-xs-12"
+            *ngFor="let info of userDetails.formInputList">
+            <mat-list-item>{{ info.label }} : {{ info.value }}</mat-list-item>
+            <mat-divider></mat-divider>
+          </div>
         </div>
-      </div>
+      </mat-list>
     </mat-card-content>
   </mat-card>`,
 })
 export class UserDetailCardComponent {
-  @Input({ required: true }) userDetails?: IUserDetailCard<
+  @Input({ required: true }) userDetails!: IUserDetailCard<
     IUser,
     IProfileHomeAddress
   >;
-  @Output() formValue = new EventEmitter<ICollectionQueryBuilder<any>>();
-  public isDisplay: boolean = true;
 
+  constructor(public dialog: MatDialog) {}
   ngOnChanges() {
     if (!this.userDetails) return;
     const formList = this.userDetails.formInputList;
@@ -100,12 +87,15 @@ export class UserDetailCardComponent {
     formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
   }
 
-  save(value: any) {
-    this.formValue.emit({
-      collectionId: "userProfile",
-      next: {
-        documentId: this.userDetails!.documentId, // profile category id, such as home address, education
-        documentValue: { title: this.userDetails?.title, ...value },
+  openDialog() {
+    this.dialog.open(AddProfileSectionDialog, {
+      disableClose: true,
+      data: {
+        userId: this.userDetails.userSnapshot,
+        title: this.userDetails.title,
+        documentId: this.userDetails.documentId,
+        formInputList: this.userDetails.formInputList,
+        formInputSchema: this.userDetails.formInputSchema,
       },
     });
   }
