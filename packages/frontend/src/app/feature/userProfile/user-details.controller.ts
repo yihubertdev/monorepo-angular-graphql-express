@@ -107,13 +107,17 @@ export class UserDetailsController implements OnInit {
   constructor(private _userService: UserService, public dialog: MatDialog) {}
 
   openDialog(sectionInfo: any) {
-    this.dialog.open(AddProfileSectionDialog, {
+    const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
         ...sectionInfo,
         documentId: uuidv4(),
         user: this.info.user,
       },
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
     });
   }
 
