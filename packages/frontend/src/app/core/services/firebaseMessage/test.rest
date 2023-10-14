@@ -1,0 +1,18 @@
+POST https://fcm.googleapis.com//v1/projects/hubert-blog/messages:send
+Content-Type: application/json
+Authorization: Bearer BPINmuN1OJHrC_zXF6oxvGakPyP5aTKq4BndOimbHbTaL0vmCv0l31eh6uu1lKp4zgI_He6uPgAN_9D0xEkys5M
+
+{
+  "message": {
+    "token": "de1VTIJ8aDux7b75fsplTY:APA91bFwHQL_ltav38dlk1mEdYibqR3WIkC00BgZaUCh7ZFVYJ46Tnc6dEMLgjCoHXOb7AhlPUSr2CiqHAZ7wj83Ja5xr_hPjlsXjhCn5_J9R2P0ssOkqLbX_zBEhroFGpA1JAoW-lA8",
+    "notification": {
+      "title": "Background Message Title",
+      "body": "Background message body"
+    },
+    "webpush": {
+      "fcm_options": {
+        "link": "https://dummypage.com"
+      }
+    }
+  }
+}

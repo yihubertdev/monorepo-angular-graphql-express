@@ -7,28 +7,28 @@ import {
   withComponentInputBinding,
   withPreloading,
 } from "@angular/router";
-import APP_ROUTES from "./app/routes";
-import { MainView } from "./app/main.view";
-import { BrowserStorageServiceModule } from "./app/core/services/browserStorage/browserStorage.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { initializeApp, provideFirebaseApp } from "@angular/fire/app";
+import { initializeApp, provideFirebaseApp, getApp } from "@angular/fire/app";
 import {
   CACHE_SIZE_UNLIMITED,
-  getFirestore,
   initializeFirestore,
-} from "firebase/firestore";
-import { provideFirestore } from "@angular/fire/firestore";
+  provideFirestore,
+} from "@angular/fire/firestore";
 import { getStorage, provideStorage } from "@angular/fire/storage";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { FIREBASE_OPTIONS } from "@angular/fire/compat";
+import { provideMessaging, getMessaging } from "@angular/fire/messaging";
 import { AuthService } from "./app/core/services/fireAuth/auth";
 import { UserService } from "./app/core/services/fireStore/users.firestore";
+import { BrowserStorageServiceModule } from "./app/core/services/browserStorage/browserStorage.module";
 import {
   ArticleFireStore,
   PostFireStore,
 } from "./app/core/services/fireStore/blog.firestore";
 import { FormFileStorageService } from "./app/core/services/fireStorage/form-file.bucket";
 import { ProfileStorageService } from "./app/core/services/fireStorage/profile.bucket";
+import APP_ROUTES from "./app/routes";
+import { MainView } from "./app/main.view";
 
 if (environment.production) {
   enableProdMode();
@@ -44,11 +44,12 @@ bootstrapApplication(MainView, {
     ),
     importProvidersFrom(
       provideFirestore(() =>
-        initializeFirestore(getFirestore().app, {
+        initializeFirestore(getApp(), {
           cacheSizeBytes: CACHE_SIZE_UNLIMITED,
         })
       )
     ),
+    importProvidersFrom(provideMessaging(() => getMessaging())),
     importProvidersFrom(provideStorage(() => getStorage())),
     importProvidersFrom(provideAuth(() => getAuth())),
     provideRouter(

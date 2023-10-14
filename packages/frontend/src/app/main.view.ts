@@ -26,7 +26,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { intlFormat } from "date-fns";
+import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -126,7 +126,8 @@ export class MainView implements OnInit {
     // iconRegistry: MatIconRegistry,
     // sanitizer: DomSanitizer,
     private _router: Router,
-    private _sessionStorage: SessionStorageService
+    private _sessionStorage: SessionStorageService,
+    private _firebaseMessaging: FirebaseMessagingService
   ) {
     // iconRegistry.addSvgIconLiteral(
     //   "twitter-icon",
@@ -140,7 +141,6 @@ export class MainView implements OnInit {
     //   "linkedln-icon",
     //   sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
     // );
-
     this._router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {
@@ -163,5 +163,7 @@ export class MainView implements OnInit {
 
   ngOnInit(): void {
     this.hasUser = this._sessionStorage.getSessionStorage<IUser>("user");
+
+    this._firebaseMessaging.requestToken();
   }
 }

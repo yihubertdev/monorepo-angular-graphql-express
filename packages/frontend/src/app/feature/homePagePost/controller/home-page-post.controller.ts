@@ -7,6 +7,7 @@ import { NgFor, NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
+import { FirebaseMessagingService } from "src/app/core/services/firebaseMessage/basic.message";
 
 @Component({
   standalone: true,
@@ -52,7 +53,8 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _firebaseMessaging: FirebaseMessagingService
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -69,6 +71,7 @@ export class HomePagePostController implements OnInit {
   }
 
   ngOnInit(): void {
+    this._firebaseMessaging.getMessaging();
     if (this.data.length) return;
     const preloadData = this.route.snapshot.data as {
       posts: {
