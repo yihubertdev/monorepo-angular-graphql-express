@@ -1,13 +1,12 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IPost, IUser } from "sources-types";
-import { SessionStorageService } from "../../../core/services/browserStorage/sessionStorage";
+import { IPost } from "sources-types";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
-import { FirebaseMessagingService } from "src/app/core/services/firebaseMessage/basic.message";
+import { FirebaseMessagingService } from "../../../core/services/firebaseMessage/basic.message";
 
 @Component({
   standalone: true,

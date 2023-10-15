@@ -7,7 +7,6 @@ import {
 import { firstValueFrom } from "rxjs";
 import { FIRESTORE_COLLECTION } from "sources-types";
 import { v4 as uuidv4 } from "uuid";
-import getTime from "date-fns/getTime";
 import { ICollectionQueryBuilder } from "sources-types";
 import joiValidator from "../../utils/validator";
 import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
@@ -90,8 +89,8 @@ export abstract class FireStoreBaseModel<T> {
     await this.collection.doc(id).set({
       ...document,
       id,
-      createdAt: getTime(new Date()),
-      updatedAt: getTime(new Date()),
+      createdAt: new Date().getTime(),
+      updatedAt: new Date().getTime(),
     });
     return id;
   };
