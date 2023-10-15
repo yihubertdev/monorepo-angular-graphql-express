@@ -28,7 +28,6 @@
     "@types/uuid": "^8.3.4",
     "bootstrap": "^5.3.2",
     "date-fns": "^2.29.3",
-    "firebase": "^9.17.2",
     "joi": "^17.6.0",
     "loader-utils": ">=3.2.1",
     "ngx-lightbox": "^3.0.0",
