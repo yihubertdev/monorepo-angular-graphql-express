@@ -1,15 +1,14 @@
 import { Auth, DecodedIdToken } from "firebase-admin/auth";
 import client from "../client";
-import {IUser } from "sources-types";
 
 /**
  * sdf
  */
-async function get(fireStoreClient?: FirebaseFirestore.Firestore): Promise<IUser[]> {
+async function get(fireStoreClient?: FirebaseFirestore.Firestore): Promise<any> {
   const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
   const result = await fireStore.collection("users").get();
 
-  return result.docs.map((dataSnapshot) => dataSnapshot.data() as IUser);
+  return result.docs.map((dataSnapshot) => dataSnapshot.data() as any);
 }
 
 /**

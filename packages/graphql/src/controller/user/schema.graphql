@@ -17,7 +17,3 @@ extend type Query {
 extend type Mutation {
   postUser(postUserInput: PostUserInput): String
 }
-
-extend type Subscription {
-  subscription(postUserInput: PostUserInput): String
-}

@@ -1,4 +1,10 @@
 service: apollo-lambda
+package:
+  patterns:
+    - "!test/**"
+    - src/**/*.json
+    - src/**/*.lua
+    - src/**/*.graphql
 provider:
   name: aws
   stage: dev

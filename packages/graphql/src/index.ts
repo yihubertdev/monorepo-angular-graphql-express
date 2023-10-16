@@ -3,15 +3,14 @@ import modelsFirestore from "./modelsFirestore";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
+import { Request, Response } from "express";
+import { APIGatewayProxyEvent } from "aws-lambda";
+import { v4 } from "uuid";
 
 const schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,
   resolvers: totalResolver,
 });
-
-import { Request, Response } from "express";
-import { APIGatewayProxyEvent } from "aws-lambda";
-import { v4 } from "uuid";
 
 /**
  * sdf
@@ -47,7 +46,7 @@ export async function graphQLContext({
 export const server = new ApolloServer({
   schema,
   introspection: true,
-  context: graphQLContext,
+  // context: graphQLContext,
 });
 
 export const handler = server.createHandler({

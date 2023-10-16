@@ -24,14 +24,6 @@ class UserResolver {
   }
 
   @FieldResolver({
-    type: RESOLVER_TYPE.SUBSCRIPTION,
-    subQuery: "User",
-  })
-  subscription() {
-    return "myname";
-  }
-
-  @FieldResolver({
     type: RESOLVER_TYPE.MUTATION,
   })
   postUser(source, args, context, info) {

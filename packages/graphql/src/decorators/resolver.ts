@@ -49,13 +49,12 @@ export function FieldResolver(params: {
 
   return (
     target: any,
-    name: string,
-    propertyDescriptor: PropertyDescriptor
+    name: string, // class function name
+    propertyDescriptor: PropertyDescriptor // class function content
   ) => {
     switch (type) {
       case RESOLVER_TYPE.QUERY:
       case RESOLVER_TYPE.MUTATION:
-      case RESOLVER_TYPE.SUBSCRIPTION:
         return (totalResolver = merge(
           totalResolver,
           Object.defineProperty({}, type, {
@@ -65,6 +64,23 @@ export function FieldResolver(params: {
               configurable: true,
               enumerable: true,
               value: propertyDescriptor.value,
+            }),
+          }) as TypeResolver
+        ));
+
+      case RESOLVER_TYPE.SUBSCRIPTION:
+        return (totalResolver = merge(
+          totalResolver,
+          Object.defineProperty({}, type, {
+            configurable: true,
+            enumerable: true,
+            value: Object.defineProperty({}, name, {
+              configurable: true,
+              enumerable: true,
+              value: {
+                resolve: (rootValue: any): any => rootValue,
+                subscribe: propertyDescriptor.value,
+              },
             }),
           }) as TypeResolver
         ));

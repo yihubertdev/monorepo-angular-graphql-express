@@ -1,0 +1,12 @@
+type SendMessagingOutput {
+  result: Boolean
+}
+
+input SendMessageInput {
+  token: String
+}
+
+extend type Mutation {
+  sendMessage(sendMessageInput: SendMessageInput!):SendMessagingOutput
+}
+
