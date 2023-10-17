@@ -1,11 +1,19 @@
 import { ApolloServer } from "apollo-server-lambda";
-import modelsFirestore from "./modelsFirestore";
+import models from "./models";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
 import { Request, Response } from "express";
-import { APIGatewayProxyEvent } from "aws-lambda";
-import { v4 } from "uuid";
+import { IUser } from "sources-types";
+import { Knex } from "knex";
+import { DecodedIdToken } from "firebase-admin/auth";
+import client from "./client";
+
+export interface IFaceGraphqlContext {
+  user: FirebaseFirestore.QueryDocumentSnapshot<IUser>;
+  fireStoreClient: FirebaseFirestore.Firestore;
+  knexClient: Knex;
+}
 
 const schema = makeExecutableSchema({
   typeDefs: totalTypeDefs,
@@ -13,7 +21,7 @@ const schema = makeExecutableSchema({
 });
 
 /**
- * sdf
+ * Get graphql context
  * @param
  */
 export async function graphQLContext({
@@ -21,32 +29,39 @@ export async function graphQLContext({
 }: {
   req: Request;
   res: Response;
-}): Promise<{
-  token: string;
-  event: APIGatewayProxyEvent;
-  requestSourceIps: string[];
-}> {
-  const token = req.headers.authorization || "";
-  if (token) {
-    const user = await modelsFirestore.users.verifyFromFirebaseAuth(token);
+}): Promise<IFaceGraphqlContext> {
+  const fireStoreClient = client.firebase.firestoreInstance;
+  const knexClient = client.knexClient.getInstance();
+  const token = req.headers.authorization || null;
+  if (!token) {
+    throw new Error(`Valid authorization header not provided`);
+  }
+  let userAuth: DecodedIdToken;
+  try {
+    userAuth = await models.firestore.users.verifyFromFirebaseAuth(token);
+  } catch (e) {
+    console.log(e);
+    throw new Error(`Valid authorization header is not validated`);
   }
 
-  const event: APIGatewayProxyEvent = {
-    // fake the AWS request ID
-    requestContext: { requestId: v4() },
-  } as APIGatewayProxyEvent;
+  const user = await models.firestore.users.get(
+    {
+      email: userAuth.email,
+    },
+    fireStoreClient
+  );
 
   return {
-    token,
-    event,
-    requestSourceIps: [],
+    user,
+    fireStoreClient,
+    knexClient,
   };
 }
 
 export const server = new ApolloServer({
   schema,
   introspection: true,
-  // context: graphQLContext,
+  context: graphQLContext,
 });
 
 export const handler = server.createHandler({

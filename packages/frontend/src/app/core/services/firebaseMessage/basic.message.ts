@@ -20,6 +20,7 @@ export class FirebaseMessagingService {
   }
 
   public getMessaging() {
+    console.log("message");
     onMessage(this.messaging, (payload) => {
       console.log(payload);
     });

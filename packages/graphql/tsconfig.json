@@ -6,6 +6,9 @@
     "baseUrl": ".",
     "outDir": "./.build",
     "moduleResolution": "node",
+    "paths": {
+      "sources-types": ["../frontend-shared/library/types/index.ts"]
+    },
   },
   "include": ["./src"]
 }

@@ -2,5 +2,4 @@
     "name": "@types/sources-types",
     "version": "1.0.1",
     "types": "index.ts"
-  }
-  
+}

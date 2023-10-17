@@ -37,6 +37,7 @@
     "knex": "^2.4.2"
   },
   "devDependencies": {
+    "@types/sources-types": "file:dependencies/types-sources-types-1.0.1.tgz",
     "@types/uuid": "^9.0.1",
     "graphql-constraint-directive": "^5.0.0",
     "mysql": "^2.18.1",

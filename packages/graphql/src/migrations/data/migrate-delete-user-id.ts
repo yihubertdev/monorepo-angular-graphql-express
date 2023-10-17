@@ -1,6 +1,6 @@
 import { FieldValue } from "firebase-admin/firestore";
 import client from "../../client";
-import modelsFirestore from "../../modelsFirestore";
+import modelsFirestore from "../../models/firestore";
 
 /**
  * Sync user display name and name id

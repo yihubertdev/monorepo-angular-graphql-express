@@ -1,5 +1,5 @@
 import client from "../../client";
-import modelsFirestore from "../../modelsFirestore";
+import modelsFirestore from "../../models/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 /**
