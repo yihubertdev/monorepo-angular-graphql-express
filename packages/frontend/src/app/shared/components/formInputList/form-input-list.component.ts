@@ -53,7 +53,8 @@ import { IUser } from "sources-types";
             [type]="input.type"
             matInput
             [formControlName]="input.key"
-            [attr.required]="input.required" />
+            [attr.required]="input.required"
+            autocomplete="on" />
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>

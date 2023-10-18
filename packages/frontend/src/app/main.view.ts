@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
-import { DomSanitizer } from "@angular/platform-browser";
-import {
-  googleIconSvg,
-  linkedlnIconSvg,
-  twitterIconSvg,
-} from "./core/static/post.static";
+import { MatIconModule } from "@angular/material/icon";
 import {
   NavigationCancel,
   NavigationEnd,
@@ -26,6 +20,8 @@ import { SessionStorageService } from "./core/services/browserStorage/sessionSto
 import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
+import { MainMenuController } from "./feature/menu/controller/main.controller";
+import { MainIconController } from "./feature/menu/controller/svg-icon.controller";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -42,6 +38,8 @@ import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.
     MatSidenavModule,
     MatButtonModule,
     MatProgressBarModule,
+    MainMenuController,
+    MainIconController,
   ],
   selector: "main-view",
   template: `
@@ -55,33 +53,7 @@ import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.
       <span>Whatever Site Name</span>
       <header-menu-controller></header-menu-controller>
       <span class="example-spacer"></span>
-      <!-- <button
-        mat-icon-button
-        class="twitter-icon"
-        aria-label="twitter">
-        <mat-icon
-          svgIcon="twitter-icon"
-          aria-hidden="false"
-          aria-label="twitter"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="google-icon"
-        aria-label="google">
-        <mat-icon
-          svgIcon="google-icon"
-          aria-hidden="false"
-          aria-label="google"></mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="linkedln-icon"
-        aria-label="linkedln">
-        <mat-icon
-          svgIcon="linkedln-icon"
-          aria-hidden="false"
-          aria-label="linkedln"></mat-icon>
-      </button> -->
+      <svg-icon-menu-controller></svg-icon-menu-controller>
     </mat-toolbar>
     <mat-progress-bar
       *ngIf="isLoading"
@@ -121,24 +93,10 @@ export class MainView implements OnInit {
   public isLoading: boolean = false;
 
   constructor(
-    // iconRegistry: MatIconRegistry,
-    // sanitizer: DomSanitizer,
     private _router: Router,
     private _sessionStorage: SessionStorageService,
     private _firebaseMessaging: FirebaseMessagingService
   ) {
-    // iconRegistry.addSvgIconLiteral(
-    //   "twitter-icon",
-    //   sanitizer.bypassSecurityTrustHtml(twitterIconSvg)
-    // );
-    // iconRegistry.addSvgIconLiteral(
-    //   "google-icon",
-    //   sanitizer.bypassSecurityTrustHtml(googleIconSvg)
-    // );
-    // iconRegistry.addSvgIconLiteral(
-    //   "linkedln-icon",
-    //   sanitizer.bypassSecurityTrustHtml(linkedlnIconSvg)
-    // );
     this._router.events.subscribe((event) => {
       switch (true) {
         case event instanceof NavigationStart: {

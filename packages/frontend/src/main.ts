@@ -33,7 +33,6 @@ import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 if (environment.production) {
   enableProdMode();

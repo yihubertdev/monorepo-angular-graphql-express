@@ -14,12 +14,7 @@ import { FooterMenuController } from "./controller/footer-menu.controllers";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
 @NgModule({
-  declarations: [
-    FooterController,
-    MainMenuController,
-    HeaderMenuController,
-    FooterMenuController,
-  ],
+  declarations: [FooterController, HeaderMenuController, FooterMenuController],
   imports: [
     CommonModule,
     MatIconModule,
@@ -31,11 +26,6 @@ import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
     MatButtonModule,
     MatBottomSheetModule,
   ],
-  exports: [
-    FooterMenuController,
-    MainMenuController,
-    HeaderMenuController,
-    FooterController,
-  ],
+  exports: [FooterMenuController, HeaderMenuController, FooterController],
 })
 export class MenuModule {}

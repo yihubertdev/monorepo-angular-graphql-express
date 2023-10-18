@@ -155,6 +155,10 @@ export interface IMenu {
   width: string;
 }
 
+export interface ISVGIconMenu extends IMenu {
+  src: string;
+}
+
 export interface INestedMenu extends IMenu {
   subMenu?: INestedMenu[];
 }
