@@ -50,6 +50,3 @@ Thumbs.db
 
 # Firebase Hosting Cache
 .firebase
-
-# Inner Dependencies, rebuild it with npm install
-dependencies

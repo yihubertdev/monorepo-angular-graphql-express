@@ -1,7 +1,9 @@
 # Add node_modules/ or node_modules to ignore all directories called node_modules in the current folder and any subfolders
 node_modules
 .serverless
-dependencies
 
 # Visual Studio Code
 .vscode
+
+# folder dist build
+dist

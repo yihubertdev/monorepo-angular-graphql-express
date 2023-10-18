@@ -1,5 +1,8 @@
 {
     "name": "@types/sources-types",
     "version": "1.0.1",
-    "types": "index.ts"
+    "types": "index.ts",
+    "devDependencies": {
+        "@types/sources-types": "file:types-sources-types-1.0.1.tgz"
+    }
 }

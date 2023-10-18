@@ -45,6 +45,6 @@ npm install $SHARED_TYPES --save-dev
 
 npm install $SHARED_COMPONENTS --save-dev
 
-ng build
+# ng build
 
-firebase deploy
+# firebase deploy
