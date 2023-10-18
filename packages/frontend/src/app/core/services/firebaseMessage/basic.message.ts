@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../../environments/environment.dev";
 import { Messaging, getToken, onMessage } from "@angular/fire/messaging";
+import { onBackgroundMessage } from "firebase/messaging/sw";
 
 @Injectable({
   providedIn: "root",

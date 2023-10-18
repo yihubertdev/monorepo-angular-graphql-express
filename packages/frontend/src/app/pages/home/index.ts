@@ -20,8 +20,4 @@ export default [
     path: "article/:id",
     loadComponent: () => import("./article.view"),
   },
-  {
-    path: "notification",
-    loadComponent: () => import("./article.view"),
-  },
 ] as Routes;

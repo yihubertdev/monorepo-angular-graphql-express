@@ -6,6 +6,8 @@ import {
   CanActivateFn,
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { SNACKBAR_ACTION, SNACKBAR_ERROR } from "sources-types";
 
 export const isUserLogin: CanActivateFn = () => {
   if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
@@ -24,7 +26,15 @@ export const isMeLogin: CanActivateFn = (
     if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
       return true;
     } else {
+      console.log("sdf");
       inject(Router).navigate(["users", "login"]);
+      inject(MatSnackBar).open(
+        SNACKBAR_ERROR.USER_LOGIN_ERROR,
+        SNACKBAR_ACTION.POP_UP_ACTION,
+        {
+          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
+        }
+      );
       return false;
     }
   }
@@ -37,12 +47,13 @@ export const isUserLoginToUser: CanActivateFn = () =>
     ? inject(Router).navigate(["users", "me", "posts"])
     : true;
 
-@Injectable()
+@Injectable({ providedIn: "root" })
 export class LoginGuardService {
   constructor(
     private _router: Router,
     private zone: NgZone,
-    private _sessionStorage: SessionStorageService
+    private _sessionStorage: SessionStorageService,
+    private _snackBar: MatSnackBar
   ) {}
 
   canActivate(

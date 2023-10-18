@@ -22,7 +22,6 @@ import { MenuModule } from "./feature/menu/menu.module";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -42,7 +41,6 @@ import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.
     MatDrawerResponsiveDirectiveModule,
     MatSidenavModule,
     MatButtonModule,
-    MatSnackBarModule,
     MatProgressBarModule,
   ],
   selector: "main-view",
