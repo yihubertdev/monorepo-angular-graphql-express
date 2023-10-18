@@ -70,7 +70,6 @@ export class HomePagePostController implements OnInit {
   }
 
   ngOnInit(): void {
-    this._firebaseMessaging.getMessaging();
     if (this.data.length) return;
     const preloadData = this.route.snapshot.data as {
       posts: {
