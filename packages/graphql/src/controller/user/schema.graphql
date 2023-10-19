@@ -11,7 +11,7 @@ input PostUserInput {
 }
 
 extend type Query {
-  hello: String
+  posts: Boolean
 }
 
 extend type Mutation {

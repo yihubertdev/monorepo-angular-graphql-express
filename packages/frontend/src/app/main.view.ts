@@ -22,6 +22,7 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
 import { MainMenuController } from "./feature/menu/controller/main.controller";
 import { MainIconController } from "./feature/menu/controller/svg-icon.controller";
+import { NotificationHttpService } from "./core/services/http/notification.http";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -95,7 +96,8 @@ export class MainView implements OnInit {
   constructor(
     private _router: Router,
     private _sessionStorage: SessionStorageService,
-    private _firebaseMessaging: FirebaseMessagingService
+    private _firebaseMessaging: FirebaseMessagingService,
+    private _notification: NotificationHttpService
   ) {
     this._router.events.subscribe((event) => {
       switch (true) {
@@ -115,6 +117,9 @@ export class MainView implements OnInit {
         }
       }
     });
+
+    const result = this._notification.getUserPosts();
+    result.subscribe((data) => console.log(data));
   }
 
   ngOnInit(): void {

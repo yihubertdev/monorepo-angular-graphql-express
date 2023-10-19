@@ -33,6 +33,7 @@ import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
+import { NotificationHttpService } from "./app/core/services/http/notification.http";
 
 if (environment.production) {
   enableProdMode();
@@ -82,5 +83,6 @@ bootstrapApplication(MainView, {
     ProfileStorageService, // firebase profile upload storage
     ArticleFireStore, // firestore article
     PostFireStore, // firestore post
+    NotificationHttpService,
   ],
 });

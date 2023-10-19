@@ -5,22 +5,24 @@ import {
   RESOLVER_TYPE,
   Resolver,
 } from "../../decorators/resolver";
+import { IFaceGraphqlContext } from "../../";
+import models from "../../models";
 
 @Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class UserResolver {
   @FieldResolver({
     type: RESOLVER_TYPE.QUERY,
   })
-  hello() {
-    return { id: "hello1" };
-  }
+  posts(source, args, context: IFaceGraphqlContext, info) {
+    console.log(context.remoteAddress);
+    if (context.remoteAddress) {
+      models.firestore.checkin.addCheckInAddress(
+        context.remoteAddress,
+        context.fireStoreClient
+      );
+    }
 
-  @FieldResolver({
-    type: RESOLVER_TYPE.SUB_QUERY,
-    subQuery: "User",
-  })
-  name() {
-    return "myname";
+    return false;
   }
 
   @FieldResolver({
