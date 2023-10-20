@@ -4,9 +4,10 @@ import { makeExecutableSchema } from "@graphql-tools/schema";
 import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
 import { Request, Response } from "express";
-import { IUser } from "sources-types";
+import { GEOLOCATION, IUser } from "sources-types";
 import { DecodedIdToken } from "firebase-admin/auth";
 import client from "./client";
+import { APIGatewayProxyEvent, Context } from "aws-lambda";
 
 export interface IFaceGraphqlContext {
   remoteAddress?: string;
@@ -24,13 +25,19 @@ const schema = makeExecutableSchema({
  * @param
  */
 export async function graphQLContext({
-  req,
+  event,
+  context,
+  express,
 }: {
-  req: Request;
-  res: Response;
+  event: APIGatewayProxyEvent;
+  context: Context;
+  express: {
+    req: Request;
+    res: Response;
+  };
 }): Promise<IFaceGraphqlContext> {
   const fireStoreClient = client.firebase.firestoreInstance;
-  const token = req.headers.authorization || null;
+  const token = event.headers["Authorization"] || "";
   let userAuth: DecodedIdToken;
   let user: FirebaseFirestore.QueryDocumentSnapshot<IUser>;
   if (token) {
@@ -48,9 +55,29 @@ export async function graphQLContext({
       throw new Error(`Valid authorization header is not validated`);
     }
   }
+  let sourceIps: string[] = [GEOLOCATION.UNKNOWN];
 
+  if (
+    express &&
+    express.req &&
+    express.req.headers &&
+    express.req.headers["x-forwarded-for"]
+  ) {
+    if (Array.isArray(express.req.headers["x-forwarded-for"])) {
+      sourceIps = express.req.headers["x-forwarded-for"];
+    } else {
+      sourceIps = express.req.headers["x-forwarded-for"].split(",");
+    }
+  } else if (
+    express &&
+    express.req &&
+    express.req.socket &&
+    express.req.socket.remoteAddress
+  ) {
+    sourceIps = express.req.socket.remoteAddress.split(",");
+  }
   return {
-    remoteAddress: req.socket.remoteAddress,
+    remoteAddress: sourceIps[0],
     fireStoreClient,
   };
 }

@@ -135,6 +135,10 @@ export const enum EMPLOYMENT_TYPE {
   PERMANENT_PART_TIME = "Permanent-part-time",
 }
 
+export const enum GEOLOCATION {
+  UNKNOWN = "unknown",
+}
+
 export interface IProfileEducation {
   title: string;
   institution: string;
