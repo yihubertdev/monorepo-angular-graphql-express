@@ -42,5 +42,4 @@ testem.log
 Thumbs.db
 
 # Npm Pack dist
-dist
 .angular

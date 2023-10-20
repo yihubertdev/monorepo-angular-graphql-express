@@ -6,4 +6,3 @@ node_modules
 .vscode
 
 # folder dist build
-dist

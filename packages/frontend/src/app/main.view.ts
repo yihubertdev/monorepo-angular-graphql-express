@@ -119,7 +119,7 @@ export class MainView implements OnInit {
     });
 
     const result = this._notification.getUserPosts();
-    result.subscribe((data) => console.log(data));
+    result.subscribe();
   }
 
   ngOnInit(): void {
