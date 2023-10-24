@@ -32,8 +32,26 @@
 
 /* xs width */
 .user-avatar-size {
-  height: 28vw;
-  width: 28vw;
+  height: 22vw;
+  width: 22vw;
+}
+
+.user-avatar-uploader-center {
+  position: relative;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
+}
+
+.user-avatar-uploader-corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  font-size: 50px;
 }
 
 .flex-box {
@@ -44,19 +62,31 @@
   height: 100%;
 }
 
+.card-height-responsive {
+  height: 30dvh;
+}
+
 /* sm width */
 @media (min-width: 576px) {
   .user-avatar-size {
-    height: 28vw;
-    width: 28vw;
+    height: 18vw;
+    width: 18vw;
+  }
+
+  .card-height-responsive {
+    height: 30dvh;
   }
 }
 
 /* md width */
 @media (min-width: 768px) {
   .user-avatar-size {
-    height: 32vw;
-    width: 32vw;
+    height: 16vw;
+    width: 16vw;
+  }
+
+  .card-height-responsive {
+    height: 35dvh;
   }
 }
 
@@ -66,12 +96,20 @@
     height: 16vw;
     width: 16vw;
   }
+
+  .card-height-responsive {
+    height: 40dvh;
+  }
 }
 
 /* xl width */
 @media (min-width: 1200px) {
   .user-avatar-size {
-    height: 8vw;
-    width: 8vw;
+    height: 9vw;
+    width: 9vw;
+  }
+
+  .card-height-responsive {
+    height: 45dvh;
   }
 }

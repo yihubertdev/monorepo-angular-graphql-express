@@ -7,10 +7,8 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { ChatTopicPostController } from "./controller/chat-topic-post.controller";
 import { MatListModule } from "@angular/material/list";
 import { HomePageMainPictureController } from "./controller/main-picture.controller";
-import { TopToolMenuController } from "./controller/top-toolbar.controller";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatButtonModule } from "@angular/material/button";
-import { JobsHorizonalScrollController } from "./controller/jobs-horizonal-scroll.controller";
 import { QuillModule } from "ngx-quill";
 import { ArticlePostControllerComponent } from "./controller/article-post.controller";
 import { HomePageArticleController } from "./controller/home-page-article.controller";
@@ -24,7 +22,6 @@ import { CarouselSliderComponent } from "src/app/shared/components/CarouselSlide
   declarations: [
     ChatTopicPostController,
     HomePageMainPictureController,
-    TopToolMenuController,
     ArticlePostControllerComponent,
     HomePageArticleController,
   ],
@@ -48,7 +45,6 @@ import { CarouselSliderComponent } from "src/app/shared/components/CarouselSlide
     HomePageArticleController,
     ChatTopicPostController,
     HomePageMainPictureController,
-    TopToolMenuController,
     ArticlePostControllerComponent,
   ],
 })

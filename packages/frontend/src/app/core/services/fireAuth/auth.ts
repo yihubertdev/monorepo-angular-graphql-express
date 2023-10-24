@@ -159,6 +159,7 @@ export class AuthService {
         isAnonymous: user.isAnonymous,
         phoneNumber: user.phoneNumber,
         photoURL: user.photoURL,
+        backgroundPhotoURL: null,
       }),
     ]);
     this.currentUser = await this.userService.retrieveById(user.uid);

@@ -176,6 +176,7 @@ export interface IUser {
   isAnonymous: boolean;
   phoneNumber: string | null;
   photoURL: string | null;
+  backgroundPhotoURL: string | null;
   role: IUserRole;
 }
 

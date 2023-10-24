@@ -13,6 +13,11 @@ export default [
     loadChildren: () => import("../profile"),
   },
   {
+    path: "settings",
+    loadComponent: () => import("./settings.view"),
+    loadChildren: () => import("../settings"),
+  },
+  {
     path: "login",
     canActivate: [isUserLoginToUser],
     loadComponent: () => import("./login.view"),

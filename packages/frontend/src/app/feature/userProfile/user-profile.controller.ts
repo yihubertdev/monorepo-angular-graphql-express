@@ -42,18 +42,36 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   ],
   providers: [ProfileStorageService],
   template: `
-    <mat-card style="height: 30dvh; border-radius: initial;">
+    <!-- upload image input -->
+    <input
+      type="file"
+      (change)="uploadImage($event.target)"
+      style="display:none"
+      id="uploadProfile"
+      #uploadProfile
+      name="filedata" />
+    <mat-card
+      class="card-height-responsive"
+      style="border-radius: initial;">
       <div
         class="profile-background profile-background-size slide-image-cover-center"
         [ngStyle]="{
           backgroundImage: currentUser?.photoURL ? 'url(' + currentUser?.photoURL + ')' : 'url(' + photoUrl + ')',
-        }"></div>
+        }">
+        <mat-icon
+          *ngIf="isSettingsPage"
+          class="user-avatar-uploader-corner cursor-pointer"
+          (click)="triggerUpload()"
+          >upload</mat-icon
+        >
+      </div>
 
       <div
         class="position-absolute-bottom m-0 p-0"
-        style="width: 100%;">
+        style="width: 100%;"
+        *ngIf="!isSettingsPage">
         <div
-          class="user-avatar-size m-0 p-0 user-avatar"
+          class="user-avatar-sizes user-avatar"
           [ngStyle]="{
             backgroundImage:
               'url(' +
@@ -61,15 +79,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
               ')',
             backgroundSize: 'cover'
           }"
-          (click)="triggerUpload()">
-          <input
-            type="file"
-            (change)="uploadImage($event.target)"
-            style="display:none"
-            id="uploadProfile"
-            #uploadProfile
-            name="filedata" />
-        </div>
+          (click)="triggerUpload()"></div>
         <div class="position-absolute-bottom-right">
           <a
             mat-raised-button
@@ -83,7 +93,9 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
       </div>
     </mat-card>
 
-    <mat-card style="border-radius: initial;">
+    <mat-card
+      style="border-radius: initial;"
+      *ngIf="!isSettingsPage">
       <mat-card-header>
         <mat-card-title style="display: inline !important;"
           >{{ currentUser?.displayName ?? "Guest" }}
@@ -100,6 +112,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
 })
 export class UserProfileController implements OnInit {
   @Input() userId?: string;
+  @Input() isSettingsPage?: boolean;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
   currentUser?: IUser;
   photoUrl: string =

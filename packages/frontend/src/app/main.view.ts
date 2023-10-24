@@ -11,7 +11,7 @@ import {
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
-import { CommonModule } from "@angular/common";
+import { NgIf, NgStyle } from "@angular/common";
 import { MenuModule } from "./feature/menu/menu.module";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
@@ -28,7 +28,8 @@ import { NotificationHttpService } from "./core/services/http/notification.http"
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
+    NgIf,
+    NgStyle,
     RouterOutlet,
     MatIconModule,
     MatTabsModule,
@@ -53,7 +54,7 @@ import { NotificationHttpService } from "./core/services/http/notification.http"
       </button>
       <span>Whatever Site Name</span>
       <header-menu-controller></header-menu-controller>
-      <span class="example-spacer"></span>
+      <span class="top-menu-space"></span>
       <svg-icon-menu-controller></svg-icon-menu-controller>
     </mat-toolbar>
     <mat-progress-bar
@@ -74,7 +75,7 @@ import { NotificationHttpService } from "./core/services/http/notification.http"
           xl: true
         }"
         [ngStyle]="{
-          width: '12dvw'
+          width: '18dvw'
         }">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
