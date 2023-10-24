@@ -79,8 +79,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
                 <mat-expansion-panel-header>
                   <mat-panel-title> You Account 1 </mat-panel-title>
                 </mat-expansion-panel-header>
-                <user-details-card
-                  [userDetails]="userDetail"></user-details-card>
+                <user-details-card-component
+                  [userDetails]="userDetail"></user-details-card-component>
               </mat-expansion-panel>
             </mat-accordion>
           </div>

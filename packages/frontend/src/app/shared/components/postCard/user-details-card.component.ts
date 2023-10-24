@@ -36,7 +36,7 @@ export interface IUserDetailCard<T, S> {
 @Component({
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: "user-details-card",
+  selector: "user-details-card-component",
   imports: [
     NgIf,
     NgFor,
