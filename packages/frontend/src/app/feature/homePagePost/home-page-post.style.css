@@ -56,49 +56,16 @@ div.horizonal-scroll-section > .horizonal-scroll-card {
   white-space: nowrap;
 }
 
-/* md width */
-@media (min-width: 768px) {
-  div.horizonal-scroll-section::-webkit-scrollbar {
-    height: 10px !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-track {
-    background: rgb(219, 218, 218) !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-thumb {
-    background: rgb(197, 197, 197) !important;
-  }
+div.horizonal-scroll-section::-webkit-scrollbar {
+  height: 10px !important;
 }
 
-/* lg width */
-@media (min-width: 992px) {
-  div.horizonal-scroll-section::-webkit-scrollbar {
-    height: 10px !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-track {
-    background: rgb(219, 218, 218) !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-thumb {
-    background: rgb(197, 197, 197) !important;
-  }
+div.horizonal-scroll-section::-webkit-scrollbar-track {
+  background: rgb(219, 218, 218) !important;
 }
 
-/* xl width */
-@media (min-width: 1200px) {
-  div.horizonal-scroll-section::-webkit-scrollbar {
-    height: 10px !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-track {
-    background: rgb(219, 218, 218) !important;
-  }
-
-  div.horizonal-scroll-section::-webkit-scrollbar-thumb {
-    background: rgb(197, 197, 197) !important;
-  }
+div.horizonal-scroll-section::-webkit-scrollbar-thumb {
+  background: rgb(197, 197, 197) !important;
 }
 
 .list-item-height {

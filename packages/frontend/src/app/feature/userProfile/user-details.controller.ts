@@ -13,17 +13,13 @@ import {
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import {
-  ICollectionQueryBuilder,
-  IProfile,
-  IProfileHomeAddress,
-  IUser,
-} from "sources-types";
+import { IProfileHomeAddress, IUser } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
 import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
+import { MatExpansionModule } from "@angular/material/expansion";
 
 @Component({
   standalone: true,
@@ -39,6 +35,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
     UserDetailCardComponent,
     MatMenuModule,
     MatDialogModule,
+    MatExpansionModule,
   ],
   selector: "user-details-controller",
   template: `<mat-tab-group>
@@ -77,7 +74,15 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
             *ngFor="let userDetail of profile.details"
             class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
-            <user-details-card [userDetails]="userDetail"></user-details-card>
+            <mat-accordion>
+              <mat-expansion-panel (closed)="(false)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title> You Account 1 </mat-panel-title>
+                </mat-expansion-panel-header>
+                <user-details-card
+                  [userDetails]="userDetail"></user-details-card>
+              </mat-expansion-panel>
+            </mat-accordion>
           </div>
         </div>
       </div>

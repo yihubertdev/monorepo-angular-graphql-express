@@ -74,13 +74,6 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
           <a
             mat-raised-button
             color="primary"
-            style="float: right; ">
-            Follow
-            <mat-icon>person</mat-icon>
-          </a>
-          <a
-            mat-raised-button
-            color="primary"
             [routerLink]="[currentUser?.userId ?? 'me', 'personal-profile']"
             style="float: right; margin-right: 1%;">
             Profile

@@ -20,6 +20,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { PreviewLinkComponent } from "./previewlink.component";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 import { ImageComponent } from "../CarouselSlider/image.component";
+import { ImageSliderComponent } from "../CarouselSlider/images-slider.component";
 
 @Component({
   standalone: true,
@@ -37,6 +38,7 @@ import { ImageComponent } from "../CarouselSlider/image.component";
     PreviewLinkComponent,
     CarouselSliderComponent,
     ImageComponent,
+    ImageSliderComponent,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,

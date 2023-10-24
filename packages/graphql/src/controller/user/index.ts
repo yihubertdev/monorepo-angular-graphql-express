@@ -13,10 +13,10 @@ class UserResolver {
   @FieldResolver({
     type: RESOLVER_TYPE.QUERY,
   })
-  posts(source, args, context: IFaceGraphqlContext, info) {
+  async posts(source, args, context: IFaceGraphqlContext, info) {
     console.log(context.remoteAddress);
     if (context.remoteAddress) {
-      models.firestore.checkin.addCheckInAddress(
+      await models.firestore.checkin.addCheckInAddress(
         context.remoteAddress,
         context.fireStoreClient
       );

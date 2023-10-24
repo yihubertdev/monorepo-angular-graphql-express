@@ -4,22 +4,23 @@ import { MatCardModule } from "@angular/material/card";
 
 @Component({
   standalone: true,
-  imports: [NgStyle, MatCardModule, NgFor],
+  imports: [MatCardModule, NgFor, NgStyle],
   selector: "image-slider-component",
   template: `
     <div class="horizonal-scroll-section">
       <mat-card
+        class="horizonal-scroll-card slide-image-cover-center"
         *ngFor="let image of images"
-        class="horizonal-scroll-card slide-image-cover-center image-height-responsive"
         [ngStyle]="{
-          backgroundImage: 'url('+image+')',
+          backgroundImage: 'url(' + image + ')',
         }">
-        <mat-card-content class="image-height-responsive"> </mat-card-content>
+        <mat-card-content style="width: 300px; height: 300px;">
+        </mat-card-content>
       </mat-card>
     </div>
   `,
   styleUrls: ["./carousel-slider.css"],
 })
-export class imageSliderComponent {
+export class ImageSliderComponent {
   @Input({ required: true }) images?: string[];
 }

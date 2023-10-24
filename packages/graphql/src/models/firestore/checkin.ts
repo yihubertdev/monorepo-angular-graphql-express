@@ -6,12 +6,12 @@ import client from "../../client";
  * @param {string} [fireStoreClient] firestore client
  * @returns {void}
  */
-function addCheckInAddress(
+async function addCheckInAddress(
   ip: string,
   fireStoreClient?: FirebaseFirestore.Firestore
-): void {
+): Promise<void> {
   const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
-  fireStore.collection("checkin").doc(ip).set({
+  await fireStore.collection("checkin").doc(ip).set({
     createdAt: new Date().getTime(),
   });
 }

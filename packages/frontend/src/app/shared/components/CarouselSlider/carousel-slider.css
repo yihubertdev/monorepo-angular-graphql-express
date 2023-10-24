@@ -7,45 +7,9 @@ img {
 
 /* Slideshow container */
 .slide-show-container {
-  height: 30dvh;
+  height: 40dvh;
   position: relative;
   margin: auto;
-}
-
-/* sm width */
-@media (min-width: 576px) {
-  .slide-show-container {
-    height: 30dvh;
-    position: relative;
-    margin: auto;
-  }
-}
-
-/* md width */
-@media (min-width: 768px) {
-  .slide-show-container {
-    height: 40dvh;
-    position: relative;
-    margin: auto;
-  }
-}
-
-/* lg width */
-@media (min-width: 992px) {
-  .slide-show-container {
-    height: 40dvh;
-    position: relative;
-    margin: auto;
-  }
-}
-
-/* xl width */
-@media (min-width: 1200px) {
-  .slide-show-container {
-    height: 40dvh;
-    position: relative;
-    margin: auto;
-  }
 }
 
 /* Next & previous buttons */
@@ -147,38 +111,44 @@ img {
 
 /* xs width */
 .image-height-responsive {
-  height: 30dvh;
+  height: 35dvh;
   width: 100%;
 }
 
-/* sm width */
-@media (min-width: 576px) {
-  .image-height-responsive {
-    height: 30dvh;
-    width: 100%;
-  }
+div.horizonal-scroll-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+  overflow-x: scroll !important;
+  overflow-y: hidden !important;
 }
 
-/* md width */
-@media (min-width: 768px) {
-  .image-height-responsive {
-    height: 30dvh;
-    width: 85%;
-  }
+div.horizonal-scroll-section > .horizonal-scroll-card {
+  width: 220px;
+  height: 195px;
+  position: relative;
+  text-align: start;
+  border-radius: 20px;
+  margin-inline-end: 15px;
 }
 
-/* lg width */
-@media (min-width: 992px) {
-  .image-height-responsive {
-    height: 30dvh;
-    width: 85%;
-  }
+.horizonal-scroll-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 50px;
+  white-space: nowrap;
 }
 
-/* xl width */
-@media (min-width: 1200px) {
-  .image-height-responsive {
-    height: 40dvh;
-    width: 85%;
-  }
+div.horizonal-scroll-section::-webkit-scrollbar {
+  height: 10px !important;
 }
+
+/* div.horizonal-scroll-section::-webkit-scrollbar-track {
+  background: rgb(219, 218, 218) !important;
+}
+
+div.horizonal-scroll-section::-webkit-scrollbar-thumb {
+  background: rgb(197, 197, 197) !important;
+} */
