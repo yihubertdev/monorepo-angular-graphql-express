@@ -52,6 +52,7 @@ export interface IUserDetailCard<T, S> {
       <mat-card-title
         >{{ userDetails.title }}
         <a
+          *ngIf="isSettingsPage"
           mat-button
           (click)="openDialog()">
           <mat-icon>edit</mat-icon>
@@ -62,8 +63,8 @@ export interface IUserDetailCard<T, S> {
       <mat-list>
         <div class="row">
           <div
-            class="col-xl-4 col-lg-4
-              col-md-4 col-sm-12 col-xs-12"
+            class="col-xl-6 col-lg-6
+              col-md-6 col-sm-12 col-xs-12"
             *ngFor="let info of userDetails.formInputList">
             <mat-list-item>{{ info.label }} : {{ info.value }}</mat-list-item>
             <mat-divider></mat-divider>
@@ -78,6 +79,7 @@ export class UserDetailCardComponent {
     IUser,
     IProfileHomeAddress
   >;
+  @Input() isSettingsPage?: boolean;
 
   constructor(public dialog: MatDialog) {}
   ngOnChanges() {

@@ -1,10 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
-import { MatCardModule } from "@angular/material/card";
-import { MatGridListModule } from "@angular/material/grid-list";
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
 import { homeAdressSchema } from "../../core/joiSchema/auth.schema";
@@ -14,29 +9,11 @@ import {
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
 import { IProfileHomeAddress, IUser } from "sources-types";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
-import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
-import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
-import { MatExpansionModule } from "@angular/material/expansion";
 
 @Component({
   standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    MatCardModule,
-    MatGridListModule,
-    MatIconModule,
-    MatButtonModule,
-    RouterModule,
-    MatTabsModule,
-    UserDetailCardComponent,
-    MatMenuModule,
-    MatDialogModule,
-    MatExpansionModule,
-  ],
+  imports: [NgIf, NgFor, MatTabsModule, UserDetailCardComponent],
   selector: "user-details-controller",
   template: `<mat-tab-group>
     <mat-tab
@@ -45,44 +22,11 @@ import { MatExpansionModule } from "@angular/material/expansion";
       <div class="container">
         <div class="row">
           <div
-            class="col-xl-12 col-lg-12
-              col-md-12 col-sm-12 col-xs-12">
-            <button
-              mat-raised-button
-              [matMenuTriggerFor]="menu"
-              class="m-2">
-              Add Profile Section
-            </button>
-            <mat-menu #menu="matMenu">
-              <button
-                *ngFor="let section of addProfileSection"
-                mat-menu-item
-                (click)="openDialog(section)">
-                {{ section.title }}
-              </button>
-            </mat-menu>
-            <a
-              mat-raised-button
-              color="primary"
-              [routerLink]="['/users', 'profile-signup', userId]"
-              class="m-2">
-              Build Your Profile
-              <mat-icon>account_box</mat-icon>
-            </a>
-          </div>
-          <div
             *ngFor="let userDetail of profile.details"
-            class="col-xl-12 col-lg-12
-              col-md-12 col-sm-12 col-xs-12 mb-4">
-            <mat-accordion>
-              <mat-expansion-panel (closed)="(false)">
-                <mat-expansion-panel-header>
-                  <mat-panel-title> You Account 1 </mat-panel-title>
-                </mat-expansion-panel-header>
-                <user-details-card-component
-                  [userDetails]="userDetail"></user-details-card-component>
-              </mat-expansion-panel>
-            </mat-accordion>
+            class="col-xl-6 col-lg-6
+              col-md-6 col-sm-12 col-xs-12 mb-4">
+            <user-details-card-component
+              [userDetails]="userDetail"></user-details-card-component>
           </div>
         </div>
       </div>
@@ -109,22 +53,7 @@ export class UserDetailsController implements OnInit {
     user: QueryDocumentSnapshot<IUser>;
   };
 
-  constructor(private _userService: UserService, public dialog: MatDialog) {}
-
-  openDialog(sectionInfo: any) {
-    const dialogRef = this.dialog.open(AddProfileSectionDialog, {
-      disableClose: true,
-      data: {
-        ...sectionInfo,
-        documentId: uuidv4(),
-        user: this.info.user,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe(() => {
-      this.ngOnInit();
-    });
-  }
+  constructor(private _userService: UserService) {}
 
   async ngOnInit() {
     if (this.userId) {

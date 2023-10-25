@@ -1,9 +1,14 @@
 import { Component } from "@angular/core";
-import { Router } from "@angular/router";
-import { headerMenu } from "../../../core/static/menu.static";
+import { RouterModule } from "@angular/router";
+import { headerMenu } from "../../core/static/menu.static";
+import { NgFor, NgIf } from "@angular/common";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
+  standalone: true,
   selector: "header-menu-controller",
+  imports: [NgFor, NgIf, RouterModule, MatMenuModule, MatButtonModule],
   template: `
     <ng-container *ngFor="let menus of headerMenuLayout">
       <button
@@ -30,10 +35,7 @@ import { headerMenu } from "../../../core/static/menu.static";
       </button>
     </ng-container>
   `,
-  styleUrls: [],
 })
 export class HeaderMenuController {
   headerMenuLayout = headerMenu;
-
-  constructor(private router: Router) {}
 }

@@ -1,11 +1,28 @@
 import { Component, HostListener } from "@angular/core";
-import { MatBottomSheet } from "@angular/material/bottom-sheet";
+import {
+  MatBottomSheet,
+  MatBottomSheetModule,
+} from "@angular/material/bottom-sheet";
 import { IMenu } from "sources-types";
-import { footerMenus } from "../../../core/static/menu.static";
+import { footerMenus } from "../../core/static/menu.static";
 import { FooterMenuController } from "./footer-menu.controllers";
+import { NgFor, NgIf, NgStyle } from "@angular/common";
+import { RouterModule } from "@angular/router";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
+  standalone: true,
   selector: "footer-controller",
+  imports: [
+    NgFor,
+    NgIf,
+    NgStyle,
+    RouterModule,
+    MatIconModule,
+    MatTabsModule,
+    MatBottomSheetModule,
+  ],
   template: `
     <div
       #footer
@@ -13,7 +30,6 @@ import { FooterMenuController } from "./footer-menu.controllers";
       [ngStyle]="{ bottom: hideFooter ? '-50px' : '0px' }">
       <nav
         mat-tab-nav-bar
-        class="child-centered mat-tab-group-inverted-header main-nav"
         [tabPanel]="tabPanel">
         <ng-container *ngFor="let icon of footerMenus">
           <a
@@ -35,7 +51,7 @@ import { FooterMenuController } from "./footer-menu.controllers";
       <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
     </div>
   `,
-  styleUrls: ["../menu.style.css"],
+  styleUrls: ["./menu.style.css"],
 })
 export class FooterController {
   public footerMenus: IMenu[] = footerMenus;

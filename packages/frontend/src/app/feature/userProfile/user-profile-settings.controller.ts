@@ -24,44 +24,78 @@ import { homePageMenus } from "src/app/core/static/menu.static";
     UserPhotoPipe,
     MatIconModule,
     MatButtonModule,
-    MatIconModule,
     MatDividerModule,
     MatListModule,
     RouterModule,
   ],
   providers: [ProfileStorageService],
   template: `
-    <mat-card style="border-radius: initial;">
+    <mat-card>
       <mat-card-header>
-        <mat-card-title style="display: inline !important;"
-          >{{ currentUser?.displayName ?? "Guest" }}
-        </mat-card-title>
-        <mat-card-subtitle style="display: inline !important;"
-          >@{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
-        >
-        <div
-          class="user-avatar-size user-avatar"
-          [ngStyle]="{
-            backgroundImage:
-              'url(' +
-              (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
-              ')',
-            backgroundSize: 'cover',
-            marginLeft: 'auto'
-          }">
-          <mat-icon
-            class="user-avatar-uploader-center cursor-pointer"
-            (click)="triggerUpload()"
-            >upload</mat-icon
+        <mat-card-title-group>
+          <mat-card-title
+            >{{ currentUser?.displayName ?? "Guest" }}
+          </mat-card-title>
+          <mat-card-subtitle
+            >@{{ currentUser?.userId ?? "guest" }}
+            <mat-card-actions>
+              <div class="row m-0 p-0">
+                <div
+                  class="col-xl-4 col-lg-4
+              col-md-4 col-sm-12 col-xs-12 m-0 p-0">
+                  <a
+                    mat-button
+                    [routerLink]="[
+                      '/users',
+                      currentUser!.userId,
+                      'personal-profile'
+                    ]"
+                    >View <mat-icon> visibility </mat-icon></a
+                  >
+                </div>
+                <div
+                  class="col-xl-8 col-lg-8
+              col-md-8 col-sm-12 col-xs-12 m-0 p-0">
+                  <a
+                    mat-raised-button
+                    color="primary"
+                    [routerLink]="[
+                      '/users',
+                      currentUser!.userId,
+                      'profile-signup'
+                    ]">
+                    Build Profile
+                    <mat-icon>account_box</mat-icon>
+                  </a>
+                </div>
+              </div>
+            </mat-card-actions></mat-card-subtitle
           >
-          <input
-            type="file"
-            (change)="uploadImage($event.target)"
-            style="display:none"
-            id="uploadProfile"
-            #uploadProfile
-            name="filedata" />
-        </div>
+
+          <div
+            class="user-avatar-size user-avatar"
+            [ngStyle]="{
+              backgroundImage:
+                'url(' +
+                (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
+                ')',
+              backgroundSize: 'cover',
+              marginLeft: 'auto'
+            }">
+            <mat-icon
+              class="user-avatar-uploader-center cursor-pointer"
+              (click)="triggerUpload()"
+              >upload</mat-icon
+            >
+            <input
+              type="file"
+              (change)="uploadImage($event.target)"
+              style="display:none"
+              id="uploadProfile"
+              #uploadProfile
+              name="filedata" />
+          </div>
+        </mat-card-title-group>
       </mat-card-header>
 
       <mat-card-content>
@@ -69,8 +103,7 @@ import { homePageMenus } from "src/app/core/static/menu.static";
           <a
             mat-list-item
             [routerLink]="menu.link"
-            *ngFor="let menu of menus"
-            routerLinkActive="active-list-item">
+            *ngFor="let menu of menus">
             <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
             <div matListItemTitle>{{ menu.description }}</div>
           </a>
@@ -81,7 +114,6 @@ import { homePageMenus } from "src/app/core/static/menu.static";
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserProfileSettingsController implements OnInit {
-  @Input() userId?: string;
   @Input() isSettingsPage?: boolean;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
 

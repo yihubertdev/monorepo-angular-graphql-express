@@ -45,32 +45,6 @@ import { MatExpansionModule } from "@angular/material/expansion";
       <div class="container">
         <div class="row">
           <div
-            class="col-xl-12 col-lg-12
-              col-md-12 col-sm-12 col-xs-12">
-            <button
-              mat-raised-button
-              [matMenuTriggerFor]="menu"
-              class="m-2">
-              Add Profile Section
-            </button>
-            <mat-menu #menu="matMenu">
-              <button
-                *ngFor="let section of addProfileSection"
-                mat-menu-item
-                (click)="openDialog(section)">
-                {{ section.title }}
-              </button>
-            </mat-menu>
-            <a
-              mat-raised-button
-              color="primary"
-              [routerLink]="['/users', 'profile-signup', userId]"
-              class="m-2">
-              Build Your Profile
-              <mat-icon>account_box</mat-icon>
-            </a>
-          </div>
-          <div
             *ngFor="let userDetail of profile.details"
             class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
@@ -80,7 +54,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
                   <mat-panel-title> You Account 1 </mat-panel-title>
                 </mat-expansion-panel-header>
                 <user-details-card-component
-                  [userDetails]="userDetail"></user-details-card-component>
+                  [userDetails]="userDetail"
+                  [isSettingsPage]="true"></user-details-card-component>
               </mat-expansion-panel>
             </mat-accordion>
           </div>

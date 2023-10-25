@@ -14,6 +14,7 @@ export const SITE_ROUTE_PAGE = {
   SIGNUP: ["users", "signup"],
   PAYMENT: ["payment"],
   NOTIFICATION: ["users", "notifications"],
+  SETTINGS: ["users", "settings"],
 };
 
 export const footerMenus: IMenu[] = [
@@ -65,6 +66,12 @@ export const homePageMenus: IMenu[] = [
   {
     link: SITE_ROUTE_PAGE.ADD_ARTICLE,
     description: "Add Article",
+    iconName: "feed",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.SETTINGS,
+    description: "Profile Setting",
     iconName: "feed",
     width: "50px",
   },

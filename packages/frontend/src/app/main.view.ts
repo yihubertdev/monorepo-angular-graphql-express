@@ -12,7 +12,6 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgIf, NgStyle } from "@angular/common";
-import { MenuModule } from "./feature/menu/menu.module";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
@@ -20,9 +19,11 @@ import { SessionStorageService } from "./core/services/browserStorage/sessionSto
 import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
-import { MainMenuController } from "./feature/menu/controller/main.controller";
-import { MainIconController } from "./feature/menu/controller/svg-icon.controller";
+import { DrawerMenuController } from "./feature/menu/drawer-menu.controller";
+import { MainIconController } from "./feature/menu/svgicon-menu.controller";
 import { NotificationHttpService } from "./core/services/http/notification.http";
+import { HeaderMenuController } from "./feature/menu/header-menu.controller";
+import { FooterController } from "./feature/menu/footer.controller";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -35,13 +36,14 @@ import { NotificationHttpService } from "./core/services/http/notification.http"
     MatTabsModule,
     MatMenuModule,
     MatToolbarModule,
-    MenuModule,
     MatDrawerResponsiveDirectiveModule,
     MatSidenavModule,
     MatButtonModule,
     MatProgressBarModule,
-    MainMenuController,
+    DrawerMenuController,
+    HeaderMenuController,
     MainIconController,
+    FooterController,
   ],
   selector: "main-view",
   template: `

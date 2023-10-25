@@ -44,6 +44,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   template: `
     <!-- upload image input -->
     <input
+      *ngIf="isSettingsPage"
       type="file"
       (change)="uploadImage($event.target)"
       style="display:none"
@@ -71,15 +72,14 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
         style="width: 100%;"
         *ngIf="!isSettingsPage">
         <div
-          class="user-avatar-sizes user-avatar"
+          class="user-avatar-size user-avatar"
           [ngStyle]="{
             backgroundImage:
               'url(' +
               (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
               ')',
             backgroundSize: 'cover'
-          }"
-          (click)="triggerUpload()"></div>
+          }"></div>
         <div class="position-absolute-bottom-right">
           <a
             mat-raised-button
@@ -140,6 +140,8 @@ export class UserProfileController implements OnInit {
   }
 
   triggerUpload() {
-    this.uploadProfile.nativeElement.click();
+    if (this.isSettingsPage) {
+      this.uploadProfile.nativeElement.click();
+    }
   }
 }

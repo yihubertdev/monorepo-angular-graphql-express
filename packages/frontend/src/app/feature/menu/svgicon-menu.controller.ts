@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ISVGIconMenu } from "sources-types";
-import { mainTopIconMenu } from "../../../core/static/menu.static";
+import { mainTopIconMenu } from "../../core/static/menu.static";
 import { NgFor, NgIf } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
@@ -43,7 +43,7 @@ import { MatButtonModule } from "@angular/material/button";
       <mat-icon *ngIf="!menu.src"> {{ menu.iconName }}</mat-icon>
     </a>
   `,
-  styleUrls: ["../menu.style.css"],
+  styleUrls: ["./menu.style.css"],
 })
 export class MainIconController {
   menus: ISVGIconMenu[] = mainTopIconMenu;
