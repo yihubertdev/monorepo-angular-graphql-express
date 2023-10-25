@@ -4,7 +4,7 @@ import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
 import { homeAdressSchema } from "../../core/joiSchema/auth.schema";
@@ -91,7 +91,6 @@ import { MatExpansionModule } from "@angular/material/expansion";
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserDetailsSettingsController implements OnInit {
-  @Input({ required: true }) userId!: string;
   public isDisplay: boolean = true;
   public userDetails!: {
     title: string;
@@ -108,8 +107,13 @@ export class UserDetailsSettingsController implements OnInit {
     profile: IProfileHomeAddress[];
     user: QueryDocumentSnapshot<IUser>;
   };
+  public userId!: string;
 
-  constructor(private _userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private _userService: UserService,
+    public dialog: MatDialog,
+    private route: ActivatedRoute
+  ) {}
 
   openDialog(sectionInfo: any) {
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
@@ -126,49 +130,45 @@ export class UserDetailsSettingsController implements OnInit {
     });
   }
 
-  async ngOnInit() {
-    if (this.userId) {
-      this.info = await this._userService.retrieveSubCollectionProfile({
-        userId: this.userId,
-      });
-
-      if (this.info.user) {
-        this.userDetails = [
-          {
-            title: "Personal Profile",
-            details: this.info.profile.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
-            })),
-          },
-          {
-            title: "Business Profile",
-            details: this.info.profile.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
-            })),
-          },
-          {
-            title: "Professional Profile",
-            details: this.info.profile.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
-            })),
-          },
-        ];
-      }
+  ngOnInit() {
+    this.info = this.route.snapshot.data["settings"];
+    this.userId = this.route.parent!.snapshot.data["userId"];
+    if (this.info.user) {
+      this.userDetails = [
+        {
+          title: "Personal Profile",
+          details: this.info.profile.map((item) => ({
+            userSnapshot: this.info.user,
+            details: item,
+            title: item.title,
+            documentId: item.documentId,
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          })),
+        },
+        {
+          title: "Business Profile",
+          details: this.info.profile.map((item) => ({
+            userSnapshot: this.info.user,
+            details: item,
+            title: item.title,
+            documentId: item.documentId,
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          })),
+        },
+        {
+          title: "Professional Profile",
+          details: this.info.profile.map((item) => ({
+            userSnapshot: this.info.user,
+            details: item,
+            title: item.title,
+            documentId: item.documentId,
+            formInputList: HOME_ADDRESS_PROFILE,
+            formInputSchema: homeAdressSchema,
+          })),
+        },
+      ];
     }
   }
 }

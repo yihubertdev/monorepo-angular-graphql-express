@@ -46,3 +46,10 @@ export const userProfileResolver: ResolveFn<IUser | undefined> = async (
     return inject(SessionStorageService).getSessionStorage<IUser>("user");
   }
 };
+
+export const loggedUserProfileResolver: ResolveFn<IUser> = async (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return inject(SessionStorageService).getSessionStorage<IUser>("user")!;
+};

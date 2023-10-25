@@ -3,7 +3,10 @@ import {
   isUserLogin,
   isUserLoginToUser,
 } from "../../core/services/routeGuard/index.guard";
-import { userProfileResolver } from "../../shared/resolvers/post.resolver";
+import {
+  loggedUserProfileResolver,
+  userProfileResolver,
+} from "../../shared/resolvers/post.resolver";
 
 export default [
   {
@@ -14,6 +17,8 @@ export default [
   },
   {
     path: "settings",
+    canActivate: [isUserLogin],
+    resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./settings.view"),
     loadChildren: () => import("../settings"),
   },
