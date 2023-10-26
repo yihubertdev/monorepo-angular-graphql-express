@@ -33,7 +33,8 @@ export default [
     loadComponent: () => import("./sign-up.view"),
   },
   {
-    path: ":id/profile-signup",
+    path: "profile-signup",
+    canActivate: [isUserLogin],
     resolve: { user: userProfileResolver },
     loadComponent: () => import("./profile-sign-up.view"),
   },

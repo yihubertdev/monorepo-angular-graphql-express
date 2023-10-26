@@ -1,10 +1,11 @@
 import { Component } from "@angular/core";
 import { IMenu } from "sources-types";
-import { homePageMenus } from "../../core/static/menu.static";
+import { SITE_ROUTE_PAGE, homePageMenus } from "../../core/static/menu.static";
 import { NgFor } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 @Component({
   standalone: true,
   imports: [NgFor, MatListModule, RouterModule, MatIconModule],
@@ -21,8 +22,8 @@ import { MatIconModule } from "@angular/material/icon";
       >
       <a
         mat-list-item
-        [routerLink]="['home', 'posts']"
-        routerLinkActive="active-list-item">
+        routerLinkActive="active-list-item"
+        (click)="logout()">
         <mat-icon matListItemIcon>account_circle</mat-icon>
         <div matListItemTitle>Logout</div></a
       >
@@ -32,4 +33,11 @@ import { MatIconModule } from "@angular/material/icon";
 })
 export class DrawerMenuController {
   menus: IMenu[] = homePageMenus;
+
+  constructor(private _auth: AuthService, private _router: Router) {}
+
+  public logout() {
+    this._auth.logout();
+    this._router.navigate(SITE_ROUTE_PAGE.LOGIN);
+  }
 }

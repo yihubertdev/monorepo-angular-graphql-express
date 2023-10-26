@@ -7,9 +7,10 @@ import {
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { IUser } from "sources-types";
 
 export const isUserLogin: CanActivateFn = () => {
-  if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
+  if (Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))) {
     return true;
   } else {
     inject(Router).navigate(["users", "login"]);
@@ -22,7 +23,9 @@ export const isMeLogin: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   if (route.params["id"] === "me") {
-    if (Boolean(inject(SessionStorageService).getAllSessionStorage().length)) {
+    if (
+      Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
+    ) {
       return true;
     } else {
       inject(Router).navigate(["users", "login"]);
@@ -34,7 +37,7 @@ export const isMeLogin: CanActivateFn = (
 };
 
 export const isUserLoginToUser: CanActivateFn = () =>
-  Boolean(inject(SessionStorageService).getAllSessionStorage().length)
+  Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
     ? inject(Router).navigate(["users", "me", "posts"])
     : true;
 

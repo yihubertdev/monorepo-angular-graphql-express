@@ -41,16 +41,12 @@ import { homePageMenus } from "src/app/core/static/menu.static";
             <mat-card-actions>
               <div class="row m-0 p-0">
                 <div
-                  class="col-xl-4 col-lg-4
-              col-md-4 col-sm-12 col-xs-12 m-0 p-0">
+                  class="col-xl-12 col-lg-12
+              col-md-12 col-sm-12 col-xs-12 m-0 p-0">
                   <a
                     mat-button
-                    [routerLink]="[
-                      '/users',
-                      currentUser!.userId,
-                      'personal-profile'
-                    ]"
-                    >View <mat-icon> visibility </mat-icon></a
+                    [routerLink]="['/users', 'personal-profile']"
+                    >View Profile <mat-icon> visibility </mat-icon></a
                   >
                 </div>
                 <div
@@ -59,11 +55,7 @@ import { homePageMenus } from "src/app/core/static/menu.static";
                   <a
                     mat-raised-button
                     color="primary"
-                    [routerLink]="[
-                      '/users',
-                      currentUser!.userId,
-                      'profile-signup'
-                    ]">
+                    [routerLink]="['/users', 'profile-signup']">
                     Build Profile
                     <mat-icon>account_box</mat-icon>
                   </a>

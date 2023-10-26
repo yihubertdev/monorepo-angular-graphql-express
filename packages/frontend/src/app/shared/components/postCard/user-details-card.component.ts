@@ -1,21 +1,8 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { NgFor, NgIf } from "@angular/common";
-import { FormInputListComponent } from "../formInputList/form-input-list.component";
-import {
-  ICollectionQueryBuilder,
-  IFormInput,
-  IProfileHomeAddress,
-  IUser,
-  PROFILE_TITLE,
-} from "sources-types";
+import { IFormInput, IProfileHomeAddress, IUser } from "sources-types";
 import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDividerModule } from "@angular/material/divider";

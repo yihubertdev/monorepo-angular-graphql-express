@@ -26,13 +26,13 @@ export class EmailLoginControllerComponent {
     private _snackBar: MatSnackBar
   ) {}
 
-  async login(formValue: Record<string, number | string>) {
+  login(formValue: Record<string, number | string>) {
     const data = {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
     };
     try {
-      await this.authService.login(data);
+      this.authService.login(data);
       this._router.navigate(SITE_ROUTE_PAGE.MY_POSTS);
     } catch (err) {
       console.log(err);
