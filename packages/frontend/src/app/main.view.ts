@@ -15,8 +15,6 @@ import { NgIf, NgStyle } from "@angular/common";
 import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
-import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
-import { IUser } from "sources-types";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
 import { DrawerMenuController } from "./feature/menu/drawer-menu.controller";
@@ -24,6 +22,8 @@ import { MainIconController } from "./feature/menu/svgicon-menu.controller";
 import { NotificationHttpService } from "./core/services/http/notification.http";
 import { HeaderMenuController } from "./feature/menu/header-menu.controller";
 import { FooterController } from "./feature/menu/footer.controller";
+import { AuthService } from "./core/services/fireAuth/auth";
+import { User } from "@angular/fire/auth";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -93,14 +93,14 @@ import { FooterController } from "./feature/menu/footer.controller";
 })
 export class MainView implements OnInit {
   public opened: boolean = false;
-  public hasUser?: IUser | undefined;
+  public hasUser: User | null = null;
   public isLoading: boolean = false;
 
   constructor(
     private _router: Router,
-    private _sessionStorage: SessionStorageService,
     private _firebaseMessaging: FirebaseMessagingService,
-    private _notification: NotificationHttpService
+    private _notification: NotificationHttpService,
+    private _auth: AuthService
   ) {
     this._router.events.subscribe((event) => {
       switch (true) {
@@ -126,8 +126,9 @@ export class MainView implements OnInit {
   }
 
   ngOnInit(): void {
-    this.hasUser = this._sessionStorage.getSessionStorage<IUser>("user");
-
+    this._auth.userAuthObserver$.subscribe((user) => {
+      this.hasUser = user;
+    });
     this._firebaseMessaging.requestToken();
   }
 }

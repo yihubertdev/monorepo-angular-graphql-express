@@ -19,6 +19,13 @@ import { MatIconModule } from "@angular/material/icon";
         <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
         <div matListItemTitle>{{ menu.description }}</div></a
       >
+      <a
+        mat-list-item
+        [routerLink]="['home', 'posts']"
+        routerLinkActive="active-list-item">
+        <mat-icon matListItemIcon>account_circle</mat-icon>
+        <div matListItemTitle>Logout</div></a
+      >
     </mat-nav-list>
   `,
   styleUrls: ["./menu.style.css"],

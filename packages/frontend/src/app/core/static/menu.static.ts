@@ -46,18 +46,6 @@ export const footerMenus: IMenu[] = [
 
 export const homePageMenus: IMenu[] = [
   {
-    link: SITE_ROUTE_PAGE.HOME,
-    description: "Home",
-    iconName: "home",
-    width: "75px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.LOGIN,
-    description: "Login",
-    iconName: "account_circle",
-    width: "75px",
-  },
-  {
     link: SITE_ROUTE_PAGE.ADD_POST,
     description: "Add Post",
     iconName: "post_add",
