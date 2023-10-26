@@ -156,6 +156,7 @@ export class PostCardComponent {
       case "delete": {
         if (this.postCardInfo) {
           this._PostService.delete(this.postCardInfo.id);
+          window.location.reload();
         }
 
         break;
