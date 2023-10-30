@@ -13,7 +13,7 @@ export interface OpenedStatus {
 @Directive({
   selector: "[attrOpenedStatus]",
 })
-export class MatDrawerMenuDirective implements OnInit {
+export class MatDRAWER_MENUDirective implements OnInit {
   @Input() attrOpenedStatus: OpenedStatus = {
     xs: false,
     sm: false,

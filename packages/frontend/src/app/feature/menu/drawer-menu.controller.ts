@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { IMenu } from "sources-types";
-import { SITE_ROUTE_PAGE, homePageMenus } from "../../core/static/menu.static";
+import { SITE_ROUTE_PAGE, DRAWER_MENU } from "../../core/static/menu.static";
 import { NgFor } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { Router, RouterModule } from "@angular/router";
@@ -31,8 +31,8 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
   `,
   styleUrls: ["./menu.style.css"],
 })
-export class DrawerMenuController {
-  menus: IMenu[] = homePageMenus;
+export class DRAWER_MENUController {
+  menus: IMenu[] = DRAWER_MENU;
 
   constructor(private _auth: AuthService, private _router: Router) {}
 

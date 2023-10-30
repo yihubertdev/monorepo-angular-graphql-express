@@ -10,7 +10,7 @@ import { UserPhotoPipe } from "../../shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
-import { homePageMenus } from "src/app/core/static/menu.static";
+import { DRAWER_MENU } from "src/app/core/static/menu.static";
 
 @Component({
   standalone: true,
@@ -45,7 +45,7 @@ import { homePageMenus } from "src/app/core/static/menu.static";
               col-md-12 col-sm-12 col-xs-12 m-0 p-0">
                   <a
                     mat-button
-                    [routerLink]="['/users', 'personal-profile']"
+                    [routerLink]="['/users', 'me', 'personal-profile']"
                     >View Profile <mat-icon> visibility </mat-icon></a
                   >
                 </div>
@@ -109,7 +109,7 @@ export class UserProfileSettingsController implements OnInit {
   @Input() isSettingsPage?: boolean;
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
 
-  menus: IMenu[] = homePageMenus;
+  menus: IMenu[] = DRAWER_MENU;
   currentUser?: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";

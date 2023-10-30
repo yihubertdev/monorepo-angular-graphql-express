@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
-import { MatDrawerMenuDirective } from "./mat-drawer-menu";
+import { MatDRAWER_MENUDirective } from "./mat-drawer-menu";
 
 @NgModule({
-  declarations: [MatDrawerMenuDirective],
+  declarations: [MatDRAWER_MENUDirective],
   imports: [],
-  exports: [MatDrawerMenuDirective],
+  exports: [MatDRAWER_MENUDirective],
 })
 export class MatDrawerResponsiveDirectiveModule {}

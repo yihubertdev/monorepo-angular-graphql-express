@@ -44,7 +44,7 @@ export const footerMenus: IMenu[] = [
   },
 ];
 
-export const homePageMenus: IMenu[] = [
+export const DRAWER_MENU: IMenu[] = [
   {
     link: SITE_ROUTE_PAGE.ADD_POST,
     description: "Add Post",

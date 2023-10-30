@@ -17,7 +17,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
-import { DrawerMenuController } from "./feature/menu/drawer-menu.controller";
+import { DRAWER_MENUController } from "./feature/menu/drawer-menu.controller";
 import { MainIconController } from "./feature/menu/svgicon-menu.controller";
 import { NotificationHttpService } from "./core/services/http/notification.http";
 import { HeaderMenuController } from "./feature/menu/header-menu.controller";
@@ -40,7 +40,7 @@ import { User } from "@angular/fire/auth";
     MatSidenavModule,
     MatButtonModule,
     MatProgressBarModule,
-    DrawerMenuController,
+    DRAWER_MENUController,
     HeaderMenuController,
     MainIconController,
     FooterController,

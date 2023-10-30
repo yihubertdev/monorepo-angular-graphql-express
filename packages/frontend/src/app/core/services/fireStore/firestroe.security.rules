@@ -23,7 +23,7 @@ service cloud.firestore {
         }
 
         match /users/{uid}/userProfile/{profileId} {
-            allow create, delete, get, read, list, update, write: if request.auth.uid != uid && request.auth.token.email_verified && request.resource.data.userId == currentUserInfo().userId
+            allow create, delete, get, read, list, update, write: if request.auth.uid == uid;
         }
 
         match /blogs/{blogId}	{
