@@ -44,21 +44,27 @@ import { MatExpansionModule } from "@angular/material/expansion";
       *ngFor="let profile of userDetails">
       <div class="container">
         <div class="row">
-          <div
-            *ngFor="let userDetail of profile.details"
-            class="col-xl-12 col-lg-12
+          <mat-accordion>
+            <div
+              *ngFor="let userDetail of profile.details"
+              class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
-            <mat-accordion>
-              <mat-expansion-panel (closed)="(false)">
+              <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title> You Account 1 </mat-panel-title>
+                  <mat-panel-description>
+                    <mat-icon>date_range</mat-icon>
+                    Inform the date you wish to travel
+                  </mat-panel-description>
                 </mat-expansion-panel-header>
-                <user-details-card-component
-                  [userDetails]="userDetail"
-                  [isSettingsPage]="true"></user-details-card-component>
+                <ng-template matExpansionPanelContent>
+                  <user-details-card-component
+                    [userDetails]="userDetail"
+                    [isSettingsPage]="true"></user-details-card-component>
+                </ng-template>
               </mat-expansion-panel>
-            </mat-accordion>
-          </div>
+            </div>
+          </mat-accordion>
         </div>
       </div>
     </mat-tab>
