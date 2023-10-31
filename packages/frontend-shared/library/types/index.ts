@@ -139,6 +139,25 @@ export const enum GEOLOCATION {
   UNKNOWN = "unknown",
 }
 
+export const enum SETTING_MENU {
+  SECURITY = "Security",
+  PROFILE = "Profile",
+  PERSONAL_NET_WORTH = "Personal Net Worth",
+  ESTATE_PLANNING = "Estate Planning",
+}
+
+export const enum PROFILE_TYPE {
+  PERSONAL = "Personal Profile",
+  BUSINESS = "Personal Profile",
+  PROFESSIONAL = "Professional Profile",
+}
+
+export interface ITabPanel {
+  title: string;
+  description: string;
+  category: string;
+}
+
 export interface IProfileEducation {
   title: string;
   institution: string;

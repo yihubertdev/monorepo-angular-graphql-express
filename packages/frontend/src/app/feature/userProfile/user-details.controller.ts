@@ -26,7 +26,8 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12 mb-4">
             <user-details-card-component
-              [userDetails]="userDetail"></user-details-card-component>
+              [userDetails]="userDetail"
+              [user]="info.user"></user-details-card-component>
           </div>
         </div>
       </div>
@@ -39,7 +40,7 @@ export class UserDetailsController implements OnInit {
   public isDisplay: boolean = true;
   public userDetails!: {
     title: string;
-    details: IUserDetailCard<IUser, IProfileHomeAddress>[];
+    details: IUserDetailCard[];
   }[];
   public addProfileSection = [
     {
@@ -49,7 +50,7 @@ export class UserDetailsController implements OnInit {
     },
   ];
   public info!: {
-    profile: IProfileHomeAddress[];
+    data: IProfileHomeAddress[];
     user: QueryDocumentSnapshot<IUser>;
   };
 
@@ -65,7 +66,7 @@ export class UserDetailsController implements OnInit {
         this.userDetails = [
           {
             title: "Personal Profile",
-            details: this.info.profile.map((item) => ({
+            details: this.info.data.map((item) => ({
               userSnapshot: this.info.user,
               details: item,
               title: item.title,
@@ -76,7 +77,7 @@ export class UserDetailsController implements OnInit {
           },
           {
             title: "Business Profile",
-            details: this.info.profile.map((item) => ({
+            details: this.info.data.map((item) => ({
               userSnapshot: this.info.user,
               details: item,
               title: item.title,
@@ -87,7 +88,7 @@ export class UserDetailsController implements OnInit {
           },
           {
             title: "Professional Profile",
-            details: this.info.profile.map((item) => ({
+            details: this.info.data.map((item) => ({
               userSnapshot: this.info.user,
               details: item,
               title: item.title,

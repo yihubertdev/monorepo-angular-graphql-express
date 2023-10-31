@@ -20,7 +20,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
     MatButtonModule,
     MatIconModule,
   ],
-  template: ` <h1 mat-dialog-title>
+  template: ` <!-- <h1 mat-dialog-title>
       {{ data.title }}
       <a
         mat-button
@@ -28,7 +28,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
         Close
         <mat-icon>close</mat-icon>
       </a>
-    </h1>
+    </h1> -->
     <div mat-dialog-content>
       <form-input-list-component
         [formInputList]="data.formInputList"
@@ -47,8 +47,8 @@ export class AddProfileSectionDialog {
     @Inject(MAT_DIALOG_DATA)
     public data: {
       user: QueryDocumentSnapshot<IUser>;
-      title: string;
       documentId: string;
+      category: string;
       formInputList: IFormInput[];
       formInputSchema: JoiSchemaBuilder<any>;
     }
@@ -61,7 +61,7 @@ export class AddProfileSectionDialog {
       collectionId: "userProfile",
       next: {
         documentId: this.data.documentId,
-        documentValue: { title: this.data.title, ...value },
+        documentValue: { category: this.data.category, ...value },
       },
     });
     this.dialogRef.close();

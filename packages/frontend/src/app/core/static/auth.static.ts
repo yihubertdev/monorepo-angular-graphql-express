@@ -1,4 +1,11 @@
-import { EMPLOYMENT_TYPE, IFormInput, INPUT_TYPE } from "sources-types";
+import {
+  EMPLOYMENT_TYPE,
+  IFormInput,
+  INPUT_TYPE,
+  ITabPanel,
+  PROFILE_TYPE,
+  SETTING_MENU,
+} from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
 export const yourAccountFormList: IFormInput[] = [
@@ -156,6 +163,60 @@ export const HOME_ADDRESS_PROFILE: IFormInput[] = [
     selection: ["Ontario"],
   },
 ];
+
+export const SECURITY_PANEL: ITabPanel[] = [
+  {
+    title: "Account",
+    description: "User Basic Information",
+    category: "account",
+  },
+  {
+    title: "Authentication",
+    description: "Change Password",
+    category: "authentication",
+  },
+  {
+    title: "Recognition",
+    description: "Change facial and voice recognition",
+    category: "recognition",
+  },
+];
+
+export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
+  {
+    title: "Home Address",
+    description: "User Basic Information",
+    category: "home_address",
+  },
+  {
+    title: "Authentication",
+    description: "Change Password",
+    category: "authentication",
+  },
+  {
+    title: "Recognition",
+    description: "Change facial and voice recognition",
+    category: "recognition",
+  },
+];
+
+export const SETTINGS = {
+  [SETTING_MENU.SECURITY]: SECURITY_PANEL,
+  [SETTING_MENU.PROFILE]: [
+    {
+      title: PROFILE_TYPE.PERSONAL,
+      panel: PERSONAL_PROFILE_PANEL,
+    },
+    {
+      title: PROFILE_TYPE.BUSINESS,
+      panel: PERSONAL_PROFILE_PANEL,
+    },
+    {
+      title: PROFILE_TYPE.PROFESSIONAL,
+      panel: PERSONAL_PROFILE_PANEL,
+    },
+  ],
+};
 
 export const EMPLOYMENT: IFormInput[] = [
   {

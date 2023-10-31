@@ -15,7 +15,8 @@ export const SITE_ROUTE_PAGE = {
   PAYMENT: ["payment"],
   NOTIFICATION: ["users", "notifications"],
   SETTINGS: ["users", "settings"],
-  SETTINGS_SECURITY: ["users", "settings", "security"],
+  SETTINGS_SECURITY: ["security"],
+  SETTINGS_PROFILE: ["profile"],
 };
 
 export const footerMenus: IMenu[] = [
@@ -71,6 +72,12 @@ export const PROFILE_SETTINGS_MENU: IMenu[] = [
     link: SITE_ROUTE_PAGE.SETTINGS_SECURITY,
     description: "Security",
     iconName: "security",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.SETTINGS_PROFILE,
+    description: "Profile",
+    iconName: "account_circle",
     width: "50px",
   },
 ];

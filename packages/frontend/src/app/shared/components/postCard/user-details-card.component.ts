@@ -11,13 +11,11 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../dialog/add-profile-section.dialog";
 import { MatIconModule } from "@angular/material/icon";
 
-export interface IUserDetailCard<T, S> {
-  userSnapshot: QueryDocumentSnapshot<T>;
-  details: S;
-  title: string;
+export interface IUserDetailCard {
+  details: any;
   documentId: string;
   formInputList: IFormInput[];
-  formInputSchema: JoiSchemaBuilder<S>;
+  formInputSchema: JoiSchemaBuilder<any>;
 }
 
 @Component({
@@ -36,8 +34,7 @@ export interface IUserDetailCard<T, S> {
   ],
   template: `<mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title
-        >{{ userDetails.title }}
+      <mat-card-title>
         <a
           *ngIf="isSettingsPage"
           mat-button
@@ -62,10 +59,9 @@ export interface IUserDetailCard<T, S> {
   </mat-card>`,
 })
 export class UserDetailCardComponent {
-  @Input({ required: true }) userDetails!: IUserDetailCard<
-    IUser,
-    IProfileHomeAddress
-  >;
+  @Input({ required: true }) userDetails!: IUserDetailCard;
+  @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
+  @Input({ required: true }) category!: string;
   @Input() isSettingsPage?: boolean;
 
   constructor(public dialog: MatDialog) {}
@@ -80,8 +76,8 @@ export class UserDetailCardComponent {
     this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
-        userId: this.userDetails.userSnapshot,
-        title: this.userDetails.title,
+        user: this.user,
+        category: this.category,
         documentId: this.userDetails.documentId,
         formInputList: this.userDetails.formInputList,
         formInputSchema: this.userDetails.formInputSchema,

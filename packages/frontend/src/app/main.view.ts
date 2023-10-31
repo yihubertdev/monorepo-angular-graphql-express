@@ -121,14 +121,14 @@ export class MainView implements OnInit {
       }
     });
 
-    const result = this._notification.getUserPosts();
-    result.subscribe();
+    // const result = this._notification.getUserPosts();
+    // result.subscribe();
   }
 
   ngOnInit(): void {
     this._auth.userAuthObserver$.subscribe((user) => {
       this.hasUser = user;
     });
-    this._firebaseMessaging.requestToken();
+    // this._firebaseMessaging.requestToken();
   }
 }
