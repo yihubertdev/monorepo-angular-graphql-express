@@ -154,6 +154,15 @@ export const enum PROFILE_TYPE {
 
 export const enum SETTING_CATEGORY {
   ACCOUNT = "account",
+  AUTHENTICATION = "authentication",
+  RECOGNITION = "recognition",
+  PERSONAL_DOCUMENT = "personal_document",
+  CASH_ACCOUNTS_RECEIVABLE = "cash_accounts_receivable",
+  MARKABLE_SECURITY = "markable_securities",
+  TAX_SHELTERED_INVESTMENT = "tax_sheltered_investment",
+  INSURANCE = "insurance",
+  REAL_ESTATE = "real_estate",
+  VEHICLES = "vehicles",
 }
 
 export interface ITabPanel {
@@ -184,7 +193,7 @@ export interface IMenu {
   link: string | string[];
   description: string;
   iconName: string;
-  width: string;
+  width?: string;
 }
 
 export interface ISVGIconMenu extends IMenu {

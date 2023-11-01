@@ -10,7 +10,7 @@ export type JoiSchemaBuilder<T> = (
 
 export type SETTING_FORM<T> = {
   list: IFormInput[];
-  schema: JoiSchemaBuilder<T>;
+  schema?: JoiSchemaBuilder<T>;
 };
 
 class joiValidator {

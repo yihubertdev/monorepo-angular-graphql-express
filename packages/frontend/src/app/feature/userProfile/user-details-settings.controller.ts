@@ -16,7 +16,7 @@ import {
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import { ITab, ITabPanel, IUser } from "sources-types";
+import { ITab, ITabPanel, IUser, SETTING_CATEGORY } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
@@ -73,7 +73,8 @@ export interface IUserSettings {
               <ng-template matExpansionPanelContent>
                 <a
                   mat-button
-                  (click)="openDialog(setting)">
+                  (click)="openDialog(setting)"
+                  *ngIf="setting.category !== 'account'">
                   <mat-icon>add</mat-icon>
                 </a>
                 <user-details-card-component
@@ -100,7 +101,6 @@ export class UserDetailsSettingsController implements OnInit {
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
 
   openDialog(data: any) {
-    console.log(data);
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
@@ -119,22 +119,56 @@ export class UserDetailsSettingsController implements OnInit {
 
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
+
     this.user = user;
     const groupedData = groupBy(data, "category");
     this.settings = SETTINGS[this.section].map((setting) => {
       const { title, description, category } = setting as ITabPanel;
 
-      return {
-        title: title,
-        description: description,
-        category: category,
-        data: groupedData[category]?.map((form: any) => ({
-          details: form,
-          documentId: form.documentId,
-          formList: SETTINGS_FORM_CONFIG[category].list,
-          formSchema: SETTINGS_FORM_CONFIG[category].schema,
-        })),
-      };
+      switch (category) {
+        case SETTING_CATEGORY.ACCOUNT: {
+          const userInfo = this.route.parent?.snapshot.data["user"];
+          return {
+            title: title,
+            description: description,
+            category: category,
+            data: [
+              {
+                details: userInfo,
+                formList: SETTINGS_FORM_CONFIG[category].list,
+              },
+            ],
+          };
+        }
+
+        case SETTING_CATEGORY.AUTHENTICATION:
+        case SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE: {
+          return {
+            title: title,
+            description: description,
+            category: category,
+            data: groupedData[category]?.map((form: any) => ({
+              details: form,
+              documentId: form.documentId,
+              formList: SETTINGS_FORM_CONFIG[category].list,
+              formSchema: SETTINGS_FORM_CONFIG[category].schema,
+            })),
+          };
+        }
+        default: {
+          return {
+            title: title,
+            description: description,
+            category: category,
+            data: groupedData[category]?.map((form: any) => ({
+              details: form,
+              documentId: form.documentId,
+              formList: SETTINGS_FORM_CONFIG[category].list,
+              formSchema: SETTINGS_FORM_CONFIG[category].schema,
+            })),
+          };
+        }
+      }
     });
   }
 }

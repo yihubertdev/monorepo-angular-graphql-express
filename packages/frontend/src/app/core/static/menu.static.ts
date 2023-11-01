@@ -1,4 +1,5 @@
 import { IMenu, INestedMenu, ISVGIconMenu } from "sources-types";
+import settingRoute from "../../pages/settings";
 
 export const SITE_ROUTE_PAGE = {
   ADD_ARTICLE: ["edit", "article"],
@@ -17,6 +18,7 @@ export const SITE_ROUTE_PAGE = {
   SETTINGS: ["users", "settings"],
   SETTINGS_SECURITY: ["security"],
   SETTINGS_PROFILE: ["profile"],
+  SETTINGS_PERSONAL_NET_WORTH: ["personal-net-worth"],
 };
 
 export const footerMenus: IMenu[] = [
@@ -67,20 +69,16 @@ export const DRAWER_MENU: IMenu[] = [
   },
 ];
 
-export const PROFILE_SETTINGS_MENU: IMenu[] = [
-  {
-    link: SITE_ROUTE_PAGE.SETTINGS_SECURITY,
-    description: "Security",
-    iconName: "security",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.SETTINGS_PROFILE,
-    description: "Profile",
-    iconName: "account_circle",
-    width: "50px",
-  },
-];
+export const PROFILE_SETTINGS_MENU: IMenu[] = settingRoute
+  .filter((route) => route.path)
+  .map(
+    (route) =>
+      ({
+        link: route.path,
+        description: route.description,
+        iconName: route.icon,
+      } as IMenu)
+  );
 
 export const postCardMenu: IMenu[] = [
   {

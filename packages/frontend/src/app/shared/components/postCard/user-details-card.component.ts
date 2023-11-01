@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { NgFor, NgIf } from "@angular/common";
@@ -13,9 +18,9 @@ import { MatIconModule } from "@angular/material/icon";
 
 export interface IUserDetailCard {
   details: any;
-  documentId: string;
+  documentId?: string;
   formList: IFormInput[];
-  formSchema: JoiSchemaBuilder<any>;
+  formSchema?: JoiSchemaBuilder<any>;
 }
 
 @Component({
@@ -34,10 +39,9 @@ export interface IUserDetailCard {
   ],
   template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
-      <mat-card-title>
+      <mat-card-title *ngIf="isSettingsPage && category !== 'account'">
         {{ title }}
         <a
-          *ngIf="isSettingsPage"
           mat-button
           (click)="openDialog()">
           <mat-icon>edit</mat-icon>
@@ -59,7 +63,7 @@ export interface IUserDetailCard {
     </mat-card-content>
   </mat-card>`,
 })
-export class UserDetailCardComponent {
+export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) userDetails!: IUserDetailCard;
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
   @Input({ required: true }) category!: string;
@@ -68,10 +72,13 @@ export class UserDetailCardComponent {
 
   constructor(public dialog: MatDialog) {}
 
-  openDialog() {
+  ngOnChanges() {
     const formList = this.userDetails.formList;
     const userDetail = this.userDetails.details;
     formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
+  }
+
+  openDialog() {
     this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {

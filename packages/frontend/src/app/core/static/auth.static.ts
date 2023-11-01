@@ -167,6 +167,65 @@ export const HOME_ADDRESS_PROFILE: IFormInput[] = [
   },
 ];
 
+export const ACCOUNT_INFO: IFormInput[] = [
+  {
+    id: "displayName",
+    type: INPUT_TYPE.TEXT,
+    label: "Display Name",
+    key: "displayName",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "userId",
+    type: INPUT_TYPE.TEXT,
+    label: "User Id",
+    key: "userId",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "email",
+    type: INPUT_TYPE.TEXT,
+    label: "Email",
+    key: "email",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "emailVerified",
+    type: INPUT_TYPE.TEXT,
+    label: "Email Verified",
+    key: "emailVerified",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "isAnonymous",
+    type: INPUT_TYPE.TEXT,
+    label: "Registed",
+    key: "isAnonymous",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "phoneNumber",
+    type: INPUT_TYPE.TEXT,
+    label: "Phone Number",
+    key: "phoneNumber",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "role",
+    type: INPUT_TYPE.TEXT,
+    label: "Role",
+    key: "role",
+    value: "",
+    placeholder: "",
+  },
+];
+
 export const SECURITY_PANEL: ITabPanel[] = [
   {
     title: "Account",
@@ -203,10 +262,47 @@ export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
   },
 ];
 
+export const PERSONAL_NET_WORTH: ITabPanel[] = [
+  {
+    title: "Personal Document",
+    description: "User Personal Document. tax return, credit score etc.",
+    category: SETTING_CATEGORY.PERSONAL_DOCUMENT,
+  },
+  {
+    title: "Cash And Accounts Receivable",
+    description: "asset type, financial institution, statement.",
+    category: SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE,
+  },
+  {
+    title: "Markable Securities",
+    description: "Change facial and voice recognition",
+    category: SETTING_CATEGORY.MARKABLE_SECURITY,
+  },
+  {
+    title: "Tax Sheltered Investment",
+    description: "Tax sheltered investment",
+    category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
+  },
+  {
+    title: "Insurance",
+    description: "Insurance",
+    category: SETTING_CATEGORY.INSURANCE,
+  },
+  {
+    title: "Real Estate",
+    description: "Real Estate Property",
+    category: SETTING_CATEGORY.REAL_ESTATE,
+  },
+  {
+    title: "Vehicles",
+    description: "Personal Vehicles",
+    category: SETTING_CATEGORY.VEHICLES,
+  },
+];
+
 export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
   [SETTING_CATEGORY.ACCOUNT]: {
-    list: HOME_ADDRESS_PROFILE,
-    schema: homeAdressSchema,
+    list: ACCOUNT_INFO,
   },
 };
 
@@ -226,6 +322,7 @@ export const SETTINGS: Record<string, ITabPanel[] | ITab[]> = {
       panel: PERSONAL_PROFILE_PANEL,
     },
   ],
+  [SETTING_SECTION.PERSONAL_NET_WORTH]: PERSONAL_NET_WORTH,
 };
 
 export const EMPLOYMENT: IFormInput[] = [
