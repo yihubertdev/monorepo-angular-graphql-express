@@ -139,7 +139,7 @@ export const enum GEOLOCATION {
   UNKNOWN = "unknown",
 }
 
-export const enum SETTING_MENU {
+export const enum SETTING_SECTION {
   SECURITY = "Security",
   PROFILE = "Profile",
   PERSONAL_NET_WORTH = "Personal Net Worth",

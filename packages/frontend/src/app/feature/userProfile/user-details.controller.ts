@@ -25,9 +25,9 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
             *ngFor="let userDetail of profile.details"
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12 mb-4">
-            <user-details-card-component
+            <!-- <user-details-card-component
               [userDetails]="userDetail"
-              [user]="info.user"></user-details-card-component>
+              [user]="info.user"></user-details-card-component> -->
           </div>
         </div>
       </div>

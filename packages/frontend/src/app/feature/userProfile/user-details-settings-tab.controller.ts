@@ -49,42 +49,46 @@ export interface IUserSettings {
     MatDialogModule,
     MatExpansionModule,
   ],
-  selector: "user-details-settings-controller",
-  template: `
-    <div class="container mt-3">
-      <div class="row">
-        <mat-accordion>
-          <div
-            *ngFor="let setting of settings"
-            class="col-xl-12 col-lg-12
+  selector: "user-details-settings-tab-controller",
+  template: `<mat-tab-group>
+    <mat-tab
+      label="{{ panel.title }}"
+      *ngFor="let panel of tabPanels">
+      <div class="container">
+        <div class="row">
+          <mat-accordion>
+            <div
+              *ngFor="let setting of panel.panel"
+              class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title> {{ setting.title }} </mat-panel-title>
-                <mat-panel-description>
-                  {{ setting.description }}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <ng-template matExpansionPanelContent>
-                <user-details-card-component
-                  [userDetails]="setting.data[0]"
-                  [user]="user"
-                  [category]="setting.category"
-                  [title]="setting.title"
-                  [isSettingsPage]="true"></user-details-card-component>
-              </ng-template>
-            </mat-expansion-panel>
-          </div>
-        </mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title> {{ setting.title }} </mat-panel-title>
+                  <mat-panel-description>
+                    {{ setting.description }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-template matExpansionPanelContent>
+                  <user-details-card-component
+                    [userDetails]="setting.data[0]"
+                    [user]="user"
+                    [category]="setting.category"
+                    [title]="setting.title"
+                    [isSettingsPage]="true"></user-details-card-component>
+                </ng-template>
+              </mat-expansion-panel>
+            </div>
+          </mat-accordion>
+        </div>
       </div>
-    </div>
-  `,
+    </mat-tab>
+  </mat-tab-group>`,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserDetailsSettingsController implements OnInit {
+export class UserDetailsSettingsTabController implements OnInit {
   @Input({ required: true }) section!: string;
 
-  public settings!: IUserSettings[];
+  public tabPanels!: IUserTabSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
 
@@ -106,22 +110,29 @@ export class UserDetailsSettingsController implements OnInit {
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
     this.user = user;
-    console.log(data);
-
-    this.settings = (
-      SETTINGS[this.section as keyof typeof SETTINGS] as ITabPanel[]
-    ).map((setting) => ({
-      title: setting.title,
-      description: setting.description,
-      category: setting.category,
-      data: data
-        .filter((item: any) => item.category === setting.category)
-        .map((form: any) => ({
-          details: form,
-          documentId: form.documentId,
-          formInputList: HOME_ADDRESS_PROFILE,
-          formInputSchema: homeAdressSchema,
-        })),
+    this.tabPanels = (
+      SETTINGS[this.section as keyof typeof SETTINGS] as {
+        title: string;
+        panel: ITabPanel[];
+      }[]
+    ).map((tab) => ({
+      title: tab.title,
+      panel: tab.panel.map(
+        (setting) =>
+          ({
+            title: setting.title,
+            description: setting.description,
+            category: setting.category,
+            data: data
+              .filter((i: any) => i.category === setting.category)
+              .map((form: any) => ({
+                details: form,
+                documentId: form.documentId,
+                formInputList: HOME_ADDRESS_PROFILE,
+                formInputSchema: homeAdressSchema,
+              })),
+          } as IUserSettings)
+      ),
     }));
   }
 }

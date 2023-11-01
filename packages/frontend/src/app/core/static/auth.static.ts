@@ -4,7 +4,7 @@ import {
   INPUT_TYPE,
   ITabPanel,
   PROFILE_TYPE,
-  SETTING_MENU,
+  SETTING_SECTION,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
@@ -201,8 +201,8 @@ export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
 ];
 
 export const SETTINGS = {
-  [SETTING_MENU.SECURITY]: SECURITY_PANEL,
-  [SETTING_MENU.PROFILE]: [
+  [SETTING_SECTION.SECURITY]: SECURITY_PANEL,
+  [SETTING_SECTION.PROFILE]: [
     {
       title: PROFILE_TYPE.PERSONAL,
       panel: PERSONAL_PROFILE_PANEL,
