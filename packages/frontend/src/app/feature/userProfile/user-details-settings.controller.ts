@@ -100,7 +100,7 @@ export class UserDetailsSettingsController implements OnInit {
   public user!: QueryDocumentSnapshot<IUser>;
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
 
-  openDialog(data: any) {
+  openDialog(data: IUserSettings) {
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {

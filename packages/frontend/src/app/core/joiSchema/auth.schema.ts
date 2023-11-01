@@ -78,3 +78,10 @@ export const employmentSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
 ): Joi.ObjectSchema => {
   return Joi.object({});
 };
+
+export const PERSONAL_DOCUMENT_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
+  data: IProfileHomeAddress,
+  errorLocation?: string
+): Joi.ObjectSchema => {
+  return Joi.object({});
+};

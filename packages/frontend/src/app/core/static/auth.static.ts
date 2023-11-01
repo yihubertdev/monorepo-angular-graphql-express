@@ -9,7 +9,10 @@ import {
   SETTING_SECTION,
 } from "sources-types";
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
-import { homeAdressSchema } from "../joiSchema/auth.schema";
+import {
+  PERSONAL_DOCUMENT_SCHEMA,
+  homeAdressSchema,
+} from "../joiSchema/auth.schema";
 
 export const yourAccountFormList: IFormInput[] = [
   {
@@ -226,6 +229,17 @@ export const ACCOUNT_INFO: IFormInput[] = [
   },
 ];
 
+export const PERSONAL_DOCUMENT_FORM: IFormInput[] = [
+  {
+    id: "taxReturn",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Tax Return",
+    key: "taxReturn",
+    value: "",
+    placeholder: "",
+  },
+];
+
 export const SECURITY_PANEL: ITabPanel[] = [
   {
     title: "Account",
@@ -264,8 +278,13 @@ export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
 
 export const PERSONAL_NET_WORTH: ITabPanel[] = [
   {
-    title: "Personal Document",
-    description: "User Personal Document. tax return, credit score etc.",
+    title: "Tax Return",
+    description: "Personal tax return for the last three years",
+    category: SETTING_CATEGORY.PERSONAL_DOCUMENT,
+  },
+  {
+    title: "Notice Of Assessment",
+    description: "Personal Notice Of Assessment for the last three years",
     category: SETTING_CATEGORY.PERSONAL_DOCUMENT,
   },
   {
@@ -303,6 +322,10 @@ export const PERSONAL_NET_WORTH: ITabPanel[] = [
 export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
   [SETTING_CATEGORY.ACCOUNT]: {
     list: ACCOUNT_INFO,
+  },
+  [SETTING_CATEGORY.PERSONAL_DOCUMENT]: {
+    list: PERSONAL_DOCUMENT_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
   },
 };
 
