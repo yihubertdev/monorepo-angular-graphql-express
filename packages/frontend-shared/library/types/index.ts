@@ -152,10 +152,19 @@ export const enum PROFILE_TYPE {
   PROFESSIONAL = "Professional Profile",
 }
 
+export const enum SETTING_CATEGORY {
+  ACCOUNT = "account",
+}
+
 export interface ITabPanel {
   title: string;
   description: string;
   category: string;
+}
+
+export interface ITab {
+  title: string;
+  panel: ITabPanel[];
 }
 
 export interface IProfileEducation {

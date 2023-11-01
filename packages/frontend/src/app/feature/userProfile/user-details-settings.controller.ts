@@ -6,13 +6,17 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
-import { HOME_ADDRESS_PROFILE, SETTINGS } from "../../core/static/auth.static";
+import {
+  HOME_ADDRESS_PROFILE,
+  SETTINGS,
+  SETTINGS_FORM_CONFIG,
+} from "../../core/static/auth.static";
 import {
   IUserDetailCard,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import { ITabPanel, IUser } from "sources-types";
+import { ITab, ITabPanel, IUser } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
@@ -20,6 +24,7 @@ import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
+import { groupBy } from "../../core/utils/lodash";
 
 export interface IUserTabSettings {
   title: string;
@@ -66,8 +71,14 @@ export interface IUserSettings {
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
+                <a
+                  mat-button
+                  (click)="openDialog(setting)">
+                  <mat-icon>add</mat-icon>
+                </a>
                 <user-details-card-component
-                  [userDetails]="setting.data[0]"
+                  *ngFor="let item of setting.data"
+                  [userDetails]="item"
                   [user]="user"
                   [category]="setting.category"
                   [title]="setting.title"
@@ -88,16 +99,19 @@ export class UserDetailsSettingsController implements OnInit {
   public user!: QueryDocumentSnapshot<IUser>;
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
 
-  openDialog(sectionInfo: any) {
+  openDialog(data: any) {
+    console.log(data);
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
-        ...sectionInfo,
         documentId: uuidv4(),
+        category: data.category,
+        title: data.title,
         user: this.user,
+        formList: SETTINGS_FORM_CONFIG[data.category].list,
+        formSchema: SETTINGS_FORM_CONFIG[data.category].schema,
       },
     });
-
     dialogRef.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
@@ -106,22 +120,21 @@ export class UserDetailsSettingsController implements OnInit {
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
     this.user = user;
-    console.log(data);
+    const groupedData = groupBy(data, "category");
+    this.settings = SETTINGS[this.section].map((setting) => {
+      const { title, description, category } = setting as ITabPanel;
 
-    this.settings = (
-      SETTINGS[this.section as keyof typeof SETTINGS] as ITabPanel[]
-    ).map((setting) => ({
-      title: setting.title,
-      description: setting.description,
-      category: setting.category,
-      data: data
-        .filter((item: any) => item.category === setting.category)
-        .map((form: any) => ({
+      return {
+        title: title,
+        description: description,
+        category: category,
+        data: groupedData[category]?.map((form: any) => ({
           details: form,
           documentId: form.documentId,
-          formInputList: HOME_ADDRESS_PROFILE,
-          formInputSchema: homeAdressSchema,
+          formList: SETTINGS_FORM_CONFIG[category].list,
+          formSchema: SETTINGS_FORM_CONFIG[category].schema,
         })),
-    }));
+      };
+    });
   }
 }

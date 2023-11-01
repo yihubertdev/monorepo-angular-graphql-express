@@ -1,11 +1,17 @@
 import { UntypedFormGroup, ValidationErrors } from "@angular/forms";
 import * as Joi from "joi";
 import { ValidationOptions } from "joi";
+import { IFormInput } from "sources-types";
 
 export type JoiSchemaBuilder<T> = (
   data: T,
   errorLocation?: string
 ) => Joi.ObjectSchema;
+
+export type SETTING_FORM<T> = {
+  list: IFormInput[];
+  schema: JoiSchemaBuilder<T>;
+};
 
 class joiValidator {
   private options: ValidationOptions = { abortEarly: false };

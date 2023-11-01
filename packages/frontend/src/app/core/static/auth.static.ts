@@ -2,11 +2,14 @@ import {
   EMPLOYMENT_TYPE,
   IFormInput,
   INPUT_TYPE,
+  ITab,
   ITabPanel,
   PROFILE_TYPE,
+  SETTING_CATEGORY,
   SETTING_SECTION,
 } from "sources-types";
-import { JoiSchemaBuilder } from "../utils/validator";
+import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
+import { homeAdressSchema } from "../joiSchema/auth.schema";
 
 export const yourAccountFormList: IFormInput[] = [
   {
@@ -168,7 +171,7 @@ export const SECURITY_PANEL: ITabPanel[] = [
   {
     title: "Account",
     description: "User Basic Information",
-    category: "account",
+    category: SETTING_CATEGORY.ACCOUNT,
   },
   {
     title: "Authentication",
@@ -200,7 +203,14 @@ export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
   },
 ];
 
-export const SETTINGS = {
+export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
+  [SETTING_CATEGORY.ACCOUNT]: {
+    list: HOME_ADDRESS_PROFILE,
+    schema: homeAdressSchema,
+  },
+};
+
+export const SETTINGS: Record<string, ITabPanel[] | ITab[]> = {
   [SETTING_SECTION.SECURITY]: SECURITY_PANEL,
   [SETTING_SECTION.PROFILE]: [
     {

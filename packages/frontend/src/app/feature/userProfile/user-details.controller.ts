@@ -45,8 +45,8 @@ export class UserDetailsController implements OnInit {
   public addProfileSection = [
     {
       title: "Home Address",
-      formInputList: HOME_ADDRESS_PROFILE,
-      formInputSchema: homeAdressSchema,
+      formList: HOME_ADDRESS_PROFILE,
+      formSchema: homeAdressSchema,
     },
   ];
   public info!: {
@@ -71,8 +71,8 @@ export class UserDetailsController implements OnInit {
               details: item,
               title: item.title,
               documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
+              formList: HOME_ADDRESS_PROFILE,
+              formSchema: homeAdressSchema,
             })),
           },
           {
@@ -82,8 +82,8 @@ export class UserDetailsController implements OnInit {
               details: item,
               title: item.title,
               documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
+              formList: HOME_ADDRESS_PROFILE,
+              formSchema: homeAdressSchema,
             })),
           },
           {
@@ -93,8 +93,8 @@ export class UserDetailsController implements OnInit {
               details: item,
               title: item.title,
               documentId: item.documentId,
-              formInputList: HOME_ADDRESS_PROFILE,
-              formInputSchema: homeAdressSchema,
+              formList: HOME_ADDRESS_PROFILE,
+              formSchema: homeAdressSchema,
             })),
           },
         ];

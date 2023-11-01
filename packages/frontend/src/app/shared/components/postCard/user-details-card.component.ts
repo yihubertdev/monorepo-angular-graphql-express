@@ -14,8 +14,8 @@ import { MatIconModule } from "@angular/material/icon";
 export interface IUserDetailCard {
   details: any;
   documentId: string;
-  formInputList: IFormInput[];
-  formInputSchema: JoiSchemaBuilder<any>;
+  formList: IFormInput[];
+  formSchema: JoiSchemaBuilder<any>;
 }
 
 @Component({
@@ -32,9 +32,10 @@ export interface IUserDetailCard {
     MatDialogModule,
     MatIconModule,
   ],
-  template: `<mat-card class="example-card">
+  template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
       <mat-card-title>
+        {{ title }}
         <a
           *ngIf="isSettingsPage"
           mat-button
@@ -43,13 +44,13 @@ export interface IUserDetailCard {
         </a></mat-card-title
       >
     </mat-card-header>
-    <mat-card-content *ngIf="userDetails">
+    <mat-card-content>
       <mat-list>
         <div class="row">
           <div
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12"
-            *ngFor="let info of userDetails.formInputList">
+            *ngFor="let info of userDetails.formList">
             <mat-list-item>{{ info.label }} : {{ info.value }}</mat-list-item>
             <mat-divider></mat-divider>
           </div>
@@ -62,25 +63,24 @@ export class UserDetailCardComponent {
   @Input({ required: true }) userDetails!: IUserDetailCard;
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
   @Input({ required: true }) category!: string;
+  @Input({ required: true }) title!: string;
   @Input() isSettingsPage?: boolean;
 
   constructor(public dialog: MatDialog) {}
-  ngOnChanges() {
-    if (!this.userDetails) return;
-    const formList = this.userDetails.formInputList;
-    const userDetail = this.userDetails.details;
-    formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
-  }
 
   openDialog() {
+    const formList = this.userDetails.formList;
+    const userDetail = this.userDetails.details;
+    formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
     this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
         user: this.user,
         category: this.category,
+        title: this.title,
         documentId: this.userDetails.documentId,
-        formInputList: this.userDetails.formInputList,
-        formInputSchema: this.userDetails.formInputSchema,
+        formList: this.userDetails.formList,
+        formSchema: this.userDetails.formSchema,
       },
     });
   }

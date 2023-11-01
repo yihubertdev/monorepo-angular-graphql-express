@@ -20,7 +20,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
     MatButtonModule,
     MatIconModule,
   ],
-  template: ` <!-- <h1 mat-dialog-title>
+  template: ` <h1 mat-dialog-title>
       {{ data.title }}
       <a
         mat-button
@@ -28,12 +28,12 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
         Close
         <mat-icon>close</mat-icon>
       </a>
-    </h1> -->
+    </h1>
     <div mat-dialog-content>
       <form-input-list-component
-        [formInputList]="data.formInputList"
+        [formInputList]="data.formList"
         errorLocation="AuthModule.YourAccountController"
-        [validatorSchema]="data.formInputSchema"
+        [validatorSchema]="data.formSchema"
         buttonName="Save"
         (formValue)="save($event)"></form-input-list-component>
     </div>`,
@@ -49,8 +49,9 @@ export class AddProfileSectionDialog {
       user: QueryDocumentSnapshot<IUser>;
       documentId: string;
       category: string;
-      formInputList: IFormInput[];
-      formInputSchema: JoiSchemaBuilder<any>;
+      title: string;
+      formList: IFormInput[];
+      formSchema: JoiSchemaBuilder<any>;
     }
   ) {
     dialogRef.disableClose = true;
