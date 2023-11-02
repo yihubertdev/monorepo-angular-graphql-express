@@ -4,7 +4,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { HomePagePostController } from "../../feature/homePagePost/controller/home-page-post.controller";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { UserDetailsSettingsTabController } from "../../feature/userProfile/user-details-settings-tab.controller";
-import { SETTING_SECTION } from "sources-types";
+import { SETTING_COLLECTION } from "sources-types";
 
 @Component({
   standalone: true,
@@ -27,5 +27,5 @@ import { SETTING_SECTION } from "sources-types";
 })
 export default class UsersView {
   @Input() id?: string;
-  section = SETTING_SECTION.PROFILE;
+  section = SETTING_COLLECTION.PROFILE;
 }

@@ -6,7 +6,7 @@ import {
   ITabPanel,
   PROFILE_TYPE,
   SETTING_CATEGORY,
-  SETTING_SECTION,
+  SETTING_COLLECTION,
 } from "sources-types";
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
 import {
@@ -229,16 +229,23 @@ export const ACCOUNT_INFO: IFormInput[] = [
   },
 ];
 
-export const PERSONAL_DOCUMENT_FORM: IFormInput[] = [
-  {
-    id: "taxReturn",
-    type: INPUT_TYPE.UPLOAD,
-    label: "Tax Return",
-    key: "taxReturn",
-    value: "",
-    placeholder: "",
-  },
-];
+export const TAX_RETURN_FORM: IFormInput[] = Array(3)
+  .fill(0)
+  .map((item, index) => {
+    const currentYear = new Date().getFullYear();
+
+    return {
+      id: "taxReturn_" + (currentYear - index),
+      type: INPUT_TYPE.UPLOAD,
+      label: "Tax Return " + (currentYear - index),
+      key: "taxReturn_" + (currentYear - index),
+      value: "",
+      placeholder: "",
+      required: true,
+      documentPath: "net_worth",
+      documentCategory: "tax_return",
+    };
+  });
 
 export const SECURITY_PANEL: ITabPanel[] = [
   {
@@ -280,12 +287,12 @@ export const PERSONAL_NET_WORTH: ITabPanel[] = [
   {
     title: "Tax Return",
     description: "Personal tax return for the last three years",
-    category: SETTING_CATEGORY.PERSONAL_DOCUMENT,
+    category: SETTING_CATEGORY.TAX_RETURN,
   },
   {
     title: "Notice Of Assessment",
     description: "Personal Notice Of Assessment for the last three years",
-    category: SETTING_CATEGORY.PERSONAL_DOCUMENT,
+    category: SETTING_CATEGORY.NOTICE_OF_ASSESSMENT,
   },
   {
     title: "Cash And Accounts Receivable",
@@ -323,15 +330,51 @@ export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
   [SETTING_CATEGORY.ACCOUNT]: {
     list: ACCOUNT_INFO,
   },
-  [SETTING_CATEGORY.PERSONAL_DOCUMENT]: {
-    list: PERSONAL_DOCUMENT_FORM,
+  [SETTING_CATEGORY.TAX_RETURN]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.AUTHENTICATION]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.RECOGNITION]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.NOTICE_OF_ASSESSMENT]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.MARKABLE_SECURITY]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.INSURANCE]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.VEHICLES]: {
+    list: TAX_RETURN_FORM,
+    schema: PERSONAL_DOCUMENT_SCHEMA,
+  },
+  [SETTING_CATEGORY.REAL_ESTATE]: {
+    list: TAX_RETURN_FORM,
     schema: PERSONAL_DOCUMENT_SCHEMA,
   },
 };
 
 export const SETTINGS: Record<string, ITabPanel[] | ITab[]> = {
-  [SETTING_SECTION.SECURITY]: SECURITY_PANEL,
-  [SETTING_SECTION.PROFILE]: [
+  [SETTING_COLLECTION.SECURITY]: SECURITY_PANEL,
+  [SETTING_COLLECTION.PROFILE]: [
     {
       title: PROFILE_TYPE.PERSONAL,
       panel: PERSONAL_PROFILE_PANEL,
@@ -345,7 +388,7 @@ export const SETTINGS: Record<string, ITabPanel[] | ITab[]> = {
       panel: PERSONAL_PROFILE_PANEL,
     },
   ],
-  [SETTING_SECTION.PERSONAL_NET_WORTH]: PERSONAL_NET_WORTH,
+  [SETTING_COLLECTION.PERSONAL_NET_WORTH]: PERSONAL_NET_WORTH,
 };
 
 export const EMPLOYMENT: IFormInput[] = [

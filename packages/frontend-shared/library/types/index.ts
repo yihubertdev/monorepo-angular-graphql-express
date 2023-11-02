@@ -139,7 +139,7 @@ export const enum GEOLOCATION {
   UNKNOWN = "unknown",
 }
 
-export const enum SETTING_SECTION {
+export const enum SETTING_COLLECTION {
   SECURITY = "Security",
   PROFILE = "Profile",
   PERSONAL_NET_WORTH = "Personal Net Worth",
@@ -156,13 +156,14 @@ export const enum SETTING_CATEGORY {
   ACCOUNT = "account",
   AUTHENTICATION = "authentication",
   RECOGNITION = "recognition",
-  PERSONAL_DOCUMENT = "personal_document",
   CASH_ACCOUNTS_RECEIVABLE = "cash_accounts_receivable",
   MARKABLE_SECURITY = "markable_securities",
   TAX_SHELTERED_INVESTMENT = "tax_sheltered_investment",
   INSURANCE = "insurance",
   REAL_ESTATE = "real_estate",
   VEHICLES = "vehicles",
+  TAX_RETURN = "tax_return",
+  NOTICE_OF_ASSESSMENT = "notice_of_assessment"
 }
 
 export interface ITabPanel {

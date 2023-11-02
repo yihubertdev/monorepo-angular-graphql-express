@@ -16,7 +16,13 @@ import {
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import { ITab, ITabPanel, IUser, SETTING_CATEGORY } from "sources-types";
+import {
+  IFormInput,
+  ITab,
+  ITabPanel,
+  IUser,
+  SETTING_CATEGORY,
+} from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
@@ -25,6 +31,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
 import { groupBy } from "../../core/utils/lodash";
+import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 
 export interface IUserTabSettings {
   title: string;
@@ -35,6 +42,8 @@ export interface IUserSettings {
   title: string;
   description: string;
   category: string;
+  formList: IFormInput[];
+  formSchema?: JoiSchemaBuilder<any>;
   data: IUserDetailCard[];
 }
 
@@ -83,6 +92,8 @@ export interface IUserSettings {
                   [user]="user"
                   [category]="setting.category"
                   [title]="setting.title"
+                  [formList]="setting.formList"
+                  [formSchema]="setting.formSchema"
                   [isSettingsPage]="true"></user-details-card-component>
               </ng-template>
             </mat-expansion-panel>
@@ -94,7 +105,7 @@ export interface IUserSettings {
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserDetailsSettingsController implements OnInit {
-  @Input({ required: true }) section!: string;
+  @Input({ required: true }) collection!: string;
 
   public settings!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
@@ -105,15 +116,13 @@ export class UserDetailsSettingsController implements OnInit {
       disableClose: true,
       data: {
         documentId: uuidv4(),
+        collection: this.collection,
         category: data.category,
         title: data.title,
         user: this.user,
-        formList: SETTINGS_FORM_CONFIG[data.category].list,
-        formSchema: SETTINGS_FORM_CONFIG[data.category].schema,
+        formList: data.formList,
+        formSchema: data.formSchema,
       },
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.ngOnInit();
     });
   }
 
@@ -122,7 +131,7 @@ export class UserDetailsSettingsController implements OnInit {
 
     this.user = user;
     const groupedData = groupBy(data, "category");
-    this.settings = SETTINGS[this.section].map((setting) => {
+    this.settings = SETTINGS[this.collection].map((setting) => {
       const { title, description, category } = setting as ITabPanel;
 
       switch (category) {
@@ -132,10 +141,10 @@ export class UserDetailsSettingsController implements OnInit {
             title: title,
             description: description,
             category: category,
+            formList: SETTINGS_FORM_CONFIG[category].list,
             data: [
               {
                 details: userInfo,
-                formList: SETTINGS_FORM_CONFIG[category].list,
               },
             ],
           };
@@ -147,11 +156,11 @@ export class UserDetailsSettingsController implements OnInit {
             title: title,
             description: description,
             category: category,
+            formList: SETTINGS_FORM_CONFIG[category].list,
+            formSchema: SETTINGS_FORM_CONFIG[category].schema,
             data: groupedData[category]?.map((form: any) => ({
               details: form,
               documentId: form.documentId,
-              formList: SETTINGS_FORM_CONFIG[category].list,
-              formSchema: SETTINGS_FORM_CONFIG[category].schema,
             })),
           };
         }
@@ -160,11 +169,11 @@ export class UserDetailsSettingsController implements OnInit {
             title: title,
             description: description,
             category: category,
+            formList: SETTINGS_FORM_CONFIG[category].list,
+            formSchema: SETTINGS_FORM_CONFIG[category].schema,
             data: groupedData[category]?.map((form: any) => ({
               details: form,
               documentId: form.documentId,
-              formList: SETTINGS_FORM_CONFIG[category].list,
-              formSchema: SETTINGS_FORM_CONFIG[category].schema,
             })),
           };
         }

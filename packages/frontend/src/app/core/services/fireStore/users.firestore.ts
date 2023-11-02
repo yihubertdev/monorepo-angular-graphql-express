@@ -99,7 +99,7 @@ export class UserService extends FireStoreBaseModel<IUser> {
   ): any {
     const { documentId, collectionId, documentValue, next } = queryBuilder;
     let newQueries = queries.doc(documentId);
-    console.log(newQueries);
+
     return next
       ? this.buildSubCollection(
           newQueries.collection(collectionId as string),

@@ -47,7 +47,7 @@ export class DocumentUploaderComponent {
   public uploadImage(eventTarget: EventTarget | null): void {
     // Transform eventTarget to HTMLInputElement
     const element = eventTarget as HTMLInputElement | null;
-
+    console.log(element?.files);
     // Get the upload file
     const fileList = element?.files;
     if (
@@ -59,6 +59,7 @@ export class DocumentUploaderComponent {
       return;
 
     this.fileCount = fileList.length;
+
     this.tasks = this.formFileStorage.uploadMultiple(
       Array.from(fileList).map((file) => ({
         id: uuidv4(),
@@ -67,6 +68,7 @@ export class DocumentUploaderComponent {
       this.documentPath,
       this.documentCategory
     );
+
     return;
   }
 

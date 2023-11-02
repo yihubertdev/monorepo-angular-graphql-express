@@ -20,18 +20,10 @@ import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
-
-export interface IUserTabSettings {
-  title: string;
-  panel: IUserSettings[];
-}
-
-export interface IUserSettings {
-  title: string;
-  description: string;
-  category: string;
-  data: IUserDetailCard[];
-}
+import {
+  IUserSettings,
+  IUserTabSettings,
+} from "./user-details-settings.controller";
 
 @Component({
   standalone: true,
@@ -74,6 +66,8 @@ export interface IUserSettings {
                     [user]="user"
                     [category]="setting.category"
                     [title]="setting.title"
+                    [formList]="setting.formList"
+                    [formSchema]="setting.formSchema"
                     [isSettingsPage]="true"></user-details-card-component>
                 </ng-template>
               </mat-expansion-panel>
@@ -117,22 +111,19 @@ export class UserDetailsSettingsTabController implements OnInit {
       }[]
     ).map((tab) => ({
       title: tab.title,
-      panel: tab.panel.map(
-        (setting) =>
-          ({
-            title: setting.title,
-            description: setting.description,
-            category: setting.category,
-            data: data
-              .filter((i: any) => i.category === setting.category)
-              .map((form: any) => ({
-                details: form,
-                documentId: form.documentId,
-                formInputList: HOME_ADDRESS_PROFILE,
-                formInputSchema: homeAdressSchema,
-              })),
-          } as IUserSettings)
-      ),
+      panel: tab.panel.map((setting) => ({
+        title: setting.title,
+        description: setting.description,
+        category: setting.category,
+        formList: HOME_ADDRESS_PROFILE,
+        formSchema: homeAdressSchema,
+        data: data
+          .filter((i: any) => i.category === setting.category)
+          .map((form: any) => ({
+            details: form,
+            documentId: form.documentId,
+          })),
+      })),
     }));
   }
 }

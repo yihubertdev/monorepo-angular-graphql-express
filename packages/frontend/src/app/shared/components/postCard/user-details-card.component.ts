@@ -19,8 +19,6 @@ import { MatIconModule } from "@angular/material/icon";
 export interface IUserDetailCard {
   details: any;
   documentId?: string;
-  formList: IFormInput[];
-  formSchema?: JoiSchemaBuilder<any>;
 }
 
 @Component({
@@ -54,7 +52,7 @@ export interface IUserDetailCard {
           <div
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12"
-            *ngFor="let info of userDetails.formList">
+            *ngFor="let info of formList">
             <mat-list-item>{{ info.label }} : {{ info.value }}</mat-list-item>
             <mat-divider></mat-divider>
           </div>
@@ -68,12 +66,14 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
   @Input({ required: true }) category!: string;
   @Input({ required: true }) title!: string;
+  @Input({ required: true }) formList!: IFormInput[];
+  @Input({ required: true }) formSchema?: JoiSchemaBuilder<any>;
   @Input() isSettingsPage?: boolean;
 
   constructor(public dialog: MatDialog) {}
 
   ngOnChanges() {
-    const formList = this.userDetails.formList;
+    const formList = this.formList;
     const userDetail = this.userDetails.details;
     formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
   }
@@ -86,8 +86,8 @@ export class UserDetailCardComponent implements OnChanges {
         category: this.category,
         title: this.title,
         documentId: this.userDetails.documentId,
-        formList: this.userDetails.formList,
-        formSchema: this.userDetails.formSchema,
+        formList: this.formList,
+        formSchema: this.formSchema,
       },
     });
   }

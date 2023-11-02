@@ -48,6 +48,7 @@ export class AddProfileSectionDialog {
     public data: {
       user: QueryDocumentSnapshot<IUser>;
       documentId: string;
+      collection: string;
       category: string;
       title: string;
       formList: IFormInput[];
@@ -58,8 +59,9 @@ export class AddProfileSectionDialog {
   }
 
   save(value: any) {
+    console.log(value);
     this._userService.addSubCollectionByUserId(this.data.user, {
-      collectionId: "userProfile",
+      collectionId: this.data.collection,
       next: {
         documentId: this.data.documentId,
         documentValue: { category: this.data.category, ...value },
