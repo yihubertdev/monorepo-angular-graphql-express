@@ -1,5 +1,9 @@
 import * as Joi from "joi";
-import { IProfileHomeAddress, IUserProfile } from "sources-types";
+import {
+  IFileValidation,
+  IProfileHomeAddress,
+  IUserProfile,
+} from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 
 export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
@@ -84,4 +88,15 @@ export const PERSONAL_DOCUMENT_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
   errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({});
+};
+
+export const TAX_RETURN_FILE_SCHEMA: JoiSchemaBuilder<IFileValidation> = (
+  data: IFileValidation,
+  errorLocation?: string
+): Joi.ObjectSchema => {
+  return Joi.object({
+    name: Joi.string().required(),
+    type: Joi.string().valid("application/pdf", "image/jpeg", "image/png"),
+    size: Joi.number().max(5242880).required(),
+  });
 };

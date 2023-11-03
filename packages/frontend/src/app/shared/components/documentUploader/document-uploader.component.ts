@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { NgFor } from "@angular/common";
+import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 
 @Component({
   standalone: true,
@@ -35,6 +36,7 @@ import { NgFor } from "@angular/common";
 export class DocumentUploaderComponent {
   @Input() documentPath?: string;
   @Input() documentCategory?: string;
+  @Input() uploadDocumentSchema?: JoiSchemaBuilder<any>;
   @Output() documentUpload = new EventEmitter<string[]>();
 
   public uploadPercentage: number = 0;

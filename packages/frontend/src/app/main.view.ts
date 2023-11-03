@@ -127,7 +127,6 @@ export class MainView implements OnInit {
 
   ngOnInit(): void {
     this._auth.userAuthObserver$.subscribe((user) => {
-      console.log(user);
       this.hasUser = user;
     });
     // this._firebaseMessaging.requestToken();

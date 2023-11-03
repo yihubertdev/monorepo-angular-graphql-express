@@ -11,6 +11,7 @@ import {
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
 import {
   PERSONAL_DOCUMENT_SCHEMA,
+  TAX_RETURN_FILE_SCHEMA,
   homeAdressSchema,
 } from "../joiSchema/auth.schema";
 
@@ -229,7 +230,11 @@ export const ACCOUNT_INFO: IFormInput[] = [
   },
 ];
 
-export const TAX_RETURN_FORM: IFormInput[] = Array(3)
+export interface IFormUploaderInput extends IFormInput {
+  schema?: JoiSchemaBuilder<any>;
+}
+
+export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
   .fill(0)
   .map((item, index) => {
     const currentYear = new Date().getFullYear();
@@ -244,6 +249,7 @@ export const TAX_RETURN_FORM: IFormInput[] = Array(3)
       required: true,
       documentPath: "net_worth",
       documentCategory: "tax_return",
+      schema: TAX_RETURN_FILE_SCHEMA,
     };
   });
 

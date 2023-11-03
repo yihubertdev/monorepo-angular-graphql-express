@@ -1,5 +1,8 @@
 import { Route, Routes } from "@angular/router";
-import { settingsResolver } from "../../shared/resolvers/settings.resolver";
+import {
+  PersonalNetWorthResolver,
+  SecurityResolver,
+} from "../../shared/resolvers/settings.resolver";
 
 export interface IFullRoute extends Route {
   description: string;
@@ -12,21 +15,21 @@ export default [
     path: "security",
     description: "Security",
     icon: "verified_user",
-    resolve: { settings: settingsResolver },
+    resolve: { settings: SecurityResolver },
     loadComponent: () => import("./security.view"),
   },
   {
     path: "profile",
     description: "Profile",
     icon: "face",
-    resolve: { settings: settingsResolver },
+    resolve: { settings: SecurityResolver },
     loadComponent: () => import("./profile.view"),
   },
   {
     path: "personal-net-worth",
     description: "Personal Net Worth",
     icon: "monetization_on",
-    resolve: { settings: settingsResolver },
+    resolve: { settings: PersonalNetWorthResolver },
     loadComponent: () => import("./personal-net-worth.view"),
   },
 ] as IFullRoute[];

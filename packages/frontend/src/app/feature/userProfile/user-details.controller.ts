@@ -57,48 +57,48 @@ export class UserDetailsController implements OnInit {
   constructor(private _userService: UserService) {}
 
   async ngOnInit() {
-    if (this.userId) {
-      this.info = await this._userService.retrieveSubCollectionProfile({
-        userId: this.userId,
-      });
+    // if (this.userId) {
+    //   this.info = await this._userService.retrieveSubCollection({
+    //     userId: this.userId,
+    //   });
 
-      if (this.info.user) {
-        this.userDetails = [
-          {
-            title: "Personal Profile",
-            details: this.info.data.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formList: HOME_ADDRESS_PROFILE,
-              formSchema: homeAdressSchema,
-            })),
-          },
-          {
-            title: "Business Profile",
-            details: this.info.data.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formList: HOME_ADDRESS_PROFILE,
-              formSchema: homeAdressSchema,
-            })),
-          },
-          {
-            title: "Professional Profile",
-            details: this.info.data.map((item) => ({
-              userSnapshot: this.info.user,
-              details: item,
-              title: item.title,
-              documentId: item.documentId,
-              formList: HOME_ADDRESS_PROFILE,
-              formSchema: homeAdressSchema,
-            })),
-          },
-        ];
-      }
-    }
+    //   if (this.info.user) {
+    //     this.userDetails = [
+    //       {
+    //         title: "Personal Profile",
+    //         details: this.info.data.map((item) => ({
+    //           userSnapshot: this.info.user,
+    //           details: item,
+    //           title: item.title,
+    //           documentId: item.documentId,
+    //           formList: HOME_ADDRESS_PROFILE,
+    //           formSchema: homeAdressSchema,
+    //         })),
+    //       },
+    //       {
+    //         title: "Business Profile",
+    //         details: this.info.data.map((item) => ({
+    //           userSnapshot: this.info.user,
+    //           details: item,
+    //           title: item.title,
+    //           documentId: item.documentId,
+    //           formList: HOME_ADDRESS_PROFILE,
+    //           formSchema: homeAdressSchema,
+    //         })),
+    //       },
+    //       {
+    //         title: "Professional Profile",
+    //         details: this.info.data.map((item) => ({
+    //           userSnapshot: this.info.user,
+    //           details: item,
+    //           title: item.title,
+    //           documentId: item.documentId,
+    //           formList: HOME_ADDRESS_PROFILE,
+    //           formSchema: homeAdressSchema,
+    //         })),
+    //       },
+    //     ];
+    //   }
+    // }
   }
 }

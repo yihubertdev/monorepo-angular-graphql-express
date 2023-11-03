@@ -19,6 +19,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
 import { UserService } from "../../../core/services/fireStore/users.firestore";
 import { IUser } from "sources-types";
+import { IFormUploaderInput } from "src/app/core/static/auth.static";
 
 @Component({
   standalone: true,
@@ -99,6 +100,7 @@ import { IUser } from "sources-types";
           <document-uploader-component
             [documentPath]="input.documentPath"
             [documentCategory]="input.documentCategory"
+            [uploadDocumentSchema]="input.schema"
             (documentUpload)="
               saveFile($event, input.key)
             "></document-uploader-component>
@@ -127,8 +129,7 @@ import { IUser } from "sources-types";
   styleUrls: ["./form-input-list.component.css"],
 })
 export class FormInputListComponent implements OnInit {
-  @Input() formInputList: IFormInput[] = [];
-  @Input() errorLocation: string = "";
+  @Input() formInputList: IFormUploaderInput[] = [];
   @Input() validatorSchema?: JoiSchemaBuilder<any>;
   @Input() buttonName: string = "";
   @Input() loading: boolean = false;
@@ -163,7 +164,6 @@ export class FormInputListComponent implements OnInit {
         ? {
             validators: joiValidator.formGroup(
               {
-                errorLocation: this.errorLocation,
                 schemaGenerator: this.validatorSchema,
               },
               {
@@ -187,9 +187,9 @@ export class FormInputListComponent implements OnInit {
     };
   }
 
-  saveFile = (filesUrl: string[], formControlName: string) => {
+  saveFile = (filesUrl: string[], key: string) => {
     // Assign the document uploaded url into form
-    this.newForm.controls[formControlName].setValue(filesUrl);
+    this.newForm.controls[key].setValue(filesUrl);
   };
 
   submit = () => {

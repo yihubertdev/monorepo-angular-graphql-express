@@ -22,7 +22,7 @@ service cloud.firestore {
             allow update, delete, create: if isLoggedIn(uid);
         }
 
-        match /users/{uid}/userProfile/{profileId} {
+        match /users/{uid}/{subCollectionId=**} {
             allow create, delete, get, read, list, update, write: if request.auth.uid == uid;
         }
 

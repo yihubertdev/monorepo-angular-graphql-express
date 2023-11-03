@@ -129,6 +129,12 @@ export interface IProfileHomeAddress {
   country: string;
 }
 
+export interface IFileValidation {
+  name: string;
+  type: string;
+  size: number;
+}
+
 export const enum EMPLOYMENT_TYPE {
   SELF_EMPLOYED = "Self-employed",
   PERMANENT_FULL_TIME = "Permanent-full-time",
@@ -140,10 +146,9 @@ export const enum GEOLOCATION {
 }
 
 export const enum SETTING_COLLECTION {
-  SECURITY = "Security",
-  PROFILE = "Profile",
-  PERSONAL_NET_WORTH = "Personal Net Worth",
-  ESTATE_PLANNING = "Estate Planning",
+  SECURITY = "security",
+  PROFILE = "profile",
+  PERSONAL_NET_WORTH = "personal_net_worth",
 }
 
 export const enum PROFILE_TYPE {
@@ -163,7 +168,7 @@ export const enum SETTING_CATEGORY {
   REAL_ESTATE = "real_estate",
   VEHICLES = "vehicles",
   TAX_RETURN = "tax_return",
-  NOTICE_OF_ASSESSMENT = "notice_of_assessment"
+  NOTICE_OF_ASSESSMENT = "notice_of_assessment",
 }
 
 export interface ITabPanel {
@@ -260,7 +265,7 @@ export interface IFormInput {
   type: INPUT_TYPE;
   key: string;
   value: string;
-  label?: string;
+  label: string;
   placeholder?: string;
   required?: boolean;
   selection?: (string | number)[];

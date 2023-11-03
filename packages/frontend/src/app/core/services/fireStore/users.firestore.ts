@@ -70,18 +70,19 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return document.id;
   };
 
-  public retrieveSubCollectionProfile = async (filter: {
+  public retrieveSubCollection = async (filter: {
     userId: string;
+    collectionId: string;
   }): Promise<{
     data: IProfileHomeAddress[];
     user: QueryDocumentSnapshot<IUser>;
   }> => {
-    const { userId } = filter;
+    const { userId, collectionId } = filter;
     let query = this.collection.ref.where("userId", "==", userId);
 
     const [user] = (await query.get()).docs;
     // return document;
-    const subCollectionProfile = user.ref.collection("userProfile");
+    const subCollectionProfile = user.ref.collection(collectionId);
 
     const profile = await subCollectionProfile.get();
 

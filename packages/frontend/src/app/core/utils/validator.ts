@@ -19,11 +19,10 @@ class joiValidator {
   public formGroup = (
     params: {
       schemaGenerator: JoiSchemaBuilder<any>;
-      errorLocation: string;
     },
     options: ValidationOptions = this.options
   ) => {
-    const { schemaGenerator, errorLocation } = params;
+    const { schemaGenerator } = params;
     const validator = (group: UntypedFormGroup) => {
       // Remove error from controls
       for (const key in group.controls) {
@@ -34,10 +33,7 @@ class joiValidator {
       }
 
       // Generate joi schema with current user input value and error happened location
-      const schema = schemaGenerator(
-        errorLocation,
-        group.value
-      ) as Joi.ObjectSchema;
+      const schema = schemaGenerator(group.value) as Joi.ObjectSchema;
 
       // Validate joi schema
       const result = schema.validate(group.value, options);
