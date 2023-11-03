@@ -30,6 +30,11 @@
   display: inline-block;
 }
 
+.user-avatar-square {
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px gray;
+}
+
 /* xs width */
 .user-avatar-size {
   height: 22vw;
@@ -105,8 +110,8 @@
 /* xl width */
 @media (min-width: 1200px) {
   .user-avatar-size {
-    height: 9vw;
-    width: 9vw;
+    height: 6vw;
+    width: 6vw;
   }
 
   .card-height-responsive {

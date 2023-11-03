@@ -10,8 +10,11 @@ import {
 } from "sources-types";
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
 import {
+  NOTICE_OF_ASSESSMENT_FILE_SCHEMA,
+  NOTICE_OF_ASSESSMENT_SCHEMA,
   PERSONAL_DOCUMENT_SCHEMA,
   TAX_RETURN_FILE_SCHEMA,
+  TAX_RETURN_SCHEMA,
   homeAdressSchema,
 } from "../joiSchema/auth.schema";
 
@@ -253,6 +256,25 @@ export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
     };
   });
 
+export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
+  .fill(0)
+  .map((item, index) => {
+    const currentYear = new Date().getFullYear();
+
+    return {
+      id: "noticeOfAssessment_" + (currentYear - index),
+      type: INPUT_TYPE.UPLOAD,
+      label: "Notice Of Assessment " + (currentYear - index),
+      key: "noticeOfAssessment_" + (currentYear - index),
+      value: "",
+      placeholder: "",
+      required: true,
+      documentPath: "net_worth",
+      documentCategory: "noticeOfAssessment",
+      schema: NOTICE_OF_ASSESSMENT_FILE_SCHEMA,
+    };
+  });
+
 export const SECURITY_PANEL: ITabPanel[] = [
   {
     title: "Account",
@@ -338,19 +360,19 @@ export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
   },
   [SETTING_CATEGORY.TAX_RETURN]: {
     list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
+    schema: TAX_RETURN_SCHEMA,
   },
   [SETTING_CATEGORY.AUTHENTICATION]: {
     list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
+    schema: TAX_RETURN_SCHEMA,
   },
   [SETTING_CATEGORY.RECOGNITION]: {
     list: TAX_RETURN_FORM,
     schema: PERSONAL_DOCUMENT_SCHEMA,
   },
   [SETTING_CATEGORY.NOTICE_OF_ASSESSMENT]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
+    list: NOTICE_OF_ASSESSMENT_FORM,
+    schema: NOTICE_OF_ASSESSMENT_SCHEMA,
   },
   [SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE]: {
     list: TAX_RETURN_FORM,

@@ -14,7 +14,10 @@ import {
 } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import joiValidator from "../../utils/validator";
-import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
+import {
+  deleteCollectionBuilderSchema,
+  subCollectionBuilderSchema,
+} from "../../joiSchema/sub-collection.schema";
 import { ICollectionQueryBuilder } from "sources-types";
 
 @Injectable({ providedIn: "root" })
@@ -123,6 +126,37 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return next
       ? this.buildSubCollection(collection, next)
       : collection.doc(documentId).set(documentValue as IProfile);
+  }
+
+  protected buildRemoveSubCollection(
+    queries: CollectionReference<DocumentData>,
+    queryBuilder: ICollectionQueryBuilder<IProfile>
+  ): any {
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    let newQueries = queries.doc(documentId);
+
+    return next
+      ? this.buildRemoveSubCollection(
+          newQueries.collection(collectionId as string),
+          next
+        )
+      : newQueries.delete();
+  }
+
+  public deleteSubCollectionDocumentByUserId(
+    user: QueryDocumentSnapshot<IUser>,
+    queryBuilder: ICollectionQueryBuilder<IProfile>
+  ): void {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: deleteCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, next } = queryBuilder;
+    const collection = user.ref.collection(collectionId!);
+
+    return next
+      ? this.buildRemoveSubCollection(collection, next)
+      : collection.doc(documentId).delete();
   }
 
   protected buildSubCollectionUpdator(

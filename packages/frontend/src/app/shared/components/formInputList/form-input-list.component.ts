@@ -13,13 +13,14 @@ import { IFormInput } from "sources-types";
 import { EditorComponent } from "./editor.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { NgFor, NgIf } from "@angular/common";
+import { AsyncPipe, NgFor, NgIf } from "@angular/common";
 import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
 import { UserService } from "../../../core/services/fireStore/users.firestore";
 import { IUser } from "sources-types";
 import { IFormUploaderInput } from "src/app/core/static/auth.static";
+import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 
 @Component({
   standalone: true,
@@ -33,6 +34,8 @@ import { IFormUploaderInput } from "src/app/core/static/auth.static";
     DocumentUploaderComponent,
     EditorComponent,
     MentionModule,
+    AddMentionUsersPipe,
+    AsyncPipe,
   ],
   selector: "form-input-list-component",
   template: `
@@ -84,7 +87,9 @@ import { IFormUploaderInput } from "src/app/core/static/auth.static";
             [placeholder]="input.placeholder ?? ''"
             style="height: 20dvh;"
             [formControlName]="input.key"
-            [mentionConfig]="mentionConfig"></textarea>
+            [mentionConfig]="
+              (mentionConfig | AddMentionUsers | async)!
+            "></textarea>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -129,8 +134,8 @@ import { IFormUploaderInput } from "src/app/core/static/auth.static";
   styleUrls: ["./form-input-list.component.css"],
 })
 export class FormInputListComponent implements OnInit {
-  @Input() formInputList: IFormUploaderInput[] = [];
-  @Input() validatorSchema?: JoiSchemaBuilder<any>;
+  @Input({ required: true }) formInputList!: IFormUploaderInput[];
+  @Input({ required: true }) validatorSchema!: JoiSchemaBuilder<any>;
   @Input() buttonName: string = "";
   @Input() loading: boolean = false;
   @Input() haveEditor: boolean = false;
@@ -145,10 +150,7 @@ export class FormInputListComponent implements OnInit {
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private _userService: UserService
-  ) {
+  constructor(private formBuilder: UntypedFormBuilder) {
     this.newForm = formBuilder.group({});
   }
 
@@ -174,17 +176,6 @@ export class FormInputListComponent implements OnInit {
           }
         : {}
     );
-
-    this.allUsers = await this._userService.retrieveAll();
-
-    this.mentionConfig = {
-      mentions: [
-        {
-          items: this.allUsers.map((user) => user.userId),
-          triggerChar: "@",
-        },
-      ],
-    };
   }
 
   saveFile = (filesUrl: string[], key: string) => {

@@ -38,41 +38,15 @@ import { PROFILE_SETTINGS_MENU } from "src/app/core/static/menu.static";
           </mat-card-title>
           <mat-card-subtitle
             >@{{ currentUser?.userId ?? "guest" }}
-            <mat-card-actions>
-              <div class="row m-0 p-0">
-                <div
-                  class="col-xl-12 col-lg-12
-              col-md-12 col-sm-12 col-xs-12 m-0 p-0">
-                  <a
-                    mat-button
-                    [routerLink]="['/users', 'me', 'personal-profile']"
-                    >View Profile <mat-icon> visibility </mat-icon></a
-                  >
-                </div>
-                <div
-                  class="col-xl-8 col-lg-8
-              col-md-8 col-sm-12 col-xs-12 m-0 p-0">
-                  <a
-                    mat-raised-button
-                    color="primary"
-                    [routerLink]="['/users', 'profile-signup']">
-                    Build Profile
-                    <mat-icon>account_box</mat-icon>
-                  </a>
-                </div>
-              </div>
-            </mat-card-actions></mat-card-subtitle
-          >
-
+          </mat-card-subtitle>
           <div
-            class="user-avatar-size user-avatar"
+            class="user-avatar-size user-avatar-square"
             [ngStyle]="{
               backgroundImage:
                 'url(' +
                 (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
                 ')',
               backgroundSize: 'cover',
-              marginLeft: 'auto'
             }">
             <mat-icon
               class="user-avatar-uploader-center cursor-pointer"
@@ -89,7 +63,20 @@ import { PROFILE_SETTINGS_MENU } from "src/app/core/static/menu.static";
           </div>
         </mat-card-title-group>
       </mat-card-header>
-
+      <mat-card-actions>
+        <a
+          mat-button
+          [routerLink]="['/users', 'me', 'personal-profile']"
+          >View Profile <mat-icon> visibility </mat-icon></a
+        >
+        <a
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/users', 'profile-signup']">
+          Build Profile
+          <mat-icon>account_box</mat-icon>
+        </a>
+      </mat-card-actions>
       <mat-card-content>
         <mat-nav-list>
           <a

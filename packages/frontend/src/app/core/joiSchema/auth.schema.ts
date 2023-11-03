@@ -5,6 +5,10 @@ import {
   IUserProfile,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
+import {
+  NOTICE_OF_ASSESSMENT_FORM,
+  TAX_RETURN_FORM,
+} from "../static/auth.static";
 
 export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
   data: IUserProfile,
@@ -90,13 +94,114 @@ export const PERSONAL_DOCUMENT_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
   return Joi.object({});
 };
 
+export const TAX_RETURN_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
+  data: IProfileHomeAddress,
+  errorLocation?: string
+): Joi.ObjectSchema => {
+  const taxReturn: Record<string, Joi.StringSchema> = {};
+  TAX_RETURN_FORM.forEach((item) => {
+    taxReturn[item.key] = Joi.string()
+      .required()
+      .error((err) => {
+        err.forEach((e) => {
+          switch (e.code) {
+            case "string.empty":
+              e.message = "No Document be selected";
+              break;
+            default:
+              break;
+          }
+        });
+
+        return err;
+      });
+  });
+
+  return Joi.object(taxReturn);
+};
+
+export const NOTICE_OF_ASSESSMENT_SCHEMA: JoiSchemaBuilder<
+  IProfileHomeAddress
+> = (data: IProfileHomeAddress, errorLocation?: string): Joi.ObjectSchema => {
+  const taxReturn: Record<string, Joi.ArraySchema> = {};
+  NOTICE_OF_ASSESSMENT_FORM.forEach((item) => {
+    taxReturn[item.key] = Joi.array()
+      .length(1)
+      .items(
+        Joi.string()
+          .required()
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                case "string.empty":
+                  e.message = "No Document be selected";
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            return err;
+          })
+      );
+  });
+
+  return Joi.object(taxReturn);
+};
+
+export const NOTICE_OF_ASSESSMENT_FILE_SCHEMA: JoiSchemaBuilder<
+  IFileValidation
+> = (data: IFileValidation, errorLocation?: string): Joi.ArraySchema => {
+  return Joi.array()
+    .length(1)
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+        type: Joi.string()
+          .valid("application/pdf")
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                case "any.only":
+                  e.message = "Notice Of Assessment document must be PDF";
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            return err;
+          }),
+        size: Joi.number().max(5242880).required(), // 5mb
+      })
+    );
+};
+
 export const TAX_RETURN_FILE_SCHEMA: JoiSchemaBuilder<IFileValidation> = (
   data: IFileValidation,
   errorLocation?: string
-): Joi.ObjectSchema => {
-  return Joi.object({
-    name: Joi.string().required(),
-    type: Joi.string().valid("application/pdf", "image/jpeg", "image/png"),
-    size: Joi.number().max(5242880).required(),
-  });
+): Joi.ArraySchema => {
+  return Joi.array()
+    .length(1)
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+        type: Joi.string()
+          .valid("application/pdf")
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                case "any.only":
+                  e.message = "Tax return document must be PDF";
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            return err;
+          }),
+        size: Joi.number().max(5242880).required(), // 5mb
+      })
+    );
 };

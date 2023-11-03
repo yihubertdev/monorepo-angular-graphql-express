@@ -94,7 +94,8 @@ export interface IUserSettings {
                   [title]="setting.title"
                   [formList]="setting.formList"
                   [formSchema]="setting.formSchema"
-                  [isSettingsPage]="true"></user-details-card-component>
+                  [isSettingsPage]="true"
+                  (removeChange)="remove($event)"></user-details-card-component>
               </ng-template>
             </mat-expansion-panel>
           </div>
@@ -109,9 +110,15 @@ export class UserDetailsSettingsController implements OnInit {
 
   public settings!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
-  constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
+  protected groupedSettings!: Record<string, Omit<IUserSettings, "category">[]>;
+  constructor(
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private _userService: UserService
+  ) {}
 
   openDialog(data: IUserSettings) {
+    data.formList.forEach((list) => (list.value = ""));
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
@@ -122,6 +129,21 @@ export class UserDetailsSettingsController implements OnInit {
         user: this.user,
         formList: data.formList,
         formSchema: data.formSchema,
+      },
+    });
+  }
+
+  remove(value: { documentId: string; category: string }) {
+    const { documentId, category } = value;
+    // each category only have one object, each object have multiple data
+    this.groupedSettings[category][0].data = this.groupedSettings[
+      category
+    ][0].data.filter((item) => item.documentId != documentId);
+
+    this._userService.deleteSubCollectionDocumentByUserId(this.user, {
+      collectionId: this.collection,
+      next: {
+        documentId,
       },
     });
   }
@@ -179,5 +201,7 @@ export class UserDetailsSettingsController implements OnInit {
         }
       }
     });
+    // each category only have one object, each object have multiple data
+    this.groupedSettings = groupBy(this.settings, "category");
   }
 }

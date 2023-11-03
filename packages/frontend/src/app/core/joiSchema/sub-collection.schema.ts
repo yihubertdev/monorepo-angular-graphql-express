@@ -27,3 +27,22 @@ export const subCollectionBuilderSchema: JoiSchemaBuilder<
     }),
   });
 };
+
+export const deleteCollectionBuilderSchema: JoiSchemaBuilder<
+  ICollectionQueryBuilder<any>
+> = (): Joi.ObjectSchema => {
+  return Joi.object({
+    next: Joi.object().optional(),
+    documentId: Joi.when(Joi.ref("next"), {
+      is: Joi.exist(),
+      then: Joi.forbidden(),
+      otherwise: Joi.string().required(),
+    }),
+    collectionId: Joi.when(Joi.ref("next"), {
+      is: Joi.exist(),
+      then: Joi.string().required(),
+      otherwise: Joi.forbidden(),
+    }),
+    documentValue: Joi.string().optional(),
+  });
+};

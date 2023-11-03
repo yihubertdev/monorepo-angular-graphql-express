@@ -6,7 +6,7 @@ import { IFormInput } from "sources-types";
 export type JoiSchemaBuilder<T> = (
   data: T,
   errorLocation?: string
-) => Joi.ObjectSchema;
+) => Joi.ObjectSchema | Joi.ArraySchema;
 
 export type SETTING_FORM<T> = {
   list: IFormInput[];

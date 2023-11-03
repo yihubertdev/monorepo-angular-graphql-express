@@ -4,12 +4,19 @@ import { FormFileStorageService } from "../../../core/services/fireStorage/form-
 import { v4 as uuidv4 } from "uuid";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploadListComponent } from "./document-upload-list.component";
-import { NgFor } from "@angular/common";
+import { NgFor, NgIf } from "@angular/common";
 import { JoiSchemaBuilder } from "src/app/core/utils/validator";
+import { MatFormFieldModule } from "@angular/material/form-field";
 
 @Component({
   standalone: true,
-  imports: [MatListModule, DocumentUploadListComponent, NgFor],
+  imports: [
+    NgIf,
+    MatListModule,
+    DocumentUploadListComponent,
+    NgFor,
+    MatFormFieldModule,
+  ],
   providers: [FormFileStorageService],
   selector: "document-uploader-component",
   template: ` <section style="display: block">
@@ -18,7 +25,9 @@ import { JoiSchemaBuilder } from "src/app/core/utils/validator";
       matinput
       multiple
       (change)="uploadImage($event.target)" />
-
+    <mat-error *ngIf="error">
+      {{ error }}
+    </mat-error>
     <mat-list
       role="list"
       *ngFor="let task of tasks">
@@ -42,6 +51,7 @@ export class DocumentUploaderComponent {
   public uploadPercentage: number = 0;
   public tasks?: IUploadMultipleFileRes[];
   public urls: string[] = [];
+  public error?: any;
 
   private fileCount: number = 0;
   constructor(private formFileStorage: FormFileStorageService) {}
@@ -49,7 +59,6 @@ export class DocumentUploaderComponent {
   public uploadImage(eventTarget: EventTarget | null): void {
     // Transform eventTarget to HTMLInputElement
     const element = eventTarget as HTMLInputElement | null;
-    console.log(element?.files);
     // Get the upload file
     const fileList = element?.files;
     if (
@@ -62,15 +71,30 @@ export class DocumentUploaderComponent {
 
     this.fileCount = fileList.length;
 
-    this.tasks = this.formFileStorage.uploadMultiple(
-      Array.from(fileList).map((file) => ({
-        id: uuidv4(),
-        file,
-      })),
-      this.documentPath,
-      this.documentCategory
-    );
+    if (this.uploadDocumentSchema) {
+      const joi = this.uploadDocumentSchema(fileList);
 
+      this.error = joi.validate(
+        Array.from(fileList).map((file) => ({
+          name: file.name,
+          size: file.size,
+          type: file.type,
+        })),
+        {
+          allowUnknown: true,
+        }
+      ).error;
+    }
+    if (!this.error) {
+      this.tasks = this.formFileStorage.uploadMultiple(
+        Array.from(fileList).map((file) => ({
+          id: uuidv4(),
+          file,
+        })),
+        this.documentPath,
+        this.documentCategory
+      );
+    }
     return;
   }
 

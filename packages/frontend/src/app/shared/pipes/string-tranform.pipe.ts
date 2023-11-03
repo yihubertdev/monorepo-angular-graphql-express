@@ -1,5 +1,7 @@
 import { Pipe, PipeTransform } from "@angular/core";
+import { MentionConfig } from "angular-mentions";
 import { SETTING_CATEGORY } from "sources-types";
+import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { transpileModule } from "typescript";
 
 @Pipe({
@@ -23,8 +25,12 @@ export class StringTransformPipe implements PipeTransform {
 export class SettingsCategoryFilterPipe implements PipeTransform {
   transform(value: string, display: boolean) {
     switch (value) {
+      case SETTING_CATEGORY.NOTICE_OF_ASSESSMENT:
       case SETTING_CATEGORY.TAX_RETURN:
         return true && display;
+
+      case SETTING_CATEGORY.ACCOUNT:
+        return !(true && display);
       default:
         return false && display;
     }
@@ -38,5 +44,25 @@ export class SettingsCategoryFilterPipe implements PipeTransform {
 export class FileNameGeneratorPipe implements PipeTransform {
   transform(value: string) {
     return value.split(" ").join("_");
+  }
+}
+
+@Pipe({
+  standalone: true,
+  name: "AddMentionUsers",
+})
+export class AddMentionUsersPipe implements PipeTransform {
+  constructor(private _userService: UserService) {}
+  async transform(value: Object): Promise<MentionConfig> {
+    const users = await this._userService.retrieveAll();
+
+    return {
+      mentions: [
+        {
+          items: users.map((user) => user.userId),
+          triggerChar: "@",
+        },
+      ],
+    };
   }
 }

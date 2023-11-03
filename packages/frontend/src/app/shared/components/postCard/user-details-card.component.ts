@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
+  Output,
 } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
@@ -15,10 +17,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../dialog/add-profile-section.dialog";
 import { MatIconModule } from "@angular/material/icon";
-import {
-  FileNameGeneratorPipe,
-  SettingsCategoryFilterPipe,
-} from "../../pipes/string-tranform.pipe";
+import { SettingsCategoryFilterPipe } from "../../pipes/string-tranform.pipe";
 
 export interface IUserDetailCard {
   details: any;
@@ -39,7 +38,6 @@ export interface IUserDetailCard {
     MatDialogModule,
     MatIconModule,
     SettingsCategoryFilterPipe,
-    FileNameGeneratorPipe,
   ],
   template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
@@ -52,7 +50,12 @@ export interface IUserDetailCard {
         </a>
         <a
           mat-button
-          (click)="openDialog()">
+          (click)="
+            remove({
+              documentId: userDetails.documentId!,
+              category: this.category
+            })
+          ">
           <mat-icon>delete</mat-icon>
         </a></mat-card-title
       >
@@ -74,7 +77,7 @@ export interface IUserDetailCard {
                 mat-button
                 [href]="info.value[0]"
                 target="_blank">
-                <mat-icon>download</mat-icon>
+                <mat-icon>visibility</mat-icon>
               </a>
             </mat-list-item>
             <mat-divider></mat-divider>
@@ -93,12 +96,17 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) formSchema?: JoiSchemaBuilder<any>;
   @Input() isSettingsPage?: boolean;
 
+  @Output() removeChange = new EventEmitter<{
+    documentId: string;
+    category: string;
+  }>();
+
   constructor(public dialog: MatDialog) {}
 
   ngOnChanges() {
-    const formList = this.formList;
-    const userDetail = this.userDetails.details;
-    formList?.forEach((list) => (list.value = (userDetail as any)[list.key]));
+    this.formList.forEach(
+      (list) => (list.value = this.userDetails.details[list.key])
+    );
   }
 
   openDialog() {
@@ -119,5 +127,9 @@ export class UserDetailCardComponent implements OnChanges {
     try {
       window.open(url);
     } catch (e) {}
+  }
+
+  remove(value: { documentId: string; category: string }) {
+    this.removeChange.emit(value);
   }
 }
