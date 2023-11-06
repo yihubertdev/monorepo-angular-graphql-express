@@ -66,9 +66,7 @@ import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 
         <ng-container *ngIf="input.type === 'select'">
           <mat-label>{{ input.label }}</mat-label>
-          <mat-select
-            [formControlName]="input.key"
-            multiple>
+          <mat-select [formControlName]="input.key">
             <mat-option
               *ngFor="let select of input.selection"
               [value]="select"

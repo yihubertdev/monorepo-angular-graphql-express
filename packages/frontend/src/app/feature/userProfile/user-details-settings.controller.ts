@@ -84,6 +84,7 @@ export interface IUserSettings {
                   mat-button
                   (click)="openDialog(setting)"
                   *ngIf="setting.category !== 'account'">
+                  Add New {{ setting.title }}
                   <mat-icon>add</mat-icon>
                 </a>
                 <user-details-card-component

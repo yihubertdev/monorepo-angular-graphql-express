@@ -94,6 +94,15 @@ export const PERSONAL_DOCUMENT_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
   return Joi.object({});
 };
 
+export const CASH_ACCOUNTS_RECEIVABLE_SCHEMA: JoiSchemaBuilder<
+  any
+> = (): Joi.ObjectSchema => {
+  return Joi.object({
+    assetType: Joi.string().required(),
+    financialInstitution: Joi.string().required(),
+  });
+};
+
 export const TAX_RETURN_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
   data: IProfileHomeAddress,
   errorLocation?: string

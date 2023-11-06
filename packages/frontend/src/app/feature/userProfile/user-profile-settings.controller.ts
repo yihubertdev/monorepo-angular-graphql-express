@@ -65,11 +65,13 @@ import { PROFILE_SETTINGS_MENU } from "src/app/core/static/menu.static";
       </mat-card-header>
       <mat-card-actions>
         <a
+          class="m-2"
           mat-button
           [routerLink]="['/users', 'me', 'personal-profile']"
           >View Profile <mat-icon> visibility </mat-icon></a
         >
         <a
+          class="m-2"
           mat-raised-button
           color="primary"
           [routerLink]="['/users', 'profile-signup']">

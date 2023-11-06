@@ -10,6 +10,7 @@ import {
 } from "sources-types";
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
 import {
+  CASH_ACCOUNTS_RECEIVABLE_SCHEMA,
   NOTICE_OF_ASSESSMENT_FILE_SCHEMA,
   NOTICE_OF_ASSESSMENT_SCHEMA,
   PERSONAL_DOCUMENT_SCHEMA,
@@ -256,6 +257,27 @@ export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
     };
   });
 
+export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
+  {
+    id: "assetType",
+    type: INPUT_TYPE.SELECT,
+    label: "Asset Type",
+    key: "assetType",
+    value: "",
+    placeholder: "",
+    selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
+  },
+  {
+    id: "financialInstitution",
+    type: INPUT_TYPE.SELECT,
+    label: "Financial Institution",
+    key: "financialInstitution",
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+];
+
 export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
   .fill(0)
   .map((item, index) => {
@@ -375,8 +397,8 @@ export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
     schema: NOTICE_OF_ASSESSMENT_SCHEMA,
   },
   [SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
+    list: CASH_ACCOUNTS_RECEIVABLE_FORM,
+    schema: CASH_ACCOUNTS_RECEIVABLE_SCHEMA,
   },
   [SETTING_CATEGORY.MARKABLE_SECURITY]: {
     list: TAX_RETURN_FORM,

@@ -17,7 +17,6 @@ import { MatListModule } from "@angular/material/list";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../dialog/add-profile-section.dialog";
 import { MatIconModule } from "@angular/material/icon";
-import { SettingsCategoryFilterPipe } from "../../pipes/string-tranform.pipe";
 
 export interface IUserDetailCard {
   details: any;
@@ -37,7 +36,6 @@ export interface IUserDetailCard {
     MatListModule,
     MatDialogModule,
     MatIconModule,
-    SettingsCategoryFilterPipe,
   ],
   template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
@@ -46,6 +44,7 @@ export interface IUserDetailCard {
         <a
           mat-button
           (click)="openDialog()">
+          Edit
           <mat-icon>edit</mat-icon>
         </a>
         <a
@@ -56,6 +55,7 @@ export interface IUserDetailCard {
               category: this.category
             })
           ">
+          Remove
           <mat-icon>delete</mat-icon>
         </a></mat-card-title
       >
@@ -67,17 +67,25 @@ export interface IUserDetailCard {
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12"
             *ngFor="let info of formList">
-            <mat-list-item *ngIf="category | SettingsCategoryFilter : false"
+            <mat-list-item *ngIf="info.type === 'text'"
               >{{ info.label }} : {{ info.value }}</mat-list-item
             >
-            <mat-list-item *ngIf="category | SettingsCategoryFilter : true"
+            <mat-list-item *ngIf="info.type === 'upload'"
               >{{ info.label }}
 
               <a
                 mat-button
                 [href]="info.value[0]"
                 target="_blank">
+                View
                 <mat-icon>visibility</mat-icon>
+              </a>
+              <a
+                mat-button
+                [href]="info.value[0]"
+                target="_blank">
+                Save
+                <mat-icon>download</mat-icon>
               </a>
             </mat-list-item>
             <mat-divider></mat-divider>

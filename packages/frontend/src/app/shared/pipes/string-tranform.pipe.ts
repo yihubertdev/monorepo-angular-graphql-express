@@ -20,25 +20,6 @@ export class StringTransformPipe implements PipeTransform {
 
 @Pipe({
   standalone: true,
-  name: "SettingsCategoryFilter",
-})
-export class SettingsCategoryFilterPipe implements PipeTransform {
-  transform(value: string, display: boolean) {
-    switch (value) {
-      case SETTING_CATEGORY.NOTICE_OF_ASSESSMENT:
-      case SETTING_CATEGORY.TAX_RETURN:
-        return true && display;
-
-      case SETTING_CATEGORY.ACCOUNT:
-        return !(true && display);
-      default:
-        return false && display;
-    }
-  }
-}
-
-@Pipe({
-  standalone: true,
   name: "FileNameGenerator",
 })
 export class FileNameGeneratorPipe implements PipeTransform {
