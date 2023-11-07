@@ -36,7 +36,6 @@ export class AddMentionUsersPipe implements PipeTransform {
   constructor(private _userService: UserService) {}
   async transform(value: Object): Promise<MentionConfig> {
     const users = await this._userService.retrieveAll();
-
     return {
       mentions: [
         {

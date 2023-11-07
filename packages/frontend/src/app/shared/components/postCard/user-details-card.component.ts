@@ -40,7 +40,6 @@ export interface IUserDetailCard {
   template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
       <mat-card-title *ngIf="isSettingsPage && category !== 'account'">
-        {{ title }}
         <a
           mat-button
           (click)="openDialog()">
@@ -67,7 +66,8 @@ export interface IUserDetailCard {
             class="col-xl-6 col-lg-6
               col-md-6 col-sm-12 col-xs-12"
             *ngFor="let info of formList">
-            <mat-list-item *ngIf="info.type === 'text'"
+            <mat-list-item
+              *ngIf="info.type === 'text' || info.type === 'select'"
               >{{ info.label }} : {{ info.value }}</mat-list-item
             >
             <mat-list-item *ngIf="info.type === 'upload'"

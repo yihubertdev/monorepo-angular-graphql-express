@@ -1,5 +1,6 @@
 import * as Joi from "joi";
 import {
+  FILE_TYPE,
   IFileValidation,
   IProfileHomeAddress,
   IUserProfile,
@@ -158,21 +159,28 @@ export const NOTICE_OF_ASSESSMENT_SCHEMA: JoiSchemaBuilder<
   return Joi.object(taxReturn);
 };
 
-export const NOTICE_OF_ASSESSMENT_FILE_SCHEMA: JoiSchemaBuilder<
-  IFileValidation
-> = (data: IFileValidation, errorLocation?: string): Joi.ArraySchema => {
+export const PDF_FILE_SCHEMA: JoiSchemaBuilder<{
+  type: FILE_TYPE[];
+  name: string;
+  size: number;
+}> = (data: {
+  type: FILE_TYPE[];
+  name: string;
+  size: number;
+}): Joi.ArraySchema => {
+  const { type, name, size } = data;
   return Joi.array()
     .length(1)
     .items(
       Joi.object({
         name: Joi.string().required(),
         type: Joi.string()
-          .valid("application/pdf")
+          .valid(...type)
           .error((err) => {
             err.forEach((e) => {
               switch (e.code) {
                 case "any.only":
-                  e.message = "Notice Of Assessment document must be PDF";
+                  e.message = `${name} document must be PDF`;
                   break;
                 default:
                   break;
@@ -181,36 +189,7 @@ export const NOTICE_OF_ASSESSMENT_FILE_SCHEMA: JoiSchemaBuilder<
 
             return err;
           }),
-        size: Joi.number().max(5242880).required(), // 5mb
-      })
-    );
-};
-
-export const TAX_RETURN_FILE_SCHEMA: JoiSchemaBuilder<IFileValidation> = (
-  data: IFileValidation,
-  errorLocation?: string
-): Joi.ArraySchema => {
-  return Joi.array()
-    .length(1)
-    .items(
-      Joi.object({
-        name: Joi.string().required(),
-        type: Joi.string()
-          .valid("application/pdf")
-          .error((err) => {
-            err.forEach((e) => {
-              switch (e.code) {
-                case "any.only":
-                  e.message = "Tax return document must be PDF";
-                  break;
-                default:
-                  break;
-              }
-            });
-
-            return err;
-          }),
-        size: Joi.number().max(5242880).required(), // 5mb
+        size: Joi.number().max(size).required(), // 5mb
       })
     );
 };

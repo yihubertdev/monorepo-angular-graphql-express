@@ -171,6 +171,13 @@ export const enum SETTING_CATEGORY {
   NOTICE_OF_ASSESSMENT = "notice_of_assessment",
 }
 
+export const enum FILE_TYPE {
+  PDF = "application/pdf",
+  JPEG = "image/jpeg",
+  PNG = "image/png",
+  GIF = "image/gif",
+}
+
 export interface ITabPanel {
   title: string;
   description: string;

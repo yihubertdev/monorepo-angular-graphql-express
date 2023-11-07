@@ -7,6 +7,7 @@ import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { NgFor, NgIf } from "@angular/common";
 import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import * as Joi from "joi";
 
 @Component({
   standalone: true,
@@ -45,7 +46,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 export class DocumentUploaderComponent {
   @Input() documentPath?: string;
   @Input() documentCategory?: string;
-  @Input() uploadDocumentSchema?: JoiSchemaBuilder<any>;
+  @Input() uploadDocumentSchema?: Joi.ObjectSchema | Joi.ArraySchema;
   @Output() documentUpload = new EventEmitter<string[]>();
 
   public uploadPercentage: number = 0;
@@ -72,7 +73,7 @@ export class DocumentUploaderComponent {
     this.fileCount = fileList.length;
 
     if (this.uploadDocumentSchema) {
-      const joi = this.uploadDocumentSchema(fileList);
+      const joi = this.uploadDocumentSchema;
 
       this.error = joi.validate(
         Array.from(fileList).map((file) => ({

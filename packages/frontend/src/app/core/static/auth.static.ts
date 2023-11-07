@@ -1,5 +1,6 @@
 import {
   EMPLOYMENT_TYPE,
+  FILE_TYPE,
   IFormInput,
   INPUT_TYPE,
   ITab,
@@ -11,13 +12,12 @@ import {
 import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
 import {
   CASH_ACCOUNTS_RECEIVABLE_SCHEMA,
-  NOTICE_OF_ASSESSMENT_FILE_SCHEMA,
+  PDF_FILE_SCHEMA,
   NOTICE_OF_ASSESSMENT_SCHEMA,
   PERSONAL_DOCUMENT_SCHEMA,
-  TAX_RETURN_FILE_SCHEMA,
   TAX_RETURN_SCHEMA,
-  homeAdressSchema,
 } from "../joiSchema/auth.schema";
+import * as Joi from "joi";
 
 export const yourAccountFormList: IFormInput[] = [
   {
@@ -235,7 +235,7 @@ export const ACCOUNT_INFO: IFormInput[] = [
 ];
 
 export interface IFormUploaderInput extends IFormInput {
-  schema?: JoiSchemaBuilder<any>;
+  schema?: Joi.ObjectSchema | Joi.ArraySchema;
 }
 
 export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
@@ -253,7 +253,11 @@ export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
       required: true,
       documentPath: "net_worth",
       documentCategory: "tax_return",
-      schema: TAX_RETURN_FILE_SCHEMA,
+      schema: PDF_FILE_SCHEMA({
+        type: [FILE_TYPE.PDF],
+        name: "Notice Of Assessment",
+        size: 5242880,
+      }),
     };
   });
 
@@ -276,6 +280,29 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
     placeholder: "",
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
+  {
+    id: "currentBalance",
+    type: INPUT_TYPE.TEXT,
+    label: "Current Balance",
+    key: "currentBalance",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lastStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Statement",
+    key: "lastStatement",
+    value: "",
+    placeholder: "",
+    documentPath: "net_worth",
+    documentCategory: "noticeOfAssessment",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Notice Of Assessment",
+      size: 5242880,
+    }),
+  },
 ];
 
 export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
@@ -293,7 +320,11 @@ export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
       required: true,
       documentPath: "net_worth",
       documentCategory: "noticeOfAssessment",
-      schema: NOTICE_OF_ASSESSMENT_FILE_SCHEMA,
+      schema: PDF_FILE_SCHEMA({
+        type: [FILE_TYPE.PDF],
+        name: "Notice Of Assessment",
+        size: 5242880,
+      }),
     };
   });
 
