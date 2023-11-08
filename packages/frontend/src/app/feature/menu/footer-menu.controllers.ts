@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
 import { IMenu } from "sources-types";
-import { footerMenus } from "../../core/static/menu.static";
+import { DRAWER_MENU } from "../../core/static/menu.static";
 import { NgFor } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatListModule } from "@angular/material/list";
@@ -22,7 +22,7 @@ import { MatIconModule } from "@angular/material/icon";
   </mat-nav-list>`,
 })
 export class FooterMenuController {
-  public footerIconLayout: IMenu[] = footerMenus;
+  public footerIconLayout: IMenu[] = DRAWER_MENU;
 
   constructor(
     public _bottomSheetRef: MatBottomSheetRef<FooterMenuController>
