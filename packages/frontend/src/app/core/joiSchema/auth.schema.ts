@@ -2,11 +2,13 @@ import * as Joi from "joi";
 import {
   FILE_TYPE,
   IFileValidation,
+  INPUT_TYPE,
   IProfileHomeAddress,
   IUserProfile,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 import {
+  IFormUploaderInput,
   NOTICE_OF_ASSESSMENT_FORM,
   TAX_RETURN_FORM,
 } from "../static/auth.static";
@@ -74,71 +76,41 @@ export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
   });
 };
 
-export const homeAdressSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
-  data: IProfileHomeAddress,
+export const homeAdressSchema: JoiSchemaBuilder<IUserProfile> = (
+  data: IUserProfile,
   errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({});
 };
 
-export const employmentSchema: JoiSchemaBuilder<IProfileHomeAddress> = (
-  data: IProfileHomeAddress,
-  errorLocation?: string
-): Joi.ObjectSchema => {
-  return Joi.object({});
-};
+export const SETTINGS_SCHEMA_GENERATOR = (data: IFormUploaderInput[]) => {
+  const result: Record<string, Joi.StringSchema<string> | Joi.ArraySchema> = {};
+  data.forEach((item) => {
+    switch (item.type) {
+      case INPUT_TYPE.UPLOAD:
+        result[item.key] = Joi.array()
+          .length(1)
+          .items(
+            Joi.string()
+              .required()
+              .error((err) => {
+                err.forEach((e) => {
+                  switch (e.code) {
+                    case "string.empty":
+                      e.message = "No Document be selected";
+                      break;
+                    default:
+                      break;
+                  }
+                });
 
-export const PERSONAL_DOCUMENT_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
-  data: IProfileHomeAddress,
-  errorLocation?: string
-): Joi.ObjectSchema => {
-  return Joi.object({});
-};
+                return err;
+              })
+          );
+        break;
 
-export const CASH_ACCOUNTS_RECEIVABLE_SCHEMA: JoiSchemaBuilder<
-  any
-> = (): Joi.ObjectSchema => {
-  return Joi.object({
-    assetType: Joi.string().required(),
-    financialInstitution: Joi.string().required(),
-  });
-};
-
-export const TAX_RETURN_SCHEMA: JoiSchemaBuilder<IProfileHomeAddress> = (
-  data: IProfileHomeAddress,
-  errorLocation?: string
-): Joi.ObjectSchema => {
-  const taxReturn: Record<string, Joi.StringSchema> = {};
-  TAX_RETURN_FORM.forEach((item) => {
-    taxReturn[item.key] = Joi.string()
-      .required()
-      .error((err) => {
-        err.forEach((e) => {
-          switch (e.code) {
-            case "string.empty":
-              e.message = "No Document be selected";
-              break;
-            default:
-              break;
-          }
-        });
-
-        return err;
-      });
-  });
-
-  return Joi.object(taxReturn);
-};
-
-export const NOTICE_OF_ASSESSMENT_SCHEMA: JoiSchemaBuilder<
-  IProfileHomeAddress
-> = (data: IProfileHomeAddress, errorLocation?: string): Joi.ObjectSchema => {
-  const taxReturn: Record<string, Joi.ArraySchema> = {};
-  NOTICE_OF_ASSESSMENT_FORM.forEach((item) => {
-    taxReturn[item.key] = Joi.array()
-      .length(1)
-      .items(
-        Joi.string()
+      default:
+        result[item.key] = Joi.string()
           .required()
           .error((err) => {
             err.forEach((e) => {
@@ -152,11 +124,11 @@ export const NOTICE_OF_ASSESSMENT_SCHEMA: JoiSchemaBuilder<
             });
 
             return err;
-          })
-      );
+          });
+    }
   });
 
-  return Joi.object(taxReturn);
+  return Joi.object(result);
 };
 
 export const PDF_FILE_SCHEMA: JoiSchemaBuilder<{

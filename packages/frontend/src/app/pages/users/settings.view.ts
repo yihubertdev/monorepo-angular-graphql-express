@@ -1,6 +1,5 @@
-import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import { Router, RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import { Component } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 import { UserProfileSettingsController } from "../../feature/userProfile/user-profile-settings.controller";
 
@@ -21,8 +20,8 @@ import { UserProfileSettingsController } from "../../feature/userProfile/user-pr
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-sm-12 mt-3">
           <user-profile-settings-controller></user-profile-settings-controller>
         </div>
-
-        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-sm-12">
+        <!--padding set to 0 so dropdown panel and top profile image have same width-->
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-sm-12 p-0">
           <router-outlet></router-outlet>
         </div>
       </div>

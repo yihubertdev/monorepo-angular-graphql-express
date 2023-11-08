@@ -3,19 +3,15 @@ import {
   FILE_TYPE,
   IFormInput,
   INPUT_TYPE,
-  ITab,
-  ITabPanel,
   PROFILE_TYPE,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
+  SETTING_COLLECTIONTAB,
 } from "sources-types";
-import { JoiSchemaBuilder, SETTING_FORM } from "../utils/validator";
+import { JoiSchemaBuilder } from "../utils/validator";
 import {
-  CASH_ACCOUNTS_RECEIVABLE_SCHEMA,
   PDF_FILE_SCHEMA,
-  NOTICE_OF_ASSESSMENT_SCHEMA,
-  PERSONAL_DOCUMENT_SCHEMA,
-  TAX_RETURN_SCHEMA,
+  SETTINGS_SCHEMA_GENERATOR,
 } from "../joiSchema/auth.schema";
 import * as Joi from "joi";
 
@@ -238,29 +234,6 @@ export interface IFormUploaderInput extends IFormInput {
   schema?: Joi.ObjectSchema | Joi.ArraySchema;
 }
 
-export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
-  .fill(0)
-  .map((item, index) => {
-    const currentYear = new Date().getFullYear();
-
-    return {
-      id: "taxReturn_" + (currentYear - index),
-      type: INPUT_TYPE.UPLOAD,
-      label: "Tax Return " + (currentYear - index),
-      key: "taxReturn_" + (currentYear - index),
-      value: "",
-      placeholder: "",
-      required: true,
-      documentPath: "net_worth",
-      documentCategory: "tax_return",
-      schema: PDF_FILE_SCHEMA({
-        type: [FILE_TYPE.PDF],
-        name: "Notice Of Assessment",
-        size: 5242880,
-      }),
-    };
-  });
-
 export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
   {
     id: "assetType",
@@ -305,6 +278,596 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
   },
 ];
 
+export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
+  .fill(0)
+  .map((item, index) => {
+    const currentYear = new Date().getFullYear();
+
+    return {
+      id: "taxReturn_" + (currentYear - index),
+      type: INPUT_TYPE.UPLOAD,
+      label: "Tax Return " + (currentYear - index),
+      key: "taxReturn_" + (currentYear - index),
+      value: "",
+      placeholder: "",
+      required: true,
+      documentPath: "net_worth",
+      documentCategory: "tax_return",
+      schema: PDF_FILE_SCHEMA({
+        type: [FILE_TYPE.PDF],
+        name: "Notice Of Assessment",
+        size: 5242880,
+      }),
+    };
+  });
+
+export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
+  {
+    id: "addressLine1",
+    type: INPUT_TYPE.TEXT,
+    label: "Address Line 1",
+    key: "addressLine1",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "addressLine2",
+    type: INPUT_TYPE.TEXT,
+    label: "Address Line 2",
+    key: "addressLine2",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "city",
+    type: INPUT_TYPE.TEXT,
+    label: "Current Balance",
+    key: "currentBalance",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "postalCode",
+    type: INPUT_TYPE.TEXT,
+    label: "Postal Code",
+    key: "postalCode",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "province",
+    type: INPUT_TYPE.SELECT,
+    label: "Province",
+    key: "province",
+    value: "",
+    placeholder: "",
+    selection: ["Ontario"],
+  },
+  {
+    id: "country",
+    type: INPUT_TYPE.SELECT,
+    label: "Country",
+    key: "country",
+    value: "",
+    placeholder: "",
+    selection: ["Canada"],
+  },
+];
+
+export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
+  {
+    id: "financialInstitution",
+    type: INPUT_TYPE.SELECT,
+    label: "Financial Institution",
+    key: "financialInstitution",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "inNameOf",
+    type: INPUT_TYPE.TEXT,
+    label: "In Name Of",
+    key: "inNameOf",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "pledgeAsCollateral",
+    type: INPUT_TYPE.TEXT,
+    label: "Pledge As Collateral",
+    key: "pledgeAsCollateral",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "highestAssetAllocation",
+    type: INPUT_TYPE.SELECT,
+    label: "Highest Asset Allocation",
+    key: "highestAssetAllocation",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "marketValue",
+    type: INPUT_TYPE.TEXT,
+    label: "Market Value",
+    key: "marketValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lender",
+    type: INPUT_TYPE.SELECT,
+    label: "Lender",
+    key: "lender",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "loanBalance",
+    type: INPUT_TYPE.TEXT,
+    label: "Loan Balance",
+    key: "loanBalance",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyPayment",
+    type: INPUT_TYPE.TEXT,
+    label: "Month Payment",
+    key: "monthlyPayment",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lastSecurityStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Security Statement",
+    key: "lastSecurityStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastSecurityStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Security Statement",
+      size: 5242880,
+    }),
+  },
+  {
+    id: "lastLoanStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Loan Statement",
+    key: "lastLoanStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastLoanStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Loan Statement",
+      size: 5242880,
+    }),
+  },
+];
+
+export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
+  {
+    id: "financialInstitution",
+    type: INPUT_TYPE.SELECT,
+    label: "Financial Institution",
+    key: "financialInstitution",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "inNameOf",
+    type: INPUT_TYPE.TEXT,
+    label: "In Name Of",
+    key: "inNameOf",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "pledgeAsCollateral",
+    type: INPUT_TYPE.TEXT,
+    label: "Pledge As Collateral",
+    key: "pledgeAsCollateral",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "description",
+    type: INPUT_TYPE.SELECT,
+    label: "Description",
+    key: "description",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "marketValue",
+    type: INPUT_TYPE.TEXT,
+    label: "Market Value",
+    key: "marketValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyIncome",
+    type: INPUT_TYPE.TEXT,
+    label: "Monthly Income",
+    key: "monthlyIncome",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lender",
+    type: INPUT_TYPE.SELECT,
+    label: "Lender",
+    key: "lender",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "loanBalance",
+    type: INPUT_TYPE.TEXT,
+    label: "Loan Balance",
+    key: "loanBalance",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyPayment",
+    type: INPUT_TYPE.TEXT,
+    label: "Month Payment",
+    key: "monthlyPayment",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lastSecurityStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Security Statement",
+    key: "lastSecurityStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastSecurityStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Security Statement",
+      size: 5242880,
+    }),
+  },
+  {
+    id: "lastLoanStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Loan Statement",
+    key: "lastLoanStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastLoanStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Loan Statement",
+      size: 5242880,
+    }),
+  },
+];
+
+export const INSURANCE_FORM: IFormUploaderInput[] = [
+  {
+    id: "insuranceCompany",
+    type: INPUT_TYPE.TEXT,
+    label: "Insurance",
+    key: "insuranceCompany",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "beneficiary",
+    type: INPUT_TYPE.TEXT,
+    label: "Beneficiary",
+    key: "beneficiary",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "type",
+    type: INPUT_TYPE.SELECT,
+    label: "Type",
+    key: "type",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "faceValue",
+    type: INPUT_TYPE.TEXT,
+    label: "faceValue",
+    key: "faceValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyPremium",
+    type: INPUT_TYPE.TEXT,
+    label: "Monthly Premium",
+    key: "monthlyPremium",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "cashSurrenderValue",
+    type: INPUT_TYPE.TEXT,
+    label: "Cash Surrender Value",
+    key: "cashSurrenderValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lender",
+    type: INPUT_TYPE.SELECT,
+    label: "Lender",
+    key: "lender",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "policyLoans",
+    type: INPUT_TYPE.TEXT,
+    label: "Policy Loans",
+    key: "policyLoans",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyPayment",
+    type: INPUT_TYPE.TEXT,
+    label: "Month Payment",
+    key: "monthlyPayment",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lastSecurityStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Security Statement",
+    key: "lastSecurityStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastSecurityStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Security Statement",
+      size: 5242880,
+    }),
+  },
+  {
+    id: "lastLoanStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Loan Statement",
+    key: "lastLoanStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastLoanStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Loan Statement",
+      size: 5242880,
+    }),
+  },
+];
+
+export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
+  {
+    id: "typeOfResidence",
+    type: INPUT_TYPE.SELECT,
+    label: "Type Of Residence",
+    key: "typeOfResidence",
+    required: true,
+    value: "",
+    placeholder: "",
+    selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+  },
+  {
+    id: "titleInNameOf",
+    type: INPUT_TYPE.TEXT,
+    label: "Title In Name Of",
+    key: "titleInNameOf",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "ownership",
+    type: INPUT_TYPE.TEXT,
+    label: "Title In Name Of",
+    key: "ownership",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "dateAcquired",
+    type: INPUT_TYPE.TEXT,
+    label: "Date Acquired",
+    key: "dateAcquired",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "addressLine1",
+    type: INPUT_TYPE.TEXT,
+    label: "Address Line 1",
+    key: "addressLine1",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "city",
+    type: INPUT_TYPE.TEXT,
+    label: "Current Balance",
+    key: "currentBalance",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "postalCode",
+    type: INPUT_TYPE.TEXT,
+    label: "Postal Code",
+    key: "postalCode",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "province",
+    type: INPUT_TYPE.SELECT,
+    label: "Province",
+    key: "province",
+    value: "",
+    placeholder: "",
+    selection: ["Ontario"],
+  },
+  {
+    id: "country",
+    type: INPUT_TYPE.SELECT,
+    label: "Country",
+    key: "country",
+    value: "",
+    placeholder: "",
+    selection: ["Canada"],
+  },
+  {
+    id: "purchasePrice",
+    type: INPUT_TYPE.TEXT,
+    label: "Purchase Price",
+    key: "purchasePrice",
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "marketValue",
+    type: INPUT_TYPE.TEXT,
+    label: "Market Value",
+    key: "marketValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "grossIncome",
+    type: INPUT_TYPE.TEXT,
+    label: "Gross Income",
+    key: "grossIncome",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "mainCondoFees",
+    type: INPUT_TYPE.TEXT,
+    label: "Main Condo Fees",
+    key: "mainCondoFees",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "monthlyInsurance",
+    type: INPUT_TYPE.TEXT,
+    label: "Monthly Insurance",
+    key: "monthlyInsurance",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "cashSurrenderValue",
+    type: INPUT_TYPE.TEXT,
+    label: "Cash Surrender Value",
+    key: "cashSurrenderValue",
+    required: true,
+    value: "",
+    placeholder: "",
+  },
+  {
+    id: "lastSecurityStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Security Statement",
+    key: "lastSecurityStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastSecurityStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Security Statement",
+      size: 5242880,
+    }),
+  },
+  {
+    id: "lastLoanStatement",
+    type: INPUT_TYPE.UPLOAD,
+    label: "Last Loan Statement",
+    key: "lastLoanStatement",
+    value: "",
+    placeholder: "",
+    required: true,
+    documentPath: "net_worth",
+    documentCategory: "lastLoanStatement",
+    schema: PDF_FILE_SCHEMA({
+      type: [FILE_TYPE.PDF],
+      name: "Last Loan Statement",
+      size: 5242880,
+    }),
+  },
+];
+
 export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
   .fill(0)
   .map((item, index) => {
@@ -328,148 +891,204 @@ export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
     };
   });
 
-export const SECURITY_PANEL: ITabPanel[] = [
-  {
-    title: "Account",
-    description: "User Basic Information",
-    category: SETTING_CATEGORY.ACCOUNT,
-  },
-  {
-    title: "Authentication",
-    description: "Change Password",
-    category: "authentication",
-  },
-  {
-    title: "Recognition",
-    description: "Change facial and voice recognition",
-    category: "recognition",
-  },
-];
+export interface ISettingCategory {
+  title: string;
+  description: string;
+  category: string;
+  list: IFormUploaderInput[];
+  schema?: JoiSchemaBuilder<any>;
+}
 
-export const PERSONAL_PROFILE_PANEL: ITabPanel[] = [
-  {
-    title: "Home Address",
-    description: "User Basic Information",
-    category: "home_address",
-  },
-  {
-    title: "Authentication",
-    description: "Change Password",
-    category: "authentication",
-  },
-  {
-    title: "Recognition",
-    description: "Change facial and voice recognition",
-    category: "recognition",
-  },
-];
+export interface ISettingCategoryTab {
+  title: string;
+  categories: ISettingCategory[];
+}
 
-export const PERSONAL_NET_WORTH: ITabPanel[] = [
-  {
-    title: "Tax Return",
-    description: "Personal tax return for the last three years",
-    category: SETTING_CATEGORY.TAX_RETURN,
-  },
-  {
-    title: "Notice Of Assessment",
-    description: "Personal Notice Of Assessment for the last three years",
-    category: SETTING_CATEGORY.NOTICE_OF_ASSESSMENT,
-  },
-  {
-    title: "Cash And Accounts Receivable",
-    description: "asset type, financial institution, statement.",
-    category: SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE,
-  },
-  {
-    title: "Markable Securities",
-    description: "Change facial and voice recognition",
-    category: SETTING_CATEGORY.MARKABLE_SECURITY,
-  },
-  {
-    title: "Tax Sheltered Investment",
-    description: "Tax sheltered investment",
-    category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
-  },
-  {
-    title: "Insurance",
-    description: "Insurance",
-    category: SETTING_CATEGORY.INSURANCE,
-  },
-  {
-    title: "Real Estate",
-    description: "Real Estate Property",
-    category: SETTING_CATEGORY.REAL_ESTATE,
-  },
-  {
-    title: "Vehicles",
-    description: "Personal Vehicles",
-    category: SETTING_CATEGORY.VEHICLES,
-  },
-];
-
-export const SETTINGS_FORM_CONFIG: Record<string, SETTING_FORM<any>> = {
-  [SETTING_CATEGORY.ACCOUNT]: {
-    list: ACCOUNT_INFO,
-  },
-  [SETTING_CATEGORY.TAX_RETURN]: {
-    list: TAX_RETURN_FORM,
-    schema: TAX_RETURN_SCHEMA,
-  },
-  [SETTING_CATEGORY.AUTHENTICATION]: {
-    list: TAX_RETURN_FORM,
-    schema: TAX_RETURN_SCHEMA,
-  },
-  [SETTING_CATEGORY.RECOGNITION]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.NOTICE_OF_ASSESSMENT]: {
-    list: NOTICE_OF_ASSESSMENT_FORM,
-    schema: NOTICE_OF_ASSESSMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE]: {
-    list: CASH_ACCOUNTS_RECEIVABLE_FORM,
-    schema: CASH_ACCOUNTS_RECEIVABLE_SCHEMA,
-  },
-  [SETTING_CATEGORY.MARKABLE_SECURITY]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.INSURANCE]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.VEHICLES]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-  [SETTING_CATEGORY.REAL_ESTATE]: {
-    list: TAX_RETURN_FORM,
-    schema: PERSONAL_DOCUMENT_SCHEMA,
-  },
-};
-
-export const SETTINGS: Record<string, ITabPanel[] | ITab[]> = {
-  [SETTING_COLLECTION.SECURITY]: SECURITY_PANEL,
-  [SETTING_COLLECTION.PROFILE]: [
+export const SETTING_COLLECTION_TAB: Record<
+  SETTING_COLLECTIONTAB,
+  ISettingCategoryTab[]
+> = {
+  [SETTING_COLLECTIONTAB.PROFILE]: [
     {
       title: PROFILE_TYPE.PERSONAL,
-      panel: PERSONAL_PROFILE_PANEL,
+      categories: [
+        {
+          title: "Home Address",
+          description: "User Basic Information",
+          category: "home_address",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Authentication",
+          description: "Change Password",
+          category: "authentication",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Recognition",
+          description: "Change facial and voice recognition",
+          category: "recognition",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+      ],
     },
     {
       title: PROFILE_TYPE.BUSINESS,
-      panel: PERSONAL_PROFILE_PANEL,
+      categories: [
+        {
+          title: "Home Address",
+          description: "User Basic Information",
+          category: "home_address",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Authentication",
+          description: "Change Password",
+          category: "authentication",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Recognition",
+          description: "Change facial and voice recognition",
+          category: "recognition",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+      ],
     },
     {
       title: PROFILE_TYPE.PROFESSIONAL,
-      panel: PERSONAL_PROFILE_PANEL,
+      categories: [
+        {
+          title: "Home Address",
+          description: "User Basic Information",
+          category: "home_address",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Authentication",
+          description: "Change Password",
+          category: "authentication",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+        {
+          title: "Recognition",
+          description: "Change facial and voice recognition",
+          category: "recognition",
+          list: HOME_ADDRESS_FORM,
+          schema: (data: any): Joi.ObjectSchema =>
+            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
+        },
+      ],
     },
   ],
-  [SETTING_COLLECTION.PERSONAL_NET_WORTH]: PERSONAL_NET_WORTH,
+};
+
+export const SETTING_COLLECTIONS: Record<
+  SETTING_COLLECTION,
+  ISettingCategory[]
+> = {
+  [SETTING_COLLECTION.SECURITY]: [
+    {
+      title: "Account",
+      description: "User Basic Information",
+      category: SETTING_CATEGORY.ACCOUNT,
+      list: ACCOUNT_INFO,
+    },
+    {
+      title: "Authentication",
+      description: "Change Password",
+      category: "authentication",
+      list: ACCOUNT_INFO,
+    },
+    {
+      title: "Recognition",
+      description: "Change facial and voice recognition",
+      category: "recognition",
+      list: ACCOUNT_INFO,
+    },
+  ],
+  [SETTING_COLLECTION.PERSONAL_NET_WORTH]: [
+    {
+      title: "Tax Return",
+      description: "Personal tax return for the last three years",
+      category: SETTING_CATEGORY.TAX_RETURN,
+      list: TAX_RETURN_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(TAX_RETURN_FORM),
+    },
+    {
+      title: "Notice Of Assessment",
+      description: "Personal Notice Of Assessment for the last three years",
+      category: SETTING_CATEGORY.NOTICE_OF_ASSESSMENT,
+      list: NOTICE_OF_ASSESSMENT_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(NOTICE_OF_ASSESSMENT_FORM),
+    },
+    {
+      title: "Cash And Accounts Receivable",
+      description: "asset type, financial institution, statement.",
+      category: SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE,
+      list: CASH_ACCOUNTS_RECEIVABLE_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(CASH_ACCOUNTS_RECEIVABLE_FORM),
+    },
+    {
+      title: "Markable Securities",
+      description: "Change facial and voice recognition",
+      category: SETTING_CATEGORY.MARKABLE_SECURITY,
+      list: MARKABLE_SECURITY_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(MARKABLE_SECURITY_FORM),
+    },
+    {
+      title: "Tax Sheltered Investment",
+      description: "Tax sheltered investment",
+      category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
+      list: TAX_SHELTERED_INVESTMENT_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(TAX_SHELTERED_INVESTMENT_FORM),
+    },
+    {
+      title: "Insurance",
+      description: "Insurance",
+      category: SETTING_CATEGORY.INSURANCE,
+      list: INSURANCE_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(INSURANCE_FORM),
+    },
+    {
+      title: "Real Estate",
+      description: "Real Estate Property",
+      category: SETTING_CATEGORY.REAL_ESTATE,
+      list: REAL_ESTATE_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
+    },
+    {
+      title: "Vehicles",
+      description: "Personal Vehicles",
+      category: SETTING_CATEGORY.VEHICLES,
+      list: REAL_ESTATE_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
+    },
+  ],
 };
 
 export const EMPLOYMENT: IFormInput[] = [

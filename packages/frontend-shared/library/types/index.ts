@@ -147,8 +147,11 @@ export const enum GEOLOCATION {
 
 export const enum SETTING_COLLECTION {
   SECURITY = "security",
-  PROFILE = "profile",
   PERSONAL_NET_WORTH = "personal_net_worth",
+}
+
+export const enum SETTING_COLLECTIONTAB {
+  PROFILE = "profile",
 }
 
 export const enum PROFILE_TYPE {
@@ -176,17 +179,6 @@ export const enum FILE_TYPE {
   JPEG = "image/jpeg",
   PNG = "image/png",
   GIF = "image/gif",
-}
-
-export interface ITabPanel {
-  title: string;
-  description: string;
-  category: string;
-}
-
-export interface ITab {
-  title: string;
-  panel: ITabPanel[];
 }
 
 export interface IProfileEducation {

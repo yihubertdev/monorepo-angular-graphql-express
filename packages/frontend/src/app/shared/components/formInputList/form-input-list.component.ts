@@ -153,6 +153,7 @@ export class FormInputListComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log(this.formInputList);
     // Generate default form group value
     this.formInputList.forEach((form) => {
       this.defaultFormGroupValue[form.key] = form.value;

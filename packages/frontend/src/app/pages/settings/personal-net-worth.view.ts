@@ -18,7 +18,8 @@ import { UserDetailsSettingsController } from "src/app/feature/userProfile/user-
   template: ` <div class="container">
     <!--justify-content-center center the inner col-->
     <div class="row">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
+      <!--padding set to 0 so dropdown panel and top profile image have same width-->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12 p-0">
         <user-details-settings-controller
           [collection]="collection"></user-details-settings-controller>
       </div>

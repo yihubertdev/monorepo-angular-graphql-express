@@ -6,24 +6,24 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
-import { HOME_ADDRESS_PROFILE, SETTINGS } from "../../core/static/auth.static";
 import {
-  IUserDetailCard,
-  UserDetailCardComponent,
-} from "../../shared/components/postCard/user-details-card.component";
-import { UserService } from "../../core/services/fireStore/users.firestore";
-import { ITabPanel, IUser } from "sources-types";
+  HOME_ADDRESS_PROFILE,
+  SETTING_COLLECTION_TAB,
+} from "../../core/static/auth.static";
+import { UserDetailCardComponent } from "../../shared/components/postCard/user-details-card.component";
+import { IUser, SETTING_COLLECTIONTAB } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
 import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
-import {
-  IUserSettings,
-  IUserTabSettings,
-} from "./user-details-settings.controller";
+import { IUserSettings } from "./user-details-settings.controller";
+
+export interface IUserTabSettings {
+  title: string;
+  categories: IUserSettings[];
+}
 
 @Component({
   standalone: true,
@@ -45,12 +45,12 @@ import {
   template: `<mat-tab-group>
     <mat-tab
       label="{{ panel.title }}"
-      *ngFor="let panel of tabPanels">
+      *ngFor="let panel of tabCategories">
       <div class="container">
         <div class="row">
           <mat-accordion>
             <div
-              *ngFor="let setting of panel.panel"
+              *ngFor="let setting of panel.categories"
               class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
               <mat-expansion-panel>
@@ -66,8 +66,8 @@ import {
                     [user]="user"
                     [category]="setting.category"
                     [title]="setting.title"
-                    [formList]="setting.formList"
-                    [formSchema]="setting.formSchema"
+                    [formList]="setting.list"
+                    [formSchema]="setting.schema"
                     [isSettingsPage]="true"></user-details-card-component>
                 </ng-template>
               </mat-expansion-panel>
@@ -80,9 +80,9 @@ import {
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserDetailsSettingsTabController implements OnInit {
-  @Input({ required: true }) section!: string;
+  @Input({ required: true }) collection!: SETTING_COLLECTIONTAB;
 
-  public tabPanels!: IUserTabSettings[];
+  public tabCategories!: IUserTabSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
   constructor(public dialog: MatDialog, private route: ActivatedRoute) {}
 
@@ -104,19 +104,14 @@ export class UserDetailsSettingsTabController implements OnInit {
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
     this.user = user;
-    this.tabPanels = (
-      SETTINGS[this.section as keyof typeof SETTINGS] as {
-        title: string;
-        panel: ITabPanel[];
-      }[]
-    ).map((tab) => ({
+    this.tabCategories = SETTING_COLLECTION_TAB[this.collection].map((tab) => ({
       title: tab.title,
-      panel: tab.panel.map((setting) => ({
+      categories: tab.categories.map((setting) => ({
         title: setting.title,
         description: setting.description,
         category: setting.category,
-        formList: HOME_ADDRESS_PROFILE,
-        formSchema: homeAdressSchema,
+        list: setting.list,
+        schema: setting.schema,
         data: data
           .filter((i: any) => i.category === setting.category)
           .map((form: any) => ({

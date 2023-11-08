@@ -4,7 +4,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { HomePagePostController } from "../../feature/homePagePost/controller/home-page-post.controller";
 import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { UserDetailsSettingsTabController } from "../../feature/userProfile/user-details-settings-tab.controller";
-import { SETTING_COLLECTION } from "sources-types";
+import { SETTING_COLLECTION, SETTING_COLLECTIONTAB } from "sources-types";
 
 @Component({
   standalone: true,
@@ -20,12 +20,12 @@ import { SETTING_COLLECTION } from "sources-types";
     <div class="row">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
         <user-details-settings-tab-controller
-          [section]="section"></user-details-settings-tab-controller>
+          [collection]="collection"></user-details-settings-tab-controller>
       </div>
     </div>
   </div>`,
 })
 export default class UsersView {
   @Input() id?: string;
-  section = SETTING_COLLECTION.PROFILE;
+  collection = SETTING_COLLECTIONTAB.PROFILE;
 }

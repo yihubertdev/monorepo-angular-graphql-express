@@ -7,43 +7,24 @@ import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import {
-  HOME_ADDRESS_PROFILE,
-  SETTINGS,
-  SETTINGS_FORM_CONFIG,
+  ISettingCategory,
+  SETTING_COLLECTIONS,
 } from "../../core/static/auth.static";
 import {
   IUserDetailCard,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import {
-  IFormInput,
-  ITab,
-  ITabPanel,
-  IUser,
-  SETTING_CATEGORY,
-} from "sources-types";
+import { IUser, SETTING_CATEGORY, SETTING_COLLECTION } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
 import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
-import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
 import { groupBy } from "../../core/utils/lodash";
-import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 
-export interface IUserTabSettings {
-  title: string;
-  panel: IUserSettings[];
-}
-
-export interface IUserSettings {
-  title: string;
-  description: string;
-  category: string;
-  formList: IFormInput[];
-  formSchema?: JoiSchemaBuilder<any>;
+export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
 }
 
@@ -93,8 +74,8 @@ export interface IUserSettings {
                   [user]="user"
                   [category]="setting.category"
                   [title]="setting.title"
-                  [formList]="setting.formList"
-                  [formSchema]="setting.formSchema"
+                  [formList]="setting.list"
+                  [formSchema]="setting.schema"
                   [isSettingsPage]="true"
                   (removeChange)="remove($event)"></user-details-card-component>
               </ng-template>
@@ -107,7 +88,7 @@ export interface IUserSettings {
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserDetailsSettingsController implements OnInit {
-  @Input({ required: true }) collection!: string;
+  @Input({ required: true }) collection!: SETTING_COLLECTION;
 
   public settings!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
@@ -119,7 +100,7 @@ export class UserDetailsSettingsController implements OnInit {
   ) {}
 
   openDialog(data: IUserSettings) {
-    data.formList.forEach((list) => (list.value = ""));
+    data.list.forEach((list) => (list.value = ""));
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
@@ -128,8 +109,8 @@ export class UserDetailsSettingsController implements OnInit {
         category: data.category,
         title: data.title,
         user: this.user,
-        formList: data.formList,
-        formSchema: data.formSchema,
+        formList: data.list,
+        formSchema: data.schema,
       },
     });
   }
@@ -154,8 +135,9 @@ export class UserDetailsSettingsController implements OnInit {
 
     this.user = user;
     const groupedData = groupBy(data, "category");
-    this.settings = SETTINGS[this.collection].map((setting) => {
-      const { title, description, category } = setting as ITabPanel;
+
+    this.settings = SETTING_COLLECTIONS[this.collection].map((collection) => {
+      const { title, description, category, list, schema } = collection;
 
       switch (category) {
         case SETTING_CATEGORY.ACCOUNT: {
@@ -164,7 +146,7 @@ export class UserDetailsSettingsController implements OnInit {
             title: title,
             description: description,
             category: category,
-            formList: SETTINGS_FORM_CONFIG[category].list,
+            list: list,
             data: [
               {
                 details: userInfo,
@@ -173,27 +155,13 @@ export class UserDetailsSettingsController implements OnInit {
           };
         }
 
-        case SETTING_CATEGORY.AUTHENTICATION:
-        case SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE: {
-          return {
-            title: title,
-            description: description,
-            category: category,
-            formList: SETTINGS_FORM_CONFIG[category].list,
-            formSchema: SETTINGS_FORM_CONFIG[category].schema,
-            data: groupedData[category]?.map((form: any) => ({
-              details: form,
-              documentId: form.documentId,
-            })),
-          };
-        }
         default: {
           return {
             title: title,
             description: description,
             category: category,
-            formList: SETTINGS_FORM_CONFIG[category].list,
-            formSchema: SETTINGS_FORM_CONFIG[category].schema,
+            list: list,
+            schema: schema,
             data: groupedData[category]?.map((form: any) => ({
               details: form,
               documentId: form.documentId,

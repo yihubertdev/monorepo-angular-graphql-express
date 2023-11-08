@@ -37,7 +37,9 @@ export interface IUserDetailCard {
     MatDialogModule,
     MatIconModule,
   ],
-  template: `<mat-card *ngIf="userDetails">
+  template: `<mat-card
+    *ngIf="userDetails"
+    class="m-4">
     <mat-card-header>
       <mat-card-title *ngIf="isSettingsPage && category !== 'account'">
         <a
@@ -118,6 +120,9 @@ export class UserDetailCardComponent implements OnChanges {
   }
 
   openDialog() {
+    this.formList.forEach(
+      (list) => (list.value = this.userDetails.details[list.key])
+    );
     this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
@@ -129,12 +134,6 @@ export class UserDetailCardComponent implements OnChanges {
         formSchema: this.formSchema,
       },
     });
-  }
-
-  download(url: string) {
-    try {
-      window.open(url);
-    } catch (e) {}
   }
 
   remove(value: { documentId: string; category: string }) {
