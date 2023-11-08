@@ -23,6 +23,7 @@ import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
+import { RemoveSettingCategoryDialog } from "src/app/shared/dialog/remove-setting-category.dialog";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -99,34 +100,48 @@ export class UserDetailsSettingsController implements OnInit {
     private _userService: UserService
   ) {}
 
-  openDialog(data: IUserSettings) {
-    data.list.forEach((list) => (list.value = ""));
+  openDialog(setting: IUserSettings) {
+    setting.list.forEach((list) => (list.value = ""));
     const dialogRef = this.dialog.open(AddProfileSectionDialog, {
       disableClose: true,
       data: {
         documentId: uuidv4(),
         collection: this.collection,
-        category: data.category,
-        title: data.title,
+        category: setting.category,
+        title: setting.title,
         user: this.user,
-        formList: data.list,
-        formSchema: data.schema,
+        formList: setting.list,
+        formSchema: setting.schema,
       },
     });
   }
 
-  remove(value: { documentId: string; category: string }) {
-    const { documentId, category } = value;
-    // each category only have one object, each object have multiple data
-    this.groupedSettings[category][0].data = this.groupedSettings[
-      category
-    ][0].data.filter((item) => item.documentId != documentId);
-
-    this._userService.deleteSubCollectionDocumentByUserId(this.user, {
-      collectionId: this.collection,
-      next: {
+  remove(value: { documentId: string; category: string; title: string }) {
+    const { documentId, category, title } = value;
+    const dialogRef = this.dialog.open(RemoveSettingCategoryDialog, {
+      disableClose: true,
+      data: {
+        title,
+        category,
         documentId,
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (!result) return;
+      const { documentId } = result;
+      console.log(documentId);
+      this._userService.deleteSubCollectionDocumentByUserId(this.user, {
+        collectionId: this.collection,
+        next: {
+          documentId,
+        },
+      });
+
+      // each category only have one object, each object have multiple data
+      this.groupedSettings[category][0].data = this.groupedSettings[
+        category
+      ][0].data.filter((item) => item.documentId != documentId);
     });
   }
 

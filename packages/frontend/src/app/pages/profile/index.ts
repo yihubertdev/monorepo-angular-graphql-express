@@ -17,4 +17,10 @@ export default [
     canActivate: [isUserLogin],
     loadComponent: () => import("./details.view"),
   },
+  {
+    path: "article/:id",
+    loadComponent: () => import("./article.view"),
+    icon: "article",
+    description: "Article",
+  },
 ] as Routes;

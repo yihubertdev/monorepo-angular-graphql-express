@@ -7,8 +7,8 @@ export const SITE_ROUTE_PAGE = {
   ARTICLE: ["home", "article"],
   USERS_POSTS: ["users", "_", "posts"],
   MY_POSTS: ["users", "me", "posts"],
-  USERS_PROFILE: ["users", "_", "peronsal-profile"],
-  My_PROFILE: ["users", "me", "peronsal-profile"],
+  USERS_PROFILE: ["users", "_", "personal-profile"],
+  My_PROFILE: ["users", "me", "personal-profile"],
   LOGIN: ["users", "login"],
   SIGNUP: ["users", "signup"],
   PAYMENT: ["payment"],
@@ -48,6 +48,24 @@ export const footerMenus: IMenu[] = [
 
 export const DRAWER_MENU: IMenu[] = [
   {
+    link: SITE_ROUTE_PAGE.SETTINGS,
+    description: "NET WORTH",
+    iconName: "paid",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.SETTINGS,
+    description: "FINANCING",
+    iconName: "account_balance",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.My_PROFILE,
+    description: "NETWORK",
+    iconName: "groups",
+    width: "50px",
+  },
+  {
     link: SITE_ROUTE_PAGE.ADD_POST,
     description: "Add Post",
     iconName: "post_add",
@@ -56,12 +74,6 @@ export const DRAWER_MENU: IMenu[] = [
   {
     link: SITE_ROUTE_PAGE.ADD_ARTICLE,
     description: "Add Article",
-    iconName: "feed",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.SETTINGS,
-    description: "Profile Setting",
     iconName: "feed",
     width: "50px",
   },
@@ -180,33 +192,33 @@ export const instagramIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="
 
 export const linkedlnIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 128 128"><circle cx="64" cy="64" r="64" fill="#0177b5"/><path fill="#fff" d="M92 32H36a4 4 0 0 0-4 4v56a4 4 0 0 0 4 4h56a4 4 0 0 0 4-4V36a4 4 0 0 0-4-4ZM52 86H42V56h10Zm-5-34a6 6 0 1 1 6-6 6 6 0 0 1-6 6Zm39 34H76V66c0-1.66-2.24-3-5-3-4 0-5 5.34-5 7v16H56V56h10v7c0-5 4.48-7 10-7a10 10 0 0 1 10 10Z"/></svg>`;
 
-export const mainTopIconMenu: ISVGIconMenu[] = [
-  {
-    link: SITE_ROUTE_PAGE.HOME,
-    description: "Home",
-    iconName: "home",
-    width: "50px",
-    src: "",
-  },
-  {
-    link: SITE_ROUTE_PAGE.LOGIN,
-    description: "Login",
-    iconName: "person",
-    width: "50px",
-    src: "",
-  },
-  // {
-  //   link: SITE_ROUTE_PAGE.NOTIFICATION,
-  //   description: "Notification",
-  //   iconName: "x_icon",
-  //   width: "50px",
-  //   src: twitterIconSvg,
-  // },
-  // {
-  //   link: SITE_ROUTE_PAGE.NOTIFICATION,
-  //   description: "Notification",
-  //   iconName: "ins_icon",
-  //   width: "50px",
-  //   src: instagramIconSvg,
-  // },
-];
+// export const HOME_MENU: ISVGIconMenu[] = [
+//   {
+//     link: SITE_ROUTE_PAGE.HOME,
+//     description: "Home",
+//     iconName: "home",
+//     width: "50px",
+//     src: "",
+//   },
+//   {
+//     link: SITE_ROUTE_PAGE.LOGIN,
+//     description: "Login",
+//     iconName: "person",
+//     width: "50px",
+//     src: "",
+//   },
+//   {
+//     link: SITE_ROUTE_PAGE.NOTIFICATION,
+//     description: "Notification",
+//     iconName: "x_icon",
+//     width: "50px",
+//     src: twitterIconSvg,
+//   },
+//   {
+//     link: SITE_ROUTE_PAGE.NOTIFICATION,
+//     description: "Notification",
+//     iconName: "ins_icon",
+//     width: "50px",
+//     src: instagramIconSvg,
+//   },
+// ];

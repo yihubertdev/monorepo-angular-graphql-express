@@ -9,7 +9,7 @@ export default [
   { path: "", redirectTo: "home/posts", pathMatch: "full" },
   {
     path: "home",
-    loadChildren: () => import("./pages/home"),
+    loadChildren: () => import("./pages/home").then((router) => router.route),
   },
   {
     path: "edit",

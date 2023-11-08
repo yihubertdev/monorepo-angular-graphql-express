@@ -23,11 +23,6 @@ export default [
     loadChildren: () => import("../settings").then((router) => router.route),
   },
   {
-    path: "login",
-    canActivate: [isUserLoginToUser],
-    loadComponent: () => import("./login.view"),
-  },
-  {
     path: "signup",
     canActivate: [isUserLoginToUser],
     loadComponent: () => import("./sign-up.view"),

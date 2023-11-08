@@ -45,11 +45,8 @@ export const route: IFullRoute[] = [
 
 export const PROFILE_SETTINGS_MENU: IMenu[] = route
   .filter((route) => route.path)
-  .map(
-    (route) =>
-      ({
-        link: route.path,
-        description: route.description,
-        iconName: route.icon,
-      } as IMenu)
-  );
+  .map((route) => ({
+    link: route.path!,
+    description: route.description,
+    iconName: route.icon,
+  }));

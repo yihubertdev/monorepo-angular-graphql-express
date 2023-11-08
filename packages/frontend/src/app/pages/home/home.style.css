@@ -24,12 +24,6 @@
   z-index: 0;
 }
 
-.article-container-center {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: center;
-}
 .fab-button {
   position: fixed;
   bottom: 12dvh;

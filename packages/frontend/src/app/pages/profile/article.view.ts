@@ -25,7 +25,7 @@ import { IArticle } from "sources-types";
       </div>
     </div>
   `,
-  styleUrls: ["./home.style.css"],
+  styleUrls: ["./profile.style.css"],
 })
 export default class ArticleView implements OnInit {
   @Input() id?: string;

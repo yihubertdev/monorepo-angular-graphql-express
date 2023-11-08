@@ -53,7 +53,8 @@ export interface IUserDetailCard {
           (click)="
             remove({
               documentId: userDetails.documentId!,
-              category: this.category
+              category: this.category,
+              title: this.title,
             })
           ">
           Remove
@@ -109,6 +110,7 @@ export class UserDetailCardComponent implements OnChanges {
   @Output() removeChange = new EventEmitter<{
     documentId: string;
     category: string;
+    title: string;
   }>();
 
   constructor(public dialog: MatDialog) {}
@@ -136,7 +138,7 @@ export class UserDetailCardComponent implements OnChanges {
     });
   }
 
-  remove(value: { documentId: string; category: string }) {
+  remove(value: { documentId: string; category: string; title: string }) {
     this.removeChange.emit(value);
   }
 }

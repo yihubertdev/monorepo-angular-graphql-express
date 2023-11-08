@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ISVGIconMenu } from "sources-types";
-import { mainTopIconMenu } from "../../core/static/menu.static";
+import { HOME_MENU } from "../../pages/home";
 import { NgFor, NgIf } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
@@ -46,7 +46,7 @@ import { MatButtonModule } from "@angular/material/button";
   styleUrls: ["./menu.style.css"],
 })
 export class MainIconController {
-  menus: ISVGIconMenu[] = mainTopIconMenu;
+  menus: ISVGIconMenu[] = HOME_MENU;
 
   constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.menus.map((menu) =>
