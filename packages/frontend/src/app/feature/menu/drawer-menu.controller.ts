@@ -1,11 +1,12 @@
-import { Component } from "@angular/core";
-import { IMenu } from "sources-types";
+import { Component, Input, OnInit } from "@angular/core";
+import { IMenu, IUser } from "sources-types";
 import { SITE_ROUTE_PAGE, DRAWER_MENU } from "../../core/static/menu.static";
 import { NgFor } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { Router, RouterModule } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
+
 @Component({
   standalone: true,
   imports: [NgFor, MatListModule, RouterModule, MatIconModule],
@@ -31,10 +32,12 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
   `,
   styleUrls: ["./menu.style.css"],
 })
-export class DRAWER_MENUController {
+export class DRAWER_MENUController implements OnInit {
   menus: IMenu[] = DRAWER_MENU;
 
   constructor(private _auth: AuthService, private _router: Router) {}
+
+  ngOnInit(): void {}
 
   public logout() {
     this._auth.logout();

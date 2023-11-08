@@ -24,6 +24,7 @@ import { HeaderMenuController } from "./feature/menu/header-menu.controller";
 import { FooterController } from "./feature/menu/footer.controller";
 import { AuthService } from "./core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
+import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -100,7 +101,8 @@ export class MainView implements OnInit {
     private _router: Router,
     private _firebaseMessaging: FirebaseMessagingService,
     private _notification: NotificationHttpService,
-    private _auth: AuthService
+    private _auth: AuthService,
+    private _sessionStorage: SessionStorageService
   ) {
     this._router.events.subscribe((event) => {
       switch (true) {

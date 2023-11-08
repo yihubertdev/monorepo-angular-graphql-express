@@ -9,7 +9,7 @@ export const SITE_ROUTE_PAGE = {
   MY_POSTS: ["users", "me", "posts"],
   USERS_PROFILE: ["users", "_", "personal-profile"],
   My_PROFILE: ["users", "me", "personal-profile"],
-  LOGIN: ["users", "login"],
+  LOGIN: ["home", "login"],
   SIGNUP: ["users", "signup"],
   PAYMENT: ["payment"],
   NOTIFICATION: ["users", "notifications"],

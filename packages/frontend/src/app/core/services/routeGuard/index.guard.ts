@@ -28,7 +28,7 @@ export const isMeLogin: CanActivateFn = (
     ) {
       return true;
     } else {
-      inject(Router).navigate(["users", "login"]);
+      inject(Router).navigate(["home", "login"]);
       return false;
     }
   }

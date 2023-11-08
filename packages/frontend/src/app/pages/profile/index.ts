@@ -9,6 +9,7 @@ export default [
   { path: "", redirectTo: "me/posts", pathMatch: "full" },
   {
     path: ":id/posts",
+    canActivate: [isMeLogin],
     resolve: { posts: postByUserResolver },
     loadComponent: () => import("./users.view"),
   },

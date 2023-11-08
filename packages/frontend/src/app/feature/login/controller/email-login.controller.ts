@@ -33,7 +33,7 @@ export class EmailLoginControllerComponent {
     };
     try {
       this.authService.login(data);
-      this._router.navigate(SITE_ROUTE_PAGE.MY_POSTS);
+      this._router.navigate(SITE_ROUTE_PAGE.HOME);
     } catch (err) {
       console.log(err);
       this._snackBar.open(
