@@ -5,11 +5,11 @@ import {
   OnInit,
   Output,
   ViewChild,
+  importProvidersFrom,
 } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { UntypedFormBuilder } from "@angular/forms";
 import joiValidator, { JoiSchemaBuilder } from "../../../core/utils/validator";
-import { IFormInput } from "sources-types";
 import { EditorComponent } from "./editor.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
@@ -17,10 +17,11 @@ import { AsyncPipe, NgFor, NgIf } from "@angular/common";
 import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
-import { UserService } from "../../../core/services/fireStore/users.firestore";
 import { IUser } from "sources-types";
 import { IFormUploaderInput } from "src/app/core/static/auth.static";
 import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 @Component({
   standalone: true,
@@ -36,6 +37,8 @@ import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
     MentionModule,
     AddMentionUsersPipe,
     AsyncPipe,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   selector: "form-input-list-component",
   template: `
@@ -59,6 +62,22 @@ import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
             [formControlName]="input.key"
             [attr.required]="input.required"
             autocomplete="on" />
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </ng-container>
+
+        <ng-container *ngIf="input.type === 'date'">
+          <mat-label>{{ input.label }}</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [formControlName]="input.key" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -139,7 +158,7 @@ export class FormInputListComponent implements OnInit {
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
 
-  public newForm: UntypedFormGroup;
+  public newForm!: UntypedFormGroup;
   private defaultFormGroupValue: Record<string, number | string> = {};
   public editorContent: string = "";
   public hasError: boolean = false;
@@ -148,9 +167,7 @@ export class FormInputListComponent implements OnInit {
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(private formBuilder: UntypedFormBuilder) {
-    this.newForm = formBuilder.group({});
-  }
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   async ngOnInit() {
     console.log(this.formInputList);

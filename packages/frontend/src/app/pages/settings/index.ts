@@ -1,16 +1,21 @@
-import { Route, Routes } from "@angular/router";
 import {
   PersonalNetWorthResolver,
   SecurityResolver,
 } from "../../shared/resolvers/settings.resolver";
+import { importProvidersFrom } from "@angular/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+import { IMenu } from "sources-types";
+import { IFullRoute } from "src/app/routes";
 
-export interface IFullRoute extends Route {
-  description: string;
-  icon: string;
-}
-
-export default [
-  { path: "", redirectTo: "security", pathMatch: "full" },
+export const route: IFullRoute[] = [
+  {
+    path: "",
+    redirectTo: "security",
+    pathMatch: "full",
+    icon: "",
+    description: "",
+  },
   {
     path: "security",
     description: "Security",
@@ -29,7 +34,22 @@ export default [
     path: "personal-net-worth",
     description: "Personal Net Worth",
     icon: "monetization_on",
+    providers: [
+      importProvidersFrom(MatDatepickerModule),
+      importProvidersFrom(MatNativeDateModule),
+    ],
     resolve: { settings: PersonalNetWorthResolver },
     loadComponent: () => import("./personal-net-worth.view"),
   },
-] as IFullRoute[];
+];
+
+export const PROFILE_SETTINGS_MENU: IMenu[] = route
+  .filter((route) => route.path)
+  .map(
+    (route) =>
+      ({
+        link: route.path,
+        description: route.description,
+        iconName: route.icon,
+      } as IMenu)
+  );

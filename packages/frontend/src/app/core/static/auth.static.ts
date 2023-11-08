@@ -732,7 +732,7 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "dateAcquired",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.DATE,
     label: "Date Acquired",
     key: "dateAcquired",
     required: true,

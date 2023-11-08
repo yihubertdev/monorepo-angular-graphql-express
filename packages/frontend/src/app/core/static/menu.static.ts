@@ -1,6 +1,4 @@
 import { IMenu, INestedMenu, ISVGIconMenu } from "sources-types";
-import settingRoute from "../../pages/settings";
-
 export const SITE_ROUTE_PAGE = {
   ADD_ARTICLE: ["edit", "article"],
   ADD_POST: ["edit", "post"],
@@ -68,17 +66,6 @@ export const DRAWER_MENU: IMenu[] = [
     width: "50px",
   },
 ];
-
-export const PROFILE_SETTINGS_MENU: IMenu[] = settingRoute
-  .filter((route) => route.path)
-  .map(
-    (route) =>
-      ({
-        link: route.path,
-        description: route.description,
-        iconName: route.icon,
-      } as IMenu)
-  );
 
 export const postCardMenu: IMenu[] = [
   {

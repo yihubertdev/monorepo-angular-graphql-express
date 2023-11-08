@@ -10,7 +10,7 @@ import { UserPhotoPipe } from "../../shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
-import { PROFILE_SETTINGS_MENU } from "src/app/core/static/menu.static";
+import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
 
 @Component({
   standalone: true,

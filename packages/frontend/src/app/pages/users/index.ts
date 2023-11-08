@@ -20,7 +20,7 @@ export default [
     canActivate: [isUserLogin],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./settings.view"),
-    loadChildren: () => import("../settings"),
+    loadChildren: () => import("../settings").then((router) => router.route),
   },
   {
     path: "login",

@@ -63,6 +63,7 @@ export class HomePagePostController implements OnInit {
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       this.hasFile
     ) {
+      console.log("trigger");
       const post = await this._PostService.listPagination(5, this.userId);
       this.data.push(...post.data);
       this.hasFile = post.hasFile;

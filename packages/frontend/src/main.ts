@@ -34,6 +34,8 @@ import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
 import { NotificationHttpService } from "./app/core/services/http/notification.http";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
 
 if (environment.production) {
   enableProdMode();

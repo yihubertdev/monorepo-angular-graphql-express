@@ -1,4 +1,9 @@
-import { Routes } from "@angular/router";
+import { Route, Routes } from "@angular/router";
+
+export interface IFullRoute extends Route {
+  description: string;
+  icon: string;
+}
 
 export default [
   { path: "", redirectTo: "home/posts", pathMatch: "full" },
