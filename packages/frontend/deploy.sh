@@ -33,15 +33,17 @@ npm pack
 
 SHARED_COMPONENTS=$(find . -type f -name "*.tgz")
 
-# mv $SHARED_COMPONENTS ../../../frontend/dependencies
+mv $SHARED_COMPONENTS ../../../frontend/dependencies
 
 cd ../../../frontend/dependencies
 
 npm uninstall @types/sources-types
 
-# npm uninstall angular-shared-ui
+npm uninstall angular-shared-ui
 
 npm install $SHARED_TYPES --save-dev
+
+npm install $SHARED_COMPONENTS --save-dev
 
 # ng build
 
