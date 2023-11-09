@@ -101,7 +101,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
           >{{ currentUser?.displayName ?? "Guest" }}
         </mat-card-title>
         <mat-card-subtitle style="display: inline !important;"
-          >@{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
+          >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
         >
       </mat-card-header>
 

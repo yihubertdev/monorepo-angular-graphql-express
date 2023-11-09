@@ -37,7 +37,7 @@ import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
             >{{ currentUser?.displayName ?? "Guest" }}
           </mat-card-title>
           <mat-card-subtitle
-            >@{{ currentUser?.userId ?? "guest" }}
+            >&#64;{{ currentUser?.userId ?? "guest" }}
           </mat-card-subtitle>
           <div
             class="user-avatar-size user-avatar-square"
