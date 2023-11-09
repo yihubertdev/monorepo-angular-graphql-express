@@ -39,11 +39,11 @@ cd ../../../frontend/dependencies
 
 npm uninstall @types/sources-types
 
-npm uninstall angular-shared-ui
+# npm uninstall angular-shared-ui
 
 npm install $SHARED_TYPES --save-dev
 
-npm install $SHARED_COMPONENTS --save-dev
+# npm install $SHARED_COMPONENTS --save-dev
 
 # ng build
 
