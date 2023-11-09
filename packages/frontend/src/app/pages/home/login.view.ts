@@ -33,7 +33,7 @@ import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
           No account?
           <a
             mat-tab-link
-            routerLink="../signup">
+            routerLink="/users/signup">
             Register</a
           >
         </h3>
