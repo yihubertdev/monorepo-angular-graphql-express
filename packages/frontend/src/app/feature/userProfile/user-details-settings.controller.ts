@@ -56,8 +56,10 @@ export interface IUserSettings extends ISettingCategory {
               col-md-12 col-sm-12 col-xs-12 mb-4">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title> {{ setting.title }} </mat-panel-title>
-                <mat-panel-description>
+                <mat-panel-title class="show-one-line">
+                  {{ setting.title }}
+                </mat-panel-title>
+                <mat-panel-description class="show-one-line">
                   {{ setting.description }}
                 </mat-panel-description>
               </mat-expansion-panel-header>

@@ -27,7 +27,7 @@ import { MatIconModule } from "@angular/material/icon";
     <div
       #footer
       class="stick-footer"
-      [ngStyle]="{ bottom: hideFooter ? '-50px' : '0px' }">
+      [ngStyle]="{ bottom: hideFooter ? '-34px' : '0px' }">
       <nav
         mat-tab-nav-bar
         [tabPanel]="tabPanel">

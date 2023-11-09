@@ -37,9 +37,7 @@ export interface IUserDetailCard {
     MatDialogModule,
     MatIconModule,
   ],
-  template: `<mat-card
-    *ngIf="userDetails"
-    class="m-4">
+  template: `<mat-card *ngIf="userDetails">
     <mat-card-header>
       <mat-card-title *ngIf="isSettingsPage && category !== 'account'">
         <a
@@ -82,13 +80,6 @@ export interface IUserDetailCard {
                 target="_blank">
                 View
                 <mat-icon>visibility</mat-icon>
-              </a>
-              <a
-                mat-button
-                [href]="info.value[0]"
-                target="_blank">
-                Save
-                <mat-icon>download</mat-icon>
               </a>
             </mat-list-item>
             <mat-divider></mat-divider>

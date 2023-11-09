@@ -50,3 +50,6 @@ Thumbs.db
 
 # Firebase Hosting Cache
 .firebase
+
+# Firebase debug log
+.firebase-debug.log
