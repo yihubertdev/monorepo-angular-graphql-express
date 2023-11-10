@@ -25,7 +25,7 @@ cd ../ui/dependencies
 npm uninstall @types/sources-types
 npm install $SHARED_TYPES --save-dev
 
-ng build --configuration development
+npx ng build --configuration development
 
 cd ../../../dist/sharedModule
 
@@ -39,7 +39,7 @@ cd ../../../frontend/dependencies
 
 npm uninstall @types/sources-types
 
-# npm uninstall angular-shared-ui
+npm uninstall angular-shared-ui
 
 npm install $SHARED_TYPES --save-dev
 
