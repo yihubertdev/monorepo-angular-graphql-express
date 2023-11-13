@@ -31,7 +31,7 @@ export abstract class FireStoreBaseModel<T> {
   protected lastQueryDocumentSnapshot?: QueryDocumentSnapshot<T>;
 
   constructor(protected firestore: AngularFirestore) {
-    this.collection = this.firestore.collection(this.collectionName());
+    this.collection = firestore.collection(this.collectionName());
   }
 
   /**
@@ -170,7 +170,7 @@ export abstract class FireStoreBaseModel<T> {
     if (userId) {
       querySnapShot = querySnapShot.where("userId", "==", userId);
     }
-
+    this.lastQueryDocumentSnapshot = undefined;
     const result = await querySnapShot.get();
     data = result.docs.map((doc, index) => {
       if (index === limit - 1) {
@@ -178,7 +178,6 @@ export abstract class FireStoreBaseModel<T> {
       }
       return doc.data();
     });
-
     return {
       data,
       hasFile: this.lastQueryDocumentSnapshot ? true : false,

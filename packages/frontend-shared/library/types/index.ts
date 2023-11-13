@@ -12,6 +12,11 @@ export const enum FIREAUTH_PERSISTENCE {
   NONE = "NONE",
 }
 
+export const enum FIRESTORE_CACHE {
+  HOME_PAGE = "home_page",
+  USER_PAGE = "user_page"
+}
+
 export const enum SNACKBAR_ERROR {
   USER_LOGIN_ERROR = "User not login, Please Login first",
   ADD_BLOG_ERROR = "Blog created failed.",

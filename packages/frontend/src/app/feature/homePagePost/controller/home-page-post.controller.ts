@@ -1,12 +1,11 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IPost } from "sources-types";
+import { FIRESTORE_CACHE, IPost } from "sources-types";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
-import { FirebaseMessagingService } from "../../../core/services/firebaseMessage/basic.message";
 
 @Component({
   standalone: true,
@@ -52,8 +51,7 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private route: ActivatedRoute,
-    private _firebaseMessaging: FirebaseMessagingService
+    private route: ActivatedRoute
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -63,23 +61,27 @@ export class HomePagePostController implements OnInit {
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       this.hasFile
     ) {
-      console.log("trigger");
-      const post = await this._PostService.listPagination(5, this.userId);
-      this.data.push(...post.data);
+      const post = await this._PostService.listPaginationWithCache(
+        5,
+        this.userId ? FIRESTORE_CACHE.USER_PAGE : FIRESTORE_CACHE.HOME_PAGE,
+        this.userId
+      );
+      this.data = post.data;
       this.hasFile = post.hasFile;
     }
   }
 
   ngOnInit(): void {
     if (this.data.length) return;
-    const preloadData = this.route.snapshot.data as {
+
+    const resolverData = this.route.snapshot.data as {
       posts: {
         data: IPost[];
         hasFile: boolean;
       };
     };
-    this.hasFile = preloadData.posts.hasFile;
-    this.data = preloadData.posts.data;
+    this.hasFile = resolverData!.posts.hasFile;
+    this.data = resolverData!.posts.data;
   }
 
   identify(index: number, post: IPost) {

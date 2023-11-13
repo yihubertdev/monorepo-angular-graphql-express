@@ -3,9 +3,9 @@ import { FireStoreCacheService } from "./basic.cache";
 import { IPost } from "sources-types";
 
 @Injectable({ providedIn: "root" })
-export class PostFireStore extends FireStoreCacheService<{
-  hasFile: Boolean;
-  data: IPost;
+export class PostCache extends FireStoreCacheService<{
+  hasFile: boolean;
+  data: IPost[];
 }> {
   /**
    * Contructor

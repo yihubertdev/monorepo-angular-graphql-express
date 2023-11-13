@@ -1,19 +1,16 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class FireStoreCacheService<T> {
-  private _cache: BehaviorSubject<T | null>;
-  protected readonly cacheObserver$: Observable<T | null>;
-  constructor() {
-    this.cacheObserver$ = this._cache.asObservable();
+  private _cache: Record<string, T> = {};
+
+  constructor() {}
+
+  public get(key: string): T | undefined {
+    return this._cache[key];
   }
 
-  public get() {
-    return this.cacheObserver$;
-  }
-
-  public update(data: T) {
-    this._cache.next(data);
+  public update(key: string, value: T) {
+    this._cache[key] = value;
   }
 }
