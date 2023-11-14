@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { FIRESTORE_CACHE, IPost } from "sources-types";
+import { CACHE_KEY, IPost } from "sources-types";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
@@ -61,17 +61,16 @@ export class HomePagePostController implements OnInit {
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       this.hasFile
     ) {
-      const post = await this._PostService.listPaginationWithCache(
-        5,
-        this.userId ? FIRESTORE_CACHE.USER_PAGE : FIRESTORE_CACHE.HOME_PAGE,
-        this.userId
-      );
+      const post = this.userId
+        ? await this._PostService.listUserPaginationWithCache(5, this.userId)
+        : await this._PostService.listHomePaginationWithCache(5);
       this.data = post.data;
       this.hasFile = post.hasFile;
     }
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     if (this.data.length) return;
 
     const resolverData = this.route.snapshot.data as {

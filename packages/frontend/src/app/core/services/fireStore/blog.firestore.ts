@@ -3,10 +3,10 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_CACHE, FIRESTORE_COLLECTION } from "sources-types";
+import { CACHE_KEY, FIRESTORE_COLLECTION } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { IArticle, IPost } from "sources-types";
-import { PostCache } from "../cache/post.cache";
+import { HomePagePostCache, UserPagePostCache } from "../cache/post.cache";
 
 @Injectable({ providedIn: "root" })
 export class PostFireStore extends FireStoreBaseModel<IPost> {
@@ -27,56 +27,107 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
    */
   protected override collection: AngularFirestoreCollection<IPost>;
 
-  protected _cache: PostCache;
+  protected _homePageCache: HomePagePostCache;
+
+  protected _userPageCache: UserPagePostCache;
 
   /**
    * Contructor
    *
    * @protected
    * @param {AngularFirestore} firestore firestore
-   * @param {PostCache} _cache post cache
+   * @param {HomePagePostCache} _homePageCache post cache
+   * @param {UserPagePostCache} _userPageCache post cache
    */
-  constructor(firestore: AngularFirestore, _cache: PostCache) {
+  constructor(
+    firestore: AngularFirestore,
+    _homePageCache: HomePagePostCache,
+    _userPageCache: UserPagePostCache
+  ) {
     super(firestore);
     this.collection = firestore.collection(this.collectionName());
-    this._cache = _cache;
+    this._homePageCache = _homePageCache;
+    this._userPageCache = _userPageCache;
   }
 
-  public async listWithCache(
+  public async listUserPagePostCache(
     limit: number = 10,
-    cacheKey: FIRESTORE_CACHE,
-    userId?: string
+    userId: string
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
-    const data = this._cache.get(userId ? cacheKey + userId : cacheKey);
+    const data = this._userPageCache.getPost(userId);
     if (data) {
       return data;
     }
 
     const post = await this.list(limit, userId);
-    this._cache.update(userId ? cacheKey + userId : cacheKey, post);
+    this._userPageCache.updatePost(post, userId);
     return post;
   }
 
-  public async listPaginationWithCache(
-    limit: number = 10,
-    cacheKey: FIRESTORE_CACHE,
-    userId?: string
+  public async listHomePagePostCache(
+    limit: number = 10
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
-    const cache = this._cache.get(userId ? cacheKey + userId : cacheKey);
-    console.log(cache);
+    const data = this._homePageCache.get();
+    if (data) {
+      return data;
+    }
+    console.log("load");
+    const post = await this.list(limit);
+    this._homePageCache.update(post);
+    return post;
+  }
+
+  public async listUserPaginationWithCache(
+    limit: number = 10,
+    userId: string
+  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+    const cache = this._userPageCache.getPost(userId);
     if (cache && !cache.hasFile) {
       return cache;
     }
-
+    console.log("load");
     const post = await this.listPagination(limit, userId);
+    let data: IPost[] = [];
+    if (cache) {
+      data = cache.data;
+      data.push(...post.data);
+    } else {
+      data = post.data;
+    }
 
-    let data = {
+    const result = {
       hasFile: post.hasFile,
-      data: cache ? [cache.data, post.data].flat() : post.data,
+      data,
     };
 
-    this._cache.update(userId ? cacheKey + userId : cacheKey, data);
-    return data;
+    this._userPageCache.updatePost(result, userId);
+    return result;
+  }
+
+  public async listHomePaginationWithCache(
+    limit: number = 10
+  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+    const cache = this._homePageCache.get();
+    if (cache && !cache.hasFile) {
+      return cache;
+    }
+    console.log("load");
+    const post = await this.listPagination(limit);
+    let data: IPost[] = [];
+    if (cache) {
+      data = cache.data;
+      data.push(...post.data);
+    } else {
+      data = post.data;
+    }
+
+    const result = {
+      hasFile: post.hasFile,
+      data,
+    };
+
+    this._homePageCache.update(result);
+    return result;
   }
 }
 

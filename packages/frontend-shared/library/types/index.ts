@@ -12,7 +12,7 @@ export const enum FIREAUTH_PERSISTENCE {
   NONE = "NONE",
 }
 
-export const enum FIRESTORE_CACHE {
+export const enum CACHE_KEY {
   HOME_PAGE = "home_page",
   USER_PAGE = "user_page"
 }

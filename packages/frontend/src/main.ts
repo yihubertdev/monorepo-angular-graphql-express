@@ -34,10 +34,6 @@ import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
 import { NotificationHttpService } from "./app/core/services/http/notification.http";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatNativeDateModule } from "@angular/material/core";
-import { PostCache } from "./app/core/services/cache/post.cache";
-import { FireStoreCacheService } from "./app/core/services/cache/basic.cache";
 
 if (environment.production) {
   enableProdMode();
@@ -88,7 +84,5 @@ bootstrapApplication(MainView, {
     ArticleFireStore, // firestore article
     PostFireStore, // firestore post
     NotificationHttpService,
-    FireStoreCacheService,
-    PostCache,
   ],
 });

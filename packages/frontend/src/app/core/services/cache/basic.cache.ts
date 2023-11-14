@@ -1,16 +1,19 @@
-import { Injectable } from "@angular/core";
-
-@Injectable({ providedIn: "root" })
-export class FireStoreCacheService<T> {
+export abstract class FireStoreCacheService<T> {
   private _cache: Record<string, T> = {};
+
+  protected abstract key: string;
 
   constructor() {}
 
-  public get(key: string): T | undefined {
-    return this._cache[key];
+  public get(): T | undefined {
+    return this._cache[this.key];
   }
 
-  public update(key: string, value: T) {
-    this._cache[key] = value;
+  public update(value: T) {
+    this._cache[this.key] = value;
+  }
+
+  public delete(): void {
+    delete this._cache[this.key];
   }
 }

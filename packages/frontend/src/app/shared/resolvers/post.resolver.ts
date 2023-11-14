@@ -4,7 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from "@angular/router";
-import { FIRESTORE_CACHE, IPost, IUser } from "sources-types";
+import { CACHE_KEY, IPost, IUser } from "sources-types";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { UserService } from "../../core/services/fireStore/users.firestore";
@@ -13,7 +13,7 @@ export const postResolver: ResolveFn<{
   data: IPost[];
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  return inject(PostFireStore).listWithCache(5, FIRESTORE_CACHE.HOME_PAGE);
+  return inject(PostFireStore).listHomePagePostCache(5);
 };
 
 export const postByUserResolver: ResolveFn<{
@@ -27,11 +27,7 @@ export const postByUserResolver: ResolveFn<{
     )?.userId;
   }
 
-  return inject(PostFireStore).listWithCache(
-    5,
-    FIRESTORE_CACHE.USER_PAGE,
-    userId
-  );
+  return inject(PostFireStore).listUserPagePostCache(5, userId);
 };
 
 export const userProfileResolver: ResolveFn<IUser | undefined> = async (
