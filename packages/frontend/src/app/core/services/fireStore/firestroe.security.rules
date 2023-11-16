@@ -38,7 +38,7 @@ service cloud.firestore {
         }
 
         match /users/{uid}	{
-            allow read: if true;
+            allow read;
             allow update, delete, create: if isAuthMachedUser(uid);
         }
 
@@ -47,12 +47,12 @@ service cloud.firestore {
         }
 
         match /blogs/{blogId}	{
-            allow read: if true;
+            allow read;
             allow create: if isAuthSignedIn() && isNewDataMatchedUser();
             allow update, delete: if isBlogUserMatchedAuth(blogId);
         }
         match /article/{articleId} {
-            allow read: if true;
+            allow read;
             allow create: if request.auth != null && isNewDataMatchedUser();
             allow update, delete: if currentArticleInfo(articleId).userId == currentUserInfo().userId;
         }
