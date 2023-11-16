@@ -70,7 +70,6 @@ export class HomePagePostController implements OnInit {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0, 0);
     if (this.data.length) return;
 
     const resolverData = this.route.snapshot.data as {

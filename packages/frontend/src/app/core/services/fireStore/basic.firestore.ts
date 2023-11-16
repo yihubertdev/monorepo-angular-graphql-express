@@ -1,4 +1,4 @@
-import { Injectable, Query } from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
@@ -38,12 +38,13 @@ export abstract class FireStoreBaseModel<T> {
    * Retrieve all documents from collection
    *
    * @public
+   * @param {number} limit limit the record
    * @returns {Promise<T[]>} retrieve all document
    */
-  public retrieveAll = async (): Promise<T[]> => {
-    const result = await firstValueFrom(this.collection.valueChanges());
+  public retrieveAll = async (limit: number = 100): Promise<T[]> => {
+    const result = await this.collection.ref.limit(limit).get();
 
-    return result;
+    return result.docs.map((data) => data.data());
   };
 
   /**
@@ -54,8 +55,9 @@ export abstract class FireStoreBaseModel<T> {
    * @returns {Promise<any>} retrieve
    */
   public retrieveById = async (id: string): Promise<T> => {
+    console.log(id);
     const result = await firstValueFrom(this.collection.doc(id).get());
-
+    console.log(result);
     // return document;
     return result.data() as T;
   };
@@ -157,10 +159,10 @@ export abstract class FireStoreBaseModel<T> {
    * @param {string} [userId] user id
    * @returns {Promise<{ data: T[]; hasFile: boolean }>} list data response
    */
-  public list = async (
+  public async list(
     limit: number = 10,
     userId?: string
-  ): Promise<{ data: T[]; hasFile: boolean }> => {
+  ): Promise<{ data: T[]; hasFile: boolean }> {
     let data: T[] = [];
 
     let querySnapShot = this.collection.ref
@@ -182,7 +184,7 @@ export abstract class FireStoreBaseModel<T> {
       data,
       hasFile: this.lastQueryDocumentSnapshot ? true : false,
     };
-  };
+  }
 
   /**
    * List collection document with pagination

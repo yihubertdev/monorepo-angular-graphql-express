@@ -2,9 +2,11 @@ import { enableProdMode, importProvidersFrom } from "@angular/core";
 import { environment } from "./environments/environment.dev";
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
+  InMemoryScrollingOptions,
   PreloadAllModules,
   provideRouter,
   withComponentInputBinding,
+  withInMemoryScrolling,
   withPreloading,
 } from "@angular/router";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -39,6 +41,11 @@ if (environment.production) {
   enableProdMode();
 }
 
+const scrollConfig: InMemoryScrollingOptions = {
+  scrollPositionRestoration: "enabled",
+  anchorScrolling: "enabled",
+};
+
 bootstrapApplication(MainView, {
   providers: [
     importProvidersFrom(BrowserAnimationsModule),
@@ -60,7 +67,8 @@ bootstrapApplication(MainView, {
     provideRouter(
       APP_ROUTES,
       withPreloading(PreloadAllModules),
-      withComponentInputBinding()
+      withComponentInputBinding(),
+      withInMemoryScrolling(scrollConfig)
     ),
     // angular apollo
     importProvidersFrom(HttpClientModule),

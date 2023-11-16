@@ -6,7 +6,11 @@ import {
 import { CACHE_KEY, FIRESTORE_COLLECTION } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { IArticle, IPost } from "sources-types";
-import { HomePagePostCache, UserPagePostCache } from "../cache/post.cache";
+import {
+  HomePagePostCache,
+  UserCache,
+  UserPagePostCache,
+} from "../cache/extend.cache";
 
 @Injectable({ providedIn: "root" })
 export class PostFireStore extends FireStoreBaseModel<IPost> {
@@ -31,6 +35,8 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
 
   protected _userPageCache: UserPagePostCache;
 
+  protected _userCache: UserCache;
+
   /**
    * Contructor
    *
@@ -38,29 +44,32 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
    * @param {AngularFirestore} firestore firestore
    * @param {HomePagePostCache} _homePageCache post cache
    * @param {UserPagePostCache} _userPageCache post cache
+   * @param {UserCache} _userCache post cache
    */
   constructor(
     firestore: AngularFirestore,
     _homePageCache: HomePagePostCache,
-    _userPageCache: UserPagePostCache
+    _userPageCache: UserPagePostCache,
+    _userCache: UserCache
   ) {
     super(firestore);
     this.collection = firestore.collection(this.collectionName());
     this._homePageCache = _homePageCache;
     this._userPageCache = _userPageCache;
+    this._userCache = _userCache;
   }
 
   public async listUserPagePostCache(
     limit: number = 10,
     userId: string
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
-    const data = this._userPageCache.getPost(userId);
+    const data = this._userPageCache.get(userId);
     if (data) {
       return data;
     }
 
     const post = await this.list(limit, userId);
-    this._userPageCache.updatePost(post, userId);
+    this._userPageCache.update(post, userId);
     return post;
   }
 
@@ -81,7 +90,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     limit: number = 10,
     userId: string
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
-    const cache = this._userPageCache.getPost(userId);
+    const cache = this._userPageCache.get(userId);
     if (cache && !cache.hasFile) {
       return cache;
     }
@@ -100,7 +109,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
       data,
     };
 
-    this._userPageCache.updatePost(result, userId);
+    this._userPageCache.update(result, userId);
     return result;
   }
 

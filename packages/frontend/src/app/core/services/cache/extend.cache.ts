@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FireStoreCacheService } from "./basic.cache";
-import { CACHE_KEY, IPost } from "sources-types";
+import { CACHE_KEY, IPost, IUser } from "sources-types";
 
 @Injectable({ providedIn: "root" })
 export class HomePagePostCache extends FireStoreCacheService<{
@@ -32,25 +32,17 @@ export class UserPagePostCache extends FireStoreCacheService<{
   constructor() {
     super();
   }
+}
 
-  public getPost(userId: string):
-    | {
-        hasFile: boolean;
-        data: IPost[];
-      }
-    | undefined {
-    this.key = userId;
-    return this.get();
-  }
-
-  public updatePost(
-    value: {
-      hasFile: boolean;
-      data: IPost[];
-    },
-    userId: string
-  ) {
-    this.key = userId;
-    super.update(value);
+@Injectable({ providedIn: "root" })
+export class UserCache extends FireStoreCacheService<IUser[]> {
+  key: string = CACHE_KEY.USER_INFO;
+  /**
+   * Contructor
+   *
+   * @protected
+   */
+  constructor() {
+    super();
   }
 }

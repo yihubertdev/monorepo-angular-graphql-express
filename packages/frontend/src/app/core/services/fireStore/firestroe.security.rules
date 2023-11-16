@@ -17,9 +17,9 @@ service cloud.firestore {
             return get(/databases/$(database)/documents/blogs/$(blogId)).data;
         }
 
-        match /users/{uid}	{
-            allow read: if true;
-            allow update, delete, create: if isLoggedIn(uid);
+        match /users/{userid}	{
+            allow get, read: if true;
+            allow update, delete, create: if isLoggedIn(userid);
         }
 
         match /users/{uid}/{subCollectionId=**} {

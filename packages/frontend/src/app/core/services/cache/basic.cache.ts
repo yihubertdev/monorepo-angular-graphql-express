@@ -5,15 +5,15 @@ export abstract class FireStoreCacheService<T> {
 
   constructor() {}
 
-  public get(): T | undefined {
-    return this._cache[this.key];
+  public get(key?: string): T | undefined {
+    return this._cache[this.key + key];
   }
 
-  public update(value: T) {
-    this._cache[this.key] = value;
+  public update(value: T, key?: string) {
+    this._cache[this.key + key] = value;
   }
 
-  public delete(): void {
-    delete this._cache[this.key];
+  public delete(key?: string): void {
+    delete this._cache[this.key + key];
   }
 }

@@ -13,7 +13,15 @@ export const postResolver: ResolveFn<{
   data: IPost[];
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+  inject(UserService).retrieveById("dTmyUvdTRrf7budhjvFLOGio79i2");
   return inject(PostFireStore).listHomePagePostCache(5);
+};
+
+export const usersResolver: ResolveFn<IUser[]> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  return inject(UserService).listUsersWithCache(10);
 };
 
 export const postByUserResolver: ResolveFn<{

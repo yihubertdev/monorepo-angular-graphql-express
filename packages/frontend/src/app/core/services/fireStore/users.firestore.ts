@@ -19,6 +19,7 @@ import {
   subCollectionBuilderSchema,
 } from "../../joiSchema/sub-collection.schema";
 import { ICollectionQueryBuilder } from "sources-types";
+import { UserCache } from "../cache/extend.cache";
 
 @Injectable({ providedIn: "root" })
 export class UserService extends FireStoreBaseModel<IUser> {
@@ -39,15 +40,40 @@ export class UserService extends FireStoreBaseModel<IUser> {
    */
   protected override collection: AngularFirestoreCollection<IUser>;
 
+  private _userCache: UserCache;
+
   /**
    * Contructor
    *
    * @protected
    * @param {AngularFirestore} firestore firestore
+   * @param {UserCache} userCache cache users
    */
-  constructor(firestore: AngularFirestore) {
+  constructor(firestore: AngularFirestore, userCache: UserCache) {
     super(firestore);
     this.collection = this.firestore.collection(this.collectionName());
+    this._userCache = userCache;
+  }
+
+  /**
+   * Retrieve user with verfied email
+   *
+   * @public
+   * @param {number} [limit] list limit number of user
+   * @returns {Promise<IUser[]>} user
+   */
+  public async listUsersWithCache(limit?: number): Promise<IUser[]> {
+    const cache = this._userCache.get();
+
+    if (cache) {
+      return cache;
+    }
+
+    const users = await this.retrieveAll(limit);
+
+    this._userCache.update(users);
+
+    return users;
   }
 
   /**

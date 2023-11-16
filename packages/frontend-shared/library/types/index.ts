@@ -14,7 +14,8 @@ export const enum FIREAUTH_PERSISTENCE {
 
 export const enum CACHE_KEY {
   HOME_PAGE = "home_page",
-  USER_PAGE = "user_page"
+  USER_PAGE = "user_page",
+  USER_INFO = "USER_INFO"
 }
 
 export const enum SNACKBAR_ERROR {
