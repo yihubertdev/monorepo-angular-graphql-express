@@ -49,12 +49,11 @@ export class AuthService {
     // });
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(user);
-      console.log(user);
-      if (user) {
+      const userSession = this._sessionStorage.getSessionStorage<IUser>("user");
+      if (user && !userSession) {
         this.currentUser = await this.userService.retrieveById(user.uid);
-        console.log(this.currentUser);
         this._sessionStorage.setSessionStorage("user", this.currentUser);
-      } else {
+      } else if (!user && userSession) {
         this._sessionStorage.deleteSessionStorage("user");
       }
     });

@@ -57,7 +57,6 @@ export abstract class FireStoreBaseModel<T> {
   public retrieveById = async (id: string): Promise<T> => {
     console.log(id);
     const result = await firstValueFrom(this.collection.doc(id).get());
-    console.log(result);
     // return document;
     return result.data() as T;
   };

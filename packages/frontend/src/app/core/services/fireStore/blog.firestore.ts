@@ -80,7 +80,6 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (data) {
       return data;
     }
-    console.log("load");
     const post = await this.list(limit);
     this._homePageCache.update(post);
     return post;
@@ -94,7 +93,6 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (cache && !cache.hasFile) {
       return cache;
     }
-    console.log("load");
     const post = await this.listPagination(limit, userId);
     let data: IPost[] = [];
     if (cache) {
@@ -120,7 +118,6 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (cache && !cache.hasFile) {
       return cache;
     }
-    console.log("load");
     const post = await this.listPagination(limit);
     let data: IPost[] = [];
     if (cache) {
