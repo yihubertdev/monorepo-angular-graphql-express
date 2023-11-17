@@ -1,4 +1,8 @@
-import { enableProdMode, importProvidersFrom } from "@angular/core";
+import {
+  ErrorHandler,
+  enableProdMode,
+  importProvidersFrom,
+} from "@angular/core";
 import { environment } from "./environments/environment.dev";
 import { bootstrapApplication } from "@angular/platform-browser";
 import {
@@ -20,22 +24,14 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { FIREBASE_OPTIONS } from "@angular/fire/compat";
 import { provideMessaging, getMessaging } from "@angular/fire/messaging";
-import { AuthService } from "./app/core/services/fireAuth/auth";
-import { UserService } from "./app/core/services/fireStore/users.firestore";
 import { BrowserStorageServiceModule } from "./app/core/services/browserStorage/browserStorage.module";
-import {
-  ArticleFireStore,
-  PostFireStore,
-} from "./app/core/services/fireStore/blog.firestore";
-import { FormFileStorageService } from "./app/core/services/fireStorage/form-file.bucket";
-import { ProfileStorageService } from "./app/core/services/fireStorage/profile.bucket";
 import APP_ROUTES from "./app/routes";
 import { MainView } from "./app/main.view";
 import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
-import { NotificationHttpService } from "./app/core/services/http/notification.http";
+import { GlobalErrorHandler } from "./app/core/utils/error";
 
 if (environment.production) {
   enableProdMode();
@@ -85,12 +81,6 @@ bootstrapApplication(MainView, {
       },
       deps: [HttpLink],
     },
-    AuthService, //firebase auth
-    UserService, //firestore user
-    FormFileStorageService, // firebase document upload storage
-    ProfileStorageService, // firebase profile upload storage
-    ArticleFireStore, // firestore article
-    PostFireStore, // firestore post
-    NotificationHttpService,
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
 });

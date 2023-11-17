@@ -25,7 +25,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class AuthService {
   private _userAuth: BehaviorSubject<User | null>;
   public readonly userAuthObserver$: Observable<User | null>;
-  public currentUser: IUser | null = null;
+  public currentUser?: IUser;
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
 
@@ -49,11 +49,11 @@ export class AuthService {
     // });
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(user);
-      const userSession = this._sessionStorage.getSessionStorage<IUser>("user");
-      if (user && !userSession) {
+      this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
+      if (user && !this.currentUser) {
         this.currentUser = await this.userService.retrieveById(user.uid);
         this._sessionStorage.setSessionStorage("user", this.currentUser);
-      } else if (!user && userSession) {
+      } else if (!user && !this.currentUser) {
         this._sessionStorage.deleteSessionStorage("user");
       }
     });
@@ -116,9 +116,9 @@ export class AuthService {
    * Get current user information
    *
    * @public
-   * @returns {IUser | null} get user information
+   * @returns {IUser | undefined} get user information
    */
-  public get(): IUser | null {
+  public get(): IUser | undefined {
     return this.currentUser;
   }
 

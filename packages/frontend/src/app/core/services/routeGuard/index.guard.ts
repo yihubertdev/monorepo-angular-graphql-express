@@ -42,24 +42,3 @@ export const isUserLoginToUser: CanActivateFn = () =>
   Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
     ? inject(Router).navigate(["users", "me", "posts"])
     : true;
-
-@Injectable({ providedIn: "root" })
-export class LoginGuardService {
-  constructor(
-    private _router: Router,
-    private zone: NgZone,
-    private _sessionStorage: SessionStorageService,
-    private _snackBar: MatSnackBar
-  ) {}
-
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Promise<boolean> {
-    return new Promise((resolve) => {
-      this.zone.run(() => {
-        resolve(true);
-      });
-    });
-  }
-}
