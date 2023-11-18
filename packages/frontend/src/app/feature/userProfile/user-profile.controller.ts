@@ -1,14 +1,5 @@
-import { CommonModule } from "@angular/common";
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { NgIf, NgStyle } from "@angular/common";
+import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -17,18 +8,16 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { IUser } from "sources-types";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
-import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
-import { GridListResponsiveDirectiveModule } from "src/app/shared/directives/matGridListResponsive/matGridListResponsive.module";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
-import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 
 @Component({
   standalone: true,
   selector: "user-profile-controller",
   imports: [
-    CommonModule,
+    NgIf,
+    NgStyle,
     MatCardModule,
     MatGridListModule,
     StringTransformPipe,
@@ -37,7 +26,6 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
     MatButtonModule,
     RouterModule,
     MatTabsModule,
-    GridListResponsiveDirectiveModule,
     FormInputListComponent,
   ],
   providers: [ProfileStorageService],
@@ -101,7 +89,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
           >{{ currentUser?.displayName ?? "Guest" }}
         </mat-card-title>
         <mat-card-subtitle style="display: inline !important;"
-          >@{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
+          >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
         >
       </mat-card-header>
 

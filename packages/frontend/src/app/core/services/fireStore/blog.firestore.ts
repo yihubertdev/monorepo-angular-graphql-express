@@ -82,7 +82,6 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
       return data;
     }
     const groupedData = keyBy(users, "userId");
-
     const post = await this.list(limit, Object.keys(groupedData));
     post.data.map((item) => ({
       ...item,

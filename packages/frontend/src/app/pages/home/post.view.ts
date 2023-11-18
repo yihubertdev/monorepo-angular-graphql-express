@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
-import { AddTextEditorModule } from "../../feature/addTextEditor/add-text-editor.module";
 import { HomePagePostController } from "../../feature/homePagePost/home-page-post.controller";
+import { AddTextEditorController } from "../../feature/addTextEditor/add-text-editor.controller";
 
 @Component({
   standalone: true,
-  imports: [AddTextEditorModule, HomePagePostController],
+  imports: [AddTextEditorController, HomePagePostController],
   template: `
     <!-- desktop 90dvh content, mobile 10dvh category and 90dvh content-->
     <div class="container">

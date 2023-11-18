@@ -41,7 +41,7 @@ export class AuthService {
       this._userAuth.next(user);
       this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
       if (user && !this.currentUser) {
-        this.currentUser = await this.userService.retrieveByUId(user.uid);
+        this.currentUser = await this.userService.listUserWithCache(user.uid);
         this._sessionStorage.setSessionStorage("user", this.currentUser);
       } else if (!user && !this.currentUser) {
         this._sessionStorage.deleteSessionStorage("user");

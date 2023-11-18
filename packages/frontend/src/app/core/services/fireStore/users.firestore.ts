@@ -55,12 +55,34 @@ export class UserService extends FireStoreBaseModel<IUser> {
     if (cache) {
       return cache;
     }
-
     const users = await this.retrieveAll(limit);
 
     this._userCache.update(users);
 
     return users;
+  }
+
+  /**
+   * Retrieve user with verfied email
+   *
+   * @public
+   * @param {string} uId list limit number of user
+   * @returns {Promise<IUser[]>} user
+   */
+  public async listUserWithCache(uId: string): Promise<IUser> {
+    let cache = this._userCache.get();
+    let cachedUser = cache?.find((u) => u.id == uId);
+    if (cachedUser) {
+      return cachedUser;
+    }
+
+    const user = await this.retrieveByUId(uId);
+    if (!user) {
+      throw Error("User not exist");
+    }
+    cache = cache ? [...cache, user] : [user];
+    this._userCache.update(cache);
+    return user;
   }
 
   /**
