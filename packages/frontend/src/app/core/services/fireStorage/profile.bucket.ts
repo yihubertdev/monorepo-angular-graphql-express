@@ -76,7 +76,7 @@ export class ProfileStorageService extends FireStorageBaseModel {
     });
 
     // Get user profile in firestore
-    await this.userService.retrieveById(id);
+    await this.userService.retrieveById([id]);
 
     // Update user profile in firestore
     this.userService.update({ photoURL: url, id });

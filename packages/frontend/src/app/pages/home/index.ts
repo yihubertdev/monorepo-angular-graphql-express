@@ -1,5 +1,5 @@
 import { isUserLoginToUser } from "../../core/services/routeGuard/index.guard";
-import { postResolver } from "../../shared/resolvers/post.resolver";
+import { homePagePostResolver } from "../../shared/resolvers/post.resolver";
 import { IFullRoute } from "../../routes";
 import { IMenu, ISVGIconMenu } from "sources-types";
 // URL naming
@@ -16,7 +16,7 @@ export const route: IFullRoute[] = [
   },
   {
     path: "posts",
-    resolve: { posts: postResolver },
+    resolve: { posts: homePagePostResolver },
     loadComponent: () => import("./post.view"),
     icon: "feed",
     description: "Post",

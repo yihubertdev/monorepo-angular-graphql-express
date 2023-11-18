@@ -133,7 +133,7 @@ export class UserDetailsSettingsController implements OnInit {
       if (!result) return;
       const { documentId } = result;
       console.log(documentId);
-      this._userService.deleteSubCollectionDocumentByUserId(this.user, {
+      this._userService.deleteSubCollectionDocumentByUser(this.user, {
         collectionId: this.collection,
         next: {
           documentId,

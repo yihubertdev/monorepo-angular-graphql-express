@@ -125,6 +125,13 @@ export interface ICollectionQueryBuilder<T> {
   next?: ICollectionQueryBuilder<T>;
 }
 
+export const enum SUBCOLLECTION_HANDLER {
+  CREATE = "CREATE",
+  UPDATE = "UPDATE",
+  READ = "READ",
+  DELETE = "DELETE",
+}
+
 export interface IProfileHomeAddress {
   documentId: string;
   title: string;

@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { IArticle } from "sources-types";
-import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore";
+import { MatListModule } from "@angular/material/list";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @Component({
+  standalone: true,
   selector: "chat-topic-post-controller",
+  imports: [MatListModule, MatPaginatorModule],
   template: `
     <mat-list
       role="list"
@@ -45,7 +47,7 @@ import { ArticleFireStore } from "src/app/core/services/fireStore/blog.firestore
       aria-label="Select page">
     </mat-paginator>
   `,
-  styleUrls: ["../home-page-post.style.css"],
+  styleUrls: ["./home-page-post.style.css"],
 })
 export class ChatTopicPostController implements OnInit {
   constructor() {}

@@ -61,7 +61,6 @@ export class UserDetailsController implements OnInit {
     //   this.info = await this._userService.retrieveSubCollection({
     //     userId: this.userId,
     //   });
-
     //   if (this.info.user) {
     //     this.userDetails = [
     //       {

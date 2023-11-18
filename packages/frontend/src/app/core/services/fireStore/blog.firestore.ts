@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION } from "sources-types";
+import { FIRESTORE_COLLECTION, IUser } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { IArticle, IPost } from "sources-types";
 import {
@@ -11,6 +11,7 @@ import {
   UserCache,
   UserPagePostCache,
 } from "../cache/extend.cache";
+import { keyBy } from "../../utils/lodash";
 
 @Injectable({ providedIn: "root" })
 export class PostFireStore extends FireStoreBaseModel<IPost> {
@@ -67,20 +68,27 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (data) {
       return data;
     }
-
-    const post = await this.list(limit, userId);
+    const post = await this.list(limit, [userId]);
     this._userPageCache.update(post, userId);
     return post;
   }
 
   public async listHomePagePostCache(
-    limit: number = 10
+    limit: number = 10,
+    users: IUser[]
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
     const data = this._homePageCache.get();
     if (data) {
       return data;
     }
-    const post = await this.list(limit);
+    const groupedData = keyBy(users, "userId");
+
+    const post = await this.list(limit, Object.keys(groupedData));
+    post.data.map((item) => ({
+      ...item,
+      displayName: groupedData[item.userId]?.displayName, // user display name
+      photoURL: groupedData[item.userId]?.photoURL, // user photo url
+    }));
     this._homePageCache.update(post);
     return post;
   }
@@ -93,7 +101,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (cache && !cache.hasFile) {
       return cache;
     }
-    const post = await this.listPagination(limit, userId);
+    const post = await this.listPagination(limit, [userId]);
     let data: IPost[] = [];
     if (cache) {
       data = cache.data;

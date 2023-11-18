@@ -1,4 +1,5 @@
 import { Route, Routes } from "@angular/router";
+import { usersResolver } from "./shared/resolvers/post.resolver";
 
 export interface IFullRoute extends Route {
   description: string;
@@ -9,6 +10,9 @@ export default [
   { path: "", redirectTo: "home/posts", pathMatch: "full" },
   {
     path: "home",
+    resolve: {
+      users: usersResolver,
+    },
     loadChildren: () => import("./pages/home").then((router) => router.route),
   },
   {

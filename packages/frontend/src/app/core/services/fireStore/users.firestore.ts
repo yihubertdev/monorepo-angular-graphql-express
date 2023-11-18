@@ -2,23 +2,10 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  CollectionReference,
-  DocumentData,
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
-import {
-  FIRESTORE_COLLECTION,
-  IProfile,
-  IProfileHomeAddress,
-  IUser,
-} from "sources-types";
+import { FIRESTORE_COLLECTION, IUser } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
-import joiValidator from "../../utils/validator";
-import {
-  deleteCollectionBuilderSchema,
-  subCollectionBuilderSchema,
-} from "../../joiSchema/sub-collection.schema";
-import { ICollectionQueryBuilder } from "sources-types";
 import { UserCache } from "../cache/extend.cache";
 
 @Injectable({ providedIn: "root" })
@@ -99,13 +86,13 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return document.id;
   };
 
-  public retrieveSubCollection = async (filter: {
+  public async retrieveSubCollection<K>(filter: {
     userId: string;
     collectionId: string;
   }): Promise<{
-    data: IProfileHomeAddress[];
+    data: (K & { documentId: string })[];
     user: QueryDocumentSnapshot<IUser>;
-  }> => {
+  }> {
     const { userId, collectionId } = filter;
     let query = this.collection.ref.where("userId", "==", userId);
 
@@ -116,103 +103,10 @@ export class UserService extends FireStoreBaseModel<IUser> {
     const profile = await subCollectionProfile.get();
 
     const document = profile.docs.map((data) => ({
-      ...data.data(),
+      ...(data.data() as K),
       documentId: data.id,
     }));
 
-    return { data: document as IProfileHomeAddress[], user: user };
-  };
-
-  protected buildSubCollection(
-    queries: CollectionReference<DocumentData>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): any {
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    let newQueries = queries.doc(documentId);
-
-    return next
-      ? this.buildSubCollection(
-          newQueries.collection(collectionId as string),
-          next
-        )
-      : newQueries.set(documentValue as IProfileHomeAddress);
-  }
-
-  public addSubCollectionByUserId(
-    user: QueryDocumentSnapshot<IUser>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): void {
-    joiValidator.parameter({
-      data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
-    });
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
-
-    return next
-      ? this.buildSubCollection(collection, next)
-      : collection.doc(documentId).set(documentValue as IProfile);
-  }
-
-  protected buildRemoveSubCollection(
-    queries: CollectionReference<DocumentData>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): any {
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    let newQueries = queries.doc(documentId);
-
-    return next
-      ? this.buildRemoveSubCollection(
-          newQueries.collection(collectionId as string),
-          next
-        )
-      : newQueries.delete();
-  }
-
-  public deleteSubCollectionDocumentByUserId(
-    user: QueryDocumentSnapshot<IUser>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): void {
-    joiValidator.parameter({
-      data: queryBuilder,
-      schemaGenerator: deleteCollectionBuilderSchema,
-    });
-    const { documentId, collectionId, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
-
-    return next
-      ? this.buildRemoveSubCollection(collection, next)
-      : collection.doc(documentId).delete();
-  }
-
-  protected buildSubCollectionUpdator(
-    queries: CollectionReference<DocumentData>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): any {
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    let newQueries = queries.doc(documentId);
-    console.log(newQueries);
-    return next
-      ? this.buildSubCollectionUpdator(
-          newQueries.collection(collectionId as string),
-          next
-        )
-      : newQueries.update(documentValue as IProfile);
-  }
-
-  public updateSubCollectionByUserId(
-    user: QueryDocumentSnapshot<IUser>,
-    queryBuilder: ICollectionQueryBuilder<IProfile>
-  ): void {
-    joiValidator.parameter({
-      data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
-    });
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
-
-    return next
-      ? this.buildSubCollectionUpdator(collection, next)
-      : collection.doc(documentId).update(documentValue as IProfile);
+    return { data: document, user: user };
   }
 }

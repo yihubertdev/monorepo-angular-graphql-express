@@ -1,9 +1,9 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { CACHE_KEY, IPost } from "sources-types";
-import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
-import { PostCardComponent } from "../../../shared/components/postCard/post-card.component";
+import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
+import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
-import { CarouselSliderComponent } from "../../../shared/components/CarouselSlider/carousel-slider.component";
+import { CarouselSliderComponent } from "../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
 
@@ -35,7 +35,7 @@ import { ActivatedRoute } from "@angular/router";
       </ng-container>
     </ng-container>
   `,
-  styleUrls: ["../home-page-post.style.css"],
+  styleUrls: ["./home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
   @Input() userId?: string;
@@ -71,7 +71,6 @@ export class HomePagePostController implements OnInit {
 
   ngOnInit(): void {
     if (this.data.length) return;
-
     const resolverData = this.route.snapshot.data as {
       posts: {
         data: IPost[];

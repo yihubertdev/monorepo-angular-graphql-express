@@ -1,4 +1,4 @@
-import { Injectable, NgZone, inject } from "@angular/core";
+import { inject } from "@angular/core";
 import {
   Router,
   ActivatedRouteSnapshot,
@@ -6,10 +6,8 @@ import {
   CanActivateFn,
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { IUser } from "sources-types";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
-import { AuthService } from "../fireAuth/auth";
 
 export const isUserLogin: CanActivateFn = () => {
   if (Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))) {

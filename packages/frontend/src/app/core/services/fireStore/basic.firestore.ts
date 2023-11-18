@@ -2,14 +2,26 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
+  CollectionReference,
+  DocumentData,
+  DocumentReference,
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
-import { firstValueFrom } from "rxjs";
-import { FIRESTORE_COLLECTION } from "sources-types";
+import { FIRESTORE_COLLECTION, SUBCOLLECTION_HANDLER } from "sources-types";
 import { v4 as uuidv4 } from "uuid";
 import { ICollectionQueryBuilder } from "sources-types";
 import joiValidator from "../../utils/validator";
-import { subCollectionBuilderSchema } from "../../joiSchema/sub-collection.schema";
+import {
+  deleteCollectionBuilderSchema,
+  subCollectionBuilderSchema,
+} from "../../joiSchema/sub-collection.schema";
+import { firstValueFrom } from "rxjs/internal/firstValueFrom";
+
+export type ISubCollectionHandler<K> = {
+  queries: DocumentReference<K>;
+  action: SUBCOLLECTION_HANDLER;
+  value?: K;
+};
 
 @Injectable({ providedIn: "root" })
 export abstract class FireStoreBaseModel<T> {
@@ -50,14 +62,27 @@ export abstract class FireStoreBaseModel<T> {
   /**
    * Retrieve document from collection by docs id
    *
+   * @param {string[]} ids document id
+   * @public
+   * @returns {Promise<any>} retrieve
+   */
+  public retrieveById = async (ids: string[]): Promise<T[]> => {
+    const result = await this.collection.ref.where("userId", "in", ids).get();
+    // return document;
+    return result.docs.map((data) => data.data()) as T[];
+  };
+
+  /**
+   * Retrieve document from collection by docs id
+   *
    * @param {string} id document id
    * @public
    * @returns {Promise<any>} retrieve
    */
-  public retrieveById = async (id: string): Promise<T> => {
+  public retrieveByUId = async (id: string): Promise<T | undefined> => {
     const result = await firstValueFrom(this.collection.doc(id).get());
     // return document;
-    return result.data() as T;
+    return result.data();
   };
 
   /**
@@ -154,12 +179,12 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
-   * @param {string} [userId] user id
+   * @param {string} [userIds] user id
    * @returns {Promise<{ data: T[]; hasFile: boolean }>} list data response
    */
   public async list(
     limit: number = 10,
-    userId?: string
+    userIds?: string[]
   ): Promise<{ data: T[]; hasFile: boolean }> {
     let data: T[] = [];
 
@@ -167,8 +192,8 @@ export abstract class FireStoreBaseModel<T> {
       .orderBy("createdAt", "desc")
       .limit(limit);
 
-    if (userId) {
-      querySnapShot = querySnapShot.where("userId", "==", userId);
+    if (userIds) {
+      querySnapShot = querySnapShot.where("userId", "in", userIds);
     }
     this.lastQueryDocumentSnapshot = undefined;
     const result = await querySnapShot.get();
@@ -189,12 +214,12 @@ export abstract class FireStoreBaseModel<T> {
    *
    * @public
    * @param {number} [limit] = 10 limit pagination
-   * @param {string} [userId] user id
+   * @param {string} [userIds] user id
    * @returns {Promise<void>}
    */
   public listPagination = async (
     limit: number = 10,
-    userId?: string
+    userIds?: string[]
   ): Promise<{ data: T[]; hasFile: boolean }> => {
     let data: T[] = [];
     if (!this.lastQueryDocumentSnapshot)
@@ -207,8 +232,8 @@ export abstract class FireStoreBaseModel<T> {
       .orderBy("createdAt", "desc")
       .startAfter(this.lastQueryDocumentSnapshot)
       .limit(limit);
-    if (userId) {
-      querySnapShot = querySnapShot.where("userId", "==", userId);
+    if (userIds) {
+      querySnapShot = querySnapShot.where("userId", "in", userIds);
     }
     // reset lastQuerySnapshot, otherwise hasFile will keep return true even if its already the last query
     this.lastQueryDocumentSnapshot = undefined;
@@ -236,5 +261,136 @@ export abstract class FireStoreBaseModel<T> {
    */
   public generateUserId(userId: string, name: string): string {
     return name.replace(/\s/g, "").toLowerCase() + "-" + userId.substring(0, 5);
+  }
+
+  private buildSubCollectionHandler<K extends DocumentData>(
+    queries: CollectionReference<K>,
+    queryBuilder: ICollectionQueryBuilder<K>,
+    handler: SUBCOLLECTION_HANDLER
+  ): Promise<void | DocumentData> {
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    let newQueries = queries.doc(documentId);
+
+    return next
+      ? this.buildSubCollectionHandler(
+          newQueries.collection(collectionId as string),
+          next,
+          handler
+        )
+      : this.subCollectionHandler({
+          queries: newQueries,
+          action: handler,
+        });
+  }
+
+  private async subCollectionHandler<K extends DocumentData>(
+    filter: ISubCollectionHandler<K>
+  ): Promise<void | K> {
+    const { queries, action, value } = filter;
+    switch (action) {
+      case SUBCOLLECTION_HANDLER.CREATE:
+        queries.set(value!);
+        break;
+      case SUBCOLLECTION_HANDLER.READ:
+        return (await queries.get()).data();
+      case SUBCOLLECTION_HANDLER.UPDATE:
+        queries.update(value!);
+        break;
+      case SUBCOLLECTION_HANDLER.DELETE:
+        queries.delete();
+        break;
+    }
+  }
+
+  public updateSubCollectionByUser<K extends DocumentData>(
+    user: QueryDocumentSnapshot<T>,
+    queryBuilder: ICollectionQueryBuilder<K>
+  ): void {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: subCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    const collection = user.ref.collection(collectionId!);
+
+    next
+      ? this.buildSubCollectionHandler(
+          collection,
+          next,
+          SUBCOLLECTION_HANDLER.UPDATE
+        )
+      : this.subCollectionHandler({
+          queries: collection.doc(documentId),
+          action: SUBCOLLECTION_HANDLER.UPDATE,
+        });
+  }
+
+  public readSubCollectionByUser<K extends DocumentData>(
+    user: QueryDocumentSnapshot<T>,
+    queryBuilder: ICollectionQueryBuilder<K>
+  ): Promise<DocumentData | void> {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: subCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    const collection = user.ref.collection(collectionId!);
+
+    return next
+      ? this.buildSubCollectionHandler(
+          collection,
+          next,
+          SUBCOLLECTION_HANDLER.READ
+        )
+      : this.subCollectionHandler({
+          queries: collection.doc(documentId),
+          action: SUBCOLLECTION_HANDLER.READ,
+        });
+  }
+
+  public createSubCollectionByUser<K extends DocumentData>(
+    user: QueryDocumentSnapshot<T>,
+    queryBuilder: ICollectionQueryBuilder<K>
+  ): Promise<DocumentData | void> {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: subCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, documentValue, next } = queryBuilder;
+    const collection = user.ref.collection(collectionId!);
+
+    return next
+      ? this.buildSubCollectionHandler(
+          collection,
+          next,
+          SUBCOLLECTION_HANDLER.CREATE
+        )
+      : this.subCollectionHandler({
+          queries: collection.doc(documentId),
+          action: SUBCOLLECTION_HANDLER.CREATE,
+        });
+  }
+
+  public deleteSubCollectionDocumentByUser<K extends DocumentData>(
+    user: QueryDocumentSnapshot<T>,
+    queryBuilder: ICollectionQueryBuilder<K>
+  ): void {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schemaGenerator: deleteCollectionBuilderSchema,
+    });
+    const { documentId, collectionId, next } = queryBuilder;
+    const collection = user.ref.collection(collectionId!);
+
+    next
+      ? this.buildSubCollectionHandler(
+          collection,
+          next,
+          SUBCOLLECTION_HANDLER.DELETE
+        )
+      : this.subCollectionHandler({
+          queries: collection.doc(documentId),
+          action: SUBCOLLECTION_HANDLER.DELETE,
+        });
   }
 }

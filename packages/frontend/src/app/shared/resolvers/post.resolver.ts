@@ -4,16 +4,17 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from "@angular/router";
-import { CACHE_KEY, IPost, IUser } from "sources-types";
+import { IPost, IUser } from "sources-types";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { UserService } from "../../core/services/fireStore/users.firestore";
 
-export const postResolver: ResolveFn<{
+export const homePagePostResolver: ResolveFn<{
   data: IPost[];
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  return inject(PostFireStore).listHomePagePostCache(5);
+  const users: IUser[] = route.parent?.data["users"];
+  return inject(PostFireStore).listHomePagePostCache(5, users);
 };
 
 export const usersResolver: ResolveFn<IUser[]> = (

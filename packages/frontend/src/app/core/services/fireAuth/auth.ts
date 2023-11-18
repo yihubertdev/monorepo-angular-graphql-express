@@ -37,21 +37,11 @@ export class AuthService {
     this._userAuth = new BehaviorSubject<User | null>(this.auth.currentUser);
     this.userAuthObserver$ = this._userAuth.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
-    // before user auth change, check the auth and save
-    // this.auth.beforeAuthStateChanged(async (user) => {
-    //   if (user) {
-    //     this.currentUser = await this.userService.retrieveById(user.uid);
-    //     inject(SessionStorageService).setSessionStorage(
-    //       "user",
-    //       this.currentUser
-    //     );
-    //   }
-    // });
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(user);
       this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
       if (user && !this.currentUser) {
-        this.currentUser = await this.userService.retrieveById(user.uid);
+        this.currentUser = await this.userService.retrieveByUId(user.uid);
         this._sessionStorage.setSessionStorage("user", this.currentUser);
       } else if (!user && !this.currentUser) {
         this._sessionStorage.deleteSessionStorage("user");
@@ -162,7 +152,7 @@ export class AuthService {
         backgroundPhotoURL: null,
       }),
     ]);
-    this.currentUser = await this.userService.retrieveById(user.uid);
+    [this.currentUser] = await this.userService.retrieveById([user.uid]);
     return this.currentUser;
   }
 

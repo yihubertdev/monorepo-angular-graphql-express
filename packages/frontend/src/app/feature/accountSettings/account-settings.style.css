@@ -1,7 +1,0 @@
-.mat-expansion-panel-content {
-  display: flex;
-  flex-direction: column;
-  height: 30dvh;
-  overflow: visible;
-  overflow-y: scroll;
-}

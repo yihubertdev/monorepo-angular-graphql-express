@@ -59,8 +59,7 @@ export class AddProfileSectionDialog {
   }
 
   save(value: any) {
-    console.log(value);
-    this._userService.addSubCollectionByUserId(this.data.user, {
+    this._userService.createSubCollectionByUser(this.data.user, {
       collectionId: this.data.collection,
       next: {
         documentId: this.data.documentId,

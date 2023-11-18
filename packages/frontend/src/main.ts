@@ -24,7 +24,6 @@ import { getStorage, provideStorage } from "@angular/fire/storage";
 import { getAuth, provideAuth } from "@angular/fire/auth";
 import { FIREBASE_OPTIONS } from "@angular/fire/compat";
 import { provideMessaging, getMessaging } from "@angular/fire/messaging";
-import { BrowserStorageServiceModule } from "./app/core/services/browserStorage/browserStorage.module";
 import APP_ROUTES from "./app/routes";
 import { MainView } from "./app/main.view";
 import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular";
@@ -45,7 +44,6 @@ const scrollConfig: InMemoryScrollingOptions = {
 bootstrapApplication(MainView, {
   providers: [
     importProvidersFrom(BrowserAnimationsModule),
-    importProvidersFrom(BrowserStorageServiceModule),
     { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     importProvidersFrom(
       provideFirebaseApp(() => initializeApp(environment.firebaseConfig))

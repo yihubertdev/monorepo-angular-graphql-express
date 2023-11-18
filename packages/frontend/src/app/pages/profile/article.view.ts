@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
-import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 import { IArticle } from "sources-types";
+import { ArticlePostControllerComponent } from "../../feature/homePagePost/article-post.controller";
 
 @Component({
   standalone: true,
-  imports: [HomePagePostModule, UserProfileController],
+  imports: [UserProfileController, ArticlePostControllerComponent],
   template: `
     <div class="container">
       <div class="row mb-4 justify-content-center">
@@ -37,6 +37,8 @@ export default class ArticleView implements OnInit {
   async ngOnInit() {
     if (!this.id) return;
     this.articleId = this.id;
-    this.article = await this._articleFireStore.retrieveById(this.articleId);
+    [this.article] = await this._articleFireStore.retrieveById([
+      this.articleId,
+    ]);
   }
 }

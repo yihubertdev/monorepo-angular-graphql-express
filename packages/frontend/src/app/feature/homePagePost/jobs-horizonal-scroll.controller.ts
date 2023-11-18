@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { IArticle } from "sources-types";
-import { ArticleFireStore } from "../../../core/services/fireStore/blog.firestore";
+import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 
 @Component({
   standalone: true,
@@ -162,7 +162,7 @@ import { ArticleFireStore } from "../../../core/services/fireStore/blog.firestor
       </mat-card>
     </div>
   `,
-  styleUrls: ["../home-page-post.style.css"],
+  styleUrls: ["./home-page-post.style.css"],
 })
 export class JobsHorizonalScrollController implements OnInit {
   public articles?: IArticle[];

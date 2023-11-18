@@ -1,20 +1,10 @@
-import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
-import { MatTabsModule } from "@angular/material/tabs";
-import { HomePagePostController } from "../../feature/homePagePost/controller/home-page-post.controller";
-import { HomePagePostModule } from "../../feature/homePagePost/home-page-post.module";
 import { SETTING_COLLECTION } from "sources-types";
 import { UserDetailsSettingsController } from "src/app/feature/userProfile/user-details-settings.controller";
 
 @Component({
   standalone: true,
-  imports: [
-    CommonModule,
-    HomePagePostModule,
-    MatTabsModule,
-    HomePagePostController,
-    UserDetailsSettingsController,
-  ],
+  imports: [UserDetailsSettingsController],
   template: ` <div class="container">
     <!--justify-content-center center the inner col-->
     <div class="row">

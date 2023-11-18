@@ -1,5 +1,5 @@
 import client from "../../client";
-import { firestore as modelsFirestore } from "../../models/firestore";
+import modelsFirestore from "../../models/firestore";
 import { v4 as uuidv4 } from "uuid";
 
 /**
@@ -11,7 +11,7 @@ export async function migrationUserDisplayName(): Promise<void> {
 
   const batch = fireStore.batch();
 
-  const users = await modelsFirestore.users.get({});
+  const users = await modelsFirestore.users.get();
 
   try {
     await Promise.all(
