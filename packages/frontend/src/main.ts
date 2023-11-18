@@ -64,21 +64,20 @@ bootstrapApplication(MainView, {
       withComponentInputBinding(),
       withInMemoryScrolling(scrollConfig)
     ),
-    // angular apollo
     importProvidersFrom(HttpClientModule),
     importProvidersFrom(ApolloModule),
-    {
-      provide: APOLLO_OPTIONS,
-      useFactory(httpLink: HttpLink) {
-        return {
-          cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: environment.host,
-          }),
-        };
-      },
-      deps: [HttpLink],
-    },
+    // {
+    //   provide: APOLLO_OPTIONS,
+    //   useFactory(httpLink: HttpLink) {
+    //     return {
+    //       cache: new InMemoryCache(),
+    //       link: httpLink.create({
+    //         uri: environment.host,
+    //       }),
+    //     };
+    //   },
+    //   deps: [HttpLink],
+    // },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
   ],
 });

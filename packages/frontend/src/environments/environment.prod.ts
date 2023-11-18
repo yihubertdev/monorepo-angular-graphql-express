@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true,
   host: "https://www.ybaws.ca/",
   firebaseConfig: {
     apiKey: "AIzaSyCG-t3p5jbccULpo6-Nxxld4ZFaTvbDZK4",

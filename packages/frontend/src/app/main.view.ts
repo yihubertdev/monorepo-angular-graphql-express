@@ -34,7 +34,6 @@ import { SessionStorageService } from "./core/services/browserStorage/sessionSto
     NgStyle,
     RouterOutlet,
     MatIconModule,
-    MatTabsModule,
     MatMenuModule,
     MatToolbarModule,
     MatDrawerResponsiveDirectiveModule,
