@@ -1,5 +1,6 @@
 import {
   PersonalNetWorthResolver,
+  PersonalProfileResolver,
   SecurityResolver,
 } from "../../shared/resolvers/settings.resolver";
 import { importProvidersFrom } from "@angular/core";
@@ -24,11 +25,18 @@ export const route: IFullRoute[] = [
     loadComponent: () => import("./security.view"),
   },
   {
-    path: "profile",
-    description: "Profile",
+    path: "personal-profile",
+    description: "Peronsal Profile",
     icon: "face",
-    resolve: { settings: SecurityResolver },
-    loadComponent: () => import("./profile.view"),
+    resolve: { settings: PersonalProfileResolver },
+    loadComponent: () => import("./personal-profile.view"),
+  },
+  {
+    path: "professional-profile",
+    description: "Professional Profile",
+    icon: "person_pin_circle",
+    resolve: { settings: PersonalProfileResolver },
+    loadComponent: () => import("./professional-profile.view"),
   },
   {
     path: "personal-net-worth",

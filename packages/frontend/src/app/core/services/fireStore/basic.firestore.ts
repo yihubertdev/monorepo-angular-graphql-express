@@ -14,6 +14,7 @@ import joiValidator from "../../utils/validator";
 import {
   deleteCollectionBuilderSchema,
   subCollectionBuilderSchema,
+  subCollectionHandlerSchema,
 } from "../../joiSchema/sub-collection.schema";
 import { firstValueFrom } from "rxjs/internal/firstValueFrom";
 
@@ -120,36 +121,6 @@ export abstract class FireStoreBaseModel<T> {
     return id;
   };
 
-  protected buildSubCollectionQuery(
-    queries: AngularFirestoreCollection<T>,
-    queryBuilder: ICollectionQueryBuilder<T>
-  ): any {
-    joiValidator.parameter({
-      data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
-    });
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    let newQueries = queries.doc(documentId);
-
-    return next
-      ? this.buildSubCollectionQuery(
-          newQueries.collection(collectionId as string),
-          next
-        )
-      : newQueries.set(documentValue as any);
-  }
-
-  /**
-   * Create document in that collection
-   *
-   * @public
-   * @param {ISubCollectionQuery<T>} queryBuilder create document
-   * @returns {void}
-   */
-  public createSubCollection(queryBuilder: ICollectionQueryBuilder<T>): void {
-    this.buildSubCollectionQuery(this.collection, queryBuilder);
-  }
-
   /**
    * Create document in that collection
    *
@@ -170,9 +141,9 @@ export abstract class FireStoreBaseModel<T> {
    * @param {string} id delete document
    * @returns {Promise<void>}
    */
-  public delete = async (id: string): Promise<void> => {
+  public async delete(id: string): Promise<void> {
     await this.collection.doc(id).delete();
-  };
+  }
 
   /**
    * List collection document
@@ -280,12 +251,17 @@ export abstract class FireStoreBaseModel<T> {
       : this.subCollectionHandler({
           queries: newQueries,
           action: handler,
+          value: documentValue,
         });
   }
 
   private async subCollectionHandler<K extends DocumentData>(
     filter: ISubCollectionHandler<K>
   ): Promise<void | K> {
+    joiValidator.parameter({
+      data: filter,
+      schema: subCollectionHandlerSchema,
+    });
     const { queries, action, value } = filter;
     switch (action) {
       case SUBCOLLECTION_HANDLER.CREATE:
@@ -308,7 +284,7 @@ export abstract class FireStoreBaseModel<T> {
   ): void {
     joiValidator.parameter({
       data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
+      schema: subCollectionBuilderSchema,
     });
     const { documentId, collectionId, documentValue, next } = queryBuilder;
     const collection = user.ref.collection(collectionId!);
@@ -331,7 +307,7 @@ export abstract class FireStoreBaseModel<T> {
   ): Promise<DocumentData | void> {
     joiValidator.parameter({
       data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
+      schema: subCollectionBuilderSchema,
     });
     const { documentId, collectionId, documentValue, next } = queryBuilder;
     const collection = user.ref.collection(collectionId!);
@@ -354,7 +330,7 @@ export abstract class FireStoreBaseModel<T> {
   ): Promise<DocumentData | void> {
     joiValidator.parameter({
       data: queryBuilder,
-      schemaGenerator: subCollectionBuilderSchema,
+      schema: subCollectionBuilderSchema,
     });
     const { documentId, collectionId, documentValue, next } = queryBuilder;
     const collection = user.ref.collection(collectionId!);
@@ -368,6 +344,7 @@ export abstract class FireStoreBaseModel<T> {
       : this.subCollectionHandler({
           queries: collection.doc(documentId),
           action: SUBCOLLECTION_HANDLER.CREATE,
+          value: documentValue,
         });
   }
 
@@ -377,7 +354,7 @@ export abstract class FireStoreBaseModel<T> {
   ): void {
     joiValidator.parameter({
       data: queryBuilder,
-      schemaGenerator: deleteCollectionBuilderSchema,
+      schema: deleteCollectionBuilderSchema,
     });
     const { documentId, collectionId, next } = queryBuilder;
     const collection = user.ref.collection(collectionId!);

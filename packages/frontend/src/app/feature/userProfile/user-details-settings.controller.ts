@@ -67,7 +67,7 @@ export interface IUserSettings extends ISettingCategory {
                 <a
                   mat-button
                   (click)="openDialog(setting)"
-                  *ngIf="setting.category !== 'account'">
+                  *ngIf="setting.schema">
                   Add New {{ setting.title }}
                   <mat-icon>add</mat-icon>
                 </a>

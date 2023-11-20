@@ -63,13 +63,12 @@ class joiValidator {
   public parameter = (
     params: {
       data: any;
-      schemaGenerator: JoiSchemaBuilder<any>;
+      schema: Joi.ObjectSchema;
       errorLocation?: string;
     },
     options: ValidationOptions = this.options
   ) => {
-    const { data, schemaGenerator, errorLocation } = params;
-    const schema = schemaGenerator(data, errorLocation) as Joi.ObjectSchema;
+    const { data, schema } = params;
     const { error } = schema.validate(data, options);
 
     if (error) {

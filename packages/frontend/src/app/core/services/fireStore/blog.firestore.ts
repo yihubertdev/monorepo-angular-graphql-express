@@ -60,6 +60,11 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     this._userCache = _userCache;
   }
 
+  public async deletePost(userId: string, id: string) {
+    this._userPageCache.delete(userId);
+    super.delete(id);
+  }
+
   public async listUserPagePostCache(
     limit: number = 10,
     userId: string

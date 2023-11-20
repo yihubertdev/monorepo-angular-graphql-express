@@ -1,17 +1,7 @@
 import * as Joi from "joi";
-import {
-  FILE_TYPE,
-  IFileValidation,
-  INPUT_TYPE,
-  IProfileHomeAddress,
-  IUserProfile,
-} from "sources-types";
+import { FILE_TYPE, INPUT_TYPE, IUserProfile } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
-import {
-  IFormUploaderInput,
-  NOTICE_OF_ASSESSMENT_FORM,
-  TAX_RETURN_FORM,
-} from "../static/auth.static";
+import { IFormUploaderInput } from "../static/auth.static";
 
 export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
   data: IUserProfile,

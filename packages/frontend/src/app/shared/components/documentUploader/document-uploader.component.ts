@@ -5,7 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { NgFor, NgIf } from "@angular/common";
-import { JoiSchemaBuilder } from "src/app/core/utils/validator";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import * as Joi from "joi";
 

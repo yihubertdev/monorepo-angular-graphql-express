@@ -28,18 +28,6 @@ import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
           <email-signup-controller></email-signup-controller>
         </div>
       </div>
-      <div class="row mb-5 mt-5 justify-content-center">
-        <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
-          <h3>
-            Already have account?
-            <a
-              mat-tab-link
-              [routerLink]="['../', 'login']">
-              Login</a
-            >
-          </h3>
-        </div>
-      </div>
     </div>`,
   styleUrls: [],
 })

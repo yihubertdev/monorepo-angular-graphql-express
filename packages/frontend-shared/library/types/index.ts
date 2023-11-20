@@ -15,7 +15,7 @@ export const enum FIREAUTH_PERSISTENCE {
 export const enum CACHE_KEY {
   HOME_PAGE = "home_page",
   USER_PAGE = "user_page",
-  USER_INFO = "USER_INFO"
+  USER_INFO = "USER_INFO",
 }
 
 export const enum SNACKBAR_ERROR {
@@ -161,11 +161,9 @@ export const enum GEOLOCATION {
 
 export const enum SETTING_COLLECTION {
   SECURITY = "security",
+  PERSONAL_PROFILE = "personal_profile",
+  PROFESSIONAL_PROFILE = "professional_profile",
   PERSONAL_NET_WORTH = "personal_net_worth",
-}
-
-export const enum SETTING_COLLECTIONTAB {
-  PROFILE = "profile",
 }
 
 export const enum PROFILE_TYPE {
@@ -186,6 +184,8 @@ export const enum SETTING_CATEGORY {
   VEHICLES = "vehicles",
   TAX_RETURN = "tax_return",
   NOTICE_OF_ASSESSMENT = "notice_of_assessment",
+  HOME_ADDRESS = "home_address",
+  BIOGRAPHY = "biography",
 }
 
 export const enum FILE_TYPE {
@@ -285,6 +285,14 @@ export interface IFormInput {
   documentPath?: string;
   documentCategory?: string;
   error?: string;
+}
+
+export interface IColumnSet {
+  xs: number;
+  sm: number;
+  md: number;
+  lg: number;
+  xl: number;
 }
 
 export interface IPostCategoryList {

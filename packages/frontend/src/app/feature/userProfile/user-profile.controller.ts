@@ -60,7 +60,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
         style="width: 100%;"
         *ngIf="!isSettingsPage">
         <div
-          class="user-avatar-size user-avatar"
+          class="user-avatar-size user-avatar-square"
           [ngStyle]="{
             backgroundImage:
               'url(' +
@@ -80,21 +80,21 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
         </div>
       </div>
     </mat-card>
+    <ng-template #profile>
+      <mat-card style="border-radius: initial;">
+        <mat-card-header>
+          <mat-card-title style="display: inline !important;"
+            >{{ currentUser?.displayName ?? "Guest" }}
+          </mat-card-title>
+          <mat-card-subtitle style="display: inline !important;"
+            >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
+          >
+        </mat-card-header>
 
-    <mat-card
-      style="border-radius: initial;"
-      *ngIf="!isSettingsPage">
-      <mat-card-header>
-        <mat-card-title style="display: inline !important;"
-          >{{ currentUser?.displayName ?? "Guest" }}
-        </mat-card-title>
-        <mat-card-subtitle style="display: inline !important;"
-          >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
-        >
-      </mat-card-header>
-
-      <mat-card-content>description blablabla</mat-card-content>
-    </mat-card>
+        <mat-card-content>description blablabla</mat-card-content>
+      </mat-card>
+    </ng-template>
+    <ng-container *ngIf="isSettingsPage; else profile"></ng-container>
   `,
   styleUrls: ["./user-profile.style.css"],
 })

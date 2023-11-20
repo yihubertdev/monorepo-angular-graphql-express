@@ -3,10 +3,8 @@ import {
   FILE_TYPE,
   IFormInput,
   INPUT_TYPE,
-  PROFILE_TYPE,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
-  SETTING_COLLECTIONTAB,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 import {
@@ -225,6 +223,17 @@ export const ACCOUNT_INFO: IFormInput[] = [
     type: INPUT_TYPE.TEXT,
     label: "Role",
     key: "role",
+    value: "",
+    placeholder: "",
+  },
+];
+
+export const BIOGRAPHY_FORM: IFormInput[] = [
+  {
+    id: "biography",
+    type: INPUT_TYPE.TEXTAREA,
+    label: "Biography",
+    key: "biography",
     value: "",
     placeholder: "",
   },
@@ -904,101 +913,6 @@ export interface ISettingCategoryTab {
   categories: ISettingCategory[];
 }
 
-export const SETTING_COLLECTION_TAB: Record<
-  SETTING_COLLECTIONTAB,
-  ISettingCategoryTab[]
-> = {
-  [SETTING_COLLECTIONTAB.PROFILE]: [
-    {
-      title: PROFILE_TYPE.PERSONAL,
-      categories: [
-        {
-          title: "Home Address",
-          description: "User Basic Information",
-          category: "home_address",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Authentication",
-          description: "Change Password",
-          category: "authentication",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Recognition",
-          description: "Change facial and voice recognition",
-          category: "recognition",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-      ],
-    },
-    {
-      title: PROFILE_TYPE.BUSINESS,
-      categories: [
-        {
-          title: "Home Address",
-          description: "User Basic Information",
-          category: "home_address",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Authentication",
-          description: "Change Password",
-          category: "authentication",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Recognition",
-          description: "Change facial and voice recognition",
-          category: "recognition",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-      ],
-    },
-    {
-      title: PROFILE_TYPE.PROFESSIONAL,
-      categories: [
-        {
-          title: "Home Address",
-          description: "User Basic Information",
-          category: "home_address",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Authentication",
-          description: "Change Password",
-          category: "authentication",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-        {
-          title: "Recognition",
-          description: "Change facial and voice recognition",
-          category: "recognition",
-          list: HOME_ADDRESS_FORM,
-          schema: (data: any): Joi.ObjectSchema =>
-            SETTINGS_SCHEMA_GENERATOR(HOME_ADDRESS_FORM),
-        },
-      ],
-    },
-  ],
-};
-
 export const SETTING_COLLECTIONS: Record<
   SETTING_COLLECTION,
   ISettingCategory[]
@@ -1021,6 +935,42 @@ export const SETTING_COLLECTIONS: Record<
       description: "Change facial and voice recognition",
       category: "recognition",
       list: ACCOUNT_INFO,
+    },
+  ],
+  [SETTING_COLLECTION.PERSONAL_PROFILE]: [
+    {
+      title: "Home Address",
+      description: "Home Address",
+      category: SETTING_CATEGORY.HOME_ADDRESS,
+      list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+    },
+    {
+      title: "Biography",
+      description: "Your Biography Description",
+      category: SETTING_CATEGORY.BIOGRAPHY,
+      list: BIOGRAPHY_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+    },
+  ],
+  [SETTING_COLLECTION.PROFESSIONAL_PROFILE]: [
+    {
+      title: "Home Address",
+      description: "Home Address",
+      category: SETTING_CATEGORY.HOME_ADDRESS,
+      list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+    },
+    {
+      title: "Biography",
+      description: "Your Biography Description",
+      category: SETTING_CATEGORY.BIOGRAPHY,
+      list: BIOGRAPHY_FORM,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
   [SETTING_COLLECTION.PERSONAL_NET_WORTH]: [

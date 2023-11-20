@@ -14,7 +14,7 @@ export default [
     loadComponent: () => import("./users.view"),
   },
   {
-    path: ":id/personal-profile",
+    path: ":id/profile",
     canActivate: [isUserLogin],
     loadComponent: () => import("./details.view"),
   },

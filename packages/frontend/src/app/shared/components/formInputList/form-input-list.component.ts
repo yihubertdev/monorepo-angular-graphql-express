@@ -13,11 +13,11 @@ import joiValidator, { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { EditorComponent } from "./editor.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { AsyncPipe, NgFor, NgIf } from "@angular/common";
+import { AsyncPipe, NgClass, NgFor, NgIf } from "@angular/common";
 import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
-import { IUser } from "sources-types";
+import { IColumnSet, IUser } from "sources-types";
 import { IFormUploaderInput } from "src/app/core/static/auth.static";
 import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -26,6 +26,7 @@ import { MatNativeDateModule } from "@angular/material/core";
 @Component({
   standalone: true,
   imports: [
+    NgClass,
     NgIf,
     NgFor,
     MatInputModule,
@@ -42,11 +43,20 @@ import { MatNativeDateModule } from "@angular/material/core";
   ],
   selector: "form-input-list-component",
   template: `
-    <form
-      class="form-full-width"
-      [formGroup]="newForm">
+    <form [formGroup]="newForm">
       <mat-form-field
-        class="input-full-width"
+        [ngClass]="
+          'col-xl-' +
+          columns.xl +
+          ' col-lg-' +
+          columns.lg +
+          ' col-md-' +
+          columns.md +
+          ' col-sm-' +
+          columns.sm +
+          ' col-xs-' +
+          columns.xs
+        "
         appearance="fill"
         *ngFor="let input of formInputList">
         <ng-container
@@ -151,6 +161,13 @@ import { MatNativeDateModule } from "@angular/material/core";
   styleUrls: ["./form-input-list.component.css"],
 })
 export class FormInputListComponent implements OnInit {
+  @Input({ required: false }) columns: IColumnSet = {
+    xs: 12,
+    sm: 12,
+    md: 12,
+    lg: 12,
+    xl: 12,
+  };
   @Input({ required: true }) formInputList!: IFormUploaderInput[];
   @Input({ required: true }) validatorSchema!: JoiSchemaBuilder<any>;
   @Input() buttonName: string = "";
@@ -162,7 +179,6 @@ export class FormInputListComponent implements OnInit {
   private defaultFormGroupValue: Record<string, number | string> = {};
   public editorContent: string = "";
   public hasError: boolean = false;
-  public allUsers: IUser[] = [];
   public mentionConfig = {};
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
