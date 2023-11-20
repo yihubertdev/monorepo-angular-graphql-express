@@ -27,12 +27,12 @@ import { DecimalPipe } from "@angular/common";
   </ng-container>`,
 })
 export class DocumentUploadListComponent implements OnInit {
-  @Input() documentPercent$: Observable<{
+  @Input({ required: true }) documentPercent$: Observable<{
     progress: number;
     snapshot: UploadTaskSnapshot;
   }> | null = null;
-  @Input() documentName?: string;
-  @Input() storageRef?: StorageReference;
+  @Input({ required: true }) documentName!: string;
+  @Input({ required: true }) storageRef!: StorageReference;
   @Input({ required: true }) task!: UploadTask;
   @Output() urlEmitter = new EventEmitter<string | null>();
 

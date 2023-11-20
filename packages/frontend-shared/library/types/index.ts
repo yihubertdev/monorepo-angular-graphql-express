@@ -279,8 +279,8 @@ export interface IFormInput {
   key: string;
   value: string;
   label: string;
+  disabled?: boolean;
   placeholder?: string;
-  required?: boolean;
   selection?: (string | number)[];
   documentPath?: string;
   documentCategory?: string;

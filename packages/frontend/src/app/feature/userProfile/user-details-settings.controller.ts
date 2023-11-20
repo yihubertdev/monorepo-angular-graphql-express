@@ -51,36 +51,43 @@ export interface IUserSettings extends ISettingCategory {
       <div class="row">
         <mat-accordion>
           <div
-            *ngFor="let setting of settings"
+            *ngFor="let category of categories"
             class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title class="show-one-line">
-                  {{ setting.title }}
+                  {{ category.title }}
                 </mat-panel-title>
                 <mat-panel-description class="show-one-line">
-                  {{ setting.description }}
+                  {{ category.description }}
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
                 <a
+                  *ngIf="category.schema"
                   mat-button
-                  (click)="openDialog(setting)"
-                  *ngIf="setting.schema">
-                  Add New {{ setting.title }}
-                  <mat-icon>add</mat-icon>
+                  style="margin-left: auto; display: table;">
+                  Remove
+                  <mat-icon>delete</mat-icon>
                 </a>
                 <user-details-card-component
-                  *ngFor="let item of setting.data"
+                  *ngFor="let item of category.data"
                   [userDetails]="item"
                   [user]="user"
-                  [category]="setting.category"
-                  [title]="setting.title"
-                  [formList]="setting.list"
-                  [formSchema]="setting.schema"
+                  [category]="category.category"
+                  [title]="category.title"
+                  [formList]="category.list"
+                  [formSchema]="category.schema"
                   [isSettingsPage]="true"
                   (removeChange)="remove($event)"></user-details-card-component>
+                <a
+                  mat-button
+                  (click)="openDialog(category)"
+                  *ngIf="category.schema">
+                  Add New {{ category.title }}
+                  <mat-icon>add</mat-icon>
+                </a>
               </ng-template>
             </mat-expansion-panel>
           </div>
@@ -93,7 +100,7 @@ export interface IUserSettings extends ISettingCategory {
 export class UserDetailsSettingsController implements OnInit {
   @Input({ required: true }) collection!: SETTING_COLLECTION;
 
-  public settings!: IUserSettings[];
+  public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
   protected groupedSettings!: Record<string, Omit<IUserSettings, "category">[]>;
   constructor(
@@ -153,7 +160,7 @@ export class UserDetailsSettingsController implements OnInit {
     this.user = user;
     const groupedData = groupBy(data, "category");
 
-    this.settings = SETTING_COLLECTIONS[this.collection].map((collection) => {
+    this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
       const { title, description, category, list, schema } = collection;
 
       switch (category) {
@@ -188,6 +195,6 @@ export class UserDetailsSettingsController implements OnInit {
       }
     });
     // each category only have one object, each object have multiple data
-    this.groupedSettings = groupBy(this.settings, "category");
+    this.groupedSettings = groupBy(this.categories, "category");
   }
 }

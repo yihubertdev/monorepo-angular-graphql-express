@@ -1,11 +1,11 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnInit,
   Output,
   ViewChild,
-  importProvidersFrom,
 } from "@angular/core";
 import { ReactiveFormsModule, UntypedFormGroup } from "@angular/forms";
 import { UntypedFormBuilder } from "@angular/forms";
@@ -14,14 +14,20 @@ import { EditorComponent } from "./editor.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { AsyncPipe, NgClass, NgFor, NgIf } from "@angular/common";
-import { DocumentUploaderComponent } from "../documentUploader/document-uploader.component";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
-import { IColumnSet, IUser } from "sources-types";
+import { IColumnSet } from "sources-types";
 import { IFormUploaderInput } from "src/app/core/static/auth.static";
 import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { MatIconModule } from "@angular/material/icon";
+import { IUploadMultipleFileRes } from "src/app/core/services/fireStorage/basic.bucket";
+import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
+import { v4 as uuidv4 } from "uuid";
+import * as Joi from "joi";
+import { DocumentUploadListComponent } from "./document-upload-list.component";
+import { MatListModule } from "@angular/material/list";
 
 @Component({
   standalone: true,
@@ -33,13 +39,16 @@ import { MatNativeDateModule } from "@angular/material/core";
     ReactiveFormsModule,
     MatButtonModule,
     MatSelectModule,
-    DocumentUploaderComponent,
+    DocumentUploadListComponent,
     EditorComponent,
     MentionModule,
     AddMentionUsersPipe,
     AsyncPipe,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatIconModule,
+    DocumentUploadListComponent,
+    MatListModule,
   ],
   selector: "form-input-list-component",
   template: `
@@ -70,7 +79,6 @@ import { MatNativeDateModule } from "@angular/material/core";
             [type]="input.type"
             matInput
             [formControlName]="input.key"
-            [attr.required]="input.required"
             autocomplete="on" />
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
@@ -129,13 +137,57 @@ import { MatNativeDateModule } from "@angular/material/core";
             matInput
             [formControlName]="input.key"
             style="display:none" />
-          <document-uploader-component
-            [documentPath]="input.documentPath"
-            [documentCategory]="input.documentCategory"
-            [uploadDocumentSchema]="input.schema"
-            (documentUpload)="
-              saveFile($event, input.key)
-            "></document-uploader-component>
+          <input
+            style="display:none"
+            [type]="input.type"
+            [formControlName]="input.key"
+            matinput
+            multiple
+            id="uploadProfile"
+            (change)="
+              uploadImage(
+                $event.target,
+                input.documentPath!,
+                input.documentCategory!,
+                input.schema!
+              )
+            " />
+          <a
+            mat-button
+            (click)="uploadProfile.nativeElement.click()"
+            target="_blank">
+            Upload
+            <mat-icon>upload</mat-icon>
+          </a>
+          <mat-error *ngIf="error">
+            {{ error }}
+          </mat-error>
+          <mat-list
+            role="list"
+            *ngFor="let task of tasks">
+            <mat-list-item role="listitem">
+              <document-upload-list-component
+                [documentPercent$]="task.uploadPercent"
+                [documentName]="task.file.name"
+                [storageRef]="task.storageRef"
+                [task]="task.task"
+                (urlEmitter)="
+                  saveFile($event, input.key)
+                "></document-upload-list-component>
+            </mat-list-item>
+          </mat-list>
+          <ng-template #download>
+            <a
+              mat-button
+              [href]="input.value[0]"
+              target="_blank">
+              Download
+              <mat-icon>download</mat-icon>
+            </a>
+          </ng-template>
+          <ng-container
+            *ngIf="input.value.length === 0; else download"></ng-container>
+
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -174,21 +226,37 @@ export class FormInputListComponent implements OnInit {
   @Input() loading: boolean = false;
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
+  @Output() documentUpload = new EventEmitter<string[]>();
+  @ViewChild("uploadProfile") uploadProfile!: ElementRef;
 
   public newForm!: UntypedFormGroup;
-  private defaultFormGroupValue: Record<string, number | string> = {};
+  private defaultFormGroupValue: Record<
+    string,
+    { value: number | string; disabled?: boolean }[]
+  > = {};
   public editorContent: string = "";
   public hasError: boolean = false;
   public mentionConfig = {};
 
+  public error?: any;
+  public uploadPercentage: number = 0;
+  public tasks?: IUploadMultipleFileRes[];
+  public urls: string[] = [];
+  private fileCount: number = 0;
+
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(private formBuilder: UntypedFormBuilder) {}
+  constructor(
+    private formBuilder: UntypedFormBuilder,
+    private formFileStorage: FormFileStorageService
+  ) {}
 
   async ngOnInit() {
     // Generate default form group value
     this.formInputList.forEach((form) => {
-      this.defaultFormGroupValue[form.key] = form.value;
+      this.defaultFormGroupValue[form.key] = [
+        { value: form.value, disabled: form.disabled },
+      ];
     });
     // Create the form
     this.newForm = this.formBuilder.group(
@@ -209,9 +277,14 @@ export class FormInputListComponent implements OnInit {
     );
   }
 
-  saveFile = (filesUrl: string[], key: string) => {
-    // Assign the document uploaded url into form
-    this.newForm.controls[key].setValue(filesUrl);
+  saveFile = (url: string | null, key: string) => {
+    if (!url) return;
+    this.urls.push(url);
+
+    if (this.urls.length == this.fileCount) {
+      // Assign the document uploaded url into form
+      this.newForm.controls[key].setValue(url);
+    }
   };
 
   submit = () => {
@@ -240,5 +313,44 @@ export class FormInputListComponent implements OnInit {
     }
 
     return "";
+  }
+
+  public uploadImage(
+    eventTarget: EventTarget | null,
+    documentPath: string,
+    documentCategory: string,
+    uploadDocumentSchema: Joi.ObjectSchema | Joi.ArraySchema
+  ): void {
+    // Transform eventTarget to HTMLInputElement
+    const element = eventTarget as HTMLInputElement | null;
+    // Get the upload file
+    const fileList = element?.files;
+    if (!fileList || !fileList.length || !documentPath || !documentCategory)
+      return;
+
+    this.fileCount = fileList.length;
+
+    this.error = uploadDocumentSchema.validate(
+      Array.from(fileList).map((file) => ({
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      })),
+      {
+        allowUnknown: true,
+      }
+    ).error;
+
+    if (!this.error) {
+      this.tasks = this.formFileStorage.uploadMultiple(
+        Array.from(fileList).map((file) => ({
+          id: uuidv4(),
+          file,
+        })),
+        documentPath,
+        documentCategory
+      );
+    }
+    return;
   }
 }

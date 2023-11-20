@@ -17,6 +17,7 @@ import { MatListModule } from "@angular/material/list";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { AddProfileSectionDialog } from "../../dialog/add-profile-section.dialog";
 import { MatIconModule } from "@angular/material/icon";
+import { FormInputListComponent } from "../formInputList/form-input-list.component";
 
 export interface IUserDetailCard {
   details: any;
@@ -36,56 +37,17 @@ export interface IUserDetailCard {
     MatListModule,
     MatDialogModule,
     MatIconModule,
+    FormInputListComponent,
   ],
   template: `<mat-card *ngIf="userDetails">
-    <mat-card-header>
-      <mat-card-title *ngIf="isSettingsPage && category !== 'account'">
-        <a
-          mat-button
-          (click)="openDialog()">
-          Edit
-          <mat-icon>edit</mat-icon>
-        </a>
-        <a
-          mat-button
-          (click)="
-            remove({
-              documentId: userDetails.documentId!,
-              category: this.category,
-              title: this.title,
-            })
-          ">
-          Remove
-          <mat-icon>delete</mat-icon>
-        </a></mat-card-title
-      >
-    </mat-card-header>
     <mat-card-content>
-      <mat-list>
-        <div class="row">
-          <div
-            class="col-xl-6 col-lg-6
-              col-md-6 col-sm-12 col-xs-12"
-            *ngFor="let info of formList">
-            <mat-list-item
-              *ngIf="info.type === 'text' || info.type === 'select'"
-              >{{ info.label }} : {{ info.value }}</mat-list-item
-            >
-            <mat-list-item *ngIf="info.type === 'upload'"
-              >{{ info.label }}
-
-              <a
-                mat-button
-                [href]="info.value[0]"
-                target="_blank">
-                View
-                <mat-icon>visibility</mat-icon>
-              </a>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-          </div>
-        </div>
-      </mat-list>
+      <form-input-list-component
+        [columns]="columns"
+        [formInputList]="formList"
+        errorLocation="AuthModule.YourAccountController"
+        [validatorSchema]="formSchema!"
+        buttonName="Save"
+        (formValue)="save($event)"></form-input-list-component>
     </mat-card-content>
   </mat-card>`,
 })
@@ -104,6 +66,13 @@ export class UserDetailCardComponent implements OnChanges {
     title: string;
   }>();
 
+  columns = {
+    xs: 12,
+    sm: 12,
+    md: 6,
+    lg: 6,
+    xl: 6,
+  };
   constructor(public dialog: MatDialog) {}
 
   ngOnChanges() {
@@ -131,5 +100,21 @@ export class UserDetailCardComponent implements OnChanges {
 
   remove(value: { documentId: string; category: string; title: string }) {
     this.removeChange.emit(value);
+  }
+
+  save(value: any) {
+    // this._userService.createSubCollectionByUser(this.data.user, {
+    //   collectionId: this.data.collection,
+    //   next: {
+    //     documentId: this.data.documentId,
+    //     documentValue: { category: this.data.category, ...value },
+    //   },
+    // });
+    // this.dialogRef.close();
+    // this.formValue.emit({
+    //   collectionId: "userProfile",
+    //   next: {
+    //     documentId: this.userDetails!.documentId, // profile category id, such as home address, education
+    //     documentValue: { title: this.userDetails?.title, ...value },
   }
 }
