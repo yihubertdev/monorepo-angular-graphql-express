@@ -44,7 +44,7 @@ import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
             [ngStyle]="{
               backgroundImage:
                 'url(' +
-                (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
+                (currentUser?.photoURL ?? null | defaultUserPhoto) +
                 ')',
               backgroundSize: 'cover',
             }">

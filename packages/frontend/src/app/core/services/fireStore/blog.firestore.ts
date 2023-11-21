@@ -93,6 +93,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
       return data;
     }
     const users = this._userCache.get();
+    console.log(users);
     const groupedData = keyBy(users!, "userId");
     let post = await this.list(limit, Object.keys(groupedData));
     post.data = post.data.map((item) => ({

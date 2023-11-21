@@ -67,13 +67,13 @@ export const DRAWER_MENU: IMenu[] = [
   },
   {
     link: SITE_ROUTE_PAGE.ADD_POST,
-    description: "Add Post",
+    description: "ADD POST",
     iconName: "post_add",
     width: "50px",
   },
   {
     link: SITE_ROUTE_PAGE.ADD_ARTICLE,
-    description: "Add Article",
+    description: "ADD ARTICLE",
     iconName: "feed",
     width: "50px",
   },

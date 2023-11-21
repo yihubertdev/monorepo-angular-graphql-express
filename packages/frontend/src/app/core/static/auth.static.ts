@@ -875,7 +875,7 @@ export interface ISettingCategory {
   description: string;
   category: string;
   list: IFormUploaderInput[];
-  hasEdit?: boolean;
+  noEdit?: boolean;
   schema: JoiSchemaBuilder<any>;
 }
 
@@ -894,7 +894,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "User Basic Information",
       category: SETTING_CATEGORY.ACCOUNT,
       list: ACCOUNT_INFO,
-      hasEdit: true,
+      noEdit: true,
       schema: (data: any): Joi.ObjectSchema =>
         SETTINGS_SCHEMA_GENERATOR(
           ACCOUNT_INFO.filter((data) =>
@@ -933,6 +933,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Your Biography Description",
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
+      noEdit: true,
       schema: (data: any): Joi.ObjectSchema =>
         SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },

@@ -168,6 +168,7 @@ export class PostCardComponent {
           });
 
           dialogRef.afterClosed().subscribe((result) => {
+            if (!result) return;
             this._PostService.deletePost(
               this.postCardInfo!.userId,
               result.documentId

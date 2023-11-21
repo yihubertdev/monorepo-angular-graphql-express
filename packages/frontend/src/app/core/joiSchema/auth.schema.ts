@@ -102,6 +102,7 @@ export const SETTINGS_SCHEMA_GENERATOR = (data: IFormUploaderInput[]) => {
       default:
         result[item.key] = Joi.string()
           .required()
+          .max(100)
           .error((err) => {
             err.forEach((e) => {
               switch (e.code) {

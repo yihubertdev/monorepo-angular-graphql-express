@@ -108,15 +108,15 @@ export class FooterController {
     <a
       mat-list-item
       (click)="logout()">
-      <mat-icon matListItemIcon>upload</mat-icon>
-      <div matListItemTitle>Logout</div>
+      <mat-icon matListItemIcon>person</mat-icon>
+      <div matListItemTitle>LOGOUT</div>
       <div matListItemLine>logout</div>
     </a>
     <a
       mat-list-item
       (click)="_bottomSheetRef.dismiss()">
       <mat-icon matListItemIcon>close</mat-icon>
-      <div matListItemTitle>Close</div>
+      <div matListItemTitle>CLOSE</div>
       <div matListItemLine>close menu</div>
     </a>
   </mat-nav-list>`,

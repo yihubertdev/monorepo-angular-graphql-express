@@ -62,6 +62,11 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return users;
   }
 
+  public override async update(document: Partial<IUser> & { id: string }) {
+    super.update(document);
+    this._userCache.delete();
+  }
+
   /**
    * Retrieve user with verfied email
    *

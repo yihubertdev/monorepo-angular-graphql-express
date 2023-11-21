@@ -6,7 +6,7 @@ import { DEFAULT_CONSTANTS } from "sources-types";
   name: "defaultUserPhoto",
 })
 export class UserPhotoPipe implements PipeTransform {
-  transform(photoURL: string | undefined) {
+  transform(photoURL: string | null) {
     return photoURL ?? DEFAULT_CONSTANTS.DEFAULT_USER_PHOTO;
   }
 }

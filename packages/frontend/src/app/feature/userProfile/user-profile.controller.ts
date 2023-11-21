@@ -11,6 +11,7 @@ import { ProfileStorageService } from "src/app/core/services/fireStorage/profile
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
+import { ProfileCardComponent } from "../../shared/components/postCard/profile-card.compnent";
 
 @Component({
   standalone: true,
@@ -27,6 +28,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
     RouterModule,
     MatTabsModule,
     FormInputListComponent,
+    ProfileCardComponent,
   ],
   providers: [ProfileStorageService],
   template: `
@@ -63,9 +65,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
           class="user-avatar-size user-avatar-square"
           [ngStyle]="{
             backgroundImage:
-              'url(' +
-              (currentUser?.photoURL ?? undefined | defaultUserPhoto) +
-              ')',
+              'url(' + (currentUser?.photoURL ?? null | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"></div>
         <div class="position-absolute-bottom-right">
@@ -81,18 +81,8 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
       </div>
     </mat-card>
     <ng-template #profile>
-      <mat-card style="border-radius: initial;">
-        <mat-card-header>
-          <mat-card-title style="display: inline !important;"
-            >{{ currentUser?.displayName ?? "Guest" }}
-          </mat-card-title>
-          <mat-card-subtitle style="display: inline !important;"
-            >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
-          >
-        </mat-card-header>
-
-        <mat-card-content>description blablabla</mat-card-content>
-      </mat-card>
+      <profile-card-component
+        [currentUser]="currentUser"></profile-card-component>
     </ng-template>
     <ng-container *ngIf="isSettingsPage; else profile"></ng-container>
   `,
@@ -105,6 +95,8 @@ export class UserProfileController implements OnInit {
   currentUser?: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
+
+  public isShowMore: boolean = false;
   constructor(
     private profileStorage: ProfileStorageService,
     private route: ActivatedRoute
@@ -116,6 +108,7 @@ export class UserProfileController implements OnInit {
     };
 
     this.currentUser = preloadData.user;
+    console.log(this.currentUser);
   }
 
   async uploadImage(eventTarget: EventTarget | null) {

@@ -46,7 +46,6 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) title!: string;
   @Input({ required: true }) formList!: IFormInput[];
   @Input({ required: true }) formSchema?: JoiSchemaBuilder<any>;
-  @Input() isSettingsPage?: boolean;
 
   @Output() removeChange = new EventEmitter<{
     documentId: string;
@@ -74,12 +73,19 @@ export class UserDetailCardComponent implements OnChanges {
   }
 
   save(value: any) {
+    const user = this._authService.getAuth();
+    if (!user) return;
     switch (this.category) {
       case SETTING_CATEGORY.ACCOUNT:
-        const user = this._authService.getAuth();
-        if (!user) return;
         this._authService.updateUserInfo(user, {
           displayName: value.displayName,
+        });
+
+        break;
+      case SETTING_CATEGORY.BIOGRAPHY:
+        this._userService.update({
+          id: user.uid,
+          description: value.biography,
         });
 
         break;

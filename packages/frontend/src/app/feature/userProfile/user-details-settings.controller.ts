@@ -22,6 +22,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
 import { RemoveSettingCategoryDialog } from "src/app/shared/dialog/remove-setting-category.dialog";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -63,7 +64,7 @@ export interface IUserSettings extends ISettingCategory {
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
                 <a
-                  *ngIf="!category.hasEdit"
+                  *ngIf="!category.noEdit"
                   mat-button
                   style="margin-left: auto; display: table;">
                   Remove
@@ -78,11 +79,10 @@ export interface IUserSettings extends ISettingCategory {
                   [title]="category.title"
                   [formList]="category.list"
                   [formSchema]="category.schema"
-                  [isSettingsPage]="true"
                   (removeChange)="remove($event)"></user-details-card-component>
                 <a
                   mat-button
-                  *ngIf="!category.hasEdit">
+                  *ngIf="!category.noEdit">
                   Add New {{ category.title }}
                   <mat-icon>add</mat-icon>
                 </a>
@@ -121,7 +121,6 @@ export class UserDetailsSettingsController implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (!result) return;
       const { documentId } = result;
-      console.log(documentId);
       this._userService.deleteSubCollectionDocumentByUser(this.user, {
         collectionId: this.collection,
         next: {
@@ -158,13 +157,35 @@ export class UserDetailsSettingsController implements OnInit {
           };
         }
 
+        case SETTING_CATEGORY.BIOGRAPHY: {
+          const userInfo = this.route.parent?.snapshot.data["user"];
+          return {
+            ...collection,
+            data: [
+              {
+                details: {
+                  biography: userInfo.description,
+                },
+                documentId: userInfo.uId,
+              },
+            ],
+          };
+        }
+
         default: {
           return {
             ...collection,
-            data: groupedData[category]?.map((form: any) => ({
-              details: form,
-              documentId: form.documentId,
-            })),
+            data: groupedData[category]
+              ? groupedData[category].map((form: any) => ({
+                  details: form,
+                  documentId: form.documentId,
+                }))
+              : [
+                  {
+                    details: {},
+                    documentId: uuidv4(),
+                  },
+                ],
           };
         }
       }

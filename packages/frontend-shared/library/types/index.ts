@@ -107,7 +107,7 @@ export interface IPost {
   video?: string;
   content: string;
   displayName?: string; // user display name
-  photoURL?: string; // user photo url
+  photoURL: string | null; // user photo url
   pin?: boolean;
   preview?: ILinkPreview;
   createdAt?: Date;
@@ -231,7 +231,8 @@ export interface IUser {
   emailVerified: boolean;
   isAnonymous: boolean;
   phoneNumber: string | null;
-  photoURL?: string;
+  photoURL: string | null;
+  description: string | null;
   backgroundPhotoURL: string | null;
   role: IUserRole;
 }
