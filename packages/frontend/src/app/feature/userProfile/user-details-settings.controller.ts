@@ -65,7 +65,7 @@ export interface IUserSettings extends ISettingCategory {
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
                 <a
-                  *ngIf="category.schema"
+                  *ngIf="!category.hasEdit"
                   mat-button
                   style="margin-left: auto; display: table;">
                   Remove
@@ -74,6 +74,7 @@ export interface IUserSettings extends ISettingCategory {
                 <user-details-card-component
                   *ngFor="let item of category.data"
                   [userDetails]="item"
+                  [collection]="collection"
                   [user]="user"
                   [category]="category.category"
                   [title]="category.title"
@@ -84,7 +85,7 @@ export interface IUserSettings extends ISettingCategory {
                 <a
                   mat-button
                   (click)="openDialog(category)"
-                  *ngIf="category.schema">
+                  *ngIf="!category.hasEdit">
                   Add New {{ category.title }}
                   <mat-icon>add</mat-icon>
                 </a>
@@ -161,16 +162,13 @@ export class UserDetailsSettingsController implements OnInit {
     const groupedData = groupBy(data, "category");
 
     this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
-      const { title, description, category, list, schema } = collection;
+      const { category } = collection;
 
       switch (category) {
         case SETTING_CATEGORY.ACCOUNT: {
           const userInfo = this.route.parent?.snapshot.data["user"];
           return {
-            title: title,
-            description: description,
-            category: category,
-            list: list,
+            ...collection,
             data: [
               {
                 details: userInfo,
@@ -181,11 +179,7 @@ export class UserDetailsSettingsController implements OnInit {
 
         default: {
           return {
-            title: title,
-            description: description,
-            category: category,
-            list: list,
-            schema: schema,
+            ...collection,
             data: groupedData[category]?.map((form: any) => ({
               details: form,
               documentId: form.documentId,

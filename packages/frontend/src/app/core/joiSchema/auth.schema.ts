@@ -105,8 +105,11 @@ export const SETTINGS_SCHEMA_GENERATOR = (data: IFormUploaderInput[]) => {
           .error((err) => {
             err.forEach((e) => {
               switch (e.code) {
+                case "string.base":
+                  e.message = e.local.label + " must be a string";
+                  break;
                 case "string.empty":
-                  e.message = "No Document be selected";
+                  e.message = e.local.label + " is requried";
                   break;
                 default:
                   break;

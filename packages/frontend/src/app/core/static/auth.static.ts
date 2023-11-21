@@ -875,7 +875,8 @@ export interface ISettingCategory {
   description: string;
   category: string;
   list: IFormUploaderInput[];
-  schema?: JoiSchemaBuilder<any>;
+  hasEdit?: boolean;
+  schema: JoiSchemaBuilder<any>;
 }
 
 export interface ISettingCategoryTab {
@@ -893,18 +894,29 @@ export const SETTING_COLLECTIONS: Record<
       description: "User Basic Information",
       category: SETTING_CATEGORY.ACCOUNT,
       list: ACCOUNT_INFO,
+      hasEdit: true,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(
+          ACCOUNT_INFO.filter((data) =>
+            ["displayName", "phoneNumber"].includes(data.id)
+          )
+        ),
     },
     {
       title: "Authentication",
       description: "Change Password",
       category: "authentication",
       list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Recognition",
       description: "Change facial and voice recognition",
       category: "recognition",
       list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
   ],
   [SETTING_COLLECTION.PERSONAL_PROFILE]: [
