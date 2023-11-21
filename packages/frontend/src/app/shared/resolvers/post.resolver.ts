@@ -13,10 +13,7 @@ export const homePagePostResolver: ResolveFn<{
   data: IPost[];
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  return inject(PostFireStore).listHomePagePostCache(
-    5,
-    route.parent?.data["users"]
-  );
+  return inject(PostFireStore).listHomePagePostCache(5);
 };
 
 export const usersResolver: ResolveFn<IUser[]> = (

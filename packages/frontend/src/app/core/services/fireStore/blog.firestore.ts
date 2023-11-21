@@ -86,22 +86,20 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
   }
 
   public async listHomePagePostCache(
-    limit: number = 10,
-    users: IUser[]
+    limit: number = 10
   ): Promise<{ hasFile: boolean; data: IPost[] }> {
     const data = this._homePageCache.get();
     if (data) {
       return data;
     }
-    const groupedData = keyBy(users, "userId");
-    console.log(groupedData);
+    const users = this._userCache.get();
+    const groupedData = keyBy(users!, "userId");
     let post = await this.list(limit, Object.keys(groupedData));
     post.data = post.data.map((item) => ({
       ...item,
       displayName: groupedData[item.userId]!.displayName, // user display name
       photoURL: groupedData[item.userId]!.photoURL, // user photo url
     }));
-    console.log(post);
     this._homePageCache.update(post);
     return post;
   }
@@ -139,7 +137,14 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     if (cache && !cache.hasFile) {
       return cache;
     }
-    const post = await this.listPagination(limit);
+    const users = this._userCache.get();
+    const groupedData = keyBy(users!, "userId");
+    const post = await this.listPagination(limit, Object.keys(groupedData));
+    post.data = post.data.map((item) => ({
+      ...item,
+      displayName: groupedData[item.userId]!.displayName, // user display name
+      photoURL: groupedData[item.userId]!.photoURL, // user photo url
+    }));
     let data: IPost[] = [];
     if (cache) {
       data = cache.data;
