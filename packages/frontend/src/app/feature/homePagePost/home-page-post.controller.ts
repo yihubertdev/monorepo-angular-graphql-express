@@ -1,11 +1,12 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IPost } from "sources-types";
+import { IPost, IUser } from "sources-types";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
+import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 
 @Component({
   standalone: true,
@@ -51,7 +52,8 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _sessionStorage: SessionStorageService
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -70,6 +72,10 @@ export class HomePagePostController implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.userId == "me") {
+      this.userId =
+        this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
+    }
     if (this.data.length) return;
     const resolverData = this.route.snapshot.data as {
       posts: {
