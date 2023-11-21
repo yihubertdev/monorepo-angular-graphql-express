@@ -63,7 +63,7 @@ import { MatListModule } from "@angular/material/list";
           columns.md +
           ' col-sm-' +
           columns.sm +
-          ' col-xs-' +
+          ' col-' +
           columns.xs
         "
         style="width: 100%;"
@@ -133,11 +133,6 @@ import { MatListModule } from "@angular/material/list";
 
         <ng-container *ngIf="input.type === 'upload'">
           <mat-label>{{ input.label }}</mat-label>
-          <input
-            [type]="input.type"
-            matInput
-            [formControlName]="input.key"
-            style="display:none" />
           <input
             style="display:none"
             [type]="input.type"

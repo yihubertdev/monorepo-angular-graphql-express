@@ -2,14 +2,21 @@ import { Component, HostListener } from "@angular/core";
 import {
   MatBottomSheet,
   MatBottomSheetModule,
+  MatBottomSheetRef,
 } from "@angular/material/bottom-sheet";
 import { IMenu } from "sources-types";
-import { footerMenus } from "../../core/static/menu.static";
-import { FooterMenuController } from "./footer-menu.controllers";
+import {
+  DRAWER_MENU,
+  SITE_ROUTE_PAGE,
+  footerMenus,
+} from "../../core/static/menu.static";
 import { NgFor, NgIf, NgStyle } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { Router, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatIconModule } from "@angular/material/icon";
+import { MatListModule } from "@angular/material/list";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   standalone: true,
@@ -74,5 +81,58 @@ export class FooterController {
 
   openMenu() {
     this._bottomSheet.open(FooterMenuController);
+  }
+}
+
+@Component({
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    MatListModule,
+    RouterModule,
+    MatIconModule,
+    MatIconModule,
+    MatButtonModule,
+  ],
+  template: `<mat-nav-list>
+    <a
+      *ngFor="let icon of footerIconLayout"
+      mat-list-item
+      (click)="_bottomSheetRef.dismiss()"
+      [routerLink]="icon.link">
+      <mat-icon matListItemIcon> {{ icon.iconName }}</mat-icon>
+      <div matListItemTitle>{{ icon.description }}</div>
+      <div matListItemLine>{{ icon.description }}</div>
+    </a>
+    <a
+      mat-list-item
+      (click)="logout()">
+      <mat-icon matListItemIcon>upload</mat-icon>
+      <div matListItemTitle>Logout</div>
+      <div matListItemLine>logout</div>
+    </a>
+    <a
+      mat-list-item
+      (click)="_bottomSheetRef.dismiss()">
+      <mat-icon matListItemIcon>close</mat-icon>
+      <div matListItemTitle>Close</div>
+      <div matListItemLine>close menu</div>
+    </a>
+  </mat-nav-list>`,
+})
+export class FooterMenuController {
+  public footerIconLayout: IMenu[] = DRAWER_MENU;
+
+  constructor(
+    public _bottomSheetRef: MatBottomSheetRef<FooterMenuController>,
+    private _auth: AuthService,
+    private _router: Router
+  ) {}
+
+  public logout() {
+    this._bottomSheetRef.dismiss();
+    this._auth.logout();
+    this._router.navigate(SITE_ROUTE_PAGE.LOGIN);
   }
 }

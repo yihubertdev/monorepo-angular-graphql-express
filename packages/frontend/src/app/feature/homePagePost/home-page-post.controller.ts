@@ -23,7 +23,7 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
       <post-card-component
         [postCardInfo]="post"
         [isUserProfile]="!!userId"
-        [isMe]="userId === 'me' ? true : false"></post-card-component>
+        [isMe]="isMe"></post-card-component>
 
       <ng-container *ngIf="i === 3 && !userId">
         <carousel-slider-component
@@ -49,6 +49,7 @@ export class HomePagePostController implements OnInit {
 
   public data: IPost[] = [];
   private hasFile: boolean = true;
+  public isMe: boolean = false;
 
   constructor(
     private _PostService: PostFireStore,
@@ -73,6 +74,7 @@ export class HomePagePostController implements OnInit {
 
   ngOnInit(): void {
     if (this.userId == "me") {
+      this.isMe = true;
       this.userId =
         this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
     }
