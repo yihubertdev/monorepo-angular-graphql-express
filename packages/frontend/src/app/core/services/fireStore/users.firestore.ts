@@ -103,10 +103,10 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return data;
   };
 
-  public override create = async (document: IUser) => {
-    await this.collection.doc(document.id).set(document);
+  public override create(document: IUser) {
+    this.collection.doc(document.id).set(document);
     return document.id;
-  };
+  }
 
   public async retrieveSubCollection<K>(filter: {
     userId: string;

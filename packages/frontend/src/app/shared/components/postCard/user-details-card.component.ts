@@ -8,12 +8,13 @@ import {
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { NgIf } from "@angular/common";
-import { IFormInput, IUser } from "sources-types";
+import { IFormInput, IUser, SETTING_CATEGORY } from "sources-types";
 import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDialog } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 export interface IUserDetailCard {
   details: any;
@@ -60,7 +61,11 @@ export class UserDetailCardComponent implements OnChanges {
     lg: 6,
     xl: 6,
   };
-  constructor(public dialog: MatDialog, private _userService: UserService) {}
+  constructor(
+    public dialog: MatDialog,
+    private _userService: UserService,
+    private _authService: AuthService
+  ) {}
 
   ngOnChanges() {
     this.formList.forEach(
@@ -69,12 +74,24 @@ export class UserDetailCardComponent implements OnChanges {
   }
 
   save(value: any) {
-    this._userService.createSubCollectionByUser(this.user, {
-      collectionId: this.collection,
-      next: {
-        documentId: this.userDetails.documentId,
-        documentValue: { category: this.category, ...value },
-      },
-    });
+    switch (this.category) {
+      case SETTING_CATEGORY.ACCOUNT:
+        const user = this._authService.getAuth();
+        if (!user) return;
+        this._authService.updateUserInfo(user, {
+          displayName: value.displayName,
+        });
+
+        break;
+      default:
+        this._userService.createSubCollectionByUser(this.user, {
+          collectionId: this.collection,
+          next: {
+            documentId: this.userDetails.documentId,
+            documentValue: { category: this.category, ...value },
+          },
+        });
+        break;
+    }
   }
 }

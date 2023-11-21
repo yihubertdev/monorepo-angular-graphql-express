@@ -21,6 +21,8 @@ import { PreviewLinkComponent } from "./previewlink.component";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 import { ImageComponent } from "../CarouselSlider/image.component";
 import { ImageSliderComponent } from "../CarouselSlider/images-slider.component";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 
 @Component({
   standalone: true,
@@ -39,6 +41,7 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
     CarouselSliderComponent,
     ImageComponent,
     ImageSliderComponent,
+    MatDialogModule,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -47,23 +50,23 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe
-            ? ['/users', postCardInfo?.userId, 'posts']
-            : []
+            ? ['/users', postCardInfo.userId, 'posts']
+            : null
         "
         class="cursor-pointer">
         <div
           mat-card-avatar
           [ngStyle]="{
             backgroundImage:
-              'url(' + (postCardInfo?.photoURL | defaultUserPhoto) + ')',
+              'url(' + (postCardInfo.photoURL | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"
           *ngIf="!isUserProfile && !isMe"></div>
         <mat-card-title *ngIf="!isUserProfile && !isMe">{{
-          postCardInfo?.displayName ? postCardInfo?.displayName : "Guest"
+          postCardInfo.displayName ? postCardInfo.displayName : "Guest"
         }}</mat-card-title>
         <mat-card-subtitle>{{
-          postCardInfo?.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+          postCardInfo.createdAt | date : "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
         <button
           mat-icon-button
@@ -90,7 +93,7 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
           #content
           class="text-overflow-card"
           [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
-          [innerHTML]="postCardInfo?.content"></p>
+          [innerHTML]="postCardInfo.content"></p>
         <p
           *ngIf="content.scrollHeight > 100"
           class="cursor-pointer"
@@ -105,12 +108,12 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
         <!--single image display-->
         <image-component
           *ngIf="postCardInfo?.image?.length === 1"
-          [images]="postCardInfo?.image ?? []"></image-component>
+          [images]="postCardInfo.image ?? []"></image-component>
 
         <!--single video display-->
         <iframe
           *ngIf="postCardInfo?.video"
-          [src]="videoByPass(postCardInfo?.video ?? '')"
+          [src]="videoByPass(postCardInfo.video ?? '')"
           frameborder="0"
           allowfullscreen=""
           class="video-frame-center image-height-responsive"></iframe>
@@ -120,7 +123,7 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
         <!--multiple image display-->
         <carousel-slider-component
           *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
-          [images]="postCardInfo?.image ?? []"
+          [images]="postCardInfo.image ?? []"
           [height]="40"
           [isCover]="false"></carousel-slider-component>
       </mat-card-content>
@@ -129,7 +132,7 @@ import { ImageSliderComponent } from "../CarouselSlider/images-slider.component"
   styleUrls: ["./post-card.component.css"],
 })
 export class PostCardComponent {
-  @Input() postCardInfo?: IPost;
+  @Input({ required: true }) postCardInfo!: IPost;
   @Input() isUserProfile: boolean = false;
   @Input() isMe: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;
@@ -138,6 +141,7 @@ export class PostCardComponent {
   public isShowMore: boolean = false;
   public safeSrc: SafeResourceUrl | null = null;
   constructor(
+    public dialog: MatDialog,
     private _PostService: PostFireStore,
     private _domSanitizer: DomSanitizer
   ) {}
@@ -155,8 +159,20 @@ export class PostCardComponent {
     switch (link) {
       case "delete": {
         if (this.postCardInfo) {
-          this._PostService.delete(this.postCardInfo.id);
-          window.location.reload();
+          const dialogRef = this.dialog.open(RemoveSettingCategoryDialog, {
+            disableClose: true,
+            data: {
+              title: "post",
+              documentId: this.postCardInfo.id,
+            },
+          });
+
+          dialogRef.afterClosed().subscribe((result) => {
+            this._PostService.deletePost(
+              this.postCardInfo!.userId,
+              result.documentId
+            );
+          });
         }
 
         break;

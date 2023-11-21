@@ -66,6 +66,7 @@ import { MatListModule } from "@angular/material/list";
           ' col-xs-' +
           columns.xs
         "
+        style="width: 100%;"
         appearance="fill"
         *ngFor="let input of formInputList">
         <ng-container

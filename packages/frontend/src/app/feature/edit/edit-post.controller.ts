@@ -82,8 +82,7 @@ export class EditPostController {
       photoURL,
     } as unknown as IPost;
 
-    await this._postService.create(newBlog);
+    this._postService.create(newBlog);
     this._router.navigate(["home", "posts"]);
-    this._homePageCache.delete();
   }
 }

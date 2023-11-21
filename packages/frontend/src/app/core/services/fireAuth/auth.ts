@@ -8,6 +8,7 @@ import {
   Auth,
   UserCredential,
   signInWithPopup,
+  updatePhoneNumber,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
 import { IUser, IUserProfile, IUserRegister, IUserRole } from "sources-types";
@@ -58,18 +59,20 @@ export class AuthService {
    * @public
    * @param {User} user user information
    * @param {Partial<Pick<IUserProfile, "displayName" | "photoURL">>} data updated information data
-   * @returns {Promise<boolean>} update status
+   * @returns {void} update status
    */
-  public async updateUserInfo(
+  public updateUserInfo(
     user: User,
-    data: Partial<Pick<IUserProfile, "displayName" | "photoURL">>
-  ): Promise<boolean> {
-    try {
-      await updateProfile(user, data);
-      return true;
-    } catch (err) {
-      return false;
-    }
+    data: Partial<Pick<IUserProfile, "displayName" | "photoURL" | "phone">>
+  ): void {
+    updateProfile(user, {
+      displayName: data.displayName,
+      photoURL: data.photoURL,
+    });
+    this.userService.update({
+      id: this.currentUser!.id,
+      displayName: data.displayName,
+    });
   }
 
   /**
@@ -148,7 +151,7 @@ export class AuthService {
         emailVerified: user.emailVerified,
         isAnonymous: user.isAnonymous,
         phoneNumber: user.phoneNumber,
-        photoURL: user.photoURL,
+        photoURL: user.photoURL ?? undefined,
         backgroundPhotoURL: null,
       }),
     ]);

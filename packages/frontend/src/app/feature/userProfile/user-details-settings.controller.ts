@@ -18,8 +18,6 @@ import { UserService } from "../../core/services/fireStore/users.firestore";
 import { IUser, SETTING_CATEGORY, SETTING_COLLECTION } from "sources-types";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
-import { AddProfileSectionDialog } from "../../shared/dialog/add-profile-section.dialog";
-import { v4 as uuidv4 } from "uuid";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
@@ -84,7 +82,6 @@ export interface IUserSettings extends ISettingCategory {
                   (removeChange)="remove($event)"></user-details-card-component>
                 <a
                   mat-button
-                  (click)="openDialog(category)"
                   *ngIf="!category.hasEdit">
                   Add New {{ category.title }}
                   <mat-icon>add</mat-icon>
@@ -109,22 +106,6 @@ export class UserDetailsSettingsController implements OnInit {
     private route: ActivatedRoute,
     private _userService: UserService
   ) {}
-
-  openDialog(setting: IUserSettings) {
-    setting.list.forEach((list) => (list.value = ""));
-    const dialogRef = this.dialog.open(AddProfileSectionDialog, {
-      disableClose: true,
-      data: {
-        documentId: uuidv4(),
-        collection: this.collection,
-        category: setting.category,
-        title: setting.title,
-        user: this.user,
-        formList: setting.list,
-        formSchema: setting.schema,
-      },
-    });
-  }
 
   remove(value: { documentId: string; category: string; title: string }) {
     const { documentId, category, title } = value;

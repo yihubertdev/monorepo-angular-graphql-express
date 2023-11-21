@@ -37,7 +37,7 @@ export class RemoveSettingCategoryDialog {
     public data: {
       title: string;
       documentId: string;
-      category: string;
+      category?: string;
     }
   ) {}
 }

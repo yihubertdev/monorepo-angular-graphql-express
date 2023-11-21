@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { userLoginSchema } from "src/app/core/joiSchema/user-login.schema";
-import { IFormInput, SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
+import { IFormInput } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { userLoginFormList } from "../../../core/static/auth.static";
 import { SITE_ROUTE_PAGE } from "../../../core/static/menu.static";
@@ -31,20 +31,8 @@ export class EmailLoginControllerComponent {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
     };
-    try {
-      this.authService.login(data);
-      this._router.navigate(SITE_ROUTE_PAGE.HOME);
-    } catch (err) {
-      console.log(err);
-      this._snackBar.open(
-        SNACKBAR_ERROR.ADD_ARTICLE_ERROR,
-        SNACKBAR_ACTION.POP_UP_ACTION,
-        {
-          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        }
-      );
-    }
+
+    this.authService.login(data);
+    this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
   }
 }

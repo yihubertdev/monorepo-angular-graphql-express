@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import {
   isMeLogin,
   isUserLogin,
+  redirectUserToMe,
 } from "src/app/core/services/routeGuard/index.guard";
 import { postByUserResolver } from "src/app/shared/resolvers/post.resolver";
 
@@ -9,7 +10,7 @@ export default [
   { path: "", redirectTo: "me/posts", pathMatch: "full" },
   {
     path: ":id/posts",
-    canActivate: [isMeLogin],
+    canActivate: [isMeLogin, redirectUserToMe],
     resolve: { posts: postByUserResolver },
     loadComponent: () => import("./users.view"),
   },

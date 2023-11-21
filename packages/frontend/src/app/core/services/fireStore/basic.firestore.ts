@@ -110,39 +110,37 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document create document
    * @returns {Promise<void>}
    */
-  public create = async (document: T): Promise<string> => {
+  public create(document: T): string {
     const id = uuidv4();
-    await this.collection.doc(id).set({
+    this.collection.doc(id).set({
       ...document,
       id,
       createdAt: new Date().getTime(),
       updatedAt: new Date().getTime(),
     });
     return id;
-  };
+  }
 
   /**
    * Create document in that collection
    *
    * @public
    * @param {T} document update document
-   * @returns {Promise<void>}
+   * @returns {void}
    */
-  public update = async (
-    document: Partial<T> & { id: string }
-  ): Promise<void> => {
-    await this.collection.doc(document.id).update(document);
-  };
+  public update(document: Partial<T> & { id: string }): void {
+    this.collection.doc(document.id).update(document);
+  }
 
   /**
    * Delete collection document
    *
    * @public
    * @param {string} id delete document
-   * @returns {Promise<void>}
+   * @returns {void}
    */
-  public async delete(id: string): Promise<void> {
-    await this.collection.doc(id).delete();
+  public delete(id: string): void {
+    this.collection.doc(id).delete();
   }
 
   /**

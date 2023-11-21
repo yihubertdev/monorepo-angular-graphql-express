@@ -60,9 +60,16 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     this._userCache = _userCache;
   }
 
-  public async deletePost(userId: string, id: string) {
+  public deletePost(userId: string, id: string) {
     this._userPageCache.delete(userId);
+    this._homePageCache.delete();
     super.delete(id);
+  }
+
+  public override create(document: IPost): string {
+    this._userPageCache.delete(document.userId);
+    this._homePageCache.delete();
+    return super.create(document);
   }
 
   public async listUserPagePostCache(
@@ -87,12 +94,14 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
       return data;
     }
     const groupedData = keyBy(users, "userId");
-    const post = await this.list(limit, Object.keys(groupedData));
-    post.data.map((item) => ({
+    console.log(groupedData);
+    let post = await this.list(limit, Object.keys(groupedData));
+    post.data = post.data.map((item) => ({
       ...item,
-      displayName: groupedData[item.userId]?.displayName, // user display name
-      photoURL: groupedData[item.userId]?.photoURL, // user photo url
+      displayName: groupedData[item.userId]!.displayName, // user display name
+      photoURL: groupedData[item.userId]!.photoURL, // user photo url
     }));
+    console.log(post);
     this._homePageCache.update(post);
     return post;
   }
