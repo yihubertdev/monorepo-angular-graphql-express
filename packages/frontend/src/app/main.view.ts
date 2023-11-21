@@ -8,7 +8,6 @@ import {
   Router,
   RouterOutlet,
 } from "@angular/router";
-import { MatTabsModule } from "@angular/material/tabs";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgIf, NgStyle } from "@angular/common";
@@ -76,9 +75,7 @@ import { SessionStorageService } from "./core/services/browserStorage/sessionSto
           lg: true,
           xl: true
         }"
-        [ngStyle]="{
-          width: '18dvw'
-        }">
+        [ngStyle]="{ width: '18dvw' }">
         <drawer-menu-controller></drawer-menu-controller
       ></mat-drawer>
       <!-- mat-drawer-content overflow default is auto, scrollable-->

@@ -38,7 +38,6 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-lightbox/lightbox.css",
               "src/styles/styles.css",
-              "src/styles/roboto.css",
               "src/styles/material-icon.css"
             ],
             "scripts": []
@@ -124,7 +123,6 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/ngx-lightbox/lightbox.css",
               "src/styles/styles.css",
-              "src/styles/roboto.css",
               "src/styles/material-icon.css"
             ],
             "scripts": []

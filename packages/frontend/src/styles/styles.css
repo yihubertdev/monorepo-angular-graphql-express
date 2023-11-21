@@ -207,13 +207,3 @@ body {
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: initial !important;
 }
-
-/* .lb-nav a.lb-prev {
-  opacity: 1 !important;
-  transition: none !important;
-}
-
-.lb-nav a.lb-next {
-  opacity: 1 !important;
-  transition: none !important;
-} */

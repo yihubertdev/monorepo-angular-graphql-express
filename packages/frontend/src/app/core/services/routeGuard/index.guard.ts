@@ -18,35 +18,18 @@ export const isUserLogin: CanActivateFn = () => {
   }
 };
 
-export const redirectUserToMe: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  const user = inject(SessionStorageService).getSessionStorage<IUser>("user")!;
-  console.log(route.params["id"]);
-  if (user.userId == route.params["id"]) {
-    // console.log(route.params["id"]);
-    inject(Router).navigate(["users", "me", "posts"]);
-    route.params["id"] = "me";
-    return true;
-  } else {
-    return true;
-  }
-};
-
 export const isMeLogin: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  if (route.params["id"] === "me") {
-    if (
-      Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
-    ) {
-      return true;
-    } else {
-      inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
-      return false;
-    }
+  const user = inject(SessionStorageService).getSessionStorage<IUser>("user");
+  if (!user) {
+    inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
+    return false;
+  }
+
+  if (user.userId == route.params["id"]) {
+    inject(Router).navigate(["users", "me", "posts"]);
   }
 
   return true;
