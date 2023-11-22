@@ -13,7 +13,13 @@ import joiValidator, { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { EditorComponent } from "./editor.component";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
-import { AsyncPipe, NgClass, NgFor, NgIf } from "@angular/common";
+import {
+  AsyncPipe,
+  NgClass,
+  NgFor,
+  NgIf,
+  NgTemplateOutlet,
+} from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
 import { IColumnSet } from "sources-types";
@@ -35,6 +41,7 @@ import { MatListModule } from "@angular/material/list";
     NgClass,
     NgIf,
     NgFor,
+    NgTemplateOutlet,
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -137,7 +144,7 @@ import { MatListModule } from "@angular/material/list";
             style="display:none"
             [type]="input.type"
             [formControlName]="input.key"
-            matinput
+            matInput
             multiple
             id="uploadProfile"
             (change)="
@@ -158,6 +165,7 @@ import { MatListModule } from "@angular/material/list";
           <mat-error *ngIf="error">
             {{ error }}
           </mat-error>
+          <!--multiple files can be upload in each input section-->
           <mat-list
             role="list"
             *ngFor="let task of tasks">
@@ -181,8 +189,7 @@ import { MatListModule } from "@angular/material/list";
               <mat-icon>download</mat-icon>
             </a>
           </ng-template>
-          <ng-container
-            *ngIf="input.value.length === 0; else download"></ng-container>
+          <ng-container *ngIf="!input.value; else download"></ng-container>
 
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
