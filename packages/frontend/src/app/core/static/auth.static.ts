@@ -217,7 +217,7 @@ export const ACCOUNT_INFO: IFormInput[] = [
   },
   {
     id: "phoneNumber",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Phone Number",
     key: "phoneNumber",
     value: "",
@@ -270,7 +270,7 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "currentBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Current Balance",
     key: "currentBalance",
     value: "",
@@ -423,7 +423,7 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Loan Balance",
     key: "loanBalance",
     value: "",
@@ -431,7 +431,7 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
     value: "",
@@ -514,7 +514,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
   },
   {
     id: "monthlyIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Monthly Income",
     key: "monthlyIncome",
     value: "",
@@ -531,7 +531,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Loan Balance",
     key: "loanBalance",
     value: "",
@@ -539,7 +539,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
     value: "",
@@ -646,7 +646,7 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
     value: "",
@@ -762,7 +762,7 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "purchasePrice",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Purchase Price",
     key: "purchasePrice",
     value: "",
@@ -779,7 +779,7 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "grossIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.NUMBER,
     label: "Gross Income",
     key: "grossIncome",
 

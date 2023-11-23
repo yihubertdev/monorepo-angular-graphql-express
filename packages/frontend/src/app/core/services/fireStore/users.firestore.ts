@@ -76,7 +76,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
    */
   public async listUserWithCache(uId: string): Promise<IUser> {
     let cache = this._userCache.get();
-    console.log(cache);
     let cachedUser = cache?.find((u) => u.id == uId);
     if (cachedUser) {
       return cachedUser;

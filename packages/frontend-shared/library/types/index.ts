@@ -66,9 +66,10 @@ export const enum INPUT_TYPE {
   SELECT = "select",
   EMAIL = "email",
   PASSWROD = "password",
-  UPLOAD = "upload",
+  UPLOAD = "file",
   EDITOR = "editor",
   DATE = "date",
+  NUMBER = "number"
 }
 
 export const enum PROFILE_TITLE {

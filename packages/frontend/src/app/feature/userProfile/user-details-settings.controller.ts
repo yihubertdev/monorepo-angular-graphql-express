@@ -173,6 +173,7 @@ export class UserDetailsSettingsController implements OnInit {
         }
 
         default: {
+          console.log(groupedData[category]);
           return {
             ...collection,
             data: groupedData[category]

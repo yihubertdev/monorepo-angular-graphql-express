@@ -30,7 +30,8 @@ import { APOLLO_OPTIONS, ApolloModule } from "apollo-angular";
 import { HttpLink } from "apollo-angular/http";
 import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
-import { GlobalErrorHandler } from "./app/core/utils/error";
+import { GlobalMessageHandler } from "./app/core/utils/error";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 if (environment.production) {
   enableProdMode();
@@ -78,6 +79,7 @@ bootstrapApplication(MainView, {
     //   },
     //   deps: [HttpLink],
     // },
-    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    importProvidersFrom(MatSnackBarModule),
+    { provide: ErrorHandler, useClass: GlobalMessageHandler },
   ],
 });

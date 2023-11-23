@@ -17,6 +17,7 @@ export const SITE_ROUTE_PAGE = {
   SETTINGS_SECURITY: ["security"],
   SETTINGS_PROFILE: ["profile"],
   SETTINGS_PERSONAL_NET_WORTH: ["personal-net-worth"],
+  FINANCING: ["users", "financing"],
 };
 
 export const footerMenus: IMenu[] = [
@@ -54,7 +55,7 @@ export const DRAWER_MENU: IMenu[] = [
     width: "50px",
   },
   {
-    link: SITE_ROUTE_PAGE.SETTINGS,
+    link: SITE_ROUTE_PAGE.FINANCING,
     description: "FINANCING",
     iconName: "account_balance",
     width: "50px",
@@ -63,18 +64,6 @@ export const DRAWER_MENU: IMenu[] = [
     link: SITE_ROUTE_PAGE.My_PROFILE,
     description: "NETWORK",
     iconName: "groups",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.ADD_POST,
-    description: "ADD POST",
-    iconName: "post_add",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.ADD_ARTICLE,
-    description: "ADD ARTICLE",
-    iconName: "feed",
     width: "50px",
   },
 ];

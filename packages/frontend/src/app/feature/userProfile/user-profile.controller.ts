@@ -108,7 +108,6 @@ export class UserProfileController implements OnInit {
     };
 
     this.currentUser = preloadData.user;
-    console.log(this.currentUser);
   }
 
   async uploadImage(eventTarget: EventTarget | null) {

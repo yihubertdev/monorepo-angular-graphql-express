@@ -15,6 +15,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { Success } from "../../../core/utils/error";
 
 export interface IUserDetailCard {
   details: any;
@@ -67,6 +68,7 @@ export class UserDetailCardComponent implements OnChanges {
   ) {}
 
   ngOnChanges() {
+    console.log(this.formList);
     this.formList.forEach(
       (list) => (list.value = this.userDetails.details[list.key])
     );
@@ -97,6 +99,8 @@ export class UserDetailCardComponent implements OnChanges {
             documentValue: { category: this.category, ...value },
           },
         });
+
+        throw new Success("Networth saved successfully.");
         break;
     }
   }

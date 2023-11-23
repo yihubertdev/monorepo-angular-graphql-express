@@ -25,6 +25,11 @@ export default [
     loadChildren: () => import("../settings").then((router) => router.route),
   },
   {
+    path: "financing",
+    providers: [importProvidersFrom(MatSnackBarModule)],
+    loadComponent: () => import("./financing.view"),
+  },
+  {
     path: "signup",
     providers: [importProvidersFrom(MatSnackBarModule)],
     canActivate: [isUserLoginToUser],
