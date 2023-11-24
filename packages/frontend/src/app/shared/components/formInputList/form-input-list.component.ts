@@ -129,9 +129,7 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             [placeholder]="input.placeholder ?? ''"
             style="height: 20dvh;"
             [formControlName]="input.key"
-            [mentionConfig]="
-              (mentionConfig | AddMentionUsers | async)!
-            "></textarea>
+            [mentionConfig]="'' | AddMentionUsers"></textarea>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -208,18 +206,10 @@ export class FormInputListComponent implements OnInit {
   > = {};
   public editorContent: string = "";
   public hasError: boolean = false;
-  public mentionConfig = {};
-
-  public error?: any;
-
-  public urls: string[] = [];
 
   @ViewChild(EditorComponent) EditorComponent!: EditorComponent;
 
-  constructor(
-    private formBuilder: UntypedFormBuilder,
-    private formFileStorage: FormFileStorageService
-  ) {}
+  constructor(private formBuilder: UntypedFormBuilder) {}
 
   ngOnInit() {
     // Generate default form group value

@@ -305,7 +305,6 @@ export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
       key: "taxReturn_" + (currentYear - index),
       value: "",
       placeholder: "",
-
       documentPath: "net_worth",
       documentCategory: "tax_return",
       schema: PDF_FILE_SCHEMA({

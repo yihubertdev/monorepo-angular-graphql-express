@@ -182,7 +182,3 @@ body {
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
   background-color: initial !important;
 }
-
-.red-color {
-  background: red;
-}

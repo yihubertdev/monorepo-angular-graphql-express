@@ -23,6 +23,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
 import { RemoveSettingCategoryDialog } from "src/app/shared/dialog/remove-setting-category.dialog";
 import { v4 as uuidv4 } from "uuid";
+import { Success } from "src/app/core/utils/error";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -63,23 +64,16 @@ export interface IUserSettings extends ISettingCategory {
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <ng-template matExpansionPanelContent>
-                <a
-                  *ngIf="!category.noEdit"
-                  mat-button
-                  style="margin-left: auto; display: table;">
-                  Remove
-                  <mat-icon>delete</mat-icon>
-                </a>
                 <user-details-card-component
                   *ngFor="let item of category.data"
-                  [userDetails]="item"
+                  [settingDetail]="item"
                   [collection]="collection"
                   [user]="user"
                   [category]="category.category"
                   [title]="category.title"
                   [formList]="category.list"
                   [formSchema]="category.schema"
-                  (removeChange)="remove($event)"></user-details-card-component>
+                  [noEdit]="category.noEdit"></user-details-card-component>
                 <a
                   mat-button
                   *ngIf="!category.noEdit">
@@ -106,34 +100,6 @@ export class UserDetailsSettingsController implements OnInit {
     private route: ActivatedRoute,
     private _userService: UserService
   ) {}
-
-  remove(value: { documentId: string; category: string; title: string }) {
-    const { documentId, category, title } = value;
-    const dialogRef = this.dialog.open(RemoveSettingCategoryDialog, {
-      disableClose: true,
-      data: {
-        title,
-        category,
-        documentId,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (!result) return;
-      const { documentId } = result;
-      this._userService.deleteSubCollectionDocumentByUser(this.user, {
-        collectionId: this.collection,
-        next: {
-          documentId,
-        },
-      });
-
-      // each category only have one object, each object have multiple data
-      this.groupedSettings[category][0].data = this.groupedSettings[
-        category
-      ][0].data.filter((item) => item.documentId != documentId);
-    });
-  }
 
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
@@ -173,7 +139,6 @@ export class UserDetailsSettingsController implements OnInit {
         }
 
         default: {
-          console.log(groupedData[category]);
           return {
             ...collection,
             data: groupedData[category]

@@ -34,12 +34,12 @@ export class FileNameGeneratorPipe implements PipeTransform {
 })
 export class AddMentionUsersPipe implements PipeTransform {
   constructor(private _userService: UserService) {}
-  async transform(value: Object): Promise<MentionConfig> {
-    const users = await this._userService.listUsersWithCache(10);
+  transform(value: string): MentionConfig {
+    const users = this._userService.listUsersCache();
     return {
       mentions: [
         {
-          items: users.map((user) => user.userId),
+          items: users?.map((user) => user.userId),
           triggerChar: "@",
         },
       ],

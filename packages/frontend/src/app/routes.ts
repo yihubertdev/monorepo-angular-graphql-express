@@ -17,6 +17,9 @@ export default [
   },
   {
     path: "edit",
+    resolve: {
+      users: usersResolver,
+    },
     loadChildren: () => import("./pages/edit"),
   },
   {
@@ -25,6 +28,9 @@ export default [
   },
   {
     path: "users",
+    resolve: {
+      users: usersResolver,
+    },
     loadChildren: () => import("./pages/users"),
   },
 ] as Routes;
