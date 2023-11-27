@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnInit,
   ViewChild,
 } from "@angular/core";
 import { IPost } from "sources-types";
@@ -23,6 +24,13 @@ import { ImageComponent } from "../CarouselSlider/image.component";
 import { ImageSliderComponent } from "../CarouselSlider/images-slider.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
+import {
+  GALLERY_CONFIG,
+  GalleryConfig,
+  GalleryModule,
+  ImageItem,
+} from "ng-gallery";
+import { MatGridListModule } from "@angular/material/grid-list";
 
 @Component({
   standalone: true,
@@ -106,9 +114,9 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
             [preview]="postCardInfo!.preview!"></preview-link-card>
         </ng-container>
         <!--single image display-->
-        <image-component
-          *ngIf="postCardInfo?.image?.length === 1"
-          [images]="postCardInfo.image ?? []"></image-component>
+        <images-component
+          *ngIf="postCardInfo?.image"
+          [images]="postCardInfo.image ?? []"></images-component>
 
         <!--single video display-->
         <iframe
@@ -121,11 +129,11 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
         <!-- <image-slider-component
           [images]="postCardInfo?.image ?? []"></image-slider-component> -->
         <!--multiple image display-->
-        <carousel-slider-component
+        <!-- <carousel-slider-component
           *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
           [images]="postCardInfo.image ?? []"
           [height]="40"
-          [isCover]="false"></carousel-slider-component>
+          [isCover]="false"></carousel-slider-component> -->
       </mat-card-content>
     </mat-card>
   `,
@@ -140,6 +148,7 @@ export class PostCardComponent {
   public postCardMenu = postCardMenu;
   public isShowMore: boolean = false;
   public safeSrc: SafeResourceUrl | null = null;
+  public images: any;
   constructor(
     public dialog: MatDialog,
     private _PostService: PostFireStore,

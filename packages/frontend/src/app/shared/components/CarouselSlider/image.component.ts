@@ -1,40 +1,82 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { NgStyle } from "@angular/common";
-import { LightboxModule, Lightbox, IAlbum } from "ngx-lightbox";
-import { lightBoxConfig } from "src/app/core/static/post.static";
+import {
+  NgFor,
+  NgIf,
+  NgStyle,
+  SlicePipe,
+  UpperCasePipe,
+} from "@angular/common";
+import { LightboxModule } from "ng-gallery/lightbox";
+import { Gallery, GalleryModule, ImageItem } from "ng-gallery";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { v4 as uuidv4 } from "uuid";
+import { MatButtonModule } from "@angular/material/button";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   standalone: true,
-  imports: [NgStyle, LightboxModule],
-  selector: "image-component",
+  imports: [
+    NgIf,
+    NgFor,
+    NgStyle,
+    LightboxModule,
+    GalleryModule,
+    MatGridListModule,
+    SlicePipe,
+    MatButtonModule,
+    MatIconModule,
+    UpperCasePipe,
+  ],
+  selector: "images-component",
   template: `
-    <!--single image display-->
-    <div
-      class="image-frame-rounded slide-image-cover-center image-height-responsive"
-      [ngStyle]="{
-          backgroundImage: 'url(' + images[0] + ')',
-        }"
-      (click)="openImagePopup()"></div>
+    <mat-grid-list
+      [cols]="galleryImages.length > 1 ? 2 : 1"
+      rowHeight="2:1"
+      gutterSize="10px">
+      <mat-grid-tile
+        *ngFor="let item of galleryImages | slice : 0 : 3; let i = index"
+        colspan="1"
+        rowspan="1"
+        [lightbox]="i"
+        [gallery]="galleryId"
+        class="image-frame-rounded slide-image-cover-center"
+        [ngStyle]="{
+          backgroundImage: 'url(' + item.data.src + ')',
+        }"></mat-grid-tile>
+      <mat-grid-tile
+        *ngIf="images.length > 2"
+        colspan="1"
+        [lightbox]="1"
+        [gallery]="galleryId"
+        rowspan="1">
+        <a mat-button
+          >{{ "View All" | uppercase }}
+          <mat-icon>more_horiz</mat-icon>
+        </a></mat-grid-tile
+      >
+    </mat-grid-list>
   `,
   styleUrls: ["./carousel-slider.css"],
 })
 export class ImageComponent implements OnInit {
   @Input({ required: true }) images: string[] = [];
-  public slideIndex: number = 0;
-  private _album: IAlbum[] = [];
+  public galleryImages: ImageItem[] = [];
+  public galleryId: string = uuidv4();
 
-  constructor(private _lightbox: Lightbox) {}
+  constructor(public gallery: Gallery) {}
 
   ngOnInit(): void {
-    this._album = this.images.map((image) => ({
-      src: image,
-      thumb: image,
-      downloadUrl: image,
-    }));
-  }
-
-  openImagePopup(): void {
-    // open lightbox
-    this._lightbox.open(this._album, 0, lightBoxConfig);
+    const galleryRef = this.gallery.ref(this.galleryId, {
+      thumbPosition: "bottom",
+      counterPosition: "top",
+      thumbImageSize: "contain",
+    });
+    this.galleryImages = this.images.map((card) => {
+      return new ImageItem({
+        src: card,
+        thumb: card,
+      });
+    });
+    galleryRef.load(this.galleryImages);
   }
 }

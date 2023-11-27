@@ -1,4 +1,3 @@
-import { LightboxConfig } from "ngx-lightbox";
 import { IFormInput, INPUT_TYPE } from "sources-types";
 
 export const postList = [
@@ -125,14 +124,4 @@ export const quillEditorModule = {
 
     ["link", "image", "video"], // link and image, video
   ],
-};
-
-export const lightBoxConfig = {
-  showImageNumberLabel: true,
-  wrapAround: true,
-  disableKeyboardNav: true,
-  centerVertically: true,
-  showZoom: true,
-  showRotate: false,
-  showDownloadButton: true,
 };

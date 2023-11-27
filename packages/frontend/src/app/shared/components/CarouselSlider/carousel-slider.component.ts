@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { NgClass, NgForOf, NgIf, NgStyle } from "@angular/common";
-import { LightboxModule, Lightbox, IAlbum } from "ngx-lightbox";
-import { lightBoxConfig } from "src/app/core/static/post.static";
+import { LightboxModule } from "ng-gallery/lightbox";
+import { Gallery, GalleryModule, ImageItem } from "ng-gallery";
+import { v4 as uuidv4 } from "uuid";
 
 @Component({
   standalone: true,
@@ -13,6 +14,7 @@ import { lightBoxConfig } from "src/app/core/static/post.static";
     NgIf,
     NgForOf,
     LightboxModule,
+    GalleryModule,
   ],
   selector: "carousel-slider-component",
   template: `
@@ -21,21 +23,23 @@ import { lightBoxConfig } from "src/app/core/static/post.static";
       [ngStyle]="{
         height: height + 'dvh'
       }"
-      *ngIf="images?.length !== 0">
+      *ngIf="galleryImages?.length !== 0">
       <div
         class="slide fade"
-        *ngFor="let image of images; let i = index"
+        *ngFor="let item of galleryImages; let i = index"
         [ngStyle]="{
-          'background-image': 'url(' + image + ')',
+          height: '100%',
+          'background-image': 'url(' + item.data.src + ')',
           display: i === slideIndex ? 'block' : 'none'
         }"
         [ngClass]="isCover ? 'slide-image-cover-center' : 'slide-image-center'"
-        (click)="openImagePopup(i)"></div>
+        [lightbox]="i"
+        [gallery]="galleryId"></div>
 
       <div class="position-absolute-center">
         <span
           class="dot"
-          *ngFor="let image of images; let i = index"
+          *ngFor="let item of galleryImages; let i = index"
           (click)="slideIndex = i"
           [ngClass]="i === slideIndex ? 'active' : ''"></span>
       </div>
@@ -44,7 +48,7 @@ import { lightBoxConfig } from "src/app/core/static/post.static";
         class="prev hide-slide"
         (click)="
           slideIndex - 1 < 0
-            ? (slideIndex = images.length - 1)
+            ? (slideIndex = galleryImages.length - 1)
             : (slideIndex = slideIndex - 1)
         "
         >❮</a
@@ -52,7 +56,7 @@ import { lightBoxConfig } from "src/app/core/static/post.static";
       <a
         class="next hide-slide"
         (click)="
-          slideIndex + 1 >= images.length
+          slideIndex + 1 >= galleryImages.length
             ? (slideIndex = 0)
             : (slideIndex = slideIndex + 1)
         "
@@ -68,16 +72,24 @@ export class CarouselSliderComponent implements OnInit {
   @Input() isCover: boolean = true;
   @Input() isSilding?: boolean;
   public slideIndex: number = 0;
-  private _album: IAlbum[] = [];
+  public galleryId: string = uuidv4();
+  public galleryImages: ImageItem[] = [];
 
-  constructor(private _lightbox: Lightbox) {}
+  constructor(public gallery: Gallery) {}
 
   ngOnInit(): void {
-    this._album = this.images.map((image) => ({
-      src: image,
-      thumb: image,
-      downloadUrl: image,
-    }));
+    const galleryRef = this.gallery.ref(this.galleryId, {
+      thumbPosition: "bottom",
+      counterPosition: "top",
+      thumbImageSize: "contain",
+    });
+    this.galleryImages = this.images.map((card) => {
+      return new ImageItem({
+        src: card,
+        thumb: card,
+      });
+    });
+    galleryRef.load(this.galleryImages);
     if (this.isSilding) {
       setInterval(() => {
         this.slideIndex =
@@ -86,10 +98,5 @@ export class CarouselSliderComponent implements OnInit {
             : (this.slideIndex = this.slideIndex + 1);
       }, 2000);
     }
-  }
-
-  openImagePopup(index: number): void {
-    // open lightbox
-    this._lightbox.open(this._album, index, lightBoxConfig);
   }
 }

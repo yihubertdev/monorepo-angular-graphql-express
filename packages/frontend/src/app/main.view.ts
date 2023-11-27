@@ -11,7 +11,6 @@ import {
 import { MatMenuModule } from "@angular/material/menu";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { NgIf, NgStyle } from "@angular/common";
-import { MatDrawerResponsiveDirectiveModule } from "./shared/directives/matDrawerResponsive/mat-drawer-responsive.module";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
@@ -24,6 +23,7 @@ import { FooterController } from "./feature/menu/footer.controller";
 import { AuthService } from "./core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
 import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
+import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/mat-drawer-menu";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -35,7 +35,7 @@ import { SessionStorageService } from "./core/services/browserStorage/sessionSto
     MatIconModule,
     MatMenuModule,
     MatToolbarModule,
-    MatDrawerResponsiveDirectiveModule,
+    MatDrawerOpenDirective,
     MatSidenavModule,
     MatButtonModule,
     MatProgressBarModule,

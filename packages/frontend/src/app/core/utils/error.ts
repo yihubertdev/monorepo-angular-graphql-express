@@ -1,4 +1,4 @@
-import { ErrorHandler, Injector, inject } from "@angular/core";
+import { ErrorHandler } from "@angular/core";
 import { Injectable, NgZone } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -18,9 +18,8 @@ export class NotificationService {
     // The snackbar or dialog won't run outside the Angular's zone.
     // Wrapping it in the run method fixes this issue.
     this.zone.run(() => {
-      this.snackbar.open(`Error: ${message}`, "Close", {
+      this.snackbar.open(`Error: ${message.substring(0, 200)}...`, "Close", {
         verticalPosition: "top",
-        panelClass: ["mat-toolbar", "mat-warn"], // add a class to snackbar to add custom styles
       });
     });
   }

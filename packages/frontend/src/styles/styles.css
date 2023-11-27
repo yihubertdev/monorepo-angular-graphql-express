@@ -1,3 +1,4 @@
+@import '~@angular/cdk/overlay-prebuilt.css';
 /* You can add global styles to this file, and also import other style files */
 body {
   margin: 0;
@@ -39,7 +40,7 @@ body {
   width: 100%;
 }
 
-.grid-content-up-center {
+.grid-tile-content-up-center {
   top: 0;
   left: 0;
   right: 0;
@@ -166,14 +167,12 @@ body {
 }
 
 .slide-image-cover-center {
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
 }
 
 .slide-image-center {
-  height: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

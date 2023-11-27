@@ -11,9 +11,10 @@ export interface OpenedStatus {
   xl: boolean;
 }
 @Directive({
+  standalone: true,
   selector: "[attrOpenedStatus]",
 })
-export class MatDRAWER_MENUDirective implements OnInit {
+export class MatDrawerOpenDirective implements OnInit {
   @Input() attrOpenedStatus: OpenedStatus = {
     xs: false,
     sm: false,

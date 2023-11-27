@@ -7,8 +7,6 @@ import {
   loggedUserProfileResolver,
   userProfileResolver,
 } from "../../shared/resolvers/post.resolver";
-import { importProvidersFrom } from "@angular/core";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 export default [
   {
@@ -26,12 +24,10 @@ export default [
   },
   {
     path: "financing",
-    providers: [importProvidersFrom(MatSnackBarModule)],
     loadComponent: () => import("./financing.view"),
   },
   {
     path: "signup",
-    providers: [importProvidersFrom(MatSnackBarModule)],
     canActivate: [isUserLoginToUser],
     loadComponent: () => import("./sign-up.view"),
   },

@@ -32,6 +32,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { InMemoryCache } from "@apollo/client/core";
 import { GlobalMessageHandler } from "./app/core/utils/error";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { GALLERY_CONFIG, GalleryConfig } from "ng-gallery";
+import { LIGHTBOX_CONFIG, LightboxConfig } from "ng-gallery/lightbox";
 
 if (environment.production) {
   enableProdMode();
@@ -81,5 +83,19 @@ bootstrapApplication(MainView, {
     // },
     importProvidersFrom(MatSnackBarModule),
     { provide: ErrorHandler, useClass: GlobalMessageHandler },
+    {
+      provide: GALLERY_CONFIG,
+      useValue: {
+        autoHeight: true,
+        imageSize: "cover",
+      } as GalleryConfig,
+    },
+    {
+      provide: LIGHTBOX_CONFIG,
+      useValue: {
+        keyboardShortcuts: false,
+        exitAnimationTime: 1000,
+      } as LightboxConfig,
+    },
   ],
 });
