@@ -1,6 +1,7 @@
 import { Auth, DecodedIdToken } from "firebase-admin/auth";
 import client from "../../client";
-import { IUser } from "sources-types";
+import { IPost, IUser } from "sources-types";
+import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
 /**
  * Get user by different filter
@@ -31,6 +32,34 @@ async function get(
 }
 
 /**
+ * Get user by different filter
+ * @param {string} [filter.userId]
+ */
+async function getPost(
+  filter: {
+    userId?: string;
+    email?: string;
+  },
+  fireStoreClient?: FirebaseFirestore.Firestore
+): Promise<QueryDocumentSnapshot<IPost>[]> {
+  const { userId, email } = filter;
+  const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
+
+  let query: FirebaseFirestore.Query = fireStore.collection("blogs");
+  if (userId) {
+    query = query.where("userId", "==", userId);
+  }
+
+  if (email) {
+    query = query.where("email", "==", email);
+  }
+
+  const posts = (await query.get()).docs;
+
+  return posts as QueryDocumentSnapshot<IPost>[];
+}
+
+/**
  * Verify user firebase auth
  * @param {string} token User firebase auth token
  * @returns {Promise<DecodedIdToken>}
@@ -45,4 +74,5 @@ async function verifyFromFirebaseAuth(token: string): Promise<DecodedIdToken> {
 export const users = {
   verifyFromFirebaseAuth,
   get,
+  getPost
 };

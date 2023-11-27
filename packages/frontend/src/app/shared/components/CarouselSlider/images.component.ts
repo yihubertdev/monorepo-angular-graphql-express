@@ -32,7 +32,7 @@ import { MatIconModule } from "@angular/material/icon";
     <mat-grid-list
       [cols]="galleryImages.length > 1 ? 2 : 1"
       rowHeight="2:1"
-      gutterSize="10px">
+      gutterSize="15px">
       <mat-grid-tile
         *ngFor="let item of galleryImages | slice : 0 : 3; let i = index"
         colspan="1"
@@ -46,9 +46,9 @@ import { MatIconModule } from "@angular/material/icon";
       <mat-grid-tile
         *ngIf="images.length > 2"
         colspan="1"
+        rowspan="1"
         [lightbox]="1"
-        [gallery]="galleryId"
-        rowspan="1">
+        [gallery]="galleryId">
         <a mat-button
           >{{ "View All" | uppercase }}
           <mat-icon>more_horiz</mat-icon>
@@ -58,7 +58,7 @@ import { MatIconModule } from "@angular/material/icon";
   `,
   styleUrls: ["./carousel-slider.css"],
 })
-export class ImageComponent implements OnInit {
+export class ImagesComponent implements OnInit {
   @Input({ required: true }) images: string[] = [];
   public galleryImages: ImageItem[] = [];
   public galleryId: string = uuidv4();

@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   Input,
-  OnInit,
   ViewChild,
 } from "@angular/core";
 import { IPost } from "sources-types";
@@ -15,22 +14,13 @@ import { NgIf, NgStyle, DatePipe, NgFor } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
-import { CarouselSliderComponent } from "../CarouselSlider/carousel-slider.component";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { PreviewLinkComponent } from "./previewlink.component";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
-import { ImageComponent } from "../CarouselSlider/image.component";
-import { ImageSliderComponent } from "../CarouselSlider/images-slider.component";
+import { ImagesComponent } from "../CarouselSlider/images.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
-import {
-  GALLERY_CONFIG,
-  GalleryConfig,
-  GalleryModule,
-  ImageItem,
-} from "ng-gallery";
-import { MatGridListModule } from "@angular/material/grid-list";
 
 @Component({
   standalone: true,
@@ -46,9 +36,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
     MatMenuModule,
     MatButtonModule,
     PreviewLinkComponent,
-    CarouselSliderComponent,
-    ImageComponent,
-    ImageSliderComponent,
+    ImagesComponent,
     MatDialogModule,
   ],
   selector: "post-card-component",
