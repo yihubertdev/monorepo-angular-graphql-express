@@ -11,6 +11,7 @@ import {
   deleteObject,
   UploadTask,
 } from "@angular/fire/storage";
+import { v4 as uuidv4 } from "uuid";
 
 export interface IUploadFile {
   id: string;
@@ -90,6 +91,21 @@ export abstract class FireStorageBaseModel {
 
     return url;
   };
+
+  public async uploadBlob(blob: Blob) {
+    const storageRef = ref(
+      this.storage,
+      this.path + "/" + this.category + "-" + uuidv4()
+    );
+
+    const task = uploadBytesResumable(storageRef, blob);
+    this.uploadPercent$ = percentage(task);
+    await task;
+
+    const url = await getDownloadURL(storageRef);
+
+    return url;
+  }
 
   /**
    * Upload file into fire storage bucket

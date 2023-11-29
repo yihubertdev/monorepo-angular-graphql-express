@@ -1,5 +1,12 @@
 import { NgFor, NgIf, NgStyle } from "@angular/common";
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
@@ -11,6 +18,19 @@ import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
 import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
+import {
+  ImageCroppedEvent,
+  ImageCropperModule,
+  LoadedImage,
+} from "ngx-image-cropper";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from "@angular/material/dialog";
+import { DomSanitizer } from "@angular/platform-browser";
+import { Success } from "../../core/utils/error";
 
 @Component({
   standalone: true,
@@ -27,39 +47,34 @@ import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
     MatDividerModule,
     MatListModule,
     RouterModule,
+    MatDialogModule,
   ],
   providers: [ProfileStorageService],
   template: `
     <mat-card>
       <mat-card-header>
         <mat-card-title-group>
-          <mat-card-title
-            >{{ currentUser?.displayName ?? "Guest" }}
-          </mat-card-title>
-          <mat-card-subtitle
-            >&#64;{{ currentUser?.userId ?? "guest" }}
-          </mat-card-subtitle>
+          <mat-card-title>{{ currentUser.displayName }} </mat-card-title>
+          <mat-card-subtitle>&#64;{{ currentUser.userId }} </mat-card-subtitle>
           <div
             class="user-avatar-size user-avatar-square"
             [ngStyle]="{
               backgroundImage:
                 'url(' +
-                (currentUser?.photoURL ?? null | defaultUserPhoto) +
+                (currentUser.photoURL ?? null | defaultUserPhoto) +
                 ')',
               backgroundSize: 'cover',
             }">
             <mat-icon
               class="user-avatar-uploader-center cursor-pointer"
-              (click)="triggerUpload()"
+              (click)="uploadProfile.click()"
               >upload</mat-icon
             >
             <input
               type="file"
               (change)="uploadImage($event.target)"
               style="display:none"
-              id="uploadProfile"
-              #uploadProfile
-              name="filedata" />
+              #uploadProfile />
           </div>
         </mat-card-title-group>
       </mat-card-header>
@@ -99,10 +114,11 @@ export class UserProfileSettingsController implements OnInit {
   @ViewChild("uploadProfile") uploadProfile!: ElementRef;
 
   menus: IMenu[] = PROFILE_SETTINGS_MENU;
-  currentUser?: IUser;
+  currentUser!: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
   constructor(
+    public dialog: MatDialog,
     private profileStorage: ProfileStorageService,
     private route: ActivatedRoute
   ) {}
@@ -119,12 +135,79 @@ export class UserProfileSettingsController implements OnInit {
     const element = eventTarget as HTMLInputElement | null;
     const file = element?.files;
     if (!file || !this.currentUser) return;
+    const dialogRef = this.dialog.open(ImageCropperDialog, {
+      disableClose: true,
+      data: {
+        event: file[0],
+      },
+    });
 
-    const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
-    this.photoUrl = url;
+    dialogRef.afterClosed().subscribe(async (data: Blob) => {
+      await this.profileStorage.uploadBlob(data);
+      throw new Success("Profile uploaded");
+    });
+
+    //const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
+    // this.photoUrl = url;
+  }
+}
+
+@Component({
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule, ImageCropperModule],
+  template: `<h1 mat-dialog-title>Delete</h1>
+    <div mat-dialog-content>
+      <image-cropper
+        [imageFile]="data.event"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="1 / 1"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (loadImageFailed)="loadImageFailed()"></image-cropper>
+      <img [src]="croppedImage" />
+    </div>
+    <div mat-dialog-actions>
+      <button
+        mat-button
+        (click)="dialogRef.close()">
+        CLOSE
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        [mat-dialog-close]="blob"
+        cdkFocusInitial>
+        UPLOAD
+      </button>
+    </div>`,
+  styleUrls: [],
+})
+export class ImageCropperDialog {
+  imageChangedEvent: any = "";
+  croppedImage: any = "";
+  blob?: Blob | null;
+  constructor(
+    private sanitizer: DomSanitizer,
+    public dialogRef: MatDialogRef<ImageCropperDialog>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      event: File;
+    }
+  ) {}
+
+  imageCropped(event: ImageCroppedEvent) {
+    if (event?.objectUrl) {
+      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
+        event.objectUrl
+      );
+      this.blob = event.blob;
+    }
+    return;
+    // event.blob can be used to upload the cropped image
   }
 
-  triggerUpload() {
-    this.uploadProfile.nativeElement.click();
+  loadImageFailed() {
+    throw Error("Image upload failed");
+    // show message
   }
 }

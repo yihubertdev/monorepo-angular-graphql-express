@@ -91,7 +91,7 @@ export class UserDetailCardComponent implements OnChanges {
     if (!user) return;
     switch (this.category) {
       case SETTING_CATEGORY.ACCOUNT:
-        this._authService.updateUserInfo(user, {
+        this._authService.updateUserInfo({
           displayName: value.displayName,
         });
 

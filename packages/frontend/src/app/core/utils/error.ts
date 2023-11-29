@@ -15,6 +15,7 @@ export class Success extends TypeMessage {
 export class NotificationService {
   constructor(private snackbar: MatSnackBar, private zone: NgZone) {}
   showClientError(message: string): void {
+    console.log(message);
     // The snackbar or dialog won't run outside the Angular's zone.
     // Wrapping it in the run method fixes this issue.
     this.zone.run(() => {
@@ -39,6 +40,7 @@ export class GlobalMessageHandler implements ErrorHandler {
   constructor(private notification: NotificationService) {}
   handleError(message: TypeMessage) {
     const notifier = this.notification;
+    console.log(message.type);
     if (message.type) {
       notifier.showNonErrorSnackBar(message.message);
     } else {

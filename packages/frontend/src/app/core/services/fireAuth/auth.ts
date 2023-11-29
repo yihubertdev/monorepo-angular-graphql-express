@@ -53,25 +53,17 @@ export class AuthService {
     this.twitterProvider = new TwitterAuthProvider();
   }
 
-  /**
-   * Update user information
-   *
-   * @public
-   * @param {User} user user information
-   * @param {Partial<Pick<IUserProfile, "displayName" | "photoURL">>} data updated information data
-   * @returns {void} update status
-   */
-  public updateUserInfo(
-    user: User,
-    data: Partial<Pick<IUserProfile, "displayName" | "photoURL" | "phone">>
-  ): void {
-    updateProfile(user, {
-      displayName: data.displayName,
-      photoURL: data.photoURL,
-    });
+  public updateUserInfo(data: {
+    displayName?: string;
+    photoURL?: string;
+  }): void {
+    if (!this.auth.currentUser) {
+      throw Error("User not login");
+    }
+    updateProfile(this.auth.currentUser, data);
     this.userService.update({
       id: this.currentUser!.id,
-      displayName: data.displayName,
+      ...data,
     });
   }
 

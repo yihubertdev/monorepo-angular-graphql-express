@@ -1,11 +1,5 @@
 import { Injectable } from "@angular/core";
-import {
-  getDownloadURL,
-  percentage,
-  ref,
-  Storage,
-  uploadBytesResumable,
-} from "@angular/fire/storage";
+import { Storage } from "@angular/fire/storage";
 import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
 import { FireStorageBaseModel } from "./basic.bucket";
@@ -43,35 +37,10 @@ export class ProfileStorageService extends FireStorageBaseModel {
    * @returns {Promise<string>} upload url
    */
   public override upload = async (file: File, id: string): Promise<string> => {
-    // Upload file extension
-    const extension = file.name.split(".").pop();
-
-    // Create fire storage ref
-    const storageRef = ref(
-      this.storage,
-      this.path + "/" + this.category + "-" + id + "." + extension
-    );
-
-    // Upload file
-    const task = uploadBytesResumable(storageRef, file);
-
-    // Add observer to upload percentage
-    this.uploadPercent$ = percentage(task);
-    await task;
-
-    // Get the file url
-    const url = await getDownloadURL(storageRef);
-
-    // Save user profile on firebase auth
-    const user = this.authService.getAuth();
-
-    // If user is not sign in, throw error
-    if (!user) {
-      throw Error("User is not signed in");
-    }
+    const url = await super.upload(file, id);
 
     // Update fire auth user information
-    await this.authService.updateUserInfo(user, {
+    this.authService.updateUserInfo({
       photoURL: url,
     });
 
@@ -83,4 +52,21 @@ export class ProfileStorageService extends FireStorageBaseModel {
 
     return url;
   };
+  /**
+   * Upload file into fire storage bucket
+   *
+   * @public
+   * @param {Blob} blob upload file
+   * @returns {Promise<string>} upload url
+   */
+  public override async uploadBlob(blob: Blob): Promise<string> {
+    const url = await super.uploadBlob(blob);
+
+    // Update fire auth user information
+    this.authService.updateUserInfo({
+      photoURL: url,
+    });
+
+    return url;
+  }
 }

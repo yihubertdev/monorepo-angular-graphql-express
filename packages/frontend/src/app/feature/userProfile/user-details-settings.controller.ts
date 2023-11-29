@@ -1,11 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
-import { MatCardModule } from "@angular/material/card";
-import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { MatTabsModule } from "@angular/material/tabs";
 import {
   ISettingCategory,
   SETTING_COLLECTIONS,
@@ -14,16 +11,11 @@ import {
   IUserDetailCard,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
-import { UserService } from "../../core/services/fireStore/users.firestore";
 import { IUser, SETTING_CATEGORY, SETTING_COLLECTION } from "sources-types";
-import { MatMenuModule } from "@angular/material/menu";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
-import { RemoveSettingCategoryDialog } from "src/app/shared/dialog/remove-setting-category.dialog";
 import { v4 as uuidv4 } from "uuid";
-import { Success } from "src/app/core/utils/error";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -34,15 +26,10 @@ export interface IUserSettings extends ISettingCategory {
   imports: [
     NgIf,
     NgFor,
-    MatCardModule,
-    MatGridListModule,
     MatIconModule,
     MatButtonModule,
     RouterModule,
-    MatTabsModule,
     UserDetailCardComponent,
-    MatMenuModule,
-    MatDialogModule,
     MatExpansionModule,
   ],
   selector: "user-details-settings-controller",
@@ -95,11 +82,7 @@ export class UserDetailsSettingsController implements OnInit {
   public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
   protected groupedSettings!: Record<string, Omit<IUserSettings, "category">[]>;
-  constructor(
-    public dialog: MatDialog,
-    private route: ActivatedRoute,
-    private _userService: UserService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
