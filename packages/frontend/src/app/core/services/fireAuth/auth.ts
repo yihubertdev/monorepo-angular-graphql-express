@@ -8,10 +8,9 @@ import {
   Auth,
   UserCredential,
   signInWithPopup,
-  updatePhoneNumber,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
-import { IUser, IUserProfile, IUserRegister, IUserRole } from "sources-types";
+import { IUser, IUserRegister, IUserRole } from "sources-types";
 import {
   browserSessionPersistence,
   GoogleAuthProvider,
@@ -159,13 +158,10 @@ export class AuthService {
    * @param {{ email: string; password: string }} data data login
    * @param {string} data.email email address
    * @param {string} data.password password address
-   * @returns {Promise<UserCredential>} user credential
+   * @returns {void} user credential
    */
-  public async login(data: {
-    email: string;
-    password: string;
-  }): Promise<UserCredential> {
-    return signInWithEmailAndPassword(this.auth, data.email, data.password);
+  public async login(data: { email: string; password: string }): Promise<void> {
+    await signInWithEmailAndPassword(this.auth, data.email, data.password);
   }
 
   /**

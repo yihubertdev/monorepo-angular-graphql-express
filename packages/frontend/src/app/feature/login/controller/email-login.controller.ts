@@ -26,13 +26,13 @@ export class EmailLoginControllerComponent {
     private _snackBar: MatSnackBar
   ) {}
 
-  login(formValue: Record<string, number | string>) {
+  async login(formValue: Record<string, number | string>) {
     const data = {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
     };
 
-    this.authService.login(data);
+    await this.authService.login(data);
     this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
   }
 }

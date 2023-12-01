@@ -38,5 +38,5 @@ export const isMeLogin: CanActivateFn = (
 
 export const isUserLoginToUser: CanActivateFn = () =>
   Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
-    ? inject(Router).navigate(["users", "me", "posts"])
+    ? inject(Router).navigate(SITE_ROUTE_PAGE.SETTINGS)
     : true;
