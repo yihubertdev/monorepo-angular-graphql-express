@@ -71,7 +71,6 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           ' col-' +
           columns.xs
         "
-        style="width: 100%;"
         appearance="fill"
         *ngFor="let input of formInputList">
         <ng-container

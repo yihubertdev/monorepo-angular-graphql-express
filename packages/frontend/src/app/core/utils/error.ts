@@ -41,6 +41,7 @@ export class GlobalMessageHandler implements ErrorHandler {
   handleError(message: TypeMessage) {
     const notifier = this.notification;
     console.log(message.type);
+    console.log(message);
     if (message.type) {
       notifier.showNonErrorSnackBar(message.message);
     } else {

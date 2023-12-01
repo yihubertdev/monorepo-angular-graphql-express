@@ -9,7 +9,7 @@ import { NgIf } from "@angular/common";
 import { IFormInput, IUser, SETTING_CATEGORY } from "sources-types";
 import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
@@ -33,6 +33,7 @@ export interface IUserDetailCard {
     FormInputListComponent,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule,
   ],
   template: ` <a
       *ngIf="!noEdit"
