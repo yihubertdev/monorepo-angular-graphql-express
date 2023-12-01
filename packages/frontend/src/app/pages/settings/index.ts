@@ -1,6 +1,8 @@
 import {
+  BusinessProfileResolver,
   PersonalNetWorthResolver,
   PersonalProfileResolver,
+  PersonalResumeResolver,
   SecurityResolver,
 } from "../../shared/resolvers/settings.resolver";
 import { importProvidersFrom } from "@angular/core";
@@ -30,6 +32,20 @@ export const route: IFullRoute[] = [
     icon: "face",
     resolve: { settings: PersonalProfileResolver },
     loadComponent: () => import("./personal-profile.view"),
+  },
+  {
+    path: "personal-resume",
+    description: "Peronsal Resume",
+    icon: "face",
+    resolve: { settings: PersonalResumeResolver },
+    loadComponent: () => import("./personal-resume.view"),
+  },
+  {
+    path: "business-profile",
+    description: "Business Profile",
+    icon: "person_pin_circle",
+    resolve: { settings: BusinessProfileResolver },
+    loadComponent: () => import("./professional-profile.view"),
   },
   {
     path: "professional-profile",

@@ -13,7 +13,6 @@ import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { Success } from "../../../core/utils/error";
 import { MatIconModule } from "@angular/material/icon";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatButtonModule } from "@angular/material/button";
@@ -115,7 +114,7 @@ export class UserDetailCardComponent implements OnChanges {
         break;
     }
 
-    throw new Success("Networth saved successfully.");
+    throw new Error("Networth saved successfully.");
   }
 
   remove({
@@ -151,7 +150,7 @@ export class UserDetailCardComponent implements OnChanges {
       // this.groupedSettings[category][0].data = this.groupedSettings[
       //   category
       // ][0].data.filter((item) => item.documentId != documentId);
-      throw new Success("Networth saved successfully.");
+      throw new Error("Networth saved successfully.");
     });
   }
 }

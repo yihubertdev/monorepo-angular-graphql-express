@@ -32,6 +32,30 @@ export const PersonalProfileResolver: ResolveFn<any> = (
   });
 };
 
+export const PersonalResumeResolver: ResolveFn<any> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const user: IUser = route.parent?.data["user"];
+
+  return inject(UserService).retrieveSubCollection({
+    userId: user.userId,
+    collectionId: SETTING_COLLECTION.PERSONAL_RESUME,
+  });
+};
+
+export const BusinessProfileResolver: ResolveFn<any> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const user: IUser = route.parent?.data["user"];
+
+  return inject(UserService).retrieveSubCollection({
+    userId: user.userId,
+    collectionId: SETTING_COLLECTION.PERSONAL_RESUME,
+  });
+};
+
 export const PersonalNetWorthResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot

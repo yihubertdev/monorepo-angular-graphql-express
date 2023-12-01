@@ -12,6 +12,8 @@ import { FormInputListComponent } from "../../shared/components/formInputList/fo
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 import { ProfileCardComponent } from "../../shared/components/postCard/profile-card.compnent";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { ImageCropperDialog } from "./user-profile-settings.controller";
 
 @Component({
   standalone: true,
@@ -29,6 +31,7 @@ import { ProfileCardComponent } from "../../shared/components/postCard/profile-c
     MatTabsModule,
     FormInputListComponent,
     ProfileCardComponent,
+    MatDialogModule,
   ],
   providers: [ProfileStorageService],
   template: `
@@ -38,8 +41,7 @@ import { ProfileCardComponent } from "../../shared/components/postCard/profile-c
       type="file"
       (change)="uploadImage($event.target)"
       style="display:none"
-      id="uploadProfile"
-      #uploadProfile
+      #uploadBackgroundImage
       name="filedata" />
     <mat-card
       class="card-height-responsive"
@@ -47,7 +49,7 @@ import { ProfileCardComponent } from "../../shared/components/postCard/profile-c
       <div
         class="profile-background profile-background-size slide-image-cover-center"
         [ngStyle]="{
-          backgroundImage: currentUser?.photoURL ? 'url(' + currentUser?.photoURL + ')' : 'url(' + photoUrl + ')',
+          backgroundImage: currentUser?.backgroundPhotoURL ? 'url(' + currentUser?.backgroundPhotoURL + ')' : 'url(' + photoUrl + ')',
         }">
         <mat-icon
           *ngIf="isSettingsPage"
@@ -91,13 +93,14 @@ import { ProfileCardComponent } from "../../shared/components/postCard/profile-c
 export class UserProfileController implements OnInit {
   @Input() userId?: string;
   @Input() isSettingsPage?: boolean;
-  @ViewChild("uploadProfile") uploadProfile!: ElementRef;
+  @ViewChild("uploadBackgroundImage") uploadBackgroundImage!: ElementRef;
   currentUser?: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
 
   public isShowMore: boolean = false;
   constructor(
+    public dialog: MatDialog,
     private profileStorage: ProfileStorageService,
     private route: ActivatedRoute
   ) {}
@@ -114,14 +117,26 @@ export class UserProfileController implements OnInit {
     const element = eventTarget as HTMLInputElement | null;
     const file = element?.files;
     if (!file || !this.currentUser) return;
+    const dialogRef = this.dialog.open(ImageCropperDialog, {
+      disableClose: true,
+      data: {
+        event: file[0],
+        ratio: 6 / 1,
+      },
+    });
+    this.uploadBackgroundImage.nativeElement.value = "";
+    dialogRef.afterClosed().subscribe(async (data: Blob) => {
+      if (!data) return;
+      await this.profileStorage.uploadBackgroundImage(data);
+      throw new Error("sd");
+    });
 
-    const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
-    this.photoUrl = url;
+    //const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
+    // this.photoUrl = url;
   }
-
   triggerUpload() {
     if (this.isSettingsPage) {
-      this.uploadProfile.nativeElement.click();
+      this.uploadBackgroundImage.nativeElement.click();
     }
   }
 }

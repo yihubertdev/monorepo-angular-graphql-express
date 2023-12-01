@@ -2,20 +2,12 @@ import { ErrorHandler } from "@angular/core";
 import { Injectable, NgZone } from "@angular/core";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
-export class TypeMessage extends Error {
-  type?: string = "test";
-}
-// make sure type refer to all condition the params maybe
-export class Success extends TypeMessage {
-  override type = "success";
-}
 @Injectable({
   providedIn: "root",
 })
 export class NotificationService {
   constructor(private snackbar: MatSnackBar, private zone: NgZone) {}
   showClientError(message: string): void {
-    console.log(message);
     // The snackbar or dialog won't run outside the Angular's zone.
     // Wrapping it in the run method fixes this issue.
     this.zone.run(() => {
@@ -38,14 +30,8 @@ export class NotificationService {
 })
 export class GlobalMessageHandler implements ErrorHandler {
   constructor(private notification: NotificationService) {}
-  handleError(message: TypeMessage) {
+  handleError(message: Error) {
     const notifier = this.notification;
-    console.log(message.type);
-    console.log(message);
-    if (message.type) {
-      notifier.showNonErrorSnackBar(message.message);
-    } else {
-      notifier.showClientError(message.message);
-    }
+    notifier.showNonErrorSnackBar(message.message);
   }
 }

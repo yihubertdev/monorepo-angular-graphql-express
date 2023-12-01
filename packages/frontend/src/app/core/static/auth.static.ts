@@ -937,6 +937,44 @@ export const SETTING_COLLECTIONS: Record<
         SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
+  [SETTING_COLLECTION.PERSONAL_RESUME]: [
+    {
+      title: "Home Address",
+      description: "Home Address",
+      category: SETTING_CATEGORY.HOME_ADDRESS,
+      list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+    },
+    {
+      title: "Biography",
+      description: "Your Biography Description",
+      category: SETTING_CATEGORY.BIOGRAPHY,
+      list: BIOGRAPHY_FORM,
+      noEdit: true,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+    },
+  ],
+  [SETTING_COLLECTION.BUSINESS_PROFILE]: [
+    {
+      title: "Home Address",
+      description: "Home Address",
+      category: SETTING_CATEGORY.HOME_ADDRESS,
+      list: ACCOUNT_INFO,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+    },
+    {
+      title: "Biography",
+      description: "Your Biography Description",
+      category: SETTING_CATEGORY.BIOGRAPHY,
+      list: BIOGRAPHY_FORM,
+      noEdit: true,
+      schema: (data: any): Joi.ObjectSchema =>
+        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+    },
+  ],
   [SETTING_COLLECTION.PROFESSIONAL_PROFILE]: [
     {
       title: "Home Address",

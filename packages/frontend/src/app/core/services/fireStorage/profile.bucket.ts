@@ -69,4 +69,25 @@ export class ProfileStorageService extends FireStorageBaseModel {
 
     return url;
   }
+
+  /**
+   * Upload file into fire storage bucket
+   *
+   * @public
+   * @param {Blob} blob upload file
+   * @returns {Promise<string>} upload url
+   */
+  public async uploadBackgroundImage(blob: Blob): Promise<string> {
+    const url = await super.uploadBlob(blob);
+    const user = this.authService.currentUser;
+
+    if (!user) throw Error("user not exist");
+    // Update fire auth user information
+    this.userService.update({
+      backgroundPhotoURL: url,
+      id: user.id,
+    });
+
+    return url;
+  }
 }

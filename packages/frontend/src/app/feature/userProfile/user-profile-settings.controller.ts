@@ -18,11 +18,7 @@ import { StringTransformPipe } from "../../shared/pipes/string-tranform.pipe";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatListModule } from "@angular/material/list";
 import { PROFILE_SETTINGS_MENU } from "src/app/pages/settings";
-import {
-  ImageCroppedEvent,
-  ImageCropperModule,
-  LoadedImage,
-} from "ngx-image-cropper";
+import { ImageCroppedEvent, ImageCropperModule } from "ngx-image-cropper";
 import {
   MAT_DIALOG_DATA,
   MatDialog,
@@ -30,7 +26,6 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { DomSanitizer } from "@angular/platform-browser";
-import { Success } from "../../core/utils/error";
 
 @Component({
   standalone: true,
@@ -139,16 +134,15 @@ export class UserProfileSettingsController implements OnInit {
       disableClose: true,
       data: {
         event: file[0],
+        ratio: 1 / 1,
       },
     });
-
+    this.uploadProfile.nativeElement.value = "";
     dialogRef.afterClosed().subscribe(async (data: Blob) => {
+      if (!data) return;
       await this.profileStorage.uploadBlob(data);
-      throw new Success("Profile uploaded");
+      throw new Error("Profile uploaded");
     });
-
-    //const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
-    // this.photoUrl = url;
   }
 }
 
@@ -160,7 +154,7 @@ export class UserProfileSettingsController implements OnInit {
       <image-cropper
         [imageFile]="data.event"
         [maintainAspectRatio]="true"
-        [aspectRatio]="1 / 1"
+        [aspectRatio]="data.ratio"
         format="png"
         (imageCropped)="imageCropped($event)"
         (loadImageFailed)="loadImageFailed()"></image-cropper>
@@ -192,6 +186,7 @@ export class ImageCropperDialog {
     @Inject(MAT_DIALOG_DATA)
     public data: {
       event: File;
+      ratio: number;
     }
   ) {}
 

@@ -129,7 +129,6 @@ export abstract class FireStoreBaseModel<T> {
    * @returns {void}
    */
   public update(document: Partial<T> & { id: string }): void {
-    console.log(document);
     this.collection.doc(document.id).update(document);
   }
 

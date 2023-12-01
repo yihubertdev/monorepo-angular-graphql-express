@@ -165,6 +165,8 @@ export const enum SETTING_COLLECTION {
   PERSONAL_PROFILE = "personal_profile",
   PROFESSIONAL_PROFILE = "professional_profile",
   PERSONAL_NET_WORTH = "personal_net_worth",
+  PERSONAL_RESUME = "personal_resume",
+  BUSINESS_PROFILE = "business_profile"
 }
 
 export const enum PROFILE_TYPE {
