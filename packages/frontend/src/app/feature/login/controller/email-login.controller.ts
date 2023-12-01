@@ -14,12 +14,14 @@ import { SITE_ROUTE_PAGE } from "../../../core/static/menu.static";
     errorLocation="UserLoginFeature"
     [validatorSchema]="validatorSchema"
     buttonName="Login"
-    (formValue)="login($event)"></form-input-list-component>`,
+    (formValue)="login($event)"
+    [loading]="isLoading"></form-input-list-component>`,
   styleUrls: [],
 })
 export class EmailLoginControllerComponent {
   formInputList: IFormInput[] = userLoginFormList;
   validatorSchema: any = userLoginSchema;
+  public isLoading: boolean = false;
   constructor(
     private _router: Router,
     private authService: AuthService,
@@ -27,6 +29,7 @@ export class EmailLoginControllerComponent {
   ) {}
 
   async login(formValue: Record<string, number | string>) {
+    this.isLoading = true;
     const data = {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
@@ -34,5 +37,6 @@ export class EmailLoginControllerComponent {
 
     await this.authService.login(data);
     this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
+    this.isLoading = false;
   }
 }
