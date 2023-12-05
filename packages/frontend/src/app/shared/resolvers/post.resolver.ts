@@ -42,13 +42,8 @@ export const userProfileResolver: ResolveFn<IUser | undefined> = async (
   state: RouterStateSnapshot
 ) => {
   const userId = route.params["id"] ?? route.firstChild?.params["id"];
-
   if (userId !== "me") {
-    const [user] = await inject(UserService).retrieve({
-      userId,
-    });
-
-    return user;
+    return inject(UserService).listUserByUserIdWithCache(userId);
   } else {
     return inject(SessionStorageService).getSessionStorage<IUser>("user");
   }

@@ -73,18 +73,18 @@ export class HomePagePostController implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.userId == "me") {
-      this.isMe = true;
-      this.userId =
-        this._sessionStorage.getSessionStorage<IUser>("user")?.userId;
-    }
-    if (this.data.length) return;
     const resolverData = this.route.snapshot.data as {
       posts: {
         data: IPost[];
         hasFile: boolean;
       };
+      user: IUser;
     };
+    if (this.userId == "me") {
+      this.isMe = true;
+      this.userId = this._sessionStorage.getSessionStorage("user");
+    }
+    if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;
     this.data = resolverData!.posts.data;
   }

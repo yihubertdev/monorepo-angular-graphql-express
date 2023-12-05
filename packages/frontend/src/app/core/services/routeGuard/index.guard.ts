@@ -23,15 +23,14 @@ export const isMeLogin: CanActivateFn = (
   const user = inject(SessionStorageService).getSessionStorage<IUser>("user");
 
   const id = route.parent?.params["id"];
-  console.log(id);
   if (!user && id === "me") {
     return inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
   }
   if (user?.userId == id) {
-    return inject(Router).navigate(["users", "me", "posts"]);
+    return inject(Router).navigate(["users", "profile", "me", "posts"]);
   }
 
-  return false;
+  return true;
 };
 
 export const isUserLoginToUser: CanActivateFn = () =>

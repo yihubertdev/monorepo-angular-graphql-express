@@ -3,7 +3,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { HomePagePostController } from "../../feature/homePagePost/home-page-post.controller";
 import { HomePageArticleController } from "../../feature/homePagePost/home-page-article.controller";
 import { NgTemplateOutlet } from "@angular/common";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 
 @Component({
   standalone: true,
@@ -30,5 +30,10 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: [],
 })
 export default class UsersView {
-  @Input() id?: string;
+  public id?: string;
+  constructor(private route: ActivatedRoute) {
+    this.route.parent?.params.subscribe((param) => {
+      this.id = param["id"];
+    });
+  }
 }

@@ -10,6 +10,7 @@ export class NotificationService {
   showClientError(message: string): void {
     // The snackbar or dialog won't run outside the Angular's zone.
     // Wrapping it in the run method fixes this issue.
+    console.log(message);
     this.zone.run(() => {
       this.snackbar.open(`Error: ${message.substring(0, 200)}...`, "Close", {
         verticalPosition: "top",

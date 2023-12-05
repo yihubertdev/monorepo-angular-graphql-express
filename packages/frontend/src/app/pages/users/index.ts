@@ -10,7 +10,7 @@ import {
 
 export default [
   {
-    path: ":id",
+    path: "profile/:id",
     loadComponent: () => import("./user-profile.view"),
     resolve: { user: userProfileResolver },
     loadChildren: () => import("../profile").then((router) => router.route),

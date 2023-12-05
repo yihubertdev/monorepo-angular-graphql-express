@@ -46,7 +46,7 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe
-            ? ['/users', postCardInfo.userId, 'posts']
+            ? ['/users', 'profile', postCardInfo.userId, 'posts']
             : null
         "
         class="cursor-pointer">

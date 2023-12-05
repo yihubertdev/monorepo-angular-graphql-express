@@ -1,5 +1,5 @@
 import { NgFor } from "@angular/common";
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 import { MatTabsModule } from "@angular/material/tabs";
@@ -38,8 +38,8 @@ import { MatIconModule } from "@angular/material/icon";
         </a>
       </nav>
 
-      <mat-tab-nav-panel #tabPanel
-        ><router-outlet></router-outlet
+      <mat-tab-nav-panel #tabPanel>
+        <router-outlet></router-outlet
       ></mat-tab-nav-panel>
     </div>
   `,

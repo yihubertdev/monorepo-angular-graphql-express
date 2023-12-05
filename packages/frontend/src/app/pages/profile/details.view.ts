@@ -17,7 +17,7 @@ import { IUser } from "sources-types";
   styleUrls: [],
 })
 export default class DetailsView implements OnInit {
-  @Input() id?: string;
+  @Input() id?: string; // after angular 16, user can get route param by input on the route connect component
   public userId!: string;
 
   constructor(private _sessionStorage: SessionStorageService) {}
