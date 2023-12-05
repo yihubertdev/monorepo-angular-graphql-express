@@ -32,6 +32,6 @@ export class GlobalMessageHandler implements ErrorHandler {
   constructor(private notification: NotificationService) {}
   handleError(message: Error) {
     const notifier = this.notification;
-    notifier.showNonErrorSnackBar(message.message);
+    notifier.showClientError(message.message);
   }
 }

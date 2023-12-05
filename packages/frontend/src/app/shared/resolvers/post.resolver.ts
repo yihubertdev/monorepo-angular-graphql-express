@@ -27,7 +27,7 @@ export const postByUserResolver: ResolveFn<{
   data: IPost[];
   hasFile: boolean;
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-  let userId = route.params["id"];
+  let userId = route.parent?.params["id"];
   if (userId == "me") {
     userId = inject(SessionStorageService).getSessionStorage<IUser>(
       "user"

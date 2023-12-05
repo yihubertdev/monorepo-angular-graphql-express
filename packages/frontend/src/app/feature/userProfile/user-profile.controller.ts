@@ -70,7 +70,7 @@ import { ImageCropperDialog } from "./user-profile-settings.controller";
               'url(' + (currentUser?.photoURL ?? null | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"></div>
-        <div class="position-absolute-bottom-right">
+        <!-- <div class="position-absolute-bottom-right">
           <a
             mat-raised-button
             color="primary"
@@ -79,7 +79,7 @@ import { ImageCropperDialog } from "./user-profile-settings.controller";
             Profile
             <mat-icon>account_box</mat-icon>
           </a>
-        </div>
+        </div> -->
       </div>
     </mat-card>
     <ng-template #profile>
