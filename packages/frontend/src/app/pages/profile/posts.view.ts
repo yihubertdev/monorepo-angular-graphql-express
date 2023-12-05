@@ -3,6 +3,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { HomePagePostController } from "../../feature/homePagePost/home-page-post.controller";
 import { HomePageArticleController } from "../../feature/homePagePost/home-page-article.controller";
 import { NgTemplateOutlet } from "@angular/common";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   standalone: true,
@@ -28,10 +29,6 @@ import { NgTemplateOutlet } from "@angular/common";
   `,
   styleUrls: [],
 })
-export default class UsersView implements OnInit {
+export default class UsersView {
   @Input() id?: string;
-
-  ngOnInit() {
-    console.log(this.id);
-  }
 }

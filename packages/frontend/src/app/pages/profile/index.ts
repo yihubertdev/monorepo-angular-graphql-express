@@ -9,7 +9,7 @@ import { postByUserResolver } from "src/app/shared/resolvers/post.resolver";
 export const route: IFullRoute[] = [
   {
     path: "",
-    redirectTo: "me/posts",
+    redirectTo: "posts",
     pathMatch: "full",
     icon: "",
     description: "",
@@ -18,7 +18,6 @@ export const route: IFullRoute[] = [
     path: "posts",
     icon: "feed",
     description: "Posts",
-    canActivate: [isMeLogin],
     resolve: { posts: postByUserResolver },
     loadComponent: () => import("./posts.view"),
   },
@@ -26,7 +25,6 @@ export const route: IFullRoute[] = [
     path: "articles",
     icon: "article",
     description: "Articles",
-    canActivate: [isMeLogin],
     resolve: { posts: postByUserResolver },
     loadComponent: () => import("./articles.view"),
   },

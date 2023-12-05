@@ -1,5 +1,5 @@
 import { NgFor } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 import { MatTabsModule } from "@angular/material/tabs";
