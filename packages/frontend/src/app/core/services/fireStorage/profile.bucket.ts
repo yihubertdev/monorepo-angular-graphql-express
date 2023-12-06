@@ -33,11 +33,14 @@ export class ProfileStorageService extends FireStorageBaseModel {
    *
    * @public
    * @param {File} file upload file
-   * @param {string} id upload id
+   * @param {string} userId upload id
    * @returns {Promise<string>} upload url
    */
-  public override upload = async (file: File, id: string): Promise<string> => {
-    const url = await super.upload(file, id);
+  public override upload = async (
+    file: File,
+    userId: string
+  ): Promise<string> => {
+    const url = await super.upload(file, userId);
 
     // Update fire auth user information
     this.authService.updateUserInfo({
@@ -45,13 +48,17 @@ export class ProfileStorageService extends FireStorageBaseModel {
     });
 
     // Get user profile in firestore
-    await this.userService.retrieveById([id]);
+    await this.userService.retrieveById([userId]);
 
     // Update user profile in firestore
-    this.userService.update({ photoURL: url, id });
+    await this.userService.updateByUserId({
+      document: { photoURL: url },
+      userId,
+    });
 
     return url;
   };
+
   /**
    * Upload file into fire storage bucket
    *
@@ -70,24 +77,18 @@ export class ProfileStorageService extends FireStorageBaseModel {
     return url;
   }
 
-  /**
-   * Upload file into fire storage bucket
-   *
-   * @public
-   * @param {Blob} blob upload file
-   * @returns {Promise<string>} upload url
-   */
-  public async uploadBackgroundImage(blob: Blob): Promise<string> {
-    const url = await super.uploadBlob(blob);
-    const user = this.authService.currentUser;
+  public async uploadBackgroundImage(
+    blob: Blob,
+    userId: string
+  ): Promise<string> {
+    const backgroundPhotoURL = await super.uploadBlob(blob);
 
-    if (!user) throw Error("user not exist");
-    // Update fire auth user information
-    this.userService.update({
-      backgroundPhotoURL: url,
-      id: user.id,
+    // Update user profile in firestore
+    await this.userService.updateByUserId({
+      document: { backgroundPhotoURL },
+      userId,
     });
 
-    return url;
+    return backgroundPhotoURL;
   }
 }

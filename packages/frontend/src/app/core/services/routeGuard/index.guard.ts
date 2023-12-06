@@ -8,13 +8,16 @@ import {
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
+import { AuthService } from "../fireAuth/auth";
 
-export const isUserLogin: CanActivateFn = () =>
-  Boolean(
-    inject(SessionStorageService).getSessionStorage<IUser>("user")
+export const isUserLogin: CanActivateFn = () => {
+  console.log(inject(SessionStorageService).getAllSessionStorage().length);
+  return Boolean(
+    inject(SessionStorageService).getAllSessionStorage().length
       ? true
       : inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN)
   );
+};
 
 export const isMeLogin: CanActivateFn = (
   route: ActivatedRouteSnapshot,

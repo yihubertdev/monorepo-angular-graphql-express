@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "../../core/joiSchema/blog-edit.schema";
-import { IFormInput, LINK_PREVIEW, ILinkPreview } from "sources-types";
+import { IFormInput, LINK_PREVIEW, ILinkPreview, IUser } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { postEditFormList } from "../../core/static/post.static";
@@ -10,7 +10,7 @@ import { IPost } from "sources-types";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
-import { HomePagePostCache } from "../../core/services/cache/extend.cache";
+import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 
 @Component({
   standalone: true,
@@ -45,16 +45,13 @@ export class EditPostController {
   constructor(
     private _router: Router,
     private _postService: PostService,
-    private authService: AuthService,
     private http: HttpClient,
-    private _homePageCache: HomePagePostCache
+    private _sessionStorage: SessionStorageService
   ) {}
   async save(formValue: Record<string, number | string | string[]>) {
     // Get current login user
-    const currentUser = this.authService.get();
-    if (!currentUser) {
-      throw Error("user not exist");
-    }
+    const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
+
     const { userId, displayName, photoURL } = currentUser;
     this.loading = true;
 
@@ -82,7 +79,7 @@ export class EditPostController {
       photoURL,
     } as unknown as IPost;
 
-    this._postService.create(newBlog);
+    this._postService.create({ document: newBlog });
     this._router.navigate(["home", "posts"]);
   }
 }

@@ -25,7 +25,6 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class AuthService {
   private _userAuth: BehaviorSubject<User | null>;
   public readonly userAuthObserver$: Observable<User | null>;
-  public currentUser?: IUser;
   private googleProvider: GoogleAuthProvider;
   private twitterProvider: TwitterAuthProvider;
 
@@ -38,12 +37,13 @@ export class AuthService {
     this.userAuthObserver$ = this._userAuth.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
-      this._userAuth.next(user);
-      this.currentUser = this._sessionStorage.getSessionStorage<IUser>("user");
-      if (user && !this.currentUser) {
-        this.currentUser = await this.userService.listUserWithCache(user.uid);
-        this._sessionStorage.setSessionStorage("user", this.currentUser);
-      } else if (!user && !this.currentUser) {
+      let sessionUser = this._sessionStorage.getSessionStorage<IUser>("user");
+      if (user && !sessionUser) {
+        this._userAuth.next(user);
+        sessionUser = await this.userService.retrieveByUId(user.uid);
+        this._sessionStorage.setSessionStorage("user", sessionUser);
+      } else if (!user && !sessionUser) {
+        this._userAuth.next(user);
         this._sessionStorage.deleteSessionStorage("user");
       }
     });
@@ -61,8 +61,8 @@ export class AuthService {
     }
     updateProfile(this.auth.currentUser, data);
     this.userService.update({
-      id: this.currentUser!.id,
-      ...data,
+      document: data,
+      uid: this.auth.currentUser.uid,
     });
   }
 
@@ -97,16 +97,6 @@ export class AuthService {
   }
 
   /**
-   * Get current user information
-   *
-   * @public
-   * @returns {IUser | undefined} get user information
-   */
-  public get(): IUser | undefined {
-    return this.currentUser;
-  }
-
-  /**
    * Get current user auth
    *
    * @public
@@ -116,6 +106,10 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
+  public generateUserId(name: string, uid: string): string {
+    return name.replace(/\s/g, "").toLowerCase() + "-" + uid.substring(0, 5);
+  }
+
   /**
    * Register user to firebase auth
    *
@@ -123,7 +117,7 @@ export class AuthService {
    * @param {IUserRegister} data user register data
    * @returns {Promise<IUserRegister>} user register
    */
-  public async register(data: IUserRegister): Promise<IUser> {
+  public async register(data: IUserRegister): Promise<void> {
     // Create user with firebase auth
     const { user } = await createUserWithEmailAndPassword(
       this.auth,
@@ -134,17 +128,17 @@ export class AuthService {
     await Promise.all([
       this.sendVerificationMail(user),
       this.userService.create({
-        id: user.uid,
-        userId: this.userService.generateUserId(data.displayName),
-        displayName: data.displayName,
-        role: IUserRole.VISITOR,
-        photoURL: null,
-        backgroundPhotoURL: null,
-        description: null,
+        document: {
+          userId: this.generateUserId(data.displayName, user.uid),
+          displayName: data.displayName,
+          role: IUserRole.VISITOR,
+          photoURL: null,
+          backgroundPhotoURL: null,
+          description: null,
+        },
+        uid: user.uid,
       }),
     ]);
-    [this.currentUser] = await this.userService.retrieveById([user.uid]);
-    return this.currentUser;
   }
 
   /**

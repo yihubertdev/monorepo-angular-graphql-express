@@ -72,32 +72,18 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return this._userCache.get();
   }
 
-  public override async update(document: Partial<IUser> & { id: string }) {
-    super.update(document);
+  public override async update({
+    document,
+    uid,
+  }: {
+    document: Partial<IUser>;
+    uid: string;
+  }) {
+    super.update({
+      document,
+      uid,
+    });
     this._userCache.delete();
-  }
-
-  /**
-   * Retrieve user with verfied email
-   *
-   * @public
-   * @param {string} uId list limit number of user
-   * @returns {Promise<IUser[]>} user
-   */
-  public async listUserWithCache(uId: string): Promise<IUser> {
-    let cache = this._userCache.get();
-    let cachedUser = cache?.find((u) => u.id == uId);
-    if (cachedUser) {
-      return cachedUser;
-    }
-
-    const user = await this.retrieveByUId(uId);
-    if (!user) {
-      throw Error("User not exist");
-    }
-    cache = cache ? [...cache, user] : [user];
-    this._userCache.update(cache);
-    return user;
   }
 
   /**
@@ -142,9 +128,9 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return data;
   };
 
-  public override create(document: IUser) {
-    this.collection.doc(document.id).set(document);
-    return document.id;
+  public override create({ document, uid }: { document: IUser; uid: string }) {
+    this.collection.doc(uid).set(document);
+    return uid;
   }
 
   public async retrieveSubCollection<K>(filter: {

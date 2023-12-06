@@ -66,10 +66,10 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     super.delete(id);
   }
 
-  public override create(document: IPost): string {
+  public override create({ document }: { document: IPost }): string {
     this._userPageCache.delete(document.userId);
     this._homePageCache.delete();
-    return super.create(document);
+    return super.create({ document });
   }
 
   public async listUserPagePostCache(

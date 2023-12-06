@@ -177,9 +177,11 @@ export class PostCardComponent {
       }
       case "pin": {
         if (this.postCardInfo) {
-          this._PostService.update({
-            pin: true,
-            id: this.postCardInfo.id,
+          this._PostService.updateByUserId({
+            userId: this.postCardInfo!.userId,
+            document: {
+              pin: true,
+            },
           });
         }
         break;

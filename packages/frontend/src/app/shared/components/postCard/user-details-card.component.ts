@@ -98,8 +98,10 @@ export class UserDetailCardComponent implements OnChanges {
         break;
       case SETTING_CATEGORY.BIOGRAPHY:
         this._userService.update({
-          id: user.uid,
-          description: value.biography,
+          document: {
+            description: value.biography,
+          },
+          uid: user.uid,
         });
 
         break;

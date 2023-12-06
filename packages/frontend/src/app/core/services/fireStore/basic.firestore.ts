@@ -110,14 +110,19 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document create document
    * @returns {Promise<void>}
    */
-  public create(document: T): string {
-    const id = uuidv4();
-    this.collection.doc(id).set({
+  public create({
+    document,
+    uid = uuidv4(),
+  }: {
+    document: T;
+    uid?: string;
+  }): string {
+    this.collection.doc(uid).set({
       ...document,
       createdAt: new Date().getTime(),
       updatedAt: new Date().getTime(),
     });
-    return id;
+    return uid;
   }
 
   /**
@@ -127,8 +132,28 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document update document
    * @returns {void}
    */
-  public update(document: Partial<T> & { id: string }): void {
-    this.collection.doc(document.id).update(document);
+  public update({
+    document,
+    uid,
+  }: {
+    document: Partial<T>;
+    uid: string;
+  }): void {
+    this.collection.doc(uid).update(document);
+  }
+
+  public async updateByUserId({
+    document,
+    userId,
+  }: {
+    document: Partial<T>;
+    userId: string;
+  }): Promise<void> {
+    const collectionRef = await this.collection.ref
+      .where("userId", "==", userId)
+      .get();
+
+    collectionRef.docs.forEach((doc) => doc.ref.update(document));
   }
 
   /**
@@ -218,19 +243,6 @@ export abstract class FireStoreBaseModel<T> {
       hasFile: this.lastQueryDocumentSnapshot ? true : false,
     };
   };
-
-  /**
-   * Generate user Id
-   *
-   * @public
-   * @param {string} name delete document
-   * @returns {string} user id
-   */
-  public generateUserId(name: string): string {
-    return (
-      name.replace(/\s/g, "").toLowerCase() + "-" + uuidv4().substring(0, 5)
-    );
-  }
 
   private buildSubCollectionHandler<K extends DocumentData>(
     queries: CollectionReference<K>,

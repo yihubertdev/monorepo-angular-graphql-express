@@ -227,7 +227,6 @@ export interface INestedMenu extends IMenu {
 }
 
 export interface IUser {
-  id: string;
   userId: string;
   displayName: string;
   photoURL: string | null;

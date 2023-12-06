@@ -7,6 +7,7 @@ import {
   SNACKBAR_ERROR,
   IFormInput,
   IPost,
+  IUser,
 } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
@@ -16,6 +17,7 @@ import { PostFireStore as PostService } from "../../core/services/fireStore/blog
 import { HttpClientModule } from "@angular/common/http";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { MatDialogModule } from "@angular/material/dialog";
+import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 
 @Component({
   standalone: true,
@@ -46,24 +48,12 @@ export class EditArticleController {
     private _router: Router,
     private _articleFireStore: ArticleFireStore,
     private _postService: PostService,
-    private authService: AuthService,
-    private _snackBar: MatSnackBar
+    private _sessionStorage: SessionStorageService
   ) {}
 
   public save = async (formValue: Record<string, string | number>) => {
     // Get current login user
-    const currentUser = this.authService.get();
-    if (!currentUser) {
-      this.loading = false;
-      this._snackBar.open(
-        SNACKBAR_ERROR.USER_LOGIN_ERROR,
-        SNACKBAR_ACTION.POP_UP_ACTION,
-        {
-          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
-        }
-      );
-      return;
-    }
+    const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
     const { title, subTitle, description, quillEditor } = formValue;
 
     this.loading = false;
@@ -75,10 +65,10 @@ export class EditArticleController {
       userId: currentUser.userId,
     } as IArticle;
 
-    try {
-      const articleId = await this._articleFireStore.create(newArticle);
+    const articleId = this._articleFireStore.create({ document: newArticle });
 
-      await this._postService.create({
+    this._postService.create({
+      document: {
         userId: currentUser.userId,
         displayName: currentUser.displayName,
         photoURL: currentUser.photoURL,
@@ -89,21 +79,8 @@ export class EditArticleController {
           title: title,
           url: "/home/article/" + articleId,
         },
-      } as unknown as IPost);
-      this._router.navigate(["home", "posts"]);
-    } catch (err) {
-      console.log(err);
-      this._snackBar.open(
-        SNACKBAR_ERROR.ADD_BLOG_ERROR,
-        SNACKBAR_ACTION.POP_UP_ACTION,
-        {
-          duration: SNACKBAR_ACTION.POP_UP_DISMISS_DURATION as number,
-          horizontalPosition: "center",
-          verticalPosition: "top",
-        }
-      );
-      this.loading = false;
-      return;
-    }
+      } as unknown as IPost,
+    });
+    this._router.navigate(["home", "posts"]);
   };
 }

@@ -127,7 +127,10 @@ export class UserProfileController implements OnInit {
     this.uploadBackgroundImage.nativeElement.value = "";
     dialogRef.afterClosed().subscribe(async (data: Blob) => {
       if (!data) return;
-      await this.profileStorage.uploadBackgroundImage(data);
+      await this.profileStorage.uploadBackgroundImage(
+        data,
+        this.currentUser!.userId
+      );
       throw new Error("sd");
     });
 
