@@ -235,6 +235,10 @@ export interface IUser {
   role: IUserRole;
 }
 
+export interface IUserFull extends IUser {
+  uid: string;
+}
+
 export interface IUserRegister {
   email: string;
   password: string;

@@ -2,6 +2,7 @@ import { Directive, Input, OnInit } from "@angular/core";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { MatDrawer } from "@angular/material/sidenav";
 import { map } from "rxjs";
+import { MatStepper } from "@angular/material/stepper";
 
 export interface OpenedStatus {
   xs: boolean;
@@ -53,6 +54,49 @@ export class MatDrawerOpenDirective implements OnInit {
         }
         if (breakpoints[Breakpoints.XLarge]) {
           this.matDrawerElement.opened = this.attrOpenedStatus.xl;
+        }
+      });
+  }
+}
+
+@Directive({
+  standalone: true,
+  selector: "[responsiveStepper]",
+})
+export class ResponsiveStepperDirective implements OnInit {
+  public constructor(
+    private matStepper: MatStepper,
+    private breakpointObserver: BreakpointObserver
+  ) {}
+
+  public ngOnInit(): void {
+    this.breakpointObserver
+      .observe([
+        Breakpoints.XSmall,
+        Breakpoints.Small,
+        Breakpoints.Medium,
+        Breakpoints.Large,
+        Breakpoints.XLarge,
+      ])
+      .pipe(map((result) => result.breakpoints))
+      .subscribe((breakpoints) => {
+        switch (true) {
+          case breakpoints[Breakpoints.Medium]:
+          case breakpoints[Breakpoints.Small]:
+          case breakpoints[Breakpoints.XSmall]: {
+            this.matStepper.orientation = "vertical";
+            break;
+          }
+
+          case breakpoints[Breakpoints.Large]:
+          case breakpoints[Breakpoints.XLarge]: {
+            this.matStepper.orientation = "horizontal";
+            break;
+          }
+
+          default: {
+            break;
+          }
         }
       });
   }

@@ -8,6 +8,7 @@ import {
   Auth,
   UserCredential,
   signInWithPopup,
+  user,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
 import { IUser, IUserRegister, IUserRole } from "sources-types";
@@ -37,14 +38,15 @@ export class AuthService {
     this.userAuthObserver$ = this._userAuth.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
+      this._userAuth.next(user);
       let sessionUser = this._sessionStorage.getSessionStorage<IUser>("user");
+      if (!user && !sessionUser) {
+        return this._sessionStorage.deleteSessionStorage("user");
+      }
+
       if (user && !sessionUser) {
-        this._userAuth.next(user);
-        sessionUser = await this.userService.retrieveByUId(user.uid);
-        this._sessionStorage.setSessionStorage("user", sessionUser);
-      } else if (!user && !sessionUser) {
-        this._userAuth.next(user);
-        this._sessionStorage.deleteSessionStorage("user");
+        sessionUser = await this.userService.listUserByUserIdWithUId(user.uid);
+        return this._sessionStorage.setSessionStorage("user", sessionUser);
       }
     });
 
@@ -110,6 +112,11 @@ export class AuthService {
     return name.replace(/\s/g, "").toLowerCase() + "-" + uid.substring(0, 5);
   }
 
+  public isUserVerified(userAuth: User | null) {
+    if (!userAuth) return false;
+    return Boolean(userAuth.emailVerified);
+  }
+
   /**
    * Register user to firebase auth
    *
@@ -172,13 +179,12 @@ export class AuthService {
    * @param {User} user user
    * @returns {Promise<void>}
    */
-  private async sendVerificationMail(user: User): Promise<void> {
+  public async sendVerificationMail(user: User): Promise<void> {
     const actionCodeSettings: ActionCodeSettings = {
-      url: "http://localhost:4200/",
-      handleCodeInApp: true,
+      url: "https://hubert-blog.web.app/",
     };
 
-    const result = await sendEmailVerification(user, actionCodeSettings);
+    await sendEmailVerification(user, actionCodeSettings);
   }
 
   /**

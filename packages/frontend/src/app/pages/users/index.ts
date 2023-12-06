@@ -2,6 +2,7 @@ import { Routes } from "@angular/router";
 import {
   isUserLogin,
   isUserLoginToUser,
+  isUserVerified,
 } from "../../core/services/routeGuard/index.guard";
 import {
   loggedUserProfileResolver,
@@ -17,7 +18,7 @@ export default [
   },
   {
     path: "settings",
-    canActivate: [isUserLogin],
+    canActivate: [isUserLogin, isUserVerified],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./settings.view"),
     loadChildren: () => import("../settings").then((router) => router.route),

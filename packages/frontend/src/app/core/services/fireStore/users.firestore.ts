@@ -49,14 +49,15 @@ export class UserService extends FireStoreBaseModel<IUser> {
    * @param {number} [limit] list limit number of user
    * @returns {Promise<IUser[]>} user
    */
-  public async listUsersWithCache(limit?: number): Promise<IUser[]> {
+  public async listUsersWithCache(limit: number): Promise<IUser[]> {
     const cache = this._userCache.get();
 
     if (cache) {
       return cache;
     }
-    const users = await this.retrieveAll(limit);
+    const result = await this.collection.ref.limit(limit).get();
 
+    const users = result.docs.map((data) => ({ ...data.data(), uid: data.id }));
     this._userCache.update(users);
 
     return users;
@@ -101,10 +102,35 @@ export class UserService extends FireStoreBaseModel<IUser> {
       return cachedUser;
     }
 
-    const [user] = await this.retrieveById([userId]);
-    if (!user) {
+    const result = await this.collection.ref
+      .where("userId", "==", userId)
+      .get();
+
+    const [data] = result.docs;
+    if (!data) {
       throw Error("User not exist");
     }
+    const user = { ...data.data(), uid: data.id };
+
+    cache = cache ? [...cache, user] : [user];
+    this._userCache.update(cache);
+    return user;
+  }
+
+  public async listUserByUserIdWithUId(uid: string): Promise<IUser> {
+    let cache = this._userCache.get();
+
+    let cachedUser = cache?.find((u) => u.uid == uid);
+    if (cachedUser) {
+      return cachedUser;
+    }
+
+    const data = await super.retrieveByUId(uid);
+    if (!data) {
+      throw Error("User not exist");
+    }
+    const user = { ...data, uid };
+
     cache = cache ? [...cache, user] : [user];
     this._userCache.update(cache);
     return user;

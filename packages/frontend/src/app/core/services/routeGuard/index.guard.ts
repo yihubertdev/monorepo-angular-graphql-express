@@ -11,7 +11,6 @@ import { SITE_ROUTE_PAGE } from "../../static/menu.static";
 import { AuthService } from "../fireAuth/auth";
 
 export const isUserLogin: CanActivateFn = () => {
-  console.log(inject(SessionStorageService).getAllSessionStorage().length);
   return Boolean(
     inject(SessionStorageService).getAllSessionStorage().length
       ? true
@@ -40,3 +39,20 @@ export const isUserLoginToUser: CanActivateFn = () =>
   Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
     ? inject(Router).navigate(SITE_ROUTE_PAGE.SETTINGS)
     : true;
+
+export const isUserVerified: CanActivateFn = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const authService = inject(AuthService);
+  const user = authService.getAuth();
+  if (!user) {
+    return false;
+  }
+
+  if (!authService.isUserVerified(user)) {
+    return inject(Router).navigate(["users", "profile-signup"]);
+  }
+
+  return true;
+};

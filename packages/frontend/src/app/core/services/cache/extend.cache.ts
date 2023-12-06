@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FireStoreCacheService } from "./basic.cache";
-import { CACHE_KEY, IPost, IUser } from "sources-types";
+import { CACHE_KEY, IPost, IUser, IUserFull } from "sources-types";
 
 @Injectable({ providedIn: "root" })
 export class HomePagePostCache extends FireStoreCacheService<
@@ -25,6 +25,6 @@ export class UserPagePostCache extends FireStoreCacheService<
 }
 
 @Injectable({ providedIn: "root" })
-export class UserCache extends FireStoreCacheService<IUser[], void> {
+export class UserCache extends FireStoreCacheService<IUserFull[], void> {
   key: string = CACHE_KEY.USER_INFO;
 }

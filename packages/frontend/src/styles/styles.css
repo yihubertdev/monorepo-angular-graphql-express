@@ -177,6 +177,6 @@ body {
   background-position: center;
 }
 
-.mdc-text-field--filled:not(.mdc-text-field--disabled) {
-  background-color: initial !important;
+.mat-mdc-text-field-wrapper {
+  width: 98% !important;
 }

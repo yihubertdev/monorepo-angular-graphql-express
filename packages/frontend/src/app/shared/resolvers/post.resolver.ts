@@ -53,6 +53,5 @@ export const loggedUserProfileResolver: ResolveFn<IUser> = async (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  console.log(inject(SessionStorageService).getSessionStorage<IUser>("user"));
   return inject(SessionStorageService).getSessionStorage<IUser>("user")!;
 };
