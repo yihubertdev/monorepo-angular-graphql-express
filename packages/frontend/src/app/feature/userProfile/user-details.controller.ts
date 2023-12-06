@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 import { MatTabsModule } from "@angular/material/tabs";
 import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
-import { homeAdressSchema } from "../../core/joiSchema/auth.schema";
 import {
   IUserDetailCard,
   UserDetailCardComponent,
@@ -42,13 +41,6 @@ export class UserDetailsController implements OnInit {
     title: string;
     details: IUserDetailCard[];
   }[];
-  public addProfileSection = [
-    {
-      title: "Home Address",
-      formList: HOME_ADDRESS_PROFILE,
-      formSchema: homeAdressSchema,
-    },
-  ];
   public info!: {
     data: IProfileHomeAddress[];
     user: QueryDocumentSnapshot<IUser>;

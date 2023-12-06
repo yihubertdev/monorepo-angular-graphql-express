@@ -114,7 +114,6 @@ export abstract class FireStoreBaseModel<T> {
     const id = uuidv4();
     this.collection.doc(id).set({
       ...document,
-      id,
       createdAt: new Date().getTime(),
       updatedAt: new Date().getTime(),
     });
@@ -224,12 +223,13 @@ export abstract class FireStoreBaseModel<T> {
    * Generate user Id
    *
    * @public
-   * @param {string} userId delete document
    * @param {string} name delete document
    * @returns {string} user id
    */
-  public generateUserId(userId: string, name: string): string {
-    return name.replace(/\s/g, "").toLowerCase() + "-" + userId.substring(0, 5);
+  public generateUserId(name: string): string {
+    return (
+      name.replace(/\s/g, "").toLowerCase() + "-" + uuidv4().substring(0, 5)
+    );
   }
 
   private buildSubCollectionHandler<K extends DocumentData>(

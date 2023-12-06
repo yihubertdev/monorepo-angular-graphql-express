@@ -230,10 +230,6 @@ export interface IUser {
   id: string;
   userId: string;
   displayName: string;
-  email: string | null;
-  emailVerified: boolean;
-  isAnonymous: boolean;
-  phoneNumber: string | null;
   photoURL: string | null;
   description: string | null;
   backgroundPhotoURL: string | null;

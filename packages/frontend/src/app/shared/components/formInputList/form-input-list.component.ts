@@ -27,7 +27,6 @@ import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
-import { FormFileStorageService } from "src/app/core/services/fireStorage/form-file.bucket";
 import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploaderComponent } from "./document-uploader.component";
@@ -58,40 +57,59 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
   selector: "form-input-list-component",
   template: `
     <form [formGroup]="newForm">
-      <mat-form-field
-        [ngClass]="
-          'col-xl-' +
-          columns.xl +
-          ' col-lg-' +
-          columns.lg +
-          ' col-md-' +
-          columns.md +
-          ' col-sm-' +
-          columns.sm +
-          ' col-' +
-          columns.xs
-        "
-        appearance="fill"
-        *ngFor="let input of formInputList">
-        <ng-container
+      <ng-container *ngFor="let input of formInputList">
+        <mat-form-field
           *ngIf="
             input.type === 'text' ||
             input.type === 'email' ||
             input.type === 'password' ||
             input.type === 'number'
-          ">
+          "
+          class="mb-4"
+          [ngClass]="
+            'col-xl-' +
+            columns.xl +
+            ' col-lg-' +
+            columns.lg +
+            ' col-md-' +
+            columns.md +
+            ' col-sm-' +
+            columns.sm +
+            ' col-' +
+            columns.xs
+          "
+          floatLabel="always"
+          appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
             [type]="input.type"
             matInput
             [formControlName]="input.key"
             autocomplete="on" />
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>Hint</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
-        </ng-container>
+        </mat-form-field>
 
-        <ng-container *ngIf="input.type === 'date'">
+        <mat-form-field
+          *ngIf="input.type === 'date'"
+          class="mb-4"
+          [ngClass]="
+            'col-xl-' +
+            columns.xl +
+            ' col-lg-' +
+            columns.lg +
+            ' col-md-' +
+            columns.md +
+            ' col-sm-' +
+            columns.sm +
+            ' col-' +
+            columns.xs
+          "
+          floatLabel="always"
+          appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
             matInput
@@ -105,9 +123,25 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
-        </ng-container>
+        </mat-form-field>
 
-        <ng-container *ngIf="input.type === 'select'">
+        <mat-form-field
+          *ngIf="input.type === 'select'"
+          class="mb-4"
+          [ngClass]="
+            'col-xl-' +
+            columns.xl +
+            ' col-lg-' +
+            columns.lg +
+            ' col-md-' +
+            columns.md +
+            ' col-sm-' +
+            columns.sm +
+            ' col-' +
+            columns.xs
+          "
+          floatLabel="always"
+          appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <mat-select [formControlName]="input.key">
             <mat-option
@@ -119,9 +153,25 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
-        </ng-container>
+        </mat-form-field>
 
-        <ng-container *ngIf="input.type === 'textarea'">
+        <mat-form-field
+          *ngIf="input.type === 'textarea'"
+          class="mb-4"
+          [ngClass]="
+            'col-xl-' +
+            columns.xl +
+            ' col-lg-' +
+            columns.lg +
+            ' col-md-' +
+            columns.md +
+            ' col-sm-' +
+            columns.sm +
+            ' col-' +
+            columns.xs
+          "
+          floatLabel="always"
+          appearance="outline">
           <mat-label *ngIf="input.label">{{ input.label }}</mat-label>
           <textarea
             matInput
@@ -132,9 +182,25 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
-        </ng-container>
+        </mat-form-field>
 
-        <ng-container *ngIf="input.type === 'file'">
+        <mat-form-field
+          *ngIf="input.type === 'file'"
+          class="mb-4"
+          [ngClass]="
+            'col-xl-' +
+            columns.xl +
+            ' col-lg-' +
+            columns.lg +
+            ' col-md-' +
+            columns.md +
+            ' col-sm-' +
+            columns.sm +
+            ' col-' +
+            columns.xs
+          "
+          floatLabel="always"
+          appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
             style="display:none"
@@ -161,8 +227,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
-        </ng-container>
-      </mat-form-field>
+        </mat-form-field>
+      </ng-container>
     </form>
     <div
       *ngIf="haveEditor"

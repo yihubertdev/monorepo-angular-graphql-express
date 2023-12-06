@@ -66,11 +66,20 @@ export const accountSchema: JoiSchemaBuilder<IUserProfile> = (
   });
 };
 
-export const homeAdressSchema: JoiSchemaBuilder<IUserProfile> = (
+export const SIGNUP_PHONE_NUMBER: JoiSchemaBuilder<IUserProfile> = (
   data: IUserProfile,
   errorLocation?: string
 ): Joi.ObjectSchema => {
-  return Joi.object({});
+  return Joi.object({
+    phoneNumber: Joi.number()
+      .optional()
+      .messages({
+        "number.base": `'phone' should be a number, user input is ${String(
+          data.phone
+        )}`,
+        "number.empty": `'phone' should not be empty`,
+      }),
+  });
 };
 
 export const SETTINGS_SCHEMA_GENERATOR = (data: IFormUploaderInput[]) => {

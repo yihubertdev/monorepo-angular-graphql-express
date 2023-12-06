@@ -22,3 +22,46 @@
   -o-transition: bottom 0.5s ease;
   transition: bottom 0.5s ease;
 }
+
+.user-avatar-square {
+  border: 2px solid #fff;
+  box-shadow: 0 0 5px gray;
+}
+
+/* xs width */
+.user-avatar-size {
+  height: 15vw;
+  width: 15vw;
+}
+
+/* sm width */
+@media (min-width: 576px) {
+  .user-avatar-size {
+    height: 11vw;
+    width: 11vw;
+  }
+}
+
+/* md width */
+@media (min-width: 768px) {
+  .user-avatar-size {
+    height: 9vw;
+    width: 9vw;
+  }
+}
+
+/* lg width */
+@media (min-width: 992px) {
+  .user-avatar-size {
+    height: 8vw;
+    width: 8vw;
+  }
+}
+
+/* xl width */
+@media (min-width: 1200px) {
+  .user-avatar-size {
+    height: 5vw;
+    width: 5vw;
+  }
+}

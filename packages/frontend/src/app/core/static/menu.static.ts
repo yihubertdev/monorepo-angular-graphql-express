@@ -8,7 +8,7 @@ export const SITE_ROUTE_PAGE = {
   USERS_POSTS: ["users", "_", "posts"],
   MY_POSTS: ["users", "me", "posts"],
   USERS_PROFILE: ["users", "_", "profile"],
-  My_PROFILE: ["users", "me", "profile"],
+  My_PROFILE: ["users", "profile", "me", "posts"],
   LOGIN: ["home", "login"],
   SIGNUP: ["users", "signup"],
   PAYMENT: ["payment"],
@@ -62,8 +62,20 @@ export const DRAWER_MENU: IMenu[] = [
   },
   {
     link: SITE_ROUTE_PAGE.My_PROFILE,
-    description: "NETWORK",
+    description: "PROFILE",
     iconName: "groups",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.ADD_POST,
+    description: "NETWORK POST",
+    iconName: "post_add",
+    width: "50px",
+  },
+  {
+    link: SITE_ROUTE_PAGE.ADD_ARTICLE,
+    description: "NETWORK ARTICLE",
+    iconName: "feed",
     width: "50px",
   },
 ];

@@ -34,7 +34,7 @@ export default [
   {
     path: "profile-signup",
     canActivate: [isUserLogin],
-    resolve: { user: userProfileResolver },
+    resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./profile-sign-up.view"),
   },
   {

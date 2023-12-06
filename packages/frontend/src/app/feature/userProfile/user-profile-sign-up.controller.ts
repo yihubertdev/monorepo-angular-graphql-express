@@ -9,12 +9,7 @@ import { Observable, map } from "rxjs";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { AsyncPipe, NgFor } from "@angular/common";
 import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
-import {
-  EMPLOYMENT,
-  HOME_ADDRESS_PROFILE,
-  IStepper,
-} from "src/app/core/static/auth.static";
-import { homeAdressSchema } from "src/app/core/joiSchema/auth.schema";
+import { IStepper, SIGNUP_STEPPERS } from "src/app/core/static/auth.static";
 import { IUser } from "sources-types";
 import { ActivatedRoute, Router } from "@angular/router";
 
@@ -30,41 +25,28 @@ import { ActivatedRoute, Router } from "@angular/router";
   selector: "user-profile-sign-up-controller",
   template: `
     <mat-stepper
+      style="height: 100dvh;"
       #stepper
       [orientation]="(stepperOrientation | async)!">
       <mat-step *ngFor="let stepper of steppers; index as i">
         <ng-template matStepLabel>{{ stepper.label }}</ng-template>
-        <h2>{{ stepper.title }}</h2>
-        <p>{{ stepper.subTitle }}</p>
+        <h2 class="mt-4 mb-4">{{ stepper.title }}</h2>
+        <h5 class="mt-4 mb-4">{{ stepper.subTitle }}</h5>
+        <br />
         <form-input-list-component
           [formInputList]="stepper.formInput"
           errorLocation="AuthModule.YourAccountController"
           [validatorSchema]="stepper.formValidate"
           buttonName="Next"
-          (formValue)="save($event, i)"></form-input-list-component
-      ></mat-step>
+          (formValue)="save($event, i)"></form-input-list-component>
+      </mat-step>
     </mat-stepper>
   `,
   styleUrls: ["./user-profile.style.css"],
 })
 export class UserProfileSignUpController {
   @ViewChild("stepper") private myStepper!: MatStepper;
-  public steppers: IStepper = [
-    {
-      label: "Fill out your address",
-      title: "Welcome, What's your location ?",
-      subTitle: "Build your business connection in your local area",
-      formInput: HOME_ADDRESS_PROFILE,
-      formValidate: homeAdressSchema,
-    },
-    {
-      label: "Fill out your employment",
-      title: "What's your latest employment",
-      subTitle: "Your profile helps you discover new opportunities",
-      formInput: EMPLOYMENT,
-      formValidate: homeAdressSchema,
-    },
-  ];
+  public steppers: IStepper = SIGNUP_STEPPERS;
   public stepperOrientation: Observable<StepperOrientation>;
   public currentUser?: IUser;
 

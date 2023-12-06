@@ -36,44 +36,28 @@ export const userSignUpSchema: JoiSchemaBuilder<IUserSignUpForm> = (
   errorLocation?: string
 ): Joi.ObjectSchema => {
   return Joi.object({
-    displayName: Joi.string()
-      .required()
-      .messages({
-        "string.base": `'username' should be a type of 'string', user input is ${String(
-          data.displayName
-        )}`,
-        "string.empty": `Please enter your name`,
-      }),
+    displayName: Joi.string().required().messages({
+      "string.base": `'username' should be a type of 'string'`,
+      "string.empty": `Please enter your name`,
+    }),
     email: Joi.string()
       .required()
       .regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
       .messages({
-        "string.base": `'email' should be a type of 'string', user input is ${String(
-          data.email
-        )}`,
-        "object.regex": `'email' should follow email pattern, user input is ${String(
-          data.email
-        )}`,
-        "string.pattern.base": `'email' should follow email pattern, user input is ${String(
-          data.email
-        )}`,
+        "string.base": `'email' should be a type of 'string'`,
+        "object.regex": `'email' should follow email pattern`,
+        "string.pattern.base": `'email' should follow email pattern`,
         "string.empty": `Please enter your email.`,
       }),
-    password: Joi.string()
-      .required()
-      .messages({
-        "string.base": `password should be a type of 'string', user input is ${String(
-          data.password
-        )}`,
-        "string.empty": `Please enter your password.`,
-      }),
+    password: Joi.string().required().messages({
+      "string.base": `password should be a type of 'string'`,
+      "string.empty": `Please enter your password.`,
+    }),
     repeatPassword: Joi.string()
       .required()
       .valid(Joi.ref("password"))
       .messages({
-        "string.base": `password should be a type of 'string', user input is ${String(
-          data.repeatPassword
-        )}`,
+        "string.base": `password should be a type of 'string'`,
         "any.only": "Password and repeat password must be equal",
         "string.empty": `Please enter your password.`,
       }),

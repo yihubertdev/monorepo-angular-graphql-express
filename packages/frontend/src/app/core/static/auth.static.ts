@@ -10,6 +10,7 @@ import { JoiSchemaBuilder } from "../utils/validator";
 import {
   PDF_FILE_SCHEMA,
   SETTINGS_SCHEMA_GENERATOR,
+  SIGNUP_PHONE_NUMBER,
 } from "../joiSchema/auth.schema";
 import * as Joi from "joi";
 
@@ -1102,6 +1103,41 @@ export const EMPLOYMENT: IFormInput[] = [
     value: "",
     placeholder: "",
     selection: [EMPLOYMENT_TYPE.PERMANENT_FULL_TIME],
+  },
+];
+
+export const SIGNUP_STEPPERS = [
+  {
+    label: "Verify Your Email",
+    title: "Your Email is not yet verified.",
+    subTitle: "Verify your email to log in",
+    formInput: [
+      {
+        id: "phoneNumber",
+        type: INPUT_TYPE.TEXT,
+        label: "Your Phone Number",
+        key: "phoneNumber",
+        value: "",
+        placeholder: "",
+      },
+    ],
+    formValidate: SIGNUP_PHONE_NUMBER,
+  },
+  {
+    label: "Fill out your employment",
+    title: "What's your latest employment",
+    subTitle: "Your profile helps you discover new opportunities",
+    formInput: [
+      {
+        id: "phoneNumber",
+        type: INPUT_TYPE.TEXT,
+        label: "Your Phone Number",
+        key: "phoneNumber",
+        value: "",
+        placeholder: "",
+      },
+    ],
+    formValidate: SIGNUP_PHONE_NUMBER,
   },
 ];
 

@@ -60,6 +60,34 @@ async function getPost(
 }
 
 /**
+ * Get user by different filter
+ * @param {string} [filter.userId]
+ */
+async function getAllUsers(
+  filter: {
+    userId?: string;
+    email?: string;
+  },
+  fireStoreClient?: FirebaseFirestore.Firestore
+): Promise<QueryDocumentSnapshot<IUser>[]> {
+  const { userId, email } = filter;
+  const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
+
+  let query: FirebaseFirestore.Query = fireStore.collection("users");
+  if (userId) {
+    query = query.where("userId", "==", userId);
+  }
+
+  if (email) {
+    query = query.where("email", "==", email);
+  }
+
+  const posts = (await query.get()).docs;
+
+  return posts as QueryDocumentSnapshot<IUser>[];
+}
+
+/**
  * Verify user firebase auth
  * @param {string} token User firebase auth token
  * @returns {Promise<DecodedIdToken>}
@@ -74,5 +102,6 @@ async function verifyFromFirebaseAuth(token: string): Promise<DecodedIdToken> {
 export const users = {
   verifyFromFirebaseAuth,
   get,
-  getPost
+  getPost,
+  getAllUsers,
 };

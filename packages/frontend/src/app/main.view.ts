@@ -48,7 +48,7 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
   template: `
     <mat-toolbar class="mat-toolbar-responsive">
       <button
-        *ngIf="hasUser"
+        *ngIf="userInfo"
         mat-icon-button
         (click)="opened = !opened">
         <mat-icon>menu</mat-icon>
@@ -64,7 +64,7 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
     <!-- desktop: 90dvh mobile: 100dvh -->
     <mat-drawer-container>
       <mat-drawer
-        *ngIf="hasUser"
+        *ngIf="userInfo"
         [(opened)]="opened"
         #drawer
         mode="side"
@@ -76,7 +76,8 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
           xl: true
         }"
         [ngStyle]="{ width: '18dvw' }">
-        <drawer-menu-controller></drawer-menu-controller
+        <drawer-menu-controller
+          [currentUser]="userInfo"></drawer-menu-controller
       ></mat-drawer>
       <!-- mat-drawer-content overflow default is auto, scrollable-->
       <!-- mat-drawer-content desktop width 88dvw, mobile width 100 dvw -->
@@ -90,7 +91,7 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
 })
 export class MainView implements OnInit {
   public opened: boolean = false;
-  public hasUser: User | null = null;
+  public userInfo: User | null = null;
   public isLoading: boolean = false;
 
   constructor(
@@ -125,7 +126,7 @@ export class MainView implements OnInit {
 
   ngOnInit(): void {
     this._auth.userAuthObserver$.subscribe((user) => {
-      this.hasUser = user;
+      this.userInfo = user;
     });
     // this._firebaseMessaging.requestToken();
   }
