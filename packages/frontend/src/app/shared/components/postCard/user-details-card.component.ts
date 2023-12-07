@@ -53,7 +53,8 @@ export interface IUserDetailCard {
           errorLocation="AuthModule.YourAccountController"
           [validatorSchema]="formSchema"
           buttonName="Save"
-          (formValue)="save($event)"></form-input-list-component>
+          (formValue)="save($event)"
+          [loading]="loading"></form-input-list-component>
       </mat-card-content>
     </mat-card>`,
 })
@@ -67,6 +68,7 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) formSchema!: JoiSchemaBuilder<any>;
   @Input({ required: true }) noEdit?: boolean;
 
+  public loading: boolean = false;
   columns = {
     xs: 12,
     sm: 12,
@@ -87,6 +89,7 @@ export class UserDetailCardComponent implements OnChanges {
   }
 
   save(value: any) {
+    this.loading = true;
     const user = this._authService.getAuth();
     if (!user) return;
     switch (this.category) {
@@ -115,7 +118,7 @@ export class UserDetailCardComponent implements OnChanges {
         });
         break;
     }
-
+    this.loading = false;
     throw new Error("Networth saved successfully.");
   }
 

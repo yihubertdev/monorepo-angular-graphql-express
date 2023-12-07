@@ -259,7 +259,7 @@ export class FormInputListComponent implements OnInit {
   @Input({ required: true }) formInputList!: IFormUploaderInput[];
   @Input({ required: true }) validatorSchema!: JoiSchemaBuilder<any>;
   @Input() buttonName: string = "";
-  @Input() loading: boolean = false;
+  @Input({ required: true }) loading: boolean = false;
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
   @Output() documentUpload = new EventEmitter<string[]>();
