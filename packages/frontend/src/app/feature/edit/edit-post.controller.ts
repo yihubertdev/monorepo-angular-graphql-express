@@ -17,13 +17,14 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   providers: [AuthService],
   imports: [FormInputListComponent, HttpClientModule, MatSnackBarModule],
   selector: "edit-post-controller",
-  template: ` <form-input-list-component
-    [formInputList]="formInputList"
-    errorLocation="EditBlogView"
-    [validatorSchema]="blogEditSchema"
-    buttonName="Add Blog"
-    (formValue)="save($event)"
-    [loading]="loading"></form-input-list-component>`,
+  template: ` <h5 class="mt-4 mb-4">Share Yourself</h5>
+    <form-input-list-component
+      [formInputList]="formInputList"
+      errorLocation="EditBlogView"
+      [validatorSchema]="blogEditSchema"
+      buttonName="Add Blog"
+      (formValue)="save($event)"
+      [loading]="loading"></form-input-list-component>`,
 })
 export class EditPostController {
   formInputList: IFormInput[] = postEditFormList;

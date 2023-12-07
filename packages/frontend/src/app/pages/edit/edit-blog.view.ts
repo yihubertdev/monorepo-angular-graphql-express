@@ -7,10 +7,11 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
   imports: [CommonModule, EditPostController],
   template: `
     <div
-      class="container"
-      style="height: 100dvh">
-      <div class="row justify-content-center">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
+      class="container-fluid"
+      style="height: 100dvh;">
+      <div class="row">
+        <div
+          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
           <edit-post-controller></edit-post-controller>
         </div>
       </div>

@@ -115,7 +115,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             matInput
             [matDatepicker]="picker"
             [formControlName]="input.key" />
-          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>description</mat-hint>
           <mat-datepicker-toggle
             matIconSuffix
             [for]="picker"></mat-datepicker-toggle>
@@ -150,6 +151,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
               >{{ select }}</mat-option
             >
           </mat-select>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>description</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -179,6 +182,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             style="height: 20dvh;"
             [formControlName]="input.key"
             [mentionConfig]="'' | AddMentionUsers"></textarea>
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>description</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -223,7 +228,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             (documentUpload)="
               saveFile($event, input.key)
             "></document-uploader-component>
-
+          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+          <mat-hint>description</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
