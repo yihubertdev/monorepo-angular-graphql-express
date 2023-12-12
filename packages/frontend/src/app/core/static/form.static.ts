@@ -3,42 +3,250 @@ import {
   FILE_TYPE,
   IFormInput,
   INPUT_TYPE,
+  INumberFormInput,
+  ISelectFormInput,
+  ITextFormInput,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
 } from "sources-types";
 import { JoiSchemaBuilder } from "../utils/validator";
 import {
+  IMAGE_FILE_SCHEMA,
   PDF_FILE_SCHEMA,
   SETTINGS_SCHEMA_GENERATOR,
   SIGNUP_PHONE_NUMBER,
-} from "../joiSchema/auth.schema";
+} from "../joiSchema";
 import * as Joi from "joi";
 
-export const yourAccountFormList: IFormInput[] = [
+export interface IFileFormInput extends IFormInput {
+  value: string;
+  type: INPUT_TYPE.FILE;
+  documentPath: string;
+  documentCategory: string;
+  schema: Joi.ObjectSchema | Joi.ArraySchema;
+}
+
+export type IForm =
+  | ITextFormInput
+  | IFileFormInput
+  | ISelectFormInput
+  | INumberFormInput;
+
+export const POST_EDIT_FORM: IForm[] = [
+  {
+    id: "content",
+    type: INPUT_TYPE.TEXTAREA,
+    key: "content",
+    label: "Content",
+    value: "",
+    icon: "mail",
+    hint: "Register Your Email",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "video",
+    type: INPUT_TYPE.TEXT,
+    label: "Video Embed URL",
+    key: "video",
+    value: "",
+    icon: "mail",
+    hint: "Register Your Email",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "image",
+    type: INPUT_TYPE.FILE,
+    label: "Your Image",
+    key: "image",
+    value: "",
+    icon: "mail",
+    hint: "Register Your Email",
+    documentPath: "postImage",
+    documentCategory: "blog",
+    schema: IMAGE_FILE_SCHEMA({
+      type: [FILE_TYPE.JPEG, FILE_TYPE.GIF, FILE_TYPE.PNG],
+      name: "image",
+      size: 5242880,
+    }),
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+];
+
+export const EDIT_ARTICLE_FORM: IForm[] = [
+  {
+    id: "title",
+    type: INPUT_TYPE.TEXT,
+    label: "Blog Title",
+    key: "title",
+    value: "",
+    icon: "article",
+    hint: "Article Title",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "subTitle",
+    type: INPUT_TYPE.TEXT,
+    label: "Blog SubTitle",
+    key: "subTitle",
+    value: "",
+    icon: "article",
+    hint: "Article Sub-Title",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "description",
+    type: INPUT_TYPE.TEXTAREA,
+    label: "Blog Description",
+    key: "description",
+    value: "",
+    icon: "article",
+    hint: "Article Description",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+];
+
+export const USER_LOGIN_FORM: IForm[] = [
+  {
+    id: "email",
+    type: INPUT_TYPE.EMAIL,
+    label: "Your Email",
+    key: "email",
+    value: "",
+    icon: "mail",
+    hint: "Register Your Email",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "password",
+    type: INPUT_TYPE.PASSWROD,
+    label: "Your Password",
+    key: "password",
+    value: "",
+    icon: "key",
+    hint: "Enter Password",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+];
+
+export const PHONE_VERIFY: IForm[] = [
+  {
+    id: "verifyCode",
+    type: INPUT_TYPE.NUMBER,
+    label: "Verify Code",
+    key: "verifyCode",
+    value: 0,
+    hint: "Edit Name",
+    icon: "phone",
+    error: "",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+];
+
+export const USER_SIGNUP_FORM: IForm[] = [
   {
     id: "displayName",
     type: INPUT_TYPE.TEXT,
-    label: "Your Profile Name",
+    label: "Your Display Name",
     key: "displayName",
     value: "",
-    placeholder: "Edit your display name",
-    disabled: true,
-  },
-  {
-    id: "location",
-    type: INPUT_TYPE.TEXT,
-    label: "Your location",
-    key: "location",
-    value: "",
-    placeholder: "Edit your location",
+    hint: "Edit Name",
+    icon: "accessibility_new",
+    error: "",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "email",
-    type: INPUT_TYPE.TEXT,
-    label: "Email",
+    type: INPUT_TYPE.EMAIL,
+    label: "Your Email",
     key: "email",
     value: "",
-    placeholder: "Edit your email",
+    hint: "Edit Email",
+    icon: "mail",
+    error: "",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+  {
+    id: "area",
+    type: INPUT_TYPE.SELECT,
+    label: "Select Area",
+    key: "area",
+    value: [] as any,
+    hint: "Area",
+    icon: "dialpad",
+    selection: ["+1"],
+    column: {
+      xs: 2,
+      sm: 2,
+      md: 2,
+      lg: 2,
+      xl: 2,
+    },
   },
   {
     id: "phone",
@@ -46,28 +254,15 @@ export const yourAccountFormList: IFormInput[] = [
     label: "Your phone",
     key: "phone",
     value: "",
-    placeholder: "Edit phone",
-  },
-  {
-    id: "image",
-    type: INPUT_TYPE.UPLOAD,
-    label: "Your Image",
-    key: "image",
-    value: "",
-    placeholder: "Edit image",
-    documentPath: "postImage",
-    documentCategory: "blog",
-  },
-];
-
-export const userLoginFormList: IFormInput[] = [
-  {
-    id: "email",
-    type: INPUT_TYPE.EMAIL,
-    label: "Your Email",
-    key: "email",
-    value: "",
-    placeholder: "Enter Email",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
   },
   {
     id: "password",
@@ -75,37 +270,16 @@ export const userLoginFormList: IFormInput[] = [
     label: "Your Password",
     key: "password",
     value: "",
-    placeholder: "Enter Password",
-  },
-];
-
-export const userSignUpFormList: IFormInput[] = [
-  {
-    id: "displayName",
-    type: INPUT_TYPE.TEXT,
-    label: "Your Display Name",
-    key: "displayName",
-    value: "",
-    placeholder: "Edit Name",
+    hint: "Enter Password",
+    icon: "key",
     error: "",
-  },
-  {
-    id: "email",
-    type: INPUT_TYPE.EMAIL,
-    label: "Your Email",
-    key: "email",
-    value: "",
-    placeholder: "Enter Email",
-    error: "",
-  },
-  {
-    id: "password",
-    type: INPUT_TYPE.PASSWROD,
-    label: "Your Password",
-    key: "password",
-    value: "",
-    placeholder: "Enter Password",
-    error: "",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "repeatPassword",
@@ -113,72 +287,35 @@ export const userSignUpFormList: IFormInput[] = [
     label: "Repeat your Password",
     key: "repeatPassword",
     value: "",
-    placeholder: "Repeat password",
+    hint: "Enter Password",
+    icon: "key",
     error: "",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
 ];
 
-export const HOME_ADDRESS_PROFILE: IFormInput[] = [
-  {
-    id: "address_line_1",
-    type: INPUT_TYPE.TEXT,
-    label: "Address Line 1*",
-    key: "address_line_1",
-    value: "",
-    placeholder: "",
-  },
-  {
-    id: "address_line_2",
-    type: INPUT_TYPE.TEXT,
-    label: "Address Line 2",
-    key: "address_line_2",
-    value: "",
-    placeholder: "",
-  },
-  {
-    id: "city",
-    type: INPUT_TYPE.TEXT,
-    label: "City*",
-    key: "city",
-    value: "",
-    placeholder: "",
-  },
-  {
-    id: "postal_code",
-    type: INPUT_TYPE.TEXT,
-    label: "Postal Code",
-    key: "postal_code",
-    value: "",
-    placeholder: "",
-  },
-  {
-    id: "province",
-    type: INPUT_TYPE.SELECT,
-    label: "Select Province",
-    key: "province",
-    value: [] as any,
-    placeholder: "",
-    selection: ["Ontario"],
-  },
-  {
-    id: "province",
-    type: INPUT_TYPE.SELECT,
-    label: "Select Province",
-    key: "province",
-    value: [] as any,
-    placeholder: "",
-    selection: ["Ontario"],
-  },
-];
-
-export const ACCOUNT_INFO: IFormInput[] = [
+export const ACCOUNT_INFO: IForm[] = [
   {
     id: "displayName",
     type: INPUT_TYPE.TEXT,
     label: "Display Name",
     key: "displayName",
     value: "",
-    placeholder: "",
+    hint: "Account Name",
+    icon: "badge",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "userId",
@@ -186,8 +323,16 @@ export const ACCOUNT_INFO: IFormInput[] = [
     label: "User Id",
     key: "userId",
     value: "",
-    placeholder: "",
+    hint: "User Id",
+    icon: "badge",
     disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "email",
@@ -195,8 +340,16 @@ export const ACCOUNT_INFO: IFormInput[] = [
     label: "Email",
     key: "email",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
     disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "emailVerified",
@@ -204,8 +357,16 @@ export const ACCOUNT_INFO: IFormInput[] = [
     label: "Email Verified",
     key: "emailVerified",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
     disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "isAnonymous",
@@ -213,16 +374,32 @@ export const ACCOUNT_INFO: IFormInput[] = [
     label: "Registed",
     key: "isAnonymous",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
     disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "phoneNumber",
     type: INPUT_TYPE.NUMBER,
     label: "Phone Number",
     key: "phoneNumber",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "role",
@@ -230,60 +407,104 @@ export const ACCOUNT_INFO: IFormInput[] = [
     label: "Role",
     key: "role",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
     disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
 ];
 
-export const BIOGRAPHY_FORM: IFormInput[] = [
+export const BIOGRAPHY_FORM: IForm[] = [
   {
     id: "biography",
     type: INPUT_TYPE.TEXTAREA,
     label: "Biography",
     key: "biography",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
 ];
 
-export interface IFormUploaderInput extends IFormInput {
-  schema?: Joi.ObjectSchema | Joi.ArraySchema;
-}
-
-export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
+export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
   {
     id: "assetType",
     type: INPUT_TYPE.SELECT,
     label: "Asset Type",
     key: "assetType",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
     selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "financialInstitution",
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "currentBalance",
     type: INPUT_TYPE.NUMBER,
     label: "Current Balance",
     key: "currentBalance",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lastStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Statement",
     key: "lastStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "noticeOfAssessment",
     schema: PDF_FILE_SCHEMA({
@@ -294,18 +515,26 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IFormUploaderInput[] = [
   },
 ];
 
-export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
+export const TAX_RETURN_FORM: IForm[] = Array(3)
   .fill(0)
-  .map((item, index) => {
+  .map((item, index): IForm => {
     const currentYear = new Date().getFullYear();
 
     return {
       id: "taxReturn_" + (currentYear - index),
-      type: INPUT_TYPE.UPLOAD,
+      type: INPUT_TYPE.FILE,
       label: "Tax Return " + (currentYear - index),
       key: "taxReturn_" + (currentYear - index),
       value: "",
-      placeholder: "",
+      hint: "Email",
+      icon: "mail",
+      column: {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+      },
       documentPath: "net_worth",
       documentCategory: "tax_return",
       schema: PDF_FILE_SCHEMA({
@@ -316,14 +545,22 @@ export const TAX_RETURN_FORM: IFormUploaderInput[] = Array(3)
     };
   });
 
-export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
+export const HOME_ADDRESS_FORM: IForm[] = [
   {
     id: "addressLine1",
     type: INPUT_TYPE.TEXT,
     label: "Address Line 1",
     key: "addressLine1",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "addressLine2",
@@ -331,7 +568,15 @@ export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
     label: "Address Line 2",
     key: "addressLine2",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "city",
@@ -339,7 +584,15 @@ export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
     label: "Current Balance",
     key: "currentBalance",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "postalCode",
@@ -347,15 +600,31 @@ export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
     label: "Postal Code",
     key: "postalCode",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "province",
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["Ontario"],
   },
   {
@@ -363,20 +632,36 @@ export const HOME_ADDRESS_FORM: IFormUploaderInput[] = [
     type: INPUT_TYPE.SELECT,
     label: "Country",
     key: "country",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["Canada"],
   },
 ];
 
-export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
+export const MARKABLE_SECURITY_FORM: IForm[] = [
   {
     id: "financialInstitution",
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -385,7 +670,15 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
     label: "In Name Of",
     key: "inNameOf",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "pledgeAsCollateral",
@@ -393,15 +686,31 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "highestAssetAllocation",
     type: INPUT_TYPE.SELECT,
     label: "Highest Asset Allocation",
     key: "highestAssetAllocation",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -410,15 +719,31 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
     label: "Market Value",
     key: "marketValue",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lender",
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -426,24 +751,48 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
     type: INPUT_TYPE.NUMBER,
     label: "Loan Balance",
     key: "loanBalance",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyPayment",
     type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lastSecurityStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastSecurityStatement",
     schema: PDF_FILE_SCHEMA({
@@ -454,11 +803,19 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
   },
   {
     id: "lastLoanStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastLoanStatement",
     schema: PDF_FILE_SCHEMA({
@@ -469,14 +826,22 @@ export const MARKABLE_SECURITY_FORM: IFormUploaderInput[] = [
   },
 ];
 
-export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
+export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   {
     id: "financialInstitution",
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -485,7 +850,15 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
     label: "In Name Of",
     key: "inNameOf",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "pledgeAsCollateral",
@@ -493,15 +866,31 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "description",
     type: INPUT_TYPE.SELECT,
     label: "Description",
     key: "description",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -510,23 +899,47 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
     label: "Market Value",
     key: "marketValue",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyIncome",
     type: INPUT_TYPE.NUMBER,
     label: "Monthly Income",
     key: "monthlyIncome",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lender",
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -534,24 +947,48 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
     type: INPUT_TYPE.NUMBER,
     label: "Loan Balance",
     key: "loanBalance",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyPayment",
     type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lastSecurityStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastSecurityStatement",
     schema: PDF_FILE_SCHEMA({
@@ -562,11 +999,19 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
   },
   {
     id: "lastLoanStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastLoanStatement",
     schema: PDF_FILE_SCHEMA({
@@ -577,14 +1022,22 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IFormUploaderInput[] = [
   },
 ];
 
-export const INSURANCE_FORM: IFormUploaderInput[] = [
+export const INSURANCE_FORM: IForm[] = [
   {
     id: "insuranceCompany",
     type: INPUT_TYPE.TEXT,
     label: "Insurance",
     key: "insuranceCompany",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "beneficiary",
@@ -592,15 +1045,31 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
     label: "Beneficiary",
     key: "beneficiary",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "type",
     type: INPUT_TYPE.SELECT,
     label: "Type",
     key: "type",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -609,7 +1078,15 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
     label: "faceValue",
     key: "faceValue",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyPremium",
@@ -617,7 +1094,15 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
     label: "Monthly Premium",
     key: "monthlyPremium",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "cashSurrenderValue",
@@ -625,15 +1110,31 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
     label: "Cash Surrender Value",
     key: "cashSurrenderValue",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lender",
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -642,23 +1143,47 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
     label: "Policy Loans",
     key: "policyLoans",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyPayment",
     type: INPUT_TYPE.NUMBER,
     label: "Month Payment",
     key: "monthlyPayment",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lastSecurityStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastSecurityStatement",
     schema: PDF_FILE_SCHEMA({
@@ -669,11 +1194,19 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "lastLoanStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastLoanStatement",
     schema: PDF_FILE_SCHEMA({
@@ -684,14 +1217,22 @@ export const INSURANCE_FORM: IFormUploaderInput[] = [
   },
 ];
 
-export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
+export const REAL_ESTATE_FORM: IForm[] = [
   {
     id: "typeOfResidence",
     type: INPUT_TYPE.SELECT,
     label: "Type Of Residence",
     key: "typeOfResidence",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
   },
   {
@@ -700,7 +1241,15 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Title In Name Of",
     key: "titleInNameOf",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "ownership",
@@ -708,7 +1257,15 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Title In Name Of",
     key: "ownership",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "dateAcquired",
@@ -716,7 +1273,15 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Date Acquired",
     key: "dateAcquired",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "addressLine1",
@@ -724,7 +1289,15 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Address Line 1",
     key: "addressLine1",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "city",
@@ -732,7 +1305,15 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Current Balance",
     key: "currentBalance",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "postalCode",
@@ -740,15 +1321,31 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     label: "Postal Code",
     key: "postalCode",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "province",
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["Ontario"],
   },
   {
@@ -756,8 +1353,16 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     type: INPUT_TYPE.SELECT,
     label: "Country",
     key: "country",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: ["Canada"],
   },
   {
@@ -765,61 +1370,112 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
     type: INPUT_TYPE.NUMBER,
     label: "Purchase Price",
     key: "purchasePrice",
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "marketValue",
     type: INPUT_TYPE.TEXT,
     label: "Market Value",
     key: "marketValue",
-
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "grossIncome",
     type: INPUT_TYPE.NUMBER,
     label: "Gross Income",
     key: "grossIncome",
-
-    value: "",
-    placeholder: "",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "mainCondoFees",
     type: INPUT_TYPE.TEXT,
     label: "Main Condo Fees",
     key: "mainCondoFees",
-
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "monthlyInsurance",
     type: INPUT_TYPE.TEXT,
     label: "Monthly Insurance",
     key: "monthlyInsurance",
-
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "cashSurrenderValue",
     type: INPUT_TYPE.TEXT,
     label: "Cash Surrender Value",
     key: "cashSurrenderValue",
-
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "lastSecurityStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
 
     documentPath: "net_worth",
     documentCategory: "lastSecurityStatement",
@@ -831,12 +1487,19 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
   },
   {
     id: "lastLoanStatement",
-    type: INPUT_TYPE.UPLOAD,
+    type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
     value: "",
-    placeholder: "",
-
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     documentPath: "net_worth",
     documentCategory: "lastLoanStatement",
     schema: PDF_FILE_SCHEMA({
@@ -847,19 +1510,26 @@ export const REAL_ESTATE_FORM: IFormUploaderInput[] = [
   },
 ];
 
-export const NOTICE_OF_ASSESSMENT_FORM: IFormUploaderInput[] = Array(3)
+export const NOTICE_OF_ASSESSMENT_FORM: IForm[] = Array(3)
   .fill(0)
-  .map((item, index) => {
+  .map((item, index): IForm => {
     const currentYear = new Date().getFullYear();
 
     return {
       id: "noticeOfAssessment_" + (currentYear - index),
-      type: INPUT_TYPE.UPLOAD,
+      type: INPUT_TYPE.FILE,
       label: "Notice Of Assessment " + (currentYear - index),
       key: "noticeOfAssessment_" + (currentYear - index),
       value: "",
-      placeholder: "",
-
+      hint: "Email",
+      icon: "mail",
+      column: {
+        xs: 12,
+        sm: 12,
+        md: 12,
+        lg: 12,
+        xl: 12,
+      },
       documentPath: "net_worth",
       documentCategory: "noticeOfAssessment",
       schema: PDF_FILE_SCHEMA({
@@ -874,9 +1544,9 @@ export interface ISettingCategory {
   title: string;
   description: string;
   category: string;
-  list: IFormUploaderInput[];
+  list: IForm[];
   noEdit?: boolean;
-  schema: JoiSchemaBuilder<any>;
+  schema: JoiSchemaBuilder;
 }
 
 export interface ISettingCategoryTab {
@@ -895,28 +1565,25 @@ export const SETTING_COLLECTIONS: Record<
       category: SETTING_CATEGORY.ACCOUNT,
       list: ACCOUNT_INFO,
       noEdit: true,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(
-          ACCOUNT_INFO.filter((data) =>
-            ["displayName", "phoneNumber"].includes(data.id)
-          )
-        ),
+      schema: SETTINGS_SCHEMA_GENERATOR(
+        ACCOUNT_INFO.filter((data) =>
+          ["displayName", "phoneNumber"].includes(data.id)
+        )
+      ),
     },
     {
       title: "Authentication",
       description: "Change Password",
       category: "authentication",
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Recognition",
       description: "Change facial and voice recognition",
       category: "recognition",
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
   ],
   [SETTING_COLLECTION.PERSONAL_PROFILE]: [
@@ -925,8 +1592,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Biography",
@@ -934,8 +1600,7 @@ export const SETTING_COLLECTIONS: Record<
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
       noEdit: true,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
   [SETTING_COLLECTION.PERSONAL_RESUME]: [
@@ -944,8 +1609,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Biography",
@@ -953,8 +1617,7 @@ export const SETTING_COLLECTIONS: Record<
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
       noEdit: true,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
   [SETTING_COLLECTION.BUSINESS_PROFILE]: [
@@ -963,8 +1626,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Biography",
@@ -972,8 +1634,7 @@ export const SETTING_COLLECTIONS: Record<
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
       noEdit: true,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
   [SETTING_COLLECTION.PROFESSIONAL_PROFILE]: [
@@ -982,16 +1643,14 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Biography",
       description: "Your Biography Description",
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
   [SETTING_COLLECTION.PERSONAL_NET_WORTH]: [
@@ -1000,76 +1659,76 @@ export const SETTING_COLLECTIONS: Record<
       description: "Personal tax return for the last three years",
       category: SETTING_CATEGORY.TAX_RETURN,
       list: TAX_RETURN_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(TAX_RETURN_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(TAX_RETURN_FORM),
     },
     {
       title: "Notice Of Assessment",
       description: "Personal Notice Of Assessment for the last three years",
       category: SETTING_CATEGORY.NOTICE_OF_ASSESSMENT,
       list: NOTICE_OF_ASSESSMENT_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(NOTICE_OF_ASSESSMENT_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(NOTICE_OF_ASSESSMENT_FORM),
     },
     {
       title: "Cash And Accounts Receivable",
       description: "asset type, financial institution, statement.",
       category: SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE,
       list: CASH_ACCOUNTS_RECEIVABLE_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(CASH_ACCOUNTS_RECEIVABLE_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(CASH_ACCOUNTS_RECEIVABLE_FORM),
     },
     {
       title: "Markable Securities",
       description: "Change facial and voice recognition",
       category: SETTING_CATEGORY.MARKABLE_SECURITY,
       list: MARKABLE_SECURITY_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(MARKABLE_SECURITY_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(MARKABLE_SECURITY_FORM),
     },
     {
       title: "Tax Sheltered Investment",
       description: "Tax sheltered investment",
       category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
       list: TAX_SHELTERED_INVESTMENT_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(TAX_SHELTERED_INVESTMENT_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(TAX_SHELTERED_INVESTMENT_FORM),
     },
     {
       title: "Insurance",
       description: "Insurance",
       category: SETTING_CATEGORY.INSURANCE,
       list: INSURANCE_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(INSURANCE_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(INSURANCE_FORM),
     },
     {
       title: "Real Estate",
       description: "Real Estate Property",
       category: SETTING_CATEGORY.REAL_ESTATE,
       list: REAL_ESTATE_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
     },
     {
       title: "Vehicles",
       description: "Personal Vehicles",
       category: SETTING_CATEGORY.VEHICLES,
       list: REAL_ESTATE_FORM,
-      schema: (data: any): Joi.ObjectSchema =>
-        SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
+      schema: SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
     },
   ],
 };
 
-export const EMPLOYMENT: IFormInput[] = [
+export const EMPLOYMENT: IForm[] = [
   {
     id: "title",
     type: INPUT_TYPE.TEXT,
     label: "Most Recent Job Title",
     key: "title",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "institution",
@@ -1077,7 +1736,15 @@ export const EMPLOYMENT: IFormInput[] = [
     label: "Most Recent Company",
     key: "institution",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "degree",
@@ -1085,7 +1752,15 @@ export const EMPLOYMENT: IFormInput[] = [
     label: "Degree",
     key: "degree",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "year",
@@ -1093,15 +1768,31 @@ export const EMPLOYMENT: IFormInput[] = [
     label: "Year",
     key: "year",
     value: "",
-    placeholder: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
   },
   {
     id: "employment_type",
     type: INPUT_TYPE.SELECT,
     label: "Employment type",
     key: "employment_type",
-    value: "",
-    placeholder: "",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
     selection: [EMPLOYMENT_TYPE.PERMANENT_FULL_TIME],
   },
 ];

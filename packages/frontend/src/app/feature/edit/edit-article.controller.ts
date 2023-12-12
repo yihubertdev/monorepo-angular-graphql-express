@@ -1,23 +1,17 @@
 import { Component } from "@angular/core";
-import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { articleEditSchema } from "../../core/joiSchema/article-edit.schema";
-import {
-  SNACKBAR_ACTION,
-  SNACKBAR_ERROR,
-  IFormInput,
-  IPost,
-  IUser,
-} from "sources-types";
+import { articleEditSchema } from "../../core/joiSchema";
+import { IPost, IUser } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
-import { editArticleFormList } from "../../core/static/post.static";
 import { IArticle } from "sources-types";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { HttpClientModule } from "@angular/common/http";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
+import { EDIT_ARTICLE_FORM } from "src/app/core/static/form.static";
 
 @Component({
   standalone: true,
@@ -30,16 +24,16 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   providers: [AuthService],
   selector: "edit-article-controller",
   template: ` <form-input-list-component
-    [formInputList]="formInputList"
+    [list]="list"
     errorLocation="EditBlogView"
-    [validatorSchema]="validatorSchema"
+    [schema]="validatorSchema"
     buttonName="Add Article"
     (formValue)="save($event)"
     [haveEditor]="true"
     [loading]="loading"></form-input-list-component>`,
 })
 export class EditArticleController {
-  public formInputList: IFormInput[] = editArticleFormList;
+  public list = EDIT_ARTICLE_FORM;
   public loading: boolean = false;
   public validatorSchema = articleEditSchema;
   public content: string = "";

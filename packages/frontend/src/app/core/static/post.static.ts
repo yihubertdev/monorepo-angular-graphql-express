@@ -48,60 +48,6 @@ export const postList = [
   },
 ];
 
-export const postEditFormList: IFormInput[] = [
-  {
-    id: "content",
-    type: INPUT_TYPE.TEXTAREA,
-    key: "content",
-    label: "Content",
-    value: "",
-  },
-  {
-    id: "video",
-    type: INPUT_TYPE.TEXT,
-    label: "Video Embed URL",
-    key: "video",
-    value: "",
-    placeholder: "Add embed video url",
-  },
-  {
-    id: "image",
-    type: INPUT_TYPE.UPLOAD,
-    label: "Your Image",
-    key: "image",
-    value: "",
-    placeholder: "Edit image",
-    documentPath: "postImage",
-    documentCategory: "blog",
-  },
-];
-
-export const editArticleFormList: IFormInput[] = [
-  {
-    id: "title",
-    type: INPUT_TYPE.TEXT,
-    label: "Blog Title",
-    key: "title",
-    value: "",
-    placeholder: "Edit blog title",
-  },
-  {
-    id: "subTitle",
-    type: INPUT_TYPE.TEXT,
-    label: "Blog SubTitle",
-    key: "subTitle",
-    value: "",
-    placeholder: "Edit blog sub title",
-  },
-  {
-    id: "description",
-    type: INPUT_TYPE.TEXTAREA,
-    label: "Blog Description",
-    key: "description",
-    value: "",
-  },
-];
-
 export const quillEditorModule = {
   toolbar: [
     ["bold", "italic", "underline", "strike"], // toggled buttons

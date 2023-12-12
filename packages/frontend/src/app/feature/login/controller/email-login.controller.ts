@@ -1,40 +1,70 @@
 import { Component } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { userLoginSchema } from "src/app/core/joiSchema/user-login.schema";
-import { IFormInput } from "sources-types";
+import { userLoginSchema } from "../../../core/joiSchema";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { userLoginFormList } from "../../../core/static/auth.static";
+import { USER_LOGIN_FORM } from "../../../core/static/form.static";
 import { SITE_ROUTE_PAGE } from "../../../core/static/menu.static";
+import { RecaptchaVerifier } from "@angular/fire/auth";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { NgIf } from "@angular/common";
 
 @Component({
+  standalone: true,
   selector: "email-login-controller",
-  template: ` <form-input-list-component
-    [formInputList]="formInputList"
-    errorLocation="UserLoginFeature"
-    [validatorSchema]="validatorSchema"
-    buttonName="Login"
-    (formValue)="login($event)"
-    [loading]="isLoading"></form-input-list-component>`,
+  imports: [NgIf, FormInputListComponent, MatFormFieldModule],
+  template: `
+    <form-input-list-component
+      [list]="list"
+      errorLocation="UserLoginFeature"
+      [schema]="schema"
+      buttonName="Login"
+      (formValue)="login($event)"
+      [loading]="isLoading"></form-input-list-component>
+    <div
+      class="mt-5"
+      style="display:inline-block"
+      id="recaptcha-signin"></div>
+    <mat-error *ngIf="hasError"> {{ hasError }} </mat-error>
+  `,
   styleUrls: [],
 })
 export class EmailLoginControllerComponent {
-  formInputList: IFormInput[] = userLoginFormList;
-  validatorSchema: any = userLoginSchema;
+  public list = USER_LOGIN_FORM;
+  public schema: any = userLoginSchema;
   public isLoading: boolean = false;
-  constructor(
-    private _router: Router,
-    private authService: AuthService,
-    private _snackBar: MatSnackBar
-  ) {}
+  public hasError?: string;
+  private token?: string;
+  private recaptcha!: RecaptchaVerifier;
+
+  constructor(private _router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    this.recaptcha = new RecaptchaVerifier(
+      "recaptcha-signup",
+      // Optional reCAPTCHA parameters.
+      {
+        size: "normal",
+        "expired-callback": () => {
+          this.token = undefined;
+        },
+      },
+      this.authService.getFireAuth()
+    );
+    this.recaptcha.render();
+    this.recaptcha.verify().then((token) => (this.token = token));
+  }
 
   async login(formValue: Record<string, number | string>) {
+    if (!this.token) {
+      this.hasError = "Please Verify Not A Robot Check ";
+      return;
+    }
     this.isLoading = true;
     const data = {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
     };
-
     await this.authService.login(data);
     this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
     this.isLoading = false;

@@ -1,16 +1,16 @@
 import { Component } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
-import { blogEditSchema } from "../../core/joiSchema/blog-edit.schema";
-import { IFormInput, LINK_PREVIEW, ILinkPreview, IUser } from "sources-types";
+import { blogEditSchema } from "../../core/joiSchema";
+import { LINK_PREVIEW, ILinkPreview, IUser } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
-import { postEditFormList } from "../../core/static/post.static";
 import { IPost } from "sources-types";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
+import { POST_EDIT_FORM } from "src/app/core/static/form.static";
 
 @Component({
   standalone: true,
@@ -19,15 +19,15 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   selector: "edit-post-controller",
   template: ` <h5 class="mt-4 mb-4">Share Yourself</h5>
     <form-input-list-component
-      [formInputList]="formInputList"
+      [list]="list"
       errorLocation="EditBlogView"
-      [validatorSchema]="blogEditSchema"
+      [schema]="blogEditSchema"
       buttonName="Add Blog"
       (formValue)="save($event)"
       [loading]="loading"></form-input-list-component>`,
 })
 export class EditPostController {
-  formInputList: IFormInput[] = postEditFormList;
+  list = POST_EDIT_FORM;
   blogEditSchema: any = blogEditSchema;
   public loading: boolean = false;
   private _urlRegex =

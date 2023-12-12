@@ -12,7 +12,7 @@ import { AuthService } from "../fireAuth/auth";
 
 export const isUserLogin: CanActivateFn = () => {
   return Boolean(
-    inject(SessionStorageService).getAllSessionStorage().length
+    inject(SessionStorageService).getSessionStorage<IUser>("user")
       ? true
       : inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN)
   );
@@ -45,10 +45,7 @@ export const isUserVerified: CanActivateFn = (
   state: RouterStateSnapshot
 ) => {
   const authService = inject(AuthService);
-  const user = authService.getAuth();
-  if (!user) {
-    return false;
-  }
+  const user = authService.getAuth()!;
 
   if (!authService.isUserVerified(user)) {
     return inject(Router).navigate(["users", "profile-signup"]);

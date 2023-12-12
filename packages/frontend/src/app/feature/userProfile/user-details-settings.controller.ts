@@ -6,7 +6,7 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import {
   ISettingCategory,
   SETTING_COLLECTIONS,
-} from "../../core/static/auth.static";
+} from "../../core/static/form.static";
 import {
   IUserDetailCard,
   UserDetailCardComponent,
@@ -59,7 +59,7 @@ export interface IUserSettings extends ISettingCategory {
                   [category]="category.category"
                   [title]="category.title"
                   [formList]="category.list"
-                  [formSchema]="category.schema"
+                  [schema]="category.schema"
                   [noEdit]="category.noEdit"></user-details-card-component>
                 <a
                   mat-button

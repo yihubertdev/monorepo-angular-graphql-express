@@ -21,8 +21,6 @@ import {
 } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
 import { MentionModule } from "angular-mentions";
-import { IColumnSet } from "sources-types";
-import { IFormUploaderInput } from "src/app/core/static/auth.static";
 import { AddMentionUsersPipe } from "../../pipes/string-tranform.pipe";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
@@ -30,6 +28,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploaderComponent } from "./document-uploader.component";
+import { IForm } from "src/app/core/static/form.static";
 
 @Component({
   standalone: true,
@@ -57,7 +56,7 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
   selector: "form-input-list-component",
   template: `
     <form [formGroup]="newForm">
-      <ng-container *ngFor="let input of formInputList">
+      <ng-container *ngFor="let input of list">
         <mat-form-field
           *ngIf="
             input.type === 'text' ||
@@ -68,15 +67,15 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           class="mb-4"
           [ngClass]="
             'col-xl-' +
-            columns.xl +
+            input.column.xl +
             ' col-lg-' +
-            columns.lg +
+            input.column.lg +
             ' col-md-' +
-            columns.md +
+            input.column.md +
             ' col-sm-' +
-            columns.sm +
+            input.column.sm +
             ' col-' +
-            columns.xs
+            input.column.xs
           "
           floatLabel="always"
           appearance="outline">
@@ -86,8 +85,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             matInput
             [formControlName]="input.key"
             autocomplete="on" />
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>Hint</mat-hint>
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -98,15 +97,15 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           class="mb-4"
           [ngClass]="
             'col-xl-' +
-            columns.xl +
+            input.column.xl +
             ' col-lg-' +
-            columns.lg +
+            input.column.lg +
             ' col-md-' +
-            columns.md +
+            input.column.md +
             ' col-sm-' +
-            columns.sm +
+            input.column.sm +
             ' col-' +
-            columns.xs
+            input.column.xs
           "
           floatLabel="always"
           appearance="outline">
@@ -115,8 +114,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             matInput
             [matDatepicker]="picker"
             [formControlName]="input.key" />
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>description</mat-hint>
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
           <mat-datepicker-toggle
             matIconSuffix
             [for]="picker"></mat-datepicker-toggle>
@@ -131,15 +130,15 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           class="mb-4"
           [ngClass]="
             'col-xl-' +
-            columns.xl +
+            input.column.xl +
             ' col-lg-' +
-            columns.lg +
+            input.column.lg +
             ' col-md-' +
-            columns.md +
+            input.column.md +
             ' col-sm-' +
-            columns.sm +
+            input.column.sm +
             ' col-' +
-            columns.xs
+            input.column.xs
           "
           floatLabel="always"
           appearance="outline">
@@ -151,8 +150,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
               >{{ select }}</mat-option
             >
           </mat-select>
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>description</mat-hint>
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -163,27 +162,26 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           class="mb-4"
           [ngClass]="
             'col-xl-' +
-            columns.xl +
+            input.column.xl +
             ' col-lg-' +
-            columns.lg +
+            input.column.lg +
             ' col-md-' +
-            columns.md +
+            input.column.md +
             ' col-sm-' +
-            columns.sm +
+            input.column.sm +
             ' col-' +
-            columns.xs
+            input.column.xs
           "
           floatLabel="always"
           appearance="outline">
           <mat-label *ngIf="input.label">{{ input.label }}</mat-label>
           <textarea
             matInput
-            [placeholder]="input.placeholder ?? ''"
             style="height: 20dvh;"
             [formControlName]="input.key"
             [mentionConfig]="'' | AddMentionUsers"></textarea>
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>description</mat-hint>
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -194,15 +192,15 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
           class="mb-4"
           [ngClass]="
             'col-xl-' +
-            columns.xl +
+            input.column.xl +
             ' col-lg-' +
-            columns.lg +
+            input.column.lg +
             ' col-md-' +
-            columns.md +
+            input.column.md +
             ' col-sm-' +
-            columns.sm +
+            input.column.sm +
             ' col-' +
-            columns.xs
+            input.column.xs
           "
           floatLabel="always"
           appearance="outline">
@@ -228,8 +226,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
             (documentUpload)="
               saveFile($event, input.key)
             "></document-uploader-component>
-          <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
-          <mat-hint>description</mat-hint>
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -245,7 +243,8 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
       type="submit"
       [class.spinner]="loading"
       [disabled]="loading"
-      mat-raised-button
+      mat-fab
+      extended
       color="primary"
       class="btn-full-width"
       (click)="submit()">
@@ -255,17 +254,10 @@ import { DocumentUploaderComponent } from "./document-uploader.component";
   styleUrls: ["./form-input-list.component.css"],
 })
 export class FormInputListComponent implements OnInit {
-  @Input({ required: false }) columns: IColumnSet = {
-    xs: 12,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12,
-  };
-  @Input({ required: true }) formInputList!: IFormUploaderInput[];
-  @Input({ required: true }) validatorSchema!: JoiSchemaBuilder<any>;
-  @Input() buttonName: string = "";
-  @Input({ required: true }) loading: boolean = false;
+  @Input({ required: true }) list!: IForm[];
+  @Input({ required: true }) schema!: JoiSchemaBuilder;
+  @Input({ required: true }) buttonName!: string;
+  @Input({ required: true }) loading!: boolean;
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<Record<string, number | string>>();
   @Output() documentUpload = new EventEmitter<string[]>();
@@ -273,7 +265,7 @@ export class FormInputListComponent implements OnInit {
   public newForm!: UntypedFormGroup;
   private defaultFormGroupValue: Record<
     string,
-    { value: number | string; disabled?: boolean }[]
+    { value: number | string | string[]; disabled?: boolean }[]
   > = {};
   public editorContent: string = "";
   public hasError: boolean = false;
@@ -284,7 +276,7 @@ export class FormInputListComponent implements OnInit {
 
   ngOnInit() {
     // Generate default form group value
-    this.formInputList.forEach((form) => {
+    this.list.forEach((form) => {
       this.defaultFormGroupValue[form.key] = [
         { value: form.value, disabled: form.disabled },
       ];
@@ -292,11 +284,11 @@ export class FormInputListComponent implements OnInit {
     // Create the form
     this.newForm = this.formBuilder.group(
       this.defaultFormGroupValue,
-      this.validatorSchema
+      this.schema
         ? {
             validators: joiValidator.formGroup(
               {
-                schemaGenerator: this.validatorSchema,
+                schema: this.schema,
               },
               {
                 abortEarly: false,

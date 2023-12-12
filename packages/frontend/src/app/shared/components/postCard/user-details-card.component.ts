@@ -16,6 +16,7 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { MatIconModule } from "@angular/material/icon";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatButtonModule } from "@angular/material/button";
+import { IForm } from "src/app/core/static/form.static";
 
 export interface IUserDetailCard {
   details: any;
@@ -48,10 +49,9 @@ export interface IUserDetailCard {
     ><mat-card>
       <mat-card-content>
         <form-input-list-component
-          [columns]="columns"
-          [formInputList]="formList"
+          [list]="formList"
           errorLocation="AuthModule.YourAccountController"
-          [validatorSchema]="formSchema"
+          [schema]="schema"
           buttonName="Save"
           (formValue)="save($event)"
           [loading]="loading"></form-input-list-component>
@@ -64,8 +64,8 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
   @Input({ required: true }) category!: string;
   @Input({ required: true }) title!: string;
-  @Input({ required: true }) formList!: IFormInput[];
-  @Input({ required: true }) formSchema!: JoiSchemaBuilder<any>;
+  @Input({ required: true }) formList!: IForm[];
+  @Input({ required: true }) schema!: JoiSchemaBuilder;
   @Input({ required: true }) noEdit?: boolean;
 
   public loading: boolean = false;

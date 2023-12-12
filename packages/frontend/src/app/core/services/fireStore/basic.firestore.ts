@@ -80,11 +80,11 @@ export abstract class FireStoreBaseModel<T> {
    * @public
    * @returns {Promise<any>} retrieve
    */
-  public retrieveByUId = async (id: string): Promise<T | undefined> => {
+  public async retrieveByUId(id: string): Promise<T | undefined> {
     const result = await firstValueFrom(this.collection.doc(id).get());
     // return document;
     return result.data();
-  };
+  }
 
   /**
    * Retrieve document from collection by docs id

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { NgFor, NgIf } from "@angular/common";
 import { MatTabsModule } from "@angular/material/tabs";
-import { HOME_ADDRESS_PROFILE } from "../../core/static/auth.static";
 import {
   IUserDetailCard,
   UserDetailCardComponent,

@@ -66,7 +66,7 @@ export const enum INPUT_TYPE {
   SELECT = "select",
   EMAIL = "email",
   PASSWROD = "password",
-  UPLOAD = "file",
+  FILE = "file",
   EDITOR = "editor",
   DATE = "date",
   NUMBER = "number"
@@ -280,14 +280,28 @@ export interface IFormInput {
   id: string;
   type: INPUT_TYPE;
   key: string;
-  value: string;
   label: string;
+  hint: Readonly<string>;
+  icon: Readonly<string>;
+  column: IColumnSet;
   disabled?: boolean;
-  placeholder?: string;
-  selection?: (string | number)[];
-  documentPath?: string;
-  documentCategory?: string;
   error?: string;
+}
+
+export interface ITextFormInput extends IFormInput {
+  type: Exclude<INPUT_TYPE, INPUT_TYPE.FILE | INPUT_TYPE.SELECT | INPUT_TYPE.NUMBER>;
+  value: string;
+}
+
+export interface INumberFormInput extends IFormInput {
+  type: INPUT_TYPE.NUMBER;
+  value: number;
+}
+
+export interface ISelectFormInput extends IFormInput {
+  type: INPUT_TYPE.SELECT;
+  value: string[];
+  selection: (string | number)[];
 }
 
 export interface IColumnSet {

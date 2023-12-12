@@ -9,6 +9,10 @@ import {
   UserCredential,
   signInWithPopup,
   user,
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  linkWithPhoneNumber,
+  multiFactor,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
 import { IUser, IUserRegister, IUserRole } from "sources-types";
@@ -18,16 +22,20 @@ import {
   signInAnonymously,
   updateProfile,
 } from "firebase/auth";
-import { TwitterAuthProvider } from "firebase/auth";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
-import { BehaviorSubject, Observable } from "rxjs";
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  switchMap,
+  throttleTime,
+} from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
   private _userAuth: BehaviorSubject<User | null>;
   public readonly userAuthObserver$: Observable<User | null>;
-  private googleProvider: GoogleAuthProvider;
-  private twitterProvider: TwitterAuthProvider;
+  // private _resendEmailCall$: Subject<User> = new Subject<User>();
 
   constructor(
     private auth: Auth,
@@ -37,22 +45,29 @@ export class AuthService {
     this._userAuth = new BehaviorSubject<User | null>(this.auth.currentUser);
     this.userAuthObserver$ = this._userAuth.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
-    this.auth.onAuthStateChanged(async (user) => {
-      this._userAuth.next(user);
-      let sessionUser = this._sessionStorage.getSessionStorage<IUser>("user");
-      if (!user && !sessionUser) {
-        return this._sessionStorage.deleteSessionStorage("user");
-      }
+    // this.auth.onAuthStateChanged(async (user) => {
+    //   this._userAuth.next(user);
+    //   let sessionUser = this._sessionStorage.getSessionStorage<IUser>("user");
+    //   if (!user && !sessionUser) {
+    //     return this._sessionStorage.deleteSessionStorage("user");
+    //   }
 
-      if (user && !sessionUser) {
-        sessionUser = await this.userService.listUserByUserIdWithUId(user.uid);
-        return this._sessionStorage.setSessionStorage("user", sessionUser);
-      }
-    });
-
-    this.googleProvider = new GoogleAuthProvider();
-    this.twitterProvider = new TwitterAuthProvider();
+    //   if (user && !sessionUser) {
+    //     sessionUser = await this.userService.listUserByUserIdWithUId(user.uid);
+    //     return this._sessionStorage.setSessionStorage("user", sessionUser);
+    //   }
+    // });
+    // this.resendEmail().subscribe((value) => console.log(value));
   }
+
+  // public resendEmail(): Observable<any> {
+  //   return this._resendEmailCall$.pipe(
+  //     throttleTime(1000), // Adjust the throttle time as needed
+  //     switchMap(() => {
+  //       return "hello";
+  //     })
+  //   );
+  // }
 
   public updateUserInfo(data: {
     displayName?: string;
@@ -68,24 +83,76 @@ export class AuthService {
     });
   }
 
-  /**
-   * Sign in with google OAuth
-   *
-   * @public
-   * @returns {Promise<UserCredential>} google auth
-   */
-  public async googleAuthSignIn(): Promise<UserCredential> {
-    return await signInWithPopup(this.auth, this.googleProvider);
+  public getFireAuth() {
+    return this.auth;
   }
 
   /**
-   * Sign in with twitter OAuth
+   * Login firebase auth
    *
    * @public
-   * @returns {Promise<UserCredential>} twitter auth
+   * @param {{ email: string; password: string }} data data login
+   * @param {string} data.email email address
+   * @param {string} data.password password address
+   * @returns {Promise<void>} user credential
    */
-  public async twitterAuthSignIn(): Promise<UserCredential> {
-    return await signInWithPopup(this.auth, this.twitterProvider);
+  public async login(data: { email: string; password: string }): Promise<void> {
+    const { user } = await signInWithEmailAndPassword(
+      this.auth,
+      data.email,
+      data.password
+    );
+
+    const userFull = await this.userService.listUserByUserIdWithUId(user.uid);
+    this._sessionStorage.setSessionStorage("user", userFull);
+  }
+
+  /**
+   * Register user to firebase auth
+   *
+   * @public
+   * @param {IUserRegister} data user register data
+   * @returns {Promise<IUserRegister>} user register
+   */
+  public async register({
+    email,
+    password,
+    displayName,
+  }: IUserRegister): Promise<void> {
+    const { user } = await createUserWithEmailAndPassword(
+      this.auth,
+      email,
+      password
+    );
+
+    await Promise.all([
+      updateProfile(user, { displayName }),
+      this.userService.create({
+        document: {
+          userId: this.generateUserId(displayName, user.uid),
+          displayName: displayName,
+          role: IUserRole.VISITOR,
+          photoURL: null,
+          backgroundPhotoURL: null,
+          description: null,
+        },
+        uid: user.uid,
+      }),
+      this.sendVerificationMail(user),
+    ]);
+
+    const userFull = await this.userService.retrieveByUId(user.uid);
+    this._sessionStorage.setSessionStorage("user", userFull);
+  }
+
+  async signInWithPhone(recaptchaVerifier: RecaptchaVerifier) {
+    const confirmationResult = await signInWithPhoneNumber(
+      this.auth,
+      "+1 650-555-1234",
+      recaptchaVerifier
+    );
+
+    await confirmationResult.confirm("123456");
   }
 
   /**
@@ -115,50 +182,6 @@ export class AuthService {
   public isUserVerified(userAuth: User | null) {
     if (!userAuth) return false;
     return Boolean(userAuth.emailVerified);
-  }
-
-  /**
-   * Register user to firebase auth
-   *
-   * @public
-   * @param {IUserRegister} data user register data
-   * @returns {Promise<IUserRegister>} user register
-   */
-  public async register(data: IUserRegister): Promise<void> {
-    // Create user with firebase auth
-    const { user } = await createUserWithEmailAndPassword(
-      this.auth,
-      data.email,
-      data.password
-    );
-
-    await Promise.all([
-      this.sendVerificationMail(user),
-      this.userService.create({
-        document: {
-          userId: this.generateUserId(data.displayName, user.uid),
-          displayName: data.displayName,
-          role: IUserRole.VISITOR,
-          photoURL: null,
-          backgroundPhotoURL: null,
-          description: null,
-        },
-        uid: user.uid,
-      }),
-    ]);
-  }
-
-  /**
-   * Login firebase auth
-   *
-   * @public
-   * @param {{ email: string; password: string }} data data login
-   * @param {string} data.email email address
-   * @param {string} data.password password address
-   * @returns {void} user credential
-   */
-  public async login(data: { email: string; password: string }): Promise<void> {
-    await signInWithEmailAndPassword(this.auth, data.email, data.password);
   }
 
   /**

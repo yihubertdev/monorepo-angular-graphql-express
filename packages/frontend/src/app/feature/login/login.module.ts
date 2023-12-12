@@ -12,11 +12,7 @@ import { OAuthOptionsComponent } from "./controller/oauth-options.controller";
 import { AuthService } from "../../core/services/fireAuth/auth";
 
 @NgModule({
-  declarations: [
-    EmailLoginControllerComponent,
-    OAuthLoginControllerComponent,
-    OAuthOptionsComponent,
-  ],
+  declarations: [OAuthLoginControllerComponent, OAuthOptionsComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -27,10 +23,6 @@ import { AuthService } from "../../core/services/fireAuth/auth";
     FormInputListComponent,
   ],
   providers: [AuthService],
-  exports: [
-    EmailLoginControllerComponent,
-    OAuthLoginControllerComponent,
-    OAuthOptionsComponent,
-  ],
+  exports: [OAuthLoginControllerComponent, OAuthOptionsComponent],
 })
 export class LoginModule {}

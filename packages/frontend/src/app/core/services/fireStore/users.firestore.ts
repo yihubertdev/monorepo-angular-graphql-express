@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, IUser } from "sources-types";
+import { FIRESTORE_COLLECTION, IUser, IUserFull } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { UserCache } from "../cache/extend.cache";
 
@@ -47,9 +47,9 @@ export class UserService extends FireStoreBaseModel<IUser> {
    *
    * @public
    * @param {number} [limit] list limit number of user
-   * @returns {Promise<IUser[]>} user
+   * @returns {Promise<IUserFull[]>} user
    */
-  public async listUsersWithCache(limit: number): Promise<IUser[]> {
+  public async listUsersWithCache(limit: number): Promise<IUserFull[]> {
     const cache = this._userCache.get();
 
     if (cache) {
@@ -57,7 +57,10 @@ export class UserService extends FireStoreBaseModel<IUser> {
     }
     const result = await this.collection.ref.limit(limit).get();
 
-    const users = result.docs.map((data) => ({ ...data.data(), uid: data.id }));
+    const users: IUserFull[] = result.docs.map((data) => ({
+      ...data.data(),
+      uid: data.id,
+    }));
     this._userCache.update(users);
 
     return users;

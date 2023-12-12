@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
-import { userLoginSchema } from "src/app/core/joiSchema/user-login.schema";
 import { IFormInput } from "sources-types";
-import { userLoginFormList } from "src/app/core/static/auth.static";
 import {
   MatBottomSheet,
   MatBottomSheetRef,
 } from "@angular/material/bottom-sheet";
 import { OAuthOptionsComponent } from "./oauth-options.controller";
+import { USER_LOGIN_FORM } from "src/app/core/static/form.static";
+import { userLoginSchema } from "src/app/core/joiSchema";
 
 const googleLogoURL = "/assets/images/Google.svg";
 
@@ -23,7 +23,7 @@ const googleLogoURL = "/assets/images/Google.svg";
   styleUrls: ["../login.style.css"],
 })
 export class OAuthLoginControllerComponent implements OnInit {
-  formInputList: IFormInput[] = userLoginFormList;
+  formInputList: IFormInput[] = USER_LOGIN_FORM;
   validatorSchema: any = userLoginSchema;
   error: string = "";
   constructor(

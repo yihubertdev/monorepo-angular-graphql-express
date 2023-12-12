@@ -2,21 +2,18 @@ import { UntypedFormGroup, ValidationErrors } from "@angular/forms";
 import * as Joi from "joi";
 import { ValidationOptions } from "joi";
 
-export type JoiSchemaBuilder<T> = (
-  data: T,
-  errorLocation?: string
-) => Joi.ObjectSchema | Joi.ArraySchema;
+export type JoiSchemaBuilder = Joi.ObjectSchema | Joi.ArraySchema;
 
 class joiValidator {
   private options: ValidationOptions = { abortEarly: false };
 
   public formGroup = (
     params: {
-      schemaGenerator: JoiSchemaBuilder<any>;
+      schema: JoiSchemaBuilder;
     },
     options: ValidationOptions = this.options
   ) => {
-    const { schemaGenerator } = params;
+    const { schema } = params;
     const validator = (group: UntypedFormGroup) => {
       // Remove error from controls
       for (const key in group.controls) {
@@ -25,9 +22,6 @@ class joiValidator {
           control.setErrors(null);
         }
       }
-
-      // Generate joi schema with current user input value and error happened location
-      const schema = schemaGenerator(group.value) as Joi.ObjectSchema;
 
       // Validate joi schema
       const result = schema.validate(group.value, options);
