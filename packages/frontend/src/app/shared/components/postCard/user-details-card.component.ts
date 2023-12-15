@@ -50,7 +50,6 @@ export interface IUserDetailCard {
       <mat-card-content>
         <form-input-list-component
           [list]="formList"
-          errorLocation="AuthModule.YourAccountController"
           [schema]="schema"
           buttonName="Save"
           (formValue)="save($event)"

@@ -205,3 +205,12 @@ export const userSignUpSchema: Joi.ObjectSchema = Joi.object({
     "string.empty": `Please enter your password.`,
   }),
 });
+
+export const phoneRegisterSchema = Joi.object({
+  area: Joi.string().required(),
+  phone: Joi.number().required(),
+});
+
+export const phoneVerifySchema = Joi.object({
+  verifyCode: Joi.number().required(),
+});

@@ -17,6 +17,18 @@ export default [
     loadChildren: () => import("../profile").then((router) => router.route),
   },
   {
+    path: "add-post",
+    canActivate: [isUserLogin],
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-post.view"),
+  },
+  {
+    path: "add-article",
+    canActivate: [isUserLogin],
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-article.view"),
+  },
+  {
     path: "settings",
     canActivate: [isUserLogin, isUserVerified],
     resolve: { user: loggedUserProfileResolver },

@@ -1,6 +1,6 @@
 import { Auth, DecodedIdToken } from "firebase-admin/auth";
 import client from "../../client";
-import { IPost, IUser } from "sources-types";
+import { POST, IUser } from "sources-types";
 import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
 /**
@@ -41,7 +41,7 @@ async function getPost(
     email?: string;
   },
   fireStoreClient?: FirebaseFirestore.Firestore
-): Promise<QueryDocumentSnapshot<IPost>[]> {
+): Promise<QueryDocumentSnapshot<POST.IPost>[]> {
   const { userId, email } = filter;
   const fireStore = fireStoreClient ?? client.firebase.firestoreInstance;
 
@@ -56,7 +56,7 @@ async function getPost(
 
   const posts = (await query.get()).docs;
 
-  return posts as QueryDocumentSnapshot<IPost>[];
+  return posts as QueryDocumentSnapshot<POST.IPost>[];
 }
 
 /**

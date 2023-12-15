@@ -3,18 +3,18 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, IUser } from "sources-types";
+import { FIRESTORE_COLLECTION, POST, IArticle } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
-import { IArticle, IPost } from "sources-types";
 import {
   HomePagePostCache,
   UserCache,
   UserPagePostCache,
 } from "../cache/extend.cache";
 import { keyBy } from "../../utils/lodash";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable({ providedIn: "root" })
-export class PostFireStore extends FireStoreBaseModel<IPost> {
+export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
   /**
    * Collection Name.
    *
@@ -25,12 +25,26 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     return FIRESTORE_COLLECTION.blogs;
   }
 
+  public serializer(
+    input:
+      | Omit<POST.IImage, "id" | "createdAt" | "updatedAt">
+      | Omit<POST.IVideo, "id" | "createdAt" | "updatedAt">
+      | Omit<POST.IPreview, "id" | "createdAt" | "updatedAt">
+  ): POST.IPost {
+    return {
+      ...input,
+      id: uuidv4(),
+      createdAt: new Date().getTime(),
+      updatedAt: new Date().getTime(),
+    };
+  }
+
   /**
    * Firestore Collection
    *
    * @protected
    */
-  protected override collection: AngularFirestoreCollection<IPost>;
+  protected override collection: AngularFirestoreCollection<POST.IPost>;
 
   protected _homePageCache: HomePagePostCache;
 
@@ -66,7 +80,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     super.delete(id);
   }
 
-  public override create({ document }: { document: IPost }): string {
+  public override create({ document }: { document: POST.IPost }): string {
     this._userPageCache.delete(document.userId);
     this._homePageCache.delete();
     return super.create({ document });
@@ -75,7 +89,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
   public async listUserPagePostCache(
     limit: number = 10,
     userId: string
-  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
     const data = this._userPageCache.get(userId);
     if (data) {
       return data;
@@ -87,7 +101,7 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
 
   public async listHomePagePostCache(
     limit: number = 10
-  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
     const data = this._homePageCache.get();
     if (data) {
       return data;
@@ -104,16 +118,36 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
     return post;
   }
 
+  public async listHomePageImagePostCache(
+    limit: number = 10
+  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
+    const data = this._homePageCache.get();
+    if (data) {
+      return data;
+    }
+    const users = this._userCache.get();
+    const groupedData = keyBy(users!, "userId");
+    let post = await this.listPostContainImage(limit, Object.keys(groupedData));
+    console.log(post);
+    post.data = post.data.map((item) => ({
+      ...item,
+      displayName: groupedData[item.userId]!.displayName, // user display name
+      photoURL: groupedData[item.userId]!.photoURL, // user photo url
+    }));
+    this._homePageCache.update(post);
+    return post;
+  }
+
   public async listUserPaginationWithCache(
     limit: number = 10,
     userId: string
-  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
     const cache = this._userPageCache.get(userId);
     if (cache && !cache.hasFile) {
       return cache;
     }
     const post = await this.listPagination(limit, [userId]);
-    let data: IPost[] = [];
+    let data: POST.IPost[] = [];
     if (cache) {
       data = cache.data;
       data.push(...post.data);
@@ -132,20 +166,23 @@ export class PostFireStore extends FireStoreBaseModel<IPost> {
 
   public async listHomePaginationWithCache(
     limit: number = 10
-  ): Promise<{ hasFile: boolean; data: IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
     const cache = this._homePageCache.get();
     if (cache && !cache.hasFile) {
       return cache;
     }
     const users = this._userCache.get();
     const groupedData = keyBy(users!, "userId");
-    const post = await this.listPagination(limit, Object.keys(groupedData));
+    const post = await this.listImagePagination(
+      limit,
+      Object.keys(groupedData)
+    );
     post.data = post.data.map((item) => ({
       ...item,
       displayName: groupedData[item.userId]!.displayName, // user display name
       photoURL: groupedData[item.userId]!.photoURL, // user photo url
     }));
-    let data: IPost[] = [];
+    let data: POST.IPost[] = [];
     if (cache) {
       data = cache.data;
       data.push(...post.data);
@@ -173,6 +210,17 @@ export class ArticleFireStore extends FireStoreBaseModel<IArticle> {
    */
   protected collectionName(): FIRESTORE_COLLECTION {
     return FIRESTORE_COLLECTION.article;
+  }
+
+  public serializer(
+    input: Omit<IArticle, "id" | "createdAt" | "updatedAt">
+  ): IArticle {
+    return {
+      ...input,
+      id: uuidv4(),
+      createdAt: new Date().getTime(),
+      updatedAt: new Date().getTime(),
+    };
   }
 
   /**

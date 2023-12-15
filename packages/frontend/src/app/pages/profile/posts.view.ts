@@ -7,12 +7,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
 
 @Component({
   standalone: true,
-  imports: [
-    HomePagePostController,
-    HomePageArticleController,
-    MatTabsModule,
-    NgTemplateOutlet,
-  ],
+  imports: [HomePagePostController, MatTabsModule, NgTemplateOutlet],
   template: `
     <ng-template #matTabContent>
       <div class="container">
@@ -30,7 +25,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
   styleUrls: [],
 })
 export default class UsersView {
-  public id?: string;
+  public id!: string;
   constructor(private route: ActivatedRoute) {
     this.route.parent?.params.subscribe((param) => {
       this.id = param["id"];

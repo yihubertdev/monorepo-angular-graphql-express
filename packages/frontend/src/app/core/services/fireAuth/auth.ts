@@ -13,6 +13,7 @@ import {
   signInWithPhoneNumber,
   linkWithPhoneNumber,
   multiFactor,
+  ConfirmationResult,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
 import { IUser, IUserRegister, IUserRole } from "sources-types";
@@ -35,7 +36,7 @@ import {
 export class AuthService {
   private _userAuth: BehaviorSubject<User | null>;
   public readonly userAuthObserver$: Observable<User | null>;
-  // private _resendEmailCall$: Subject<User> = new Subject<User>();
+  private _resendEmailCall$: Subject<User> = new Subject<User>();
 
   constructor(
     private auth: Auth,
@@ -45,29 +46,21 @@ export class AuthService {
     this._userAuth = new BehaviorSubject<User | null>(this.auth.currentUser);
     this.userAuthObserver$ = this._userAuth.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
-    // this.auth.onAuthStateChanged(async (user) => {
-    //   this._userAuth.next(user);
-    //   let sessionUser = this._sessionStorage.getSessionStorage<IUser>("user");
-    //   if (!user && !sessionUser) {
-    //     return this._sessionStorage.deleteSessionStorage("user");
-    //   }
-
-    //   if (user && !sessionUser) {
-    //     sessionUser = await this.userService.listUserByUserIdWithUId(user.uid);
-    //     return this._sessionStorage.setSessionStorage("user", sessionUser);
-    //   }
-    // });
-    // this.resendEmail().subscribe((value) => console.log(value));
+    this.auth.onAuthStateChanged(async (user) => {
+      this._userAuth.next(user);
+    });
   }
 
-  // public resendEmail(): Observable<any> {
-  //   return this._resendEmailCall$.pipe(
-  //     throttleTime(1000), // Adjust the throttle time as needed
-  //     switchMap(() => {
-  //       return "hello";
-  //     })
-  //   );
-  // }
+  public resendEmail(): Observable<any> {
+    return this._resendEmailCall$.pipe(
+      throttleTime(60000), // email call has to be 1 mins each
+      switchMap((user) => this.sendVerificationMail(user))
+    );
+  }
+
+  public triggerResendEmail(user: User) {
+    this._resendEmailCall$.next(user);
+  }
 
   public updateUserInfo(data: {
     displayName?: string;
@@ -87,6 +80,17 @@ export class AuthService {
     return this.auth;
   }
 
+  public buildRecaptcha(recaptcha: string) {
+    return new RecaptchaVerifier(
+      recaptcha,
+      // Optional reCAPTCHA parameters.
+      {
+        size: "normal",
+      },
+      this.auth
+    );
+  }
+
   /**
    * Login firebase auth
    *
@@ -94,17 +98,21 @@ export class AuthService {
    * @param {{ email: string; password: string }} data data login
    * @param {string} data.email email address
    * @param {string} data.password password address
-   * @returns {Promise<void>} user credential
+   * @returns {Promise<User>} user credential
    */
-  public async login(data: { email: string; password: string }): Promise<void> {
+  public async login(data: { email: string; password: string }): Promise<User> {
     const { user } = await signInWithEmailAndPassword(
       this.auth,
       data.email,
       data.password
     );
 
-    const userFull = await this.userService.listUserByUserIdWithUId(user.uid);
-    this._sessionStorage.setSessionStorage("user", userFull);
+    if (user.phoneNumber && user.emailVerified) {
+      const userFull = await this.userService.retrieveByUId(user.uid);
+      this._sessionStorage.setSessionStorage("user", userFull);
+      this._userAuth.next(user);
+    }
+    return user;
   }
 
   /**
@@ -140,19 +148,23 @@ export class AuthService {
       }),
       this.sendVerificationMail(user),
     ]);
-
-    const userFull = await this.userService.retrieveByUId(user.uid);
-    this._sessionStorage.setSessionStorage("user", userFull);
   }
 
-  async signInWithPhone(recaptchaVerifier: RecaptchaVerifier) {
-    const confirmationResult = await signInWithPhoneNumber(
-      this.auth,
-      "+1 650-555-1234",
-      recaptchaVerifier
-    );
+  async linkWithPhone(
+    user: User,
+    phoneNumber: string,
+    verifier: RecaptchaVerifier
+  ): Promise<ConfirmationResult> {
+    return await linkWithPhoneNumber(user, phoneNumber, verifier);
+  }
 
-    await confirmationResult.confirm("123456");
+  async confirmPhone(
+    verifyCode: string,
+    phoneConfirm: ConfirmationResult
+  ): Promise<boolean> {
+    const userCredential = await phoneConfirm.confirm(verifyCode);
+    console.log(userCredential.user);
+    return true;
   }
 
   /**

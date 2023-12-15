@@ -69,7 +69,7 @@ export const enum INPUT_TYPE {
   FILE = "file",
   EDITOR = "editor",
   DATE = "date",
-  NUMBER = "number"
+  NUMBER = "number",
 }
 
 export const enum PROFILE_TITLE {
@@ -79,14 +79,14 @@ export const enum PROFILE_TITLE {
 }
 
 export interface IArticle {
-  id?: string;
+  id: string;
   userId: string;
   title: string;
   subTitle: string;
   description: string;
   content: string;
-  createdAt?: Date;
-  updatedA?: Date;
+  createdAt: number;
+  updatedAt: number;
 }
 
 export interface ILinkExtractor {
@@ -94,29 +94,47 @@ export interface ILinkExtractor {
   links?: string[];
 }
 
-export interface ILinkPreview {
-  description: string;
-  image: string | null;
-  title: string;
-  url: string;
-}
-
-export interface IPost {
+export interface IPostBase {
   id: string;
   userId: string;
-  image?: string[];
-  video?: string;
+  displayName: string;
+  photoURL: string | null;
   content: string;
-  displayName?: string; // user display name
-  photoURL: string | null; // user photo url
   pin?: boolean;
-  preview?: ILinkPreview;
-  createdAt?: Date;
-  updatedA?: Date;
+  createdAt: number;
+  updatedAt: number;
 }
 
-export interface IPostWithLinks extends IPost {
-  links: string[] | undefined;
+export namespace POST {
+  export const enum POST_TYPE {
+    "VIDEO" = "VIDEO",
+    "IMAGE" = "IMAGE",
+    "TEXT" = "TEXT",
+    "PREVIEW" = "PREVIEW",
+  }
+
+  export interface IPreviewLink {
+    image: string[];
+    description: string;
+    title: string;
+    url: string;
+  }
+
+  export interface IPreview extends IPostBase, IPreviewLink {
+    type: POST.POST_TYPE.PREVIEW;
+  }
+
+  export interface IVideo extends IPostBase {
+    type: POST_TYPE.VIDEO;
+    video: string;
+  }
+
+  export interface IImage extends IPostBase {
+    type: POST_TYPE.IMAGE;
+    image: string[];
+  }
+
+  export type IPost = IPreview | IVideo | IImage;
 }
 
 export interface ICollectionQueryBuilder<T> {
@@ -166,7 +184,7 @@ export const enum SETTING_COLLECTION {
   PROFESSIONAL_PROFILE = "professional_profile",
   PERSONAL_NET_WORTH = "personal_net_worth",
   PERSONAL_RESUME = "personal_resume",
-  BUSINESS_PROFILE = "business_profile"
+  BUSINESS_PROFILE = "business_profile",
 }
 
 export const enum PROFILE_TYPE {
@@ -289,7 +307,10 @@ export interface IFormInput {
 }
 
 export interface ITextFormInput extends IFormInput {
-  type: Exclude<INPUT_TYPE, INPUT_TYPE.FILE | INPUT_TYPE.SELECT | INPUT_TYPE.NUMBER>;
+  type: Exclude<
+    INPUT_TYPE,
+    INPUT_TYPE.FILE | INPUT_TYPE.SELECT | INPUT_TYPE.NUMBER
+  >;
   value: string;
 }
 

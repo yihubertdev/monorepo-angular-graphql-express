@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from "@angular/core";
-import { IPost } from "sources-types";
+import { POST } from "sources-types";
 import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
@@ -16,7 +16,6 @@ import { MatIconModule } from "@angular/material/icon";
 import { RouterModule } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
-import { PreviewLinkComponent } from "./previewlink.component";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 import { ImagesComponent } from "../CarouselSlider/images.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -35,14 +34,13 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
     UserPhotoPipe,
     MatMenuModule,
     MatButtonModule,
-    PreviewLinkComponent,
     ImagesComponent,
     MatDialogModule,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card class="mt-3 mb-3">
+    <mat-card class="m-2">
       <mat-card-header
         [routerLink]="
           !isUserProfile && !isMe
@@ -97,19 +95,17 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
           style="text-align: right;">
           {{ isShowMore ? "Show Less" : "Show More" }}
         </p>
-        <ng-container *ngIf="postCardInfo?.preview">
-          <preview-link-card
-            [preview]="postCardInfo!.preview!"></preview-link-card>
-        </ng-container>
         <!--single image display-->
         <images-component
-          *ngIf="postCardInfo?.image"
-          [images]="postCardInfo.image ?? []"></images-component>
+          *ngIf="
+            postCardInfo.type === 'PREVIEW' || postCardInfo.type === 'IMAGE'
+          "
+          [images]="postCardInfo.image"></images-component>
 
         <!--single video display-->
         <iframe
-          *ngIf="postCardInfo?.video"
-          [src]="videoByPass(postCardInfo.video ?? '')"
+          *ngIf="postCardInfo.type === 'VIDEO'"
+          [src]="videoByPass(postCardInfo.video)"
           frameborder="0"
           allowfullscreen=""
           class="video-frame-center image-height-responsive"></iframe>
@@ -128,7 +124,7 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
   styleUrls: ["./post-card.component.css"],
 })
 export class PostCardComponent {
-  @Input({ required: true }) postCardInfo!: IPost;
+  @Input({ required: true }) postCardInfo!: POST.IPost;
   @Input() isUserProfile: boolean = false;
   @Input() isMe: boolean = false;
   @ViewChild("content", { static: true }) input?: ElementRef;

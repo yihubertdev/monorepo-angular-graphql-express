@@ -7,6 +7,7 @@ import {
 import { FIRESTORE_COLLECTION, IUser, IUserFull } from "sources-types";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { UserCache } from "../cache/extend.cache";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable({ providedIn: "root" })
 export class UserService extends FireStoreBaseModel<IUser> {
@@ -18,6 +19,10 @@ export class UserService extends FireStoreBaseModel<IUser> {
    */
   protected collectionName(): FIRESTORE_COLLECTION {
     return FIRESTORE_COLLECTION.users;
+  }
+
+  public serializer(input: IUser): IUser {
+    return input;
   }
 
   /**

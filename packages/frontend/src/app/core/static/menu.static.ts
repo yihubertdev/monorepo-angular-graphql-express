@@ -1,7 +1,7 @@
 import { IMenu, INestedMenu, ISVGIconMenu } from "sources-types";
 export const SITE_ROUTE_PAGE = {
-  ADD_ARTICLE: ["edit", "article"],
-  ADD_POST: ["edit", "post"],
+  ADD_ARTICLE: ["users", "add-article"],
+  ADD_POST: ["users", "add-post"],
   HOME: ["home", "posts"],
   ARTICLES: ["home", "articles"],
   ARTICLE: ["home", "article"],

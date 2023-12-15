@@ -9,7 +9,7 @@ import {
 } from "@angular/fire/compat/firestore";
 import { FIRESTORE_COLLECTION, SUBCOLLECTION_HANDLER } from "sources-types";
 import { v4 as uuidv4 } from "uuid";
-import { ICollectionQueryBuilder } from "sources-types";
+import { ICollectionQueryBuilder, POST } from "sources-types";
 import joiValidator from "../../utils/validator";
 import {
   deleteCollectionBuilderSchema,
@@ -32,6 +32,10 @@ export abstract class FireStoreBaseModel<T> {
    * @protected
    */
   protected abstract collectionName(): FIRESTORE_COLLECTION;
+
+  public abstract serializer(
+    input: Omit<T, "id" | "createdAt" | "updatedAt">
+  ): T;
 
   /**
    * Firestore Collection
@@ -201,6 +205,83 @@ export abstract class FireStoreBaseModel<T> {
       hasFile: this.lastQueryDocumentSnapshot ? true : false,
     };
   }
+
+  /**
+   * List collection document
+   *
+   * @public
+   * @param {number} [limit] = 10 limit pagination
+   * @param {string} [userIds] user id
+   * @returns {Promise<{ data: T[]; hasFile: boolean }>} list data response
+   */
+  public async listPostContainImage(
+    limit: number = 10,
+    userIds?: string[]
+  ): Promise<{ data: T[]; hasFile: boolean }> {
+    let data: T[] = [];
+
+    let querySnapShot = this.collection.ref
+      .where("type", "in", [POST.POST_TYPE.IMAGE, POST.POST_TYPE.PREVIEW])
+      .limit(limit);
+
+    if (userIds) {
+      querySnapShot = querySnapShot.where("userId", "in", userIds);
+    }
+    this.lastQueryDocumentSnapshot = undefined;
+    const result = await querySnapShot.get();
+    data = result.docs.map((doc, index) => {
+      if (index === limit - 1) {
+        this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
+      }
+      return doc.data();
+    });
+    return {
+      data,
+      hasFile: this.lastQueryDocumentSnapshot ? true : false,
+    };
+  }
+
+  /**
+   * List collection document with pagination
+   *
+   * @public
+   * @param {number} [limit] = 10 limit pagination
+   * @param {string} [userIds] user id
+   * @returns {Promise<void>}
+   */
+  public listImagePagination = async (
+    limit: number = 10,
+    userIds?: string[]
+  ): Promise<{ data: T[]; hasFile: boolean }> => {
+    let data: T[] = [];
+    if (!this.lastQueryDocumentSnapshot)
+      return {
+        data,
+        hasFile: false,
+      };
+
+    let querySnapShot = this.collection.ref
+      .where("type", "in", [POST.POST_TYPE.IMAGE, POST.POST_TYPE.PREVIEW])
+      .startAfter(this.lastQueryDocumentSnapshot)
+      .limit(limit);
+    if (userIds) {
+      querySnapShot = querySnapShot.where("userId", "in", userIds);
+    }
+    // reset lastQuerySnapshot, otherwise hasFile will keep return true even if its already the last query
+    this.lastQueryDocumentSnapshot = undefined;
+    const result = await querySnapShot.get();
+    data = result.docs.map((doc, index) => {
+      if (index === limit - 1) {
+        this.lastQueryDocumentSnapshot = doc as QueryDocumentSnapshot<T>;
+      }
+      return doc.data();
+    });
+
+    return {
+      data,
+      hasFile: this.lastQueryDocumentSnapshot ? true : false,
+    };
+  };
 
   /**
    * List collection document with pagination

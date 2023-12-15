@@ -259,7 +259,9 @@ export class FormInputListComponent implements OnInit {
   @Input({ required: true }) buttonName!: string;
   @Input({ required: true }) loading!: boolean;
   @Input() haveEditor: boolean = false;
-  @Output() formValue = new EventEmitter<Record<string, number | string>>();
+  @Output() formValue = new EventEmitter<
+    Record<string, number | string | string[]>
+  >();
   @Output() documentUpload = new EventEmitter<string[]>();
 
   public newForm!: UntypedFormGroup;

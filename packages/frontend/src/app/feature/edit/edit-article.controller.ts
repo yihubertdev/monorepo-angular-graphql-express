@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "../../core/joiSchema";
-import { IPost, IUser } from "sources-types";
+import { IUser } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { IArticle } from "sources-types";
@@ -12,6 +12,7 @@ import { FormInputListComponent } from "../../shared/components/formInputList/fo
 import { MatDialogModule } from "@angular/material/dialog";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { EDIT_ARTICLE_FORM } from "src/app/core/static/form.static";
+import { POST } from "sources-types";
 
 @Component({
   standalone: true,
@@ -25,7 +26,6 @@ import { EDIT_ARTICLE_FORM } from "src/app/core/static/form.static";
   selector: "edit-article-controller",
   template: ` <form-input-list-component
     [list]="list"
-    errorLocation="EditBlogView"
     [schema]="validatorSchema"
     buttonName="Add Article"
     (formValue)="save($event)"
@@ -45,7 +45,9 @@ export class EditArticleController {
     private _sessionStorage: SessionStorageService
   ) {}
 
-  public save = async (formValue: Record<string, string | number>) => {
+  public save = async (
+    formValue: Record<string, string | number | string[]>
+  ) => {
     // Get current login user
     const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
     const { title, subTitle, description, quillEditor } = formValue;
@@ -62,18 +64,17 @@ export class EditArticleController {
     const articleId = this._articleFireStore.create({ document: newArticle });
 
     this._postService.create({
-      document: {
+      document: this._postService.serializer({
+        type: POST.POST_TYPE.PREVIEW,
         userId: currentUser.userId,
         displayName: currentUser.displayName,
         photoURL: currentUser.photoURL,
         content: "I published a article:",
-        preview: {
-          description: description as string,
-          image: null,
-          title: title,
-          url: "/home/article/" + articleId,
-        },
-      } as unknown as IPost,
+        description: description as string,
+        image: [""],
+        title: title as string,
+        url: "/home/article/" + articleId,
+      }),
     });
     this._router.navigate(["home", "posts"]);
   };

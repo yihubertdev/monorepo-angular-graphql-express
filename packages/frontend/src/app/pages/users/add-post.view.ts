@@ -1,17 +1,13 @@
-import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { EditPostController } from "../../feature/edit/edit-post.controller";
 
 @Component({
   standalone: true,
-  imports: [CommonModule, EditPostController],
+  imports: [EditPostController],
   template: `
-    <div
-      class="container-fluid"
-      style="height: 100dvh;">
+    <div class="container">
       <div class="row">
-        <div
-          class="text-center col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
+        <div class="col-12">
           <edit-post-controller></edit-post-controller>
         </div>
       </div>
@@ -19,6 +15,6 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
   `,
   styleUrls: [],
 })
-export default class EditPostView {
+export default class AddPostView {
   constructor() {}
 }

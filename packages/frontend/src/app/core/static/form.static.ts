@@ -19,7 +19,7 @@ import {
 import * as Joi from "joi";
 
 export interface IFileFormInput extends IFormInput {
-  value: string;
+  value: string[];
   type: INPUT_TYPE.FILE;
   documentPath: string;
   documentCategory: string;
@@ -50,27 +50,11 @@ export const POST_EDIT_FORM: IForm[] = [
     },
   },
   {
-    id: "video",
-    type: INPUT_TYPE.TEXT,
-    label: "Video Embed URL",
-    key: "video",
-    value: "",
-    icon: "mail",
-    hint: "Register Your Email",
-    column: {
-      xs: 12,
-      sm: 12,
-      md: 12,
-      lg: 12,
-      xl: 12,
-    },
-  },
-  {
     id: "image",
     type: INPUT_TYPE.FILE,
     label: "Your Image",
     key: "image",
-    value: "",
+    value: [],
     icon: "mail",
     hint: "Register Your Email",
     documentPath: "postImage",
@@ -176,6 +160,42 @@ export const USER_LOGIN_FORM: IForm[] = [
   },
 ];
 
+export const PHONE_REGISTER: IForm[] = [
+  {
+    id: "area",
+    type: INPUT_TYPE.SELECT,
+    label: "Select Area",
+    key: "area",
+    value: [] as any,
+    hint: "Area",
+    icon: "dialpad",
+    selection: ["+1"],
+    column: {
+      xs: 2,
+      sm: 2,
+      md: 2,
+      lg: 2,
+      xl: 2,
+    },
+  },
+  {
+    id: "phone",
+    type: INPUT_TYPE.TEXT,
+    label: "Your phone",
+    key: "phone",
+    value: "",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
+  },
+];
+
 export const PHONE_VERIFY: IForm[] = [
   {
     id: "verifyCode",
@@ -229,39 +249,6 @@ export const USER_SIGNUP_FORM: IForm[] = [
       md: 12,
       lg: 12,
       xl: 12,
-    },
-  },
-  {
-    id: "area",
-    type: INPUT_TYPE.SELECT,
-    label: "Select Area",
-    key: "area",
-    value: [] as any,
-    hint: "Area",
-    icon: "dialpad",
-    selection: ["+1"],
-    column: {
-      xs: 2,
-      sm: 2,
-      md: 2,
-      lg: 2,
-      xl: 2,
-    },
-  },
-  {
-    id: "phone",
-    type: INPUT_TYPE.TEXT,
-    label: "Your phone",
-    key: "phone",
-    value: "",
-    icon: "call",
-    hint: "Phone Number",
-    column: {
-      xs: 10,
-      sm: 10,
-      md: 10,
-      lg: 10,
-      xl: 10,
     },
   },
   {
@@ -495,7 +482,7 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Statement",
     key: "lastStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -525,7 +512,7 @@ export const TAX_RETURN_FORM: IForm[] = Array(3)
       type: INPUT_TYPE.FILE,
       label: "Tax Return " + (currentYear - index),
       key: "taxReturn_" + (currentYear - index),
-      value: "",
+      value: [],
       hint: "Email",
       icon: "mail",
       column: {
@@ -783,7 +770,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -806,7 +793,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -979,7 +966,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1002,7 +989,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1174,7 +1161,7 @@ export const INSURANCE_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1197,7 +1184,7 @@ export const INSURANCE_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1466,7 +1453,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Security Statement",
     key: "lastSecurityStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1490,7 +1477,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     type: INPUT_TYPE.FILE,
     label: "Last Loan Statement",
     key: "lastLoanStatement",
-    value: "",
+    value: [],
     hint: "Email",
     icon: "mail",
     column: {
@@ -1520,7 +1507,7 @@ export const NOTICE_OF_ASSESSMENT_FORM: IForm[] = Array(3)
       type: INPUT_TYPE.FILE,
       label: "Notice Of Assessment " + (currentYear - index),
       key: "noticeOfAssessment_" + (currentYear - index),
-      value: "",
+      value: [],
       hint: "Email",
       icon: "mail",
       column: {

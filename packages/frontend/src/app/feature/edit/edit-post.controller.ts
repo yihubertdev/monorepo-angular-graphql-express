@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { blogEditSchema } from "../../core/joiSchema";
-import { LINK_PREVIEW, ILinkPreview, IUser } from "sources-types";
+import { LINK_PREVIEW, IUser } from "sources-types";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
-import { IPost } from "sources-types";
+import { POST } from "sources-types";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
@@ -20,9 +20,8 @@ import { POST_EDIT_FORM } from "src/app/core/static/form.static";
   template: ` <h5 class="mt-4 mb-4">Share Yourself</h5>
     <form-input-list-component
       [list]="list"
-      errorLocation="EditBlogView"
       [schema]="blogEditSchema"
-      buttonName="Add Blog"
+      buttonName="Add Post"
       (formValue)="save($event)"
       [loading]="loading"></form-input-list-component>`,
 })
@@ -32,16 +31,28 @@ export class EditPostController {
   public loading: boolean = false;
   private _urlRegex =
     /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-  private _tranformURL(value: string) {
+  private _transformURL(value: string) {
     return value.replace(this._urlRegex, function (url) {
       return '<a href="' + url + '" target="_blank">' + url + "</a>";
     });
   }
+
   private _mentionRegex = /\B@[a-z0-9_-]+/gi;
   private _transformMention(value: string) {
     return value.replace(this._mentionRegex, function (url) {
       return '<a href="/users/' + url.substring(1) + '/posts">' + url + "</a>";
     });
+  }
+
+  private _videoRegex =
+    /^(?:https?:\/\/)?(?:(?:www\.)?youtube.com\/watch\?v=|youtu.be\/)(\w+)$/;
+
+  private _videoRegexS =
+    /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+
+  private _getVideoId(value: string): RegExpMatchArray | null {
+    const match = value.match(this._videoRegex);
+    return match ?? value.match(this._videoRegexS);
   }
   constructor(
     private _router: Router,
@@ -49,38 +60,75 @@ export class EditPostController {
     private http: HttpClient,
     private _sessionStorage: SessionStorageService
   ) {}
-  async save(formValue: Record<string, number | string | string[]>) {
+  async save(formValue: Record<string, string | number | string[]>) {
+    this.loading = true;
+    let { content, image } = formValue as { content: string; image: string[] };
     // Get current login user
     const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
 
     const { userId, displayName, photoURL } = currentUser;
-    this.loading = true;
+    content = this._transformMention(content);
+    if (image.length) {
+      this._postService.create({
+        document: this._postService.serializer({
+          type: POST.POST_TYPE.IMAGE,
+          image,
+          content,
+          userId,
+          displayName,
+          photoURL,
+        }),
+      });
+      this._router.navigate(["home", "posts"]);
+      return;
+    }
 
-    let content = this._tranformURL(formValue["content"] as string);
+    content = this._transformURL(content);
     const links = content.match(this._urlRegex);
-    let preview: ILinkPreview | null = null; // firestore only accept null value.
-
     if (links) {
-      preview = (await firstValueFrom(
+      const preview = (await firstValueFrom(
         this.http.get(
           LINK_PREVIEW.LINK_PREVIEW_NET_URL +
             LINK_PREVIEW.LINK_PREVIEW_NET_KEY +
             `&q=${links[0]}`
         )
-      )) as ILinkPreview;
+      )) as {
+        image: string;
+        description: string;
+        title: string;
+        url: string;
+      };
+
+      this._postService.create({
+        document: this._postService.serializer({
+          ...preview,
+          image: [preview.image],
+          type: POST.POST_TYPE.PREVIEW,
+          content,
+          userId,
+          displayName,
+          photoURL,
+        }),
+      });
+      this._router.navigate(["home", "posts"]);
+      return;
     }
 
-    content = this._transformMention(content);
-    const newBlog = {
-      ...formValue,
-      content,
-      preview,
-      userId,
-      displayName,
-      photoURL,
-    } as unknown as IPost;
-
-    this._postService.create({ document: newBlog });
-    this._router.navigate(["home", "posts"]);
+    const videoId = this._getVideoId(content);
+    if (videoId) {
+      this._postService.create({
+        document: this._postService.serializer({
+          ...formValue,
+          video: videoId[1],
+          type: POST.POST_TYPE.VIDEO,
+          content,
+          userId,
+          displayName,
+          photoURL,
+        }),
+      });
+      this._router.navigate(["home", "posts"]);
+      return;
+    }
   }
 }

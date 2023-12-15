@@ -59,7 +59,7 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrls: ["./carousel-slider.css"],
 })
 export class ImagesComponent implements OnInit {
-  @Input({ required: true }) images: string[] = [];
+  @Input({ required: true }) images!: string[];
   public galleryImages: ImageItem[] = [];
   public galleryId: string = uuidv4();
 

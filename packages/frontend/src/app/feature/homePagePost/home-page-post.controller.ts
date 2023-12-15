@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IPost, IUser } from "sources-types";
+import { IUser, POST } from "sources-types";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
 import { NgFor, NgIf } from "@angular/common";
@@ -24,22 +24,12 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
         [postCardInfo]="post"
         [isUserProfile]="!!userId"
         [isMe]="isMe"></post-card-component>
-
-      <ng-container *ngIf="i === 3 && !userId">
-        <carousel-slider-component
-          [images]="images"
-          [isSilding]="true"></carousel-slider-component>
-      </ng-container>
-
-      <ng-container *ngIf="i === 6 && !userId">
-        <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
-      </ng-container>
     </ng-container>
   `,
   styleUrls: ["./home-page-post.style.css"],
 })
 export class HomePagePostController implements OnInit {
-  @Input() userId?: string;
+  @Input({ required: true }) userId!: string;
   public images = [
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-ai.png?alt=media&token=53d51610-84be-45e6-bbe5-247859b470a7",
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-financing.png?alt=media&token=fe3cee60-5d3f-4523-abf8-8b00e6893388",
@@ -47,7 +37,7 @@ export class HomePagePostController implements OnInit {
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
   ];
 
-  public data: IPost[] = [];
+  public data: POST.IPost[] = [];
   private hasFile: boolean = true;
   public isMe: boolean = false;
 
@@ -75,21 +65,21 @@ export class HomePagePostController implements OnInit {
   ngOnInit(): void {
     const resolverData = this.route.snapshot.data as {
       posts: {
-        data: IPost[];
+        data: POST.IPost[];
         hasFile: boolean;
       };
       user: IUser;
     };
     if (this.userId == "me") {
       this.isMe = true;
-      this.userId = this._sessionStorage.getSessionStorage("user");
+      this.userId = this._sessionStorage.getSessionStorage("user")!;
     }
     if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;
     this.data = resolverData!.posts.data;
   }
 
-  identify(index: number, post: IPost) {
+  identify(index: number, post: POST.IPost) {
     return post.id;
   }
 }
