@@ -1,0 +1,6 @@
+.login-panel {
+  display: inline-block;
+  background: rgba(255, 255, 255, 1);
+  padding: 0 10dvh 0;
+  border-radius: 20px;
+}

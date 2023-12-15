@@ -4,14 +4,14 @@ import {
   phoneRegisterSchema,
   phoneVerifySchema,
   userLoginSchema,
-} from "../../../core/joiSchema";
+} from "../../core/joiSchema";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import {
   PHONE_REGISTER,
   PHONE_VERIFY,
   USER_LOGIN_FORM,
-} from "../../../core/static/form.static";
-import { SITE_ROUTE_PAGE } from "../../../core/static/menu.static";
+} from "../../core/static/form.static";
+import { SITE_ROUTE_PAGE } from "../../core/static/menu.static";
 import {
   ConfirmationResult,
   RecaptchaVerifier,

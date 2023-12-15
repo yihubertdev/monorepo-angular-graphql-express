@@ -36,12 +36,9 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
             backgroundSize: 'cover'
           }"></div>
         <mat-card-title>{{ post.displayName }}</mat-card-title>
-        <mat-card-subtitle>{{
-          post.createdAt | date : "yyyy-MM-dd h:mm:ss a"
-        }}</mat-card-subtitle>
       </mat-card-header>
 
-      <mat-card-content class="m-0 p-0">
+      <mat-card-content>
         <p
           #content
           class="text-overflow-card-one"

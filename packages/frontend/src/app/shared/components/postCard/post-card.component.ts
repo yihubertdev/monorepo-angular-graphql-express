@@ -20,6 +20,7 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 import { ImagesComponent } from "../CarouselSlider/images.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
+import { MatDividerModule } from "@angular/material/divider";
 
 @Component({
   standalone: true,
@@ -36,6 +37,7 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
     MatButtonModule,
     ImagesComponent,
     MatDialogModule,
+    MatDividerModule,
   ],
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -95,7 +97,24 @@ import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-categor
           style="text-align: right;">
           {{ isShowMore ? "Show Less" : "Show More" }}
         </p>
-        <!--single image display-->
+
+        <ng-container *ngIf="postCardInfo.type === 'PREVIEW'">
+          <a
+            class="unset-tag-a"
+            [href]="postCardInfo.url"
+            target="_blank"
+            ><mat-divider></mat-divider>
+            <h4
+              class="mt-3 text-overflow-card"
+              style="display: -webkit-box;"
+              [innerHTML]="postCardInfo.title"></h4>
+            <h5
+              class="text-overflow-card"
+              style="display: -webkit-box;"
+              [innerHTML]="postCardInfo.description"></h5
+          ></a>
+        </ng-container>
+
         <images-component
           *ngIf="
             postCardInfo.type === 'PREVIEW' || postCardInfo.type === 'IMAGE'

@@ -67,9 +67,8 @@ export class ImagesComponent implements OnInit {
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId, {
-      thumbPosition: "bottom",
+      thumb: false,
       counterPosition: "top",
-      thumbImageSize: "contain",
     });
     this.galleryImages = this.images.map((card) => {
       return new ImageItem({

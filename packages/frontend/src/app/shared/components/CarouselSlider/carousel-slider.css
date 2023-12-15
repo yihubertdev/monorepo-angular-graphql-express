@@ -146,13 +146,13 @@ div.horizonal-scroll-section::-webkit-scrollbar {
 }
 
 .fix-height {
-  height: 35dvh;
+  height: 30dvh;
 }
 
 .gallery-image-text {
   margin: auto;
-  width: 80%;
-  padding: 30px 25px;
+  width: 78%;
+  padding: 18px 30px;
   text-align: justify;
   letter-spacing: 1px;
   filter: drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.3));

@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-import { userSignUpSchema } from "../../../core/joiSchema";
+import { userSignUpSchema } from "../../core/joiSchema";
 import { IUserRegister, IUserSignUpForm } from "sources-types";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";

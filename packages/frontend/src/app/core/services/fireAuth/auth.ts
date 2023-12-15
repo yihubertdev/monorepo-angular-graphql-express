@@ -110,7 +110,6 @@ export class AuthService {
     if (user.phoneNumber && user.emailVerified) {
       const userFull = await this.userService.retrieveByUId(user.uid);
       this._sessionStorage.setSessionStorage("user", userFull);
-      this._userAuth.next(user);
     }
     return user;
   }
@@ -192,7 +191,7 @@ export class AuthService {
   }
 
   public isUserVerified(userAuth: User | null) {
-    if (!userAuth) return false;
+    if (!userAuth) return;
     return Boolean(userAuth.emailVerified);
   }
 

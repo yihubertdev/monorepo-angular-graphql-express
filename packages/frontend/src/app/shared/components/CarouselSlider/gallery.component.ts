@@ -18,7 +18,8 @@ import { POST } from "sources-types";
         <a
           *ngIf="item?.thumb"
           class=" unset-tag-a"
-          [href]="item?.thumb">
+          [href]="item?.thumb"
+          target="_blank">
           <div class="gallery-image-text">
             <h5>{{ item?.args }}</h5>
             <p class="text-overflow-preview">{{ item?.alt }}</p>

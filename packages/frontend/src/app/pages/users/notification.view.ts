@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { EmailSignUpController } from "../../feature/login/controller/email-signup.controller";
+import { EmailSignUpController } from "../../feature/login/email-signup.controller";
 import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { UserProfileSignUpController } from "../../feature/userProfile/user-profile-sign-up.controller";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
