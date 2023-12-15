@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from "@angular/core";
-import { LightboxModule } from "ng-gallery/lightbox";
+import { Lightbox, LightboxModule } from "ng-gallery/lightbox";
 import { Gallery, GalleryItem, GalleryModule } from "ng-gallery";
 import { v4 as uuidv4 } from "uuid";
 import { NgIf, NgStyle } from "@angular/common";
@@ -13,7 +13,11 @@ import { POST } from "sources-types";
     <gallery
       class="fix-height"
       [id]="galleryId"
-      [thumb]="false">
+      (itemClick)="open()"
+      [thumb]="false"
+      [dots]="true"
+      [dotsSize]="10"
+      dotsPosition="bottom">
       <ng-container *galleryImageDef="let item; let active = active">
         <a
           *ngIf="item?.thumb"
@@ -36,12 +40,10 @@ export class GalleryImageComponent implements OnInit {
   public galleryImages: GalleryItem[] = [];
   public galleryId: string = uuidv4();
 
-  constructor(public gallery: Gallery) {}
+  constructor(public gallery: Gallery, private lightbox: Lightbox) {}
 
   ngOnInit(): void {
-    const galleryRef = this.gallery.ref(this.galleryId, {
-      imageTemplate: this.templateImage,
-    });
+    const galleryRef = this.gallery.ref(this.galleryId);
     this.galleryImages = this.post.image.map((item) => {
       if (this.post.type === POST.POST_TYPE.PREVIEW) {
         return {
@@ -62,5 +64,9 @@ export class GalleryImageComponent implements OnInit {
       };
     });
     galleryRef.load(this.galleryImages);
+  }
+
+  public open() {
+    this.lightbox.open(0, this.galleryId);
   }
 }

@@ -61,7 +61,7 @@
   }
 }
 
-.text-overflow-card-one {
+.text-overflow-card-main {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;

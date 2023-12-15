@@ -38,10 +38,10 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
         <mat-card-title>{{ post.displayName }}</mat-card-title>
       </mat-card-header>
 
-      <mat-card-content>
+      <mat-card-content class="p-0">
         <p
           #content
-          class="text-overflow-card-one"
+          class="text-overflow-card-main m-2"
           [innerHTML]="post.content"></p>
         <ng-container *ngIf="post.type === 'PREVIEW' || post.type === 'IMAGE'">
           <gallery-component [post]="post"></gallery-component>

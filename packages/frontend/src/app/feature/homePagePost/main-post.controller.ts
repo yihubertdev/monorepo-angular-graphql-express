@@ -20,12 +20,12 @@ import { ActivatedRoute } from "@angular/router";
   template: `
     <div class="row">
       <ng-container *ngFor="let post of data; index as i; trackBy: identify">
-        <div class="col-6 p-0 m-0">
+        <div class="col-6 p-0">
           <main-post-card-component [post]="post"></main-post-card-component>
         </div>
 
         <div
-          class="col-12 p-0 m-0"
+          class="col-12 p-0"
           *ngIf="i === 3 && !userId">
           <carousel-slider-component
             [images]="images"
@@ -33,7 +33,7 @@ import { ActivatedRoute } from "@angular/router";
         </div>
 
         <div
-          class="col-12 p-0 m-0"
+          class="col-12 p-0"
           *ngIf="i === 7 && !userId">
           <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
         </div>

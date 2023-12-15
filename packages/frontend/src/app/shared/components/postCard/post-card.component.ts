@@ -42,25 +42,8 @@ import { MatDividerModule } from "@angular/material/divider";
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card class="m-2">
-      <mat-card-header
-        [routerLink]="
-          !isUserProfile && !isMe
-            ? ['/users', 'profile', postCardInfo.userId, 'posts']
-            : null
-        "
-        class="cursor-pointer">
-        <div
-          mat-card-avatar
-          [ngStyle]="{
-            backgroundImage:
-              'url(' + (postCardInfo.photoURL | defaultUserPhoto) + ')',
-            backgroundSize: 'cover'
-          }"
-          *ngIf="!isUserProfile && !isMe"></div>
-        <mat-card-title *ngIf="!isUserProfile && !isMe">{{
-          postCardInfo.displayName ? postCardInfo.displayName : "Guest"
-        }}</mat-card-title>
+    <mat-card class="mt-1">
+      <mat-card-header>
         <mat-card-subtitle>{{
           postCardInfo.createdAt | date : "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
