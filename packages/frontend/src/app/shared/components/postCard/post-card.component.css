@@ -62,7 +62,6 @@
 }
 
 .text-overflow-card-main {
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   /* number of lines to show */

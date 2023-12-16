@@ -28,9 +28,10 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
     <mat-card class="m-1">
       <mat-card-header
         [routerLink]="['/users', 'profile', post.userId, 'posts']"
-        class="cursor-pointer">
+        class="cursor-pointer m-0 pt-0">
         <div
           mat-card-avatar
+          class="m-0 pt-0"
           [ngStyle]="{
             backgroundImage: 'url(' + (post.photoURL | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
@@ -41,7 +42,7 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
       <mat-card-content class="p-0">
         <p
           #content
-          class="text-overflow-card-main m-2"
+          class="text-overflow-card-main m-2 mt-0 mb-0 pt-0"
           [innerHTML]="post.content"></p>
         <ng-container *ngIf="post.type === 'PREVIEW' || post.type === 'IMAGE'">
           <gallery-component [post]="post"></gallery-component>

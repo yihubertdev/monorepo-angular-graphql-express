@@ -32,11 +32,11 @@ import { MatButtonModule } from "@angular/material/button";
           class="gallery-image-text"
           *ngIf="item?.thumb">
           <a
-            mat-button
+            mat-stroked-button
             [href]="item?.thumb"
             target="_blank">
             <h4 class="text-overflow-title">{{ item?.args }}...</h4>
-            <mat-icon>mouse</mat-icon>
+            <mat-icon>arrow_right_alt</mat-icon>
           </a>
           <p class="text-overflow-preview">{{ item?.alt }}</p>
         </div>
