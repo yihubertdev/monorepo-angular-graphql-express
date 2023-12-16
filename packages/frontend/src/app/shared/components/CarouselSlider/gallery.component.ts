@@ -4,10 +4,19 @@ import { Gallery, GalleryItem, GalleryModule } from "ng-gallery";
 import { v4 as uuidv4 } from "uuid";
 import { NgIf, NgStyle } from "@angular/common";
 import { POST } from "sources-types";
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
 
 @Component({
   standalone: true,
-  imports: [NgIf, LightboxModule, GalleryModule, NgStyle],
+  imports: [
+    NgIf,
+    LightboxModule,
+    GalleryModule,
+    NgStyle,
+    MatIconModule,
+    MatButtonModule,
+  ],
   selector: "gallery-component",
   template: `
     <gallery
@@ -19,16 +28,18 @@ import { POST } from "sources-types";
       [dotsSize]="10"
       dotsPosition="bottom">
       <ng-container *galleryImageDef="let item; let active = active">
-        <a
-          *ngIf="item?.thumb"
-          class=" unset-tag-a"
-          [href]="item?.thumb"
-          target="_blank">
-          <div class="gallery-image-text">
-            <h5>{{ item?.args }}</h5>
-            <p class="text-overflow-preview">{{ item?.alt }}</p>
-          </div></a
-        >
+        <div
+          class="gallery-image-text"
+          *ngIf="item?.thumb">
+          <a
+            mat-button
+            [href]="item?.thumb"
+            target="_blank">
+            <h4 class="text-overflow-title">{{ item?.args }}...</h4>
+            <mat-icon>mouse</mat-icon>
+          </a>
+          <p class="text-overflow-preview">{{ item?.alt }}</p>
+        </div>
       </ng-container>
     </gallery>
   `,
@@ -52,7 +63,7 @@ export class GalleryImageComponent implements OnInit {
             src: item,
             alt: this.post.description,
             thumb: this.post.url,
-            args: this.post.title,
+            args: this.post.title.substring(0, 30),
           },
         };
       }

@@ -160,13 +160,26 @@ div.horizonal-scroll-section::-webkit-scrollbar {
   border-radius: 20px;
 }
 
-.text-overflow-preview {
+.text-overflow-title {
   display: -webkit-box;
+  color: black;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   /* number of lines to show */
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 1;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+}
+
+.text-overflow-preview {
+  display: -webkit-box;
+  color: black;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* number of lines to show */
+  -webkit-line-clamp: 4;
   white-space: pre-wrap;
   -webkit-box-orient: vertical;
 }
