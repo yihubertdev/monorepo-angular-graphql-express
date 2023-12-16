@@ -22,7 +22,7 @@ import { MatButtonModule } from "@angular/material/button";
     <gallery
       class="fix-height"
       [id]="galleryId"
-      (itemClick)="open()"
+      [gallerize]="galleryId"
       [thumb]="false"
       [dots]="true"
       [dotsSize]="10"
@@ -55,6 +55,7 @@ export class GalleryImageComponent implements OnInit {
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId);
+
     this.galleryImages = this.post.image.map((item) => {
       if (this.post.type === POST.POST_TYPE.PREVIEW) {
         return {
@@ -75,9 +76,5 @@ export class GalleryImageComponent implements OnInit {
       };
     });
     galleryRef.load(this.galleryImages);
-  }
-
-  public open() {
-    this.lightbox.open(0, this.galleryId);
   }
 }
