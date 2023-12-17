@@ -115,11 +115,6 @@ import { MatDividerModule } from "@angular/material/divider";
         <!-- <image-slider-component
           [images]="postCardInfo?.image ?? []"></image-slider-component> -->
         <!--multiple image display-->
-        <!-- <carousel-slider-component
-          *ngIf="postCardInfo?.image && postCardInfo?.image?.length !== 1"
-          [images]="postCardInfo.image ?? []"
-          [height]="40"
-          [isCover]="false"></carousel-slider-component> -->
       </mat-card-content>
     </mat-card>
   `,

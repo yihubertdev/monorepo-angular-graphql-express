@@ -1,9 +1,28 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild } from "@angular/core";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { NgClass, NgForOf, NgIf, NgStyle } from "@angular/common";
-import { LightboxModule } from "ng-gallery/lightbox";
+import { Lightbox, LightboxModule } from "ng-gallery/lightbox";
 import { Gallery, GalleryModule, ImageItem } from "ng-gallery";
 import { v4 as uuidv4 } from "uuid";
+
+export namespace ICarousel {
+  export const enum IImageType {
+    IMAGE = "image",
+    PREVIEW = "preview",
+  }
+
+  export interface IImage {
+    type: IImageType;
+    image: string[];
+  }
+
+  export interface IPreview extends IImage {
+    type: IImageType.PREVIEW;
+    url: string;
+    description: string;
+    title: string;
+  }
+}
 
 @Component({
   standalone: true,
@@ -33,7 +52,20 @@ import { v4 as uuidv4 } from "uuid";
           display: i === slideIndex ? 'block' : 'none'
         }"
         [lightbox]="i"
-        [gallery]="galleryId"></div>
+        [gallery]="galleryId">
+        <hr />
+        <a
+          *ngIf="item?.data?.thumb"
+          mat-stroked-button
+          [href]="item?.data?.thumb"
+          class="unset-tag-a"
+          target="_blank"
+          ><div class="gallery-image-text">
+            <h4 class="text-overflow-title">{{ item.data.alt }}</h4>
+            <p class="text-overflow-preview">{{ item.data.args }}</p>
+          </div>
+        </a>
+      </div>
 
       <div class="position-absolute-center">
         <span
@@ -66,14 +98,16 @@ import { v4 as uuidv4 } from "uuid";
   styleUrls: ["./carousel-slider.css"],
 })
 export class CarouselSliderComponent implements OnInit {
-  @Input() images: string[] = [];
+  @Input({ required: true }) images!: ICarousel.IImage | ICarousel.IPreview;
   @Input() height?: number;
   @Input() isSilding?: boolean;
+
+  @ViewChild("imageTem") imageTem: any;
   public slideIndex: number = 0;
   public galleryId: string = uuidv4();
   public galleryImages: ImageItem[] = [];
 
-  constructor(public gallery: Gallery) {}
+  constructor(public gallery: Gallery, private lightbox: Lightbox) {}
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId, {
@@ -82,18 +116,29 @@ export class CarouselSliderComponent implements OnInit {
       dots: true,
       dotsSize: 10,
       dotsPosition: "bottom",
+      imageSize: "contain",
     });
-    this.galleryImages = this.images.map((card) => {
+    this.galleryImages = this.images.image.map((card) => {
+      if (this.images.type === ICarousel.IImageType.PREVIEW) {
+        return new ImageItem({
+          src: card,
+          alt: (this.images as ICarousel.IPreview).title,
+          args: (this.images as ICarousel.IPreview).description,
+          thumb: (this.images as ICarousel.IPreview).url,
+        });
+      }
       return new ImageItem({
         src: card,
-        thumb: card,
       });
+    });
+    this.lightbox.setConfig({
+      panelClass: "fullscreen",
     });
     galleryRef.load(this.galleryImages);
     if (this.isSilding) {
       setInterval(() => {
         this.slideIndex =
-          this.slideIndex + 1 >= this.images.length
+          this.slideIndex + 1 >= this.galleryImages.length
             ? (this.slideIndex = 0)
             : (this.slideIndex = this.slideIndex + 1);
       }, 2000);

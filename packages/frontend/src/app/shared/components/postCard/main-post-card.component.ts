@@ -6,7 +6,10 @@ import { RouterModule } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
-import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
+import {
+  CarouselSliderComponent,
+  ICarousel,
+} from "../CarouselSlider/carousel-slider.component";
 
 @Component({
   standalone: true,
@@ -20,7 +23,7 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
     UserPhotoPipe,
     MatMenuModule,
     MatButtonModule,
-    GalleryImageComponent,
+    CarouselSliderComponent,
   ],
   selector: "main-post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,7 +48,8 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
           class="text-overflow-card-main m-2 mt-0 mb-0 pt-0"
           [innerHTML]="post.content"></p>
         <ng-container *ngIf="post.type === 'PREVIEW' || post.type === 'IMAGE'">
-          <gallery-component [post]="post"></gallery-component>
+          <carousel-slider-component
+            [images]="images"></carousel-slider-component>
         </ng-container>
       </mat-card-content>
     </mat-card>
@@ -54,4 +58,21 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
 })
 export class MainPostCardComponent {
   @Input({ required: true }) post!: POST.IPostFull;
+  public images!: ICarousel.IImage | ICarousel.IPreview;
+
+  ngOnInit() {
+    this.images =
+      this.post.type === POST.POST_TYPE.IMAGE
+        ? {
+            type: ICarousel.IImageType.IMAGE,
+            image: this.post.image,
+          }
+        : {
+            type: ICarousel.IImageType.PREVIEW,
+            image: (this.post as POST.IPreview).image,
+            url: (this.post as POST.IPreview).url,
+            description: (this.post as POST.IPreview).description,
+            title: (this.post as POST.IPreview).title,
+          };
+  }
 }
