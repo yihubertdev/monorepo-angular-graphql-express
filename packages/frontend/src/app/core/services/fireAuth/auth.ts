@@ -143,7 +143,7 @@ export class AuthService {
           backgroundPhotoURL: null,
           description: null,
         },
-        uid: user.uid,
+        id: user.uid,
       }),
       this.sendVerificationMail(user),
     ]);

@@ -36,10 +36,7 @@ export class ProfileStorageService extends FireStorageBaseModel {
    * @param {string} userId upload id
    * @returns {Promise<string>} upload url
    */
-  public override upload = async (
-    file: File,
-    userId: string
-  ): Promise<string> => {
+  public override async upload(file: File, userId: string): Promise<string> {
     const url = await super.upload(file, userId);
 
     // Update fire auth user information
@@ -57,7 +54,7 @@ export class ProfileStorageService extends FireStorageBaseModel {
     });
 
     return url;
-  };
+  }
 
   /**
    * Upload file into fire storage bucket

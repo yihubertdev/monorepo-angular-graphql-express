@@ -76,7 +76,7 @@ export abstract class FireStorageBaseModel {
    * @param {string} id upload file id
    * @returns {Promise<string>} return upload file url
    */
-  public upload = async (file: File, id: string): Promise<string> => {
+  public async upload(file: File, id: string): Promise<string> {
     const extension = file.name.split(".").pop();
     const storageRef = ref(
       this.storage,
@@ -90,7 +90,7 @@ export abstract class FireStorageBaseModel {
     const url = await getDownloadURL(storageRef);
 
     return url;
-  };
+  }
 
   public async uploadBlob(blob: Blob) {
     const storageRef = ref(

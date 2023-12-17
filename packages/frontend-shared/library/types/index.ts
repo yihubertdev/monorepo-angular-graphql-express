@@ -97,8 +97,6 @@ export interface ILinkExtractor {
 export interface IPostBase {
   id: string;
   userId: string;
-  displayName: string;
-  photoURL: string | null;
   content: string;
   pin?: boolean;
   createdAt: number;
@@ -134,7 +132,15 @@ export namespace POST {
     image: string[];
   }
 
-  export type IPost = IPreview | IVideo | IImage;
+  export interface IText extends IPostBase {
+    type: POST_TYPE.TEXT;
+  }
+
+  export type IPost = IPreview | IVideo | IImage | IText;
+  export type IPostFull = IPost & {
+    displayName: string;
+    photoURL: string | null;
+  };
 }
 
 export interface ICollectionQueryBuilder<T> {

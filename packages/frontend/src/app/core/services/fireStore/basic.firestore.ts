@@ -114,19 +114,18 @@ export abstract class FireStoreBaseModel<T> {
    * @param {T} document create document
    * @returns {Promise<void>}
    */
-  public create({
+  public async create({
     document,
-    uid = uuidv4(),
+    id = uuidv4(),
   }: {
     document: T;
-    uid?: string;
-  }): string {
-    this.collection.doc(uid).set({
+    id?: string;
+  }): Promise<void> {
+    await this.collection.doc(id).set({
       ...document,
       createdAt: new Date().getTime(),
       updatedAt: new Date().getTime(),
     });
-    return uid;
   }
 
   /**
@@ -222,6 +221,7 @@ export abstract class FireStoreBaseModel<T> {
 
     let querySnapShot = this.collection.ref
       .where("type", "in", [POST.POST_TYPE.IMAGE, POST.POST_TYPE.PREVIEW])
+      .orderBy("createdAt", "desc")
       .limit(limit);
 
     if (userIds) {
@@ -262,6 +262,7 @@ export abstract class FireStoreBaseModel<T> {
 
     let querySnapShot = this.collection.ref
       .where("type", "in", [POST.POST_TYPE.IMAGE, POST.POST_TYPE.PREVIEW])
+      .orderBy("createdAt", "desc")
       .startAfter(this.lastQueryDocumentSnapshot)
       .limit(limit);
     if (userIds) {

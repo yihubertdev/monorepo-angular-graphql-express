@@ -6,7 +6,7 @@ import { CACHE_KEY, POST, IUserFull } from "sources-types";
 export class HomePagePostCache extends FireStoreCacheService<
   {
     hasFile: boolean;
-    data: POST.IPost[];
+    data: POST.IPostFull[];
   },
   void
 > {
@@ -17,7 +17,7 @@ export class HomePagePostCache extends FireStoreCacheService<
 export class UserPagePostCache extends FireStoreCacheService<
   {
     hasFile: boolean;
-    data: POST.IPost[];
+    data: POST.IPost[]; // no need to have displayName and photoURL, do not use IPostFull
   },
   string
 > {
