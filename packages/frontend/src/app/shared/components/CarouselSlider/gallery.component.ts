@@ -22,7 +22,7 @@ import { MatButtonModule } from "@angular/material/button";
     <gallery
       class="fix-height"
       [id]="galleryId"
-      [gallerize]="galleryId"
+      (itemClick)="open()"
       [thumb]="false"
       [dots]="true"
       [dotsSize]="10"
@@ -76,5 +76,9 @@ export class GalleryImageComponent implements OnInit {
       };
     });
     galleryRef.load(this.galleryImages);
+  }
+
+  open() {
+    this.lightbox.open(0, this.galleryId);
   }
 }

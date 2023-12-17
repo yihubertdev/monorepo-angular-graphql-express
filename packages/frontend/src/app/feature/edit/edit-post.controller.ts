@@ -66,17 +66,15 @@ export class EditPostController {
     // Get current login user
     const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
 
-    const { userId, displayName, photoURL } = currentUser;
+    const { userId } = currentUser;
     content = this._transformMention(content);
     if (image.length) {
-      this._postService.create({
+      await this._postService.create({
         document: this._postService.serializer({
           type: POST.POST_TYPE.IMAGE,
           image,
           content,
           userId,
-          displayName,
-          photoURL,
         }),
       });
       this._router.navigate(["home", "posts"]);
@@ -99,15 +97,13 @@ export class EditPostController {
         url: string;
       };
 
-      this._postService.create({
+      await this._postService.create({
         document: this._postService.serializer({
           ...preview,
           image: [preview.image],
           type: POST.POST_TYPE.PREVIEW,
           content,
           userId,
-          displayName,
-          photoURL,
         }),
       });
       this._router.navigate(["home", "posts"]);
@@ -116,19 +112,28 @@ export class EditPostController {
 
     const videoId = this._getVideoId(content);
     if (videoId) {
-      this._postService.create({
+      await this._postService.create({
         document: this._postService.serializer({
           ...formValue,
           video: videoId[1],
           type: POST.POST_TYPE.VIDEO,
           content,
           userId,
-          displayName,
-          photoURL,
         }),
       });
       this._router.navigate(["home", "posts"]);
       return;
     }
+
+    await this._postService.create({
+      document: this._postService.serializer({
+        ...formValue,
+        type: POST.POST_TYPE.TEXT,
+        content,
+        userId,
+      }),
+    });
+    this._router.navigate(["home", "posts"]);
+    return;
   }
 }

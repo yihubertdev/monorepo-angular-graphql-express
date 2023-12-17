@@ -53,5 +53,5 @@ import { GalleryImageComponent } from "../CarouselSlider/gallery.component";
   styleUrls: ["./post-card.component.css"],
 })
 export class MainPostCardComponent {
-  @Input({ required: true }) post!: POST.IPost;
+  @Input({ required: true }) post!: POST.IPostFull;
 }

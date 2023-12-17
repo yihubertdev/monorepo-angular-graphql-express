@@ -51,7 +51,7 @@ export class MainPostController implements OnInit {
     "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
   ];
 
-  public data: POST.IPost[] = [];
+  public data: POST.IPostFull[] = [];
   private hasFile: boolean = true;
 
   constructor(
@@ -75,7 +75,7 @@ export class MainPostController implements OnInit {
   ngOnInit(): void {
     const resolverData = this.route.snapshot.data as {
       posts: {
-        data: POST.IImage[];
+        data: POST.IPostFull[];
         hasFile: boolean;
       };
       user: IUser;

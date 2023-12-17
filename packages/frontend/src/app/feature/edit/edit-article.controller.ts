@@ -67,8 +67,6 @@ export class EditArticleController {
       document: this._postService.serializer({
         type: POST.POST_TYPE.PREVIEW,
         userId: currentUser.userId,
-        displayName: currentUser.displayName,
-        photoURL: currentUser.photoURL,
         content: "I published a article:",
         description: description as string,
         image: [""],

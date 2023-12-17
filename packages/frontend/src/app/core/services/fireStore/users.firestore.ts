@@ -162,9 +162,14 @@ export class UserService extends FireStoreBaseModel<IUser> {
     return data;
   };
 
-  public override create({ document, uid }: { document: IUser; uid: string }) {
-    this.collection.doc(uid).set(document);
-    return uid;
+  public override async create({
+    document,
+    id,
+  }: {
+    document: IUser;
+    id: string;
+  }) {
+    await this.collection.doc(id).set(document);
   }
 
   public async retrieveSubCollection<K>(filter: {

@@ -30,7 +30,7 @@ export default [
   },
   {
     path: "settings",
-    canActivate: [isUserLogin, isUserVerified],
+    canActivate: [isUserLogin],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./settings.view"),
     loadChildren: () => import("../settings").then((router) => router.route),

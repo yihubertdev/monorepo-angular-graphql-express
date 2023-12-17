@@ -121,7 +121,7 @@ export class UserProfileController implements OnInit {
       disableClose: true,
       data: {
         event: file[0],
-        ratio: 6 / 1,
+        ratio: 4 / 1,
       },
     });
     this.uploadBackgroundImage.nativeElement.value = "";
@@ -131,11 +131,8 @@ export class UserProfileController implements OnInit {
         data,
         this.currentUser!.userId
       );
-      throw new Error("sd");
+      throw new Error("Background Image uploaded");
     });
-
-    //const url = await this.profileStorage.upload(file[0], this.currentUser?.id);
-    // this.photoUrl = url;
   }
   triggerUpload() {
     if (this.isSettingsPage) {

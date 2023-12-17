@@ -85,7 +85,8 @@ export class EmailLoginControllerComponent {
           user,
           verifier: this.recaptcha,
         },
-        width: "60%",
+        height: "80%",
+        width: "80%",
       });
     }
     this.isLoading = false;

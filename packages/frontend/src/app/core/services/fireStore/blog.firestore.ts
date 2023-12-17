@@ -30,6 +30,7 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
       | Omit<POST.IImage, "id" | "createdAt" | "updatedAt">
       | Omit<POST.IVideo, "id" | "createdAt" | "updatedAt">
       | Omit<POST.IPreview, "id" | "createdAt" | "updatedAt">
+      | Omit<POST.IText, "id" | "createdAt" | "updatedAt">
   ): POST.IPost {
     return {
       ...input,
@@ -80,10 +81,14 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
     super.delete(id);
   }
 
-  public override create({ document }: { document: POST.IPost }): string {
+  public override async create({
+    document,
+  }: {
+    document: POST.IPost;
+  }): Promise<void> {
     this._userPageCache.delete(document.userId);
     this._homePageCache.delete();
-    return super.create({ document });
+    await super.create({ document });
   }
 
   public async listUserPagePostCache(
@@ -101,7 +106,7 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
 
   public async listHomePagePostCache(
     limit: number = 10
-  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPostFull[] }> {
     const data = this._homePageCache.get();
     if (data) {
       return data;
@@ -109,33 +114,42 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
     const users = this._userCache.get();
     const groupedData = keyBy(users!, "userId");
     let post = await this.list(limit, Object.keys(groupedData));
-    post.data = post.data.map((item) => ({
-      ...item,
-      displayName: groupedData[item.userId]!.displayName, // user display name
-      photoURL: groupedData[item.userId]!.photoURL, // user photo url
-    }));
-    this._homePageCache.update(post);
-    return post;
+
+    const postFull: { hasFile: boolean; data: POST.IPostFull[] } = {
+      hasFile: post.hasFile,
+      data: post.data.map((item) => ({
+        ...item,
+        displayName: groupedData[item.userId]!.displayName, // user display name
+        photoURL: groupedData[item.userId]!.photoURL, // user photo url
+      })),
+    };
+    this._homePageCache.update(postFull);
+    return postFull;
   }
 
   public async listHomePageImagePostCache(
     limit: number = 10
-  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPostFull[] }> {
     const data = this._homePageCache.get();
     if (data) {
       return data;
     }
     const users = this._userCache.get();
     const groupedData = keyBy(users!, "userId");
-    let post = await this.listPostContainImage(limit, Object.keys(groupedData));
-    console.log(post);
-    post.data = post.data.map((item) => ({
-      ...item,
-      displayName: groupedData[item.userId]!.displayName, // user display name
-      photoURL: groupedData[item.userId]!.photoURL, // user photo url
-    }));
-    this._homePageCache.update(post);
-    return post;
+    const post = await this.listPostContainImage(
+      limit,
+      Object.keys(groupedData)
+    );
+    const postFull: { hasFile: boolean; data: POST.IPostFull[] } = {
+      hasFile: post.hasFile,
+      data: post.data.map((item) => ({
+        ...item,
+        displayName: groupedData[item.userId]!.displayName, // user display name
+        photoURL: groupedData[item.userId]!.photoURL, // user photo url
+      })),
+    };
+    this._homePageCache.update(postFull);
+    return postFull;
   }
 
   public async listUserPaginationWithCache(
@@ -166,7 +180,7 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
 
   public async listHomePaginationWithCache(
     limit: number = 10
-  ): Promise<{ hasFile: boolean; data: POST.IPost[] }> {
+  ): Promise<{ hasFile: boolean; data: POST.IPostFull[] }> {
     const cache = this._homePageCache.get();
     if (cache && !cache.hasFile) {
       return cache;
@@ -177,17 +191,21 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
       limit,
       Object.keys(groupedData)
     );
-    post.data = post.data.map((item) => ({
-      ...item,
-      displayName: groupedData[item.userId]!.displayName, // user display name
-      photoURL: groupedData[item.userId]!.photoURL, // user photo url
-    }));
-    let data: POST.IPost[] = [];
+    const postFull: { hasFile: boolean; data: POST.IPostFull[] } = {
+      hasFile: post.hasFile,
+      data: post.data.map((item) => ({
+        ...item,
+        displayName: groupedData[item.userId]!.displayName, // user display name
+        photoURL: groupedData[item.userId]!.photoURL, // user photo url
+      })),
+    };
+
+    let data: POST.IPostFull[] = [];
     if (cache) {
       data = cache.data;
-      data.push(...post.data);
+      data.push(...postFull.data);
     } else {
-      data = post.data;
+      data = postFull.data;
     }
 
     const result = {
