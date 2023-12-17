@@ -161,7 +161,6 @@ div.horizonal-scroll-section::-webkit-scrollbar {
 .text-overflow-title {
   display: -webkit-box;
   color: black;
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   /* number of lines to show */
@@ -173,7 +172,6 @@ div.horizonal-scroll-section::-webkit-scrollbar {
 .text-overflow-preview {
   display: -webkit-box;
   color: black;
-  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   /* number of lines to show */

@@ -18,16 +18,18 @@ export async function migrationPostFieldRemove(): Promise<void> {
         photoURL: FieldValue.delete(),
         displayName: FieldValue.delete(),
       });
-      if (post.data().image === "") {
-        batch.update(post.ref, {
-          image: FieldValue.delete(),
-        });
+      if (post.data().image === "" || Array.isArray(post.data().image)) {
+        if (post.data().image.length === 0) {
+          batch.update(post.ref, {
+            image: FieldValue.delete(),
+          });
+        }
       }
 
-      if(post.data().description) {
+      if (post.data().description && !Array.isArray(post.data().image)) {
         batch.update(post.ref, {
-            image: [post.data().image],
-          });
+          image: [post.data().image],
+        });
       }
 
       if (post.data().image && !post.data().description) {
