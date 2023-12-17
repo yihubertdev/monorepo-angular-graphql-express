@@ -25,14 +25,13 @@ import { v4 as uuidv4 } from "uuid";
       }"
       *ngIf="galleryImages?.length !== 0">
       <div
-        class="slide fade"
+        class="slide fade slide-image-cover-center"
         *ngFor="let item of galleryImages; let i = index"
         [ngStyle]="{
           height: '100%',
           'background-image': 'url(' + item.data.src + ')',
           display: i === slideIndex ? 'block' : 'none'
         }"
-        [ngClass]="isCover ? 'slide-image-cover-center' : 'slide-image-center'"
         [lightbox]="i"
         [gallery]="galleryId"></div>
 
@@ -69,7 +68,6 @@ import { v4 as uuidv4 } from "uuid";
 export class CarouselSliderComponent implements OnInit {
   @Input() images: string[] = [];
   @Input() height?: number;
-  @Input() isCover: boolean = true;
   @Input() isSilding?: boolean;
   public slideIndex: number = 0;
   public galleryId: string = uuidv4();
@@ -79,9 +77,11 @@ export class CarouselSliderComponent implements OnInit {
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId, {
-      thumbPosition: "bottom",
+      thumb: false,
       counterPosition: "top",
-      thumbImageSize: "contain",
+      dots: true,
+      dotsSize: 10,
+      dotsPosition: "bottom",
     });
     this.galleryImages = this.images.map((card) => {
       return new ImageItem({
