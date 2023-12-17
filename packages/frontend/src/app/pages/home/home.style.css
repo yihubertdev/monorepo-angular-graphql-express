@@ -23,14 +23,3 @@
   object-fit: cover;
   z-index: 0;
 }
-
-.fab-button {
-  position: fixed;
-  bottom: 12dvh;
-  right: 12vw;
-}
-
-.icon-display {
-  transform: scale(3);
-  color: #c0c0c0;
-}

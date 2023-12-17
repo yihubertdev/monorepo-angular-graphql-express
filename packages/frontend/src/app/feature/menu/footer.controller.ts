@@ -92,7 +92,6 @@ export class FooterController {
     MatListModule,
     RouterModule,
     MatIconModule,
-    MatIconModule,
     MatButtonModule,
   ],
   template: `<mat-nav-list>

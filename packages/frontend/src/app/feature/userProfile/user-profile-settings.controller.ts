@@ -77,14 +77,14 @@ import { DomSanitizer } from "@angular/platform-browser";
         <a
           class="m-2"
           mat-button
-          [routerLink]="['/users', 'me', 'personal-profile']"
+          [routerLink]="['/users', 'profile', 'me']"
           >View Profile <mat-icon> visibility </mat-icon></a
         >
         <a
           class="m-2"
           mat-raised-button
           color="primary"
-          [routerLink]="['/users', 'profile-signup']">
+          [routerLink]="['/users', 'profile', 'me']">
           Build Profile
           <mat-icon>account_box</mat-icon>
         </a>

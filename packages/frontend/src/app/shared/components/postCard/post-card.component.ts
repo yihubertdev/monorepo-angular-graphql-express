@@ -42,7 +42,7 @@ import { MatDividerModule } from "@angular/material/divider";
   selector: "post-card-component",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-card class="mt-1">
+    <mat-card class="mt-2">
       <mat-card-header>
         <mat-card-subtitle>{{
           postCardInfo.createdAt | date : "yyyy-MM-dd h:mm:ss a"
@@ -77,7 +77,7 @@ import { MatDividerModule } from "@angular/material/divider";
           *ngIf="content.scrollHeight > 100"
           class="cursor-pointer"
           (click)="isShowMore = !isShowMore"
-          style="text-align: right;">
+          style="text-align: right; z-index: 9;">
           {{ isShowMore ? "Show Less" : "Show More" }}
         </p>
 
@@ -87,14 +87,14 @@ import { MatDividerModule } from "@angular/material/divider";
             [href]="postCardInfo.url"
             target="_blank"
             ><mat-divider></mat-divider>
-            <h4
-              class="mt-3 text-overflow-card"
-              style="display: -webkit-box;"
-              [innerHTML]="postCardInfo.title"></h4>
             <h5
+              class="mt-2 text-overflow-card"
+              style="display: -webkit-box;"
+              [innerHTML]="postCardInfo.title"></h5>
+            <p
               class="text-overflow-card"
               style="display: -webkit-box;"
-              [innerHTML]="postCardInfo.description"></h5
+              [innerHTML]="postCardInfo.description"></p
           ></a>
         </ng-container>
 

@@ -54,9 +54,11 @@ export class HomePagePostController implements OnInit {
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       this.hasFile
     ) {
-      const post = this.userId
-        ? await this._PostService.listUserPaginationWithCache(5, this.userId)
-        : await this._PostService.listHomePaginationWithCache(5);
+      const post = await this._PostService.listUserPaginationWithCache(
+        5,
+        this.userId
+      );
+
       this.data = post.data;
       this.hasFile = post.hasFile;
     }
@@ -72,7 +74,8 @@ export class HomePagePostController implements OnInit {
     };
     if (this.userId == "me") {
       this.isMe = true;
-      this.userId = this._sessionStorage.getSessionStorage("user")!;
+      this.userId =
+        this._sessionStorage.getSessionStorage<IUser>("user")!.userId;
     }
     if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;

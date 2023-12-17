@@ -12,10 +12,10 @@ import { IUser } from "sources-types";
   template: ` <mat-card style="border-radius: initial;">
     <mat-card-header>
       <mat-card-title style="display: inline !important;"
-        >{{ currentUser?.displayName ?? "Guest" }}
+        >{{ currentUser.displayName }}
       </mat-card-title>
       <mat-card-subtitle style="display: inline !important;"
-        >&#64;{{ currentUser?.userId ?? "guest" }}</mat-card-subtitle
+        >&#64;{{ currentUser.userId }}</mat-card-subtitle
       >
     </mat-card-header>
 
@@ -25,7 +25,7 @@ import { IUser } from "sources-types";
         #content
         class="text-overflow-card"
         [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
-        [innerHTML]="currentUser?.description"></p>
+        [innerHTML]="currentUser.description"></p>
       <p
         *ngIf="content.scrollHeight > 100"
         class="cursor-pointer"
@@ -38,7 +38,7 @@ import { IUser } from "sources-types";
   styleUrls: ["./post-card.component.css"],
 })
 export class ProfileCardComponent {
-  @Input() currentUser?: IUser;
+  @Input() currentUser!: IUser;
 
   public isShowMore: boolean = false;
 }

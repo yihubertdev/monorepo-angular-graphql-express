@@ -49,7 +49,7 @@ import { ImageCropperDialog } from "./user-profile-settings.controller";
       <div
         class="profile-background profile-background-size slide-image-cover-center"
         [ngStyle]="{
-          backgroundImage: currentUser?.backgroundPhotoURL ? 'url(' + currentUser?.backgroundPhotoURL + ')' : 'url(' + photoUrl + ')',
+          backgroundImage: currentUser.backgroundPhotoURL ? 'url(' + currentUser.backgroundPhotoURL + ')' : 'url(' + photoUrl + ')',
         }">
         <mat-icon
           *ngIf="isSettingsPage"
@@ -67,7 +67,7 @@ import { ImageCropperDialog } from "./user-profile-settings.controller";
           class="user-avatar-size user-avatar-square"
           [ngStyle]="{
             backgroundImage:
-              'url(' + (currentUser?.photoURL ?? null | defaultUserPhoto) + ')',
+              'url(' + (currentUser.photoURL ?? null | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"></div>
         <!-- <div class="position-absolute-bottom-right">
@@ -94,7 +94,7 @@ export class UserProfileController implements OnInit {
   @Input() userId?: string;
   @Input() isSettingsPage?: boolean;
   @ViewChild("uploadBackgroundImage") uploadBackgroundImage!: ElementRef;
-  currentUser?: IUser;
+  currentUser!: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
 

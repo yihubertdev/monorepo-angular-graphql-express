@@ -51,3 +51,15 @@
     display: flex !important;
   }
 }
+
+.fab-button {
+  position: fixed;
+  bottom: 12dvh;
+  right: 12vw;
+  z-index:9;
+}
+
+.icon-display {
+  transform: scale(3);
+  color: #c0c0c0;
+}

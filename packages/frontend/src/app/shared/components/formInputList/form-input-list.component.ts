@@ -218,7 +218,8 @@ import { IForm } from "src/app/core/static/form.static";
               <mat-icon>visibility</mat-icon>
             </a>
           </ng-template>
-          <ng-container *ngIf="!input.value; else download"></ng-container>
+          <ng-container
+            *ngIf="input.value.length === 0; else download"></ng-container>
           <document-uploader-component
             [documentPath]="input.documentPath"
             [documentCategory]="input.documentCategory"

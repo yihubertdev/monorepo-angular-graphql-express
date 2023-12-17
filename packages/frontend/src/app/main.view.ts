@@ -24,6 +24,7 @@ import { AuthService } from "./core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
 import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/mat-drawer-menu";
+import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor.controller";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -43,6 +44,7 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
     HeaderMenuController,
     MainIconController,
     FooterController,
+    AddTextEditorController,
   ],
   selector: "main-view",
   template: `
@@ -83,6 +85,11 @@ import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/
       <!-- mat-drawer-content desktop width 88dvw, mobile width 100 dvw -->
       <mat-drawer-content>
         <router-outlet></router-outlet>
+        <div
+          *ngIf="userInfo"
+          class="fab-button icon-display">
+          <add-text-editor-controller></add-text-editor-controller>
+        </div>
         <footer-controller class="responsive-footer"></footer-controller>
       </mat-drawer-content>
     </mat-drawer-container>
