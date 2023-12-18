@@ -157,12 +157,14 @@ export class PostCardComponent {
             },
           });
 
-          dialogRef.afterClosed().subscribe((result) => {
+          dialogRef.afterClosed().subscribe(async (result) => {
             if (!result) return;
             this._PostService.deletePost(
               this.postCardInfo!.userId,
               result.documentId
             );
+
+            throw new Error("post deleted");
           });
         }
 

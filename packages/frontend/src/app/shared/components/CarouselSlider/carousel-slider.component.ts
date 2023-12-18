@@ -116,7 +116,7 @@ export class CarouselSliderComponent implements OnInit {
       dots: true,
       dotsSize: 10,
       dotsPosition: "bottom",
-      imageSize: "contain",
+      imageSize: "cover",
     });
     this.galleryImages = this.images.image.map((card) => {
       if (this.images.type === ICarousel.IImageType.PREVIEW) {

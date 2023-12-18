@@ -160,9 +160,7 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
     if (cache && !cache.hasFile) {
       return cache;
     }
-    console.log(cache);
     const post = await this.listPagination(limit, [userId]);
-    console.log(post);
     let data: POST.IPost[] = [];
     if (cache) {
       data = cache.data;

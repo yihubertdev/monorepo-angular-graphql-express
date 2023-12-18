@@ -166,8 +166,8 @@ export abstract class FireStoreBaseModel<T> {
    * @param {string} id delete document
    * @returns {void}
    */
-  public delete(id: string): void {
-    this.collection.doc(id).delete();
+  public async delete(id: string): Promise<void> {
+    this.collection.doc(id).ref.delete();
   }
 
   /**

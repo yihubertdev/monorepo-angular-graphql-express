@@ -49,7 +49,7 @@ service cloud.firestore {
         match /blogs/{blogId}	{
             allow read;
             allow create: if isAuthSignedIn() && isNewDataMatchedUser();
-            allow update, delete: if isBlogUserMatchedAuth(blogId);
+            allow update, write, delete: if isBlogUserMatchedAuth(blogId);
         }
         match /article/{articleId} {
             allow read;
