@@ -7,7 +7,7 @@ img {
 
 /* Slideshow container */
 .slide-show-container {
-  height: 40dvh;
+  height: 300px;
   position: relative;
   margin: auto;
 }
