@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { IUser, POST } from "sources-types";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
-import { NgFor, NgIf } from "@angular/common";
+import { NgIf } from "@angular/common";
 import { CarouselSliderComponent } from "../../shared/components/CarouselSlider/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
@@ -11,7 +11,6 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
 @Component({
   standalone: true,
   imports: [
-    NgFor,
     NgIf,
     PostCardComponent,
     CarouselSliderComponent,
@@ -19,12 +18,12 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   ],
   selector: "home-page-post-controller",
   template: `
-    <ng-container *ngFor="let post of data; index as i; trackBy: identify">
-      <post-card-component
+      @for (post of data; track post.id) { 
+        <post-card-component
         [postCardInfo]="post"
         [isUserProfile]="!!userId"
         [isMe]="isMe"></post-card-component>
-    </ng-container>
+      }
   `,
   styleUrls: ["./home-page-post.style.css"],
 })

@@ -81,7 +81,6 @@ export class UserDetailsSettingsController implements OnInit {
 
   public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
-  protected groupedSettings!: Record<string, Omit<IUserSettings, "category">[]>;
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -139,7 +138,5 @@ export class UserDetailsSettingsController implements OnInit {
         }
       }
     });
-    // each category only have one object, each object have multiple data
-    this.groupedSettings = groupBy(this.categories, "category");
   }
 }

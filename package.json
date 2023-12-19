@@ -7,7 +7,8 @@
   "scripts": {
     "pretty": "npx prettier --config ./.prettierrc --write .",
     "start": "npx lerna run start --parallel",
-    "add": "npx lerna add package --scope=workspace"
+    "add": "npx lerna add package --scope=workspace",
+    "checkpack": "ncu -u"
   },
   "dependencies": {
     "lerna": "^8.0.1",

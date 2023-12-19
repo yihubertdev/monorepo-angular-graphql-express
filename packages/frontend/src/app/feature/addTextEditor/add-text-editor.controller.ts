@@ -34,11 +34,11 @@ export class AddTextEditorController {
 
 @Component({
   standalone: true,
-  imports: [NgFor, MatListModule, RouterModule, MatIconModule],
+  imports: [MatListModule, RouterModule, MatIconModule],
   selector: "bottom-sheet-overview-example-sheet",
   template: `<mat-nav-list>
-    <a
-      *ngFor="let icon of footerIconLayout"
+    @for (icon of footerIconLayout; track $index) {
+      <a
       mat-list-item
       (click)="bottomSheetRef.dismiss()"
       [routerLink]="icon.link">
@@ -46,6 +46,8 @@ export class AddTextEditorController {
       <div matListItemTitle>{{ icon.description }}</div>
       <div matListItemLine>{{ icon.description }}</div>
     </a>
+    }
+
     <a
       mat-list-item
       (click)="logout()">

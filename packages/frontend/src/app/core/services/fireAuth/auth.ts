@@ -82,12 +82,12 @@ export class AuthService {
 
   public buildRecaptcha(recaptcha: string) {
     return new RecaptchaVerifier(
+      this.auth,
       recaptcha,
       // Optional reCAPTCHA parameters.
       {
         size: "normal",
       },
-      this.auth
     );
   }
 
