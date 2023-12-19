@@ -11,29 +11,29 @@ npm pack
 
 cp $SHARED_TYPES ../../../frontend/dependencies
 
-cp $SHARED_TYPES ../ui/dependencies
-echo "finish file copy"
-DIR="../../dist/sharedModule"
-if [ -d "$DIR" ]; then
-    rm -r ../../dist/sharedModule
-else
-    echo "old build package cleared, continue"
-fi
+# cp $SHARED_TYPES ../ui/dependencies
+# echo "finish file copy"
+# DIR="../../dist/sharedModule"
+# if [ -d "$DIR" ]; then
+#     rm -r ../../dist/sharedModule
+# else
+#     echo "old build package cleared, continue"
+# fi
 
-cd ../ui/dependencies
+# cd ../ui/dependencies
 
-npm uninstall @types/sources-types
-npm install $SHARED_TYPES --save-dev
+# npm uninstall @types/sources-types
+# npm install $SHARED_TYPES --save-dev
 
-npx ng build --configuration development
+# npx ng build --configuration development
 
-cd ../../../dist/sharedModule
+# cd ../../../dist/sharedModule
 
-npm pack
+# npm pack
 
-SHARED_COMPONENTS=$(find . -type f -name "*.tgz")
+# SHARED_COMPONENTS=$(find . -type f -name "*.tgz")
 
-mv $SHARED_COMPONENTS ../../../frontend/dependencies
+# mv $SHARED_COMPONENTS ../../../frontend/dependencies
 
 cd ../../../frontend/dependencies
 
