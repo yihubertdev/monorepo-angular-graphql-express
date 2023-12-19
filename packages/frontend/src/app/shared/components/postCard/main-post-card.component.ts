@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
 import { POST } from "sources-types";
 import { NgIf, NgStyle, DatePipe, NgFor } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
@@ -56,7 +61,7 @@ import {
   `,
   styleUrls: ["./post-card.component.css"],
 })
-export class MainPostCardComponent {
+export class MainPostCardComponent implements OnInit {
   @Input({ required: true }) post!: POST.IPostFull;
   public images!: ICarousel.IImage | ICarousel.IPreview;
 

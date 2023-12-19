@@ -34,14 +34,14 @@ import { MatIconModule } from "@angular/material/icon";
       rowHeight="2:1"
       gutterSize="15px">
       <mat-grid-tile
-        *ngFor="let item of galleryImages | slice : 0 : 3; let i = index"
+        *ngFor="let item of galleryImages | slice: 0 : 3; let i = index"
         colspan="1"
         rowspan="1"
         [lightbox]="i"
         [gallery]="galleryId"
         class="image-frame-rounded slide-image-cover-center"
         [ngStyle]="{
-          backgroundImage: 'url(' + item.data.src + ')',
+          backgroundImage: 'url(' + item.data.src + ')'
         }"></mat-grid-tile>
       <mat-grid-tile
         *ngIf="images.length > 2"

@@ -17,11 +17,11 @@ import { UserProfileSettingsController } from "../../feature/userProfile/user-pr
       </div>
 
       <div class="row">
-        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-sm-12 mt-3">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-sm-12 mt-3">
           <user-profile-settings-controller></user-profile-settings-controller>
         </div>
         <!--padding set to 0 so dropdown panel and top profile image have same width-->
-        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-sm-12 p-0">
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-sm-12 p-0">
           <router-outlet></router-outlet>
         </div>
       </div>

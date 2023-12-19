@@ -45,7 +45,7 @@ import { MatDividerModule } from "@angular/material/divider";
     <mat-card class="mt-2">
       <mat-card-header>
         <mat-card-subtitle>{{
-          postCardInfo.createdAt | date : "yyyy-MM-dd h:mm:ss a"
+          postCardInfo.createdAt | date: "yyyy-MM-dd h:mm:ss a"
         }}</mat-card-subtitle>
         <button
           mat-icon-button
@@ -81,12 +81,17 @@ import { MatDividerModule } from "@angular/material/divider";
           {{ isShowMore ? "Show Less" : "Show More" }}
         </p>
 
+        <images-component
+          *ngIf="
+            postCardInfo.type === 'PREVIEW' || postCardInfo.type === 'IMAGE'
+          "
+          [images]="postCardInfo.image"></images-component>
+
         <ng-container *ngIf="postCardInfo.type === 'PREVIEW'">
           <a
             class="unset-tag-a"
             [href]="postCardInfo.url"
-            target="_blank"
-            ><mat-divider></mat-divider>
+            target="_blank">
             <h5
               class="mt-2 text-overflow-card"
               style="display: -webkit-box;"
@@ -97,12 +102,6 @@ import { MatDividerModule } from "@angular/material/divider";
               [innerHTML]="postCardInfo.description"></p
           ></a>
         </ng-container>
-
-        <images-component
-          *ngIf="
-            postCardInfo.type === 'PREVIEW' || postCardInfo.type === 'IMAGE'
-          "
-          [images]="postCardInfo.image"></images-component>
 
         <!--single video display-->
         <iframe

@@ -68,7 +68,7 @@
 }
 
 .card-height-responsive {
-  height: 30dvh;
+  height: 200px;
 }
 
 /* sm width */
@@ -79,7 +79,7 @@
   }
 
   .card-height-responsive {
-    height: 30dvh;
+    height: 200px;
   }
 }
 
@@ -91,7 +91,7 @@
   }
 
   .card-height-responsive {
-    height: 35dvh;
+    height: 300px;
   }
 }
 
@@ -103,7 +103,7 @@
   }
 
   .card-height-responsive {
-    height: 40dvh;
+    height: 400px;
   }
 }
 
@@ -115,7 +115,7 @@
   }
 
   .card-height-responsive {
-    height: 40dvh;
+    height: 400px;
   }
 }
 

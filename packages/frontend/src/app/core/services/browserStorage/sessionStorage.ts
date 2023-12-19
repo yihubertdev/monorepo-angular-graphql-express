@@ -6,7 +6,6 @@ export class SessionStorageService {
 
   /**
    * Get session storage
-   *
    * @public
    * @param {string} key session storage key
    * @returns {T} session storage value
@@ -28,7 +27,6 @@ export class SessionStorageService {
 
   /**
    * Get all session storage
-   *
    * @public
    * @returns {Storage} session storage
    */
@@ -38,7 +36,6 @@ export class SessionStorageService {
 
   /**
    * Set session storage
-   *
    * @public
    * @param {string} key session storage key
    * @param {T} value session storage value
@@ -51,7 +48,6 @@ export class SessionStorageService {
 
   /**
    * Remove session storage
-   *
    * @public
    * @param {string} key session storage key
    * @returns {void}

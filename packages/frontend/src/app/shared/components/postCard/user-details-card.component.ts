@@ -38,11 +38,13 @@ export interface IUserDetailCard {
   template: ` <a
       *ngIf="!noEdit"
       mat-button
-      (click)="remove({
-    documentId: settingDetail.documentId,
-    category,
-    title,
-  })"
+      (click)="
+        remove({
+          documentId: settingDetail.documentId,
+          category,
+          title
+        })
+      "
       style="margin-left: auto; display: table;">
       Remove
       <mat-icon>delete</mat-icon> </a

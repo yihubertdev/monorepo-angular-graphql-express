@@ -58,7 +58,7 @@ import { DomSanitizer } from "@angular/platform-browser";
                 'url(' +
                 (currentUser.photoURL ?? null | defaultUserPhoto) +
                 ')',
-              backgroundSize: 'cover',
+              backgroundSize: 'cover'
             }">
             <mat-icon
               class="user-avatar-uploader-center cursor-pointer"

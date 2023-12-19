@@ -7,19 +7,14 @@ import {
   ActionCodeSettings,
   Auth,
   UserCredential,
-  signInWithPopup,
-  user,
   RecaptchaVerifier,
-  signInWithPhoneNumber,
   linkWithPhoneNumber,
-  multiFactor,
   ConfirmationResult,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
-import { IUser, IUserRegister, IUserRole } from "sources-types";
+import { IUserRegister, IUserRole } from "sources-types";
 import {
   browserSessionPersistence,
-  GoogleAuthProvider,
   signInAnonymously,
   updateProfile,
 } from "firebase/auth";
@@ -87,13 +82,12 @@ export class AuthService {
       // Optional reCAPTCHA parameters.
       {
         size: "normal",
-      },
+      }
     );
   }
 
   /**
    * Login firebase auth
-   *
    * @public
    * @param {{ email: string; password: string }} data data login
    * @param {string} data.email email address
@@ -116,7 +110,6 @@ export class AuthService {
 
   /**
    * Register user to firebase auth
-   *
    * @public
    * @param {IUserRegister} data user register data
    * @returns {Promise<IUserRegister>} user register
@@ -168,7 +161,6 @@ export class AuthService {
 
   /**
    * Sign in anonymously
-   *
    * @public
    * @returns {Promise<UserCredential>} anonymous auth
    */
@@ -178,7 +170,6 @@ export class AuthService {
 
   /**
    * Get current user auth
-   *
    * @public
    * @returns {User | null} get user auth
    */
@@ -197,7 +188,6 @@ export class AuthService {
 
   /**
    * Sign out user from firebase auth
-   *
    * @public
    * @returns {Promise<void>}
    */
@@ -208,7 +198,6 @@ export class AuthService {
 
   /**
    * Retrieve all documents from collection
-   *
    * @private
    * @param {User} user user
    * @returns {Promise<void>}
@@ -223,7 +212,6 @@ export class AuthService {
 
   /**
    * Check user role is visitor
-   *
    * @public
    * @param {IUserRole} role user
    * @returns {boolean} user role is visitor or not
@@ -234,7 +222,6 @@ export class AuthService {
 
   /**
    * Check user role is admin
-   *
    * @public
    * @param {IUserRole} role user role
    * @returns {boolean} user role is admin or not
@@ -245,7 +232,6 @@ export class AuthService {
 
   /**
    * Check user role is editor
-   *
    * @public
    * @param {IUserRole} role user
    * @returns {boolean} user role is admin or not

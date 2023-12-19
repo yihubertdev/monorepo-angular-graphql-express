@@ -49,7 +49,9 @@ import { ImageCropperDialog } from "./user-profile-settings.controller";
       <div
         class="profile-background profile-background-size slide-image-cover-center"
         [ngStyle]="{
-          backgroundImage: currentUser.backgroundPhotoURL ? 'url(' + currentUser.backgroundPhotoURL + ')' : 'url(' + photoUrl + ')',
+          backgroundImage: currentUser.backgroundPhotoURL
+            ? 'url(' + currentUser.backgroundPhotoURL + ')'
+            : 'url(' + photoUrl + ')'
         }">
         <mat-icon
           *ngIf="isSettingsPage"

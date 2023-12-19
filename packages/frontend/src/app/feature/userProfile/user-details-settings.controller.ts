@@ -34,7 +34,7 @@ export interface IUserSettings extends ISettingCategory {
   ],
   selector: "user-details-settings-controller",
   template: `
-    <div class="container mt-3">
+    <div class="container-fluid mt-3">
       <div class="row">
         <mat-accordion>
           <div

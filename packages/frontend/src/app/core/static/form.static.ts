@@ -287,6 +287,106 @@ export const USER_SIGNUP_FORM: IForm[] = [
   },
 ];
 
+export const PERSONAL_INFORMATION_FORM: IForm[] = [
+  {
+    id: "firstName",
+    type: INPUT_TYPE.TEXT,
+    label: "First Name",
+    key: "firstName",
+    value: "",
+    hint: "First Name",
+    icon: "badge",
+    column: {
+      xs: 6,
+      sm: 6,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "middleName",
+    type: INPUT_TYPE.TEXT,
+    label: "Middle Name",
+    key: "middleName",
+    value: "",
+    hint: "Middle Name",
+    icon: "badge",
+    column: {
+      xs: 6,
+      sm: 6,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "lastName",
+    type: INPUT_TYPE.TEXT,
+    label: "Last Name",
+    key: "lastName",
+    value: "",
+    hint: "Last Name",
+    icon: "badge",
+    column: {
+      xs: 6,
+      sm: 6,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "equifaxScore",
+    type: INPUT_TYPE.TEXT,
+    label: "Equifax Score",
+    key: "equifaxScore",
+    value: "",
+    hint: "Equifax Score",
+    icon: "badge",
+    column: {
+      xs: 6,
+      sm: 6,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "socialInsuranceNumber",
+    type: INPUT_TYPE.TEXT,
+    label: "Social Insurance Number",
+    key: "socialInsuranceNumber",
+    value: "",
+    hint: "Social Insurance Number",
+    icon: "badge",
+    column: {
+      xs: 6,
+      sm: 6,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "role",
+    type: INPUT_TYPE.TEXT,
+    label: "Role",
+    key: "role",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    disabled: true,
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 12,
+      lg: 12,
+      xl: 12,
+    },
+  },
+];
+
 export const ACCOUNT_INFO: IForm[] = [
   {
     id: "displayName",
@@ -1575,11 +1675,11 @@ export const SETTING_COLLECTIONS: Record<
   ],
   [SETTING_COLLECTION.PERSONAL_PROFILE]: [
     {
-      title: "Home Address",
-      description: "Home Address",
-      category: SETTING_CATEGORY.HOME_ADDRESS,
-      list: ACCOUNT_INFO,
-      schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
+      title: "Personal Information",
+      description: "Personal Information",
+      category: SETTING_CATEGORY.PERSONAL_INFORMATION,
+      list: PERSONAL_INFORMATION_FORM,
+      schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_INFORMATION_FORM),
     },
     {
       title: "Biography",
