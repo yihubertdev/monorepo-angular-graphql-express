@@ -114,7 +114,6 @@ import { IForm } from "src/app/core/static/form.static";
             matInput
             [matDatepicker]="picker"
             [formControlName]="input.key" />
-          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
           <mat-hint>{{ input.hint }}</mat-hint>
           <mat-datepicker-toggle
             matIconSuffix
