@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { NgFor, NgIf } from "@angular/common";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
@@ -16,6 +15,7 @@ import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
 import { v4 as uuidv4 } from "uuid";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -24,8 +24,6 @@ export interface IUserSettings extends ISettingCategory {
 @Component({
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     MatIconModule,
     MatButtonModule,
     RouterModule,
@@ -36,52 +34,65 @@ export interface IUserSettings extends ISettingCategory {
   template: `
     <div class="container-fluid mt-3">
       <div class="row">
-        <mat-accordion>
-          <div
-            *ngFor="let category of categories"
-            class="col-xl-12 col-lg-12
+        <mat-accordion multi>
+          @for (category of categories; track $index) {
+            <div
+              class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
-                <mat-panel-title class="show-one-line">
-                  {{ category.title }}
-                </mat-panel-title>
-                <mat-panel-description class="show-one-line">
-                  {{ category.description }}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <ng-template matExpansionPanelContent>
-                <user-details-card-component
-                  *ngFor="let item of category.data"
-                  [settingDetail]="item"
-                  [collection]="collection"
-                  [user]="user"
-                  [category]="category.category"
-                  [title]="category.title"
-                  [formList]="category.list"
-                  [schema]="category.schema"
-                  [noEdit]="category.noEdit"></user-details-card-component>
-                <a
-                  mat-button
-                  *ngIf="!category.noEdit">
-                  Add New {{ category.title }}
-                  <mat-icon>add</mat-icon>
-                </a>
-              </ng-template>
-            </mat-expansion-panel>
-          </div>
+              <mat-expansion-panel
+                (opened)="opened()"
+                (closed)="closed()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title class="show-one-line">
+                    {{ category.title }}
+                  </mat-panel-title>
+                  <mat-panel-description class="show-one-line">
+                    {{ category.description }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <ng-template matExpansionPanelContent>
+                  @for (item of category.data; track $index) {
+                    <user-details-card-component
+                      [settingDetail]="item"
+                      [collection]="collection"
+                      [user]="user"
+                      [category]="category.category"
+                      [title]="category.title"
+                      [formList]="category.list"
+                      [schema]="category.schema"
+                      [noEdit]="category.noEdit"></user-details-card-component>
+                  }
+
+                  @if (!category.noEdit) {
+                    <a mat-button>
+                      Add New {{ category.title }}
+                      <mat-icon>add</mat-icon>
+                    </a>
+                  }
+                </ng-template>
+              </mat-expansion-panel>
+            </div>
+          }
         </mat-accordion>
       </div>
     </div>
   `,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserDetailsSettingsController implements OnInit {
+export class UserDetailsSettingsController implements OnInit, OnDestroy {
   @Input({ required: true }) collection!: SETTING_COLLECTION;
 
   public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
-  constructor(private route: ActivatedRoute) {}
+  private openStatus: boolean = true;
+  constructor(
+    private route: ActivatedRoute,
+    private _auth: AuthService
+  ) {}
+
+  ngOnDestroy(): void {
+    this._auth.menuControl.next(true);
+  }
 
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
@@ -90,7 +101,6 @@ export class UserDetailsSettingsController implements OnInit {
     const groupedData = groupBy(data, "category");
 
     this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
-      console.log(collection);
       const { category } = collection;
 
       switch (category) {
@@ -139,5 +149,18 @@ export class UserDetailsSettingsController implements OnInit {
         }
       }
     });
+  }
+
+  opened() {
+    if (this.openStatus === false) return;
+    this.openStatus = false;
+
+    this._auth.menuControl.next(this.openStatus);
+  }
+
+  closed() {
+    if (this.openStatus === true) return;
+    this.openStatus = true;
+    this._auth.menuControl.next(this.openStatus);
   }
 }

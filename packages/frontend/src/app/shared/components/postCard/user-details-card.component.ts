@@ -87,7 +87,6 @@ export class UserDetailCardComponent implements OnChanges {
     this.formList.forEach(
       (list) => (list.value = this.settingDetail.details[list.key])
     );
-    console.log(this.formList);
   }
 
   save(value: any) {

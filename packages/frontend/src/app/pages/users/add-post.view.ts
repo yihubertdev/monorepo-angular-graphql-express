@@ -5,7 +5,9 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
   standalone: true,
   imports: [EditPostController],
   template: `
-    <div class="container">
+    <div
+      class="container"
+      style="height: 100dvh;">
       <div class="row">
         <div class="col-12">
           <edit-post-controller></edit-post-controller>

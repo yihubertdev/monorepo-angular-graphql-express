@@ -213,7 +213,14 @@ export const enum SETTING_CATEGORY {
   NOTICE_OF_ASSESSMENT = "notice_of_assessment",
   HOME_ADDRESS = "home_address",
   BIOGRAPHY = "biography",
-  PERSONAL_INFORMATION = "personal_information"
+  PERSONAL_INFORMATION = "personal_information",
+  SPOUSE_INFORMATION = "spouse_information",
+  DEPENDANT_INFO = "dependant_information",
+  PERSONAL_INFORMATION_UPLOADS = "personal_information_uploads",
+  OTHER_ASSETS="other_assets",
+  OTHER_LOANS="other_loans",
+  LINE_OF_CREDIT="line_of_credit",
+  OTHER_PERSONAL_LIABILITIES="other_personal_liabilities"
 }
 
 export const enum FILE_TYPE {

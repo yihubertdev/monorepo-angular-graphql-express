@@ -33,6 +33,9 @@ export class AuthService {
   public readonly userAuthObserver$: Observable<User | null>;
   private _resendEmailCall$: Subject<User> = new Subject<User>();
 
+  public menuControl: Subject<boolean> = new Subject<boolean>();
+  public menuControlObserver$: Observable<boolean>;
+
   constructor(
     private auth: Auth,
     private userService: UserService,
@@ -40,6 +43,7 @@ export class AuthService {
   ) {
     this._userAuth = new BehaviorSubject<User | null>(this.auth.currentUser);
     this.userAuthObserver$ = this._userAuth.asObservable();
+    this.menuControlObserver$ = this.menuControl.asObservable();
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(user);
