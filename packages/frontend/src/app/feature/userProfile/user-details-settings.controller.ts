@@ -90,6 +90,7 @@ export class UserDetailsSettingsController implements OnInit {
     const groupedData = groupBy(data, "category");
 
     this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
+      console.log(collection);
       const { category } = collection;
 
       switch (category) {

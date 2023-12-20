@@ -208,17 +208,16 @@ import { IForm } from "src/app/core/static/form.static";
             style="display:none"
             [formControlName]="input.key"
             matInput />
-          <ng-template #download>
+          @if (input.value) {
             <a
+              *ngIf="input.value.length !== 0"
               mat-button
               [href]="input.value[0]"
               target="_blank">
               View
               <mat-icon>visibility</mat-icon>
             </a>
-          </ng-template>
-          <ng-container
-            *ngIf="input.value.length === 0; else download"></ng-container>
+          }
           <document-uploader-component
             [documentPath]="input.documentPath"
             [documentCategory]="input.documentCategory"

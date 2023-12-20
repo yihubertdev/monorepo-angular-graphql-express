@@ -6,7 +6,7 @@ import {
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { NgIf } from "@angular/common";
-import { IFormInput, IUser, SETTING_CATEGORY } from "sources-types";
+import { IUser, SETTING_CATEGORY } from "sources-types";
 import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
@@ -87,6 +87,7 @@ export class UserDetailCardComponent implements OnChanges {
     this.formList.forEach(
       (list) => (list.value = this.settingDetail.details[list.key])
     );
+    console.log(this.formList);
   }
 
   save(value: any) {
