@@ -28,36 +28,38 @@ export interface IUserDetailCard {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: "user-details-card-component",
   imports: [
-    NgIf,
     MatCardModule,
     FormInputListComponent,
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
   ],
-  template: ` <a
-      *ngIf="!noEdit"
-      mat-button
-      (click)="
-        remove({
-          documentId: settingDetail.documentId,
-          category,
-          title
-        })
-      "
-      style="margin-left: auto; display: table;">
-      Remove
-      <mat-icon>delete</mat-icon> </a
-    ><mat-card>
-      <mat-card-content>
-        <form-input-list-component
-          [list]="formList"
-          [schema]="schema"
-          buttonName="Save"
-          (formValue)="save($event)"
-          [loading]="loading"></form-input-list-component>
-      </mat-card-content>
-    </mat-card>`,
+  template: `<mat-card class="mt-2">
+    @if (!noEdit) {
+      <mat-card-actions>
+        <button
+          mat-button
+          (click)="
+            remove({
+              documentId: settingDetail.documentId,
+              category,
+              title
+            })
+          ">
+          Remove<mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    }
+
+    <mat-card-content>
+      <form-input-list-component
+        [list]="formList"
+        [schema]="schema"
+        buttonName="Save"
+        (formValue)="save($event)"
+        [loading]="loading"></form-input-list-component>
+    </mat-card-content>
+  </mat-card>`,
 })
 export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) collection!: string;

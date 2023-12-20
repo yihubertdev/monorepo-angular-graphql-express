@@ -17,7 +17,6 @@ import { v4 as uuidv4 } from "uuid";
 export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
   /**
    * Collection Name.
-   *
    * @protected
    * @returns {FIRESTORE_COLLECTION} collection name firestore
    */
@@ -42,7 +41,6 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
 
   /**
    * Firestore Collection
-   *
    * @protected
    */
   protected override collection: AngularFirestoreCollection<POST.IPost>;
@@ -55,7 +53,6 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
 
   /**
    * Contructor
-   *
    * @protected
    * @param {AngularFirestore} firestore firestore
    * @param {HomePagePostCache} _homePageCache post cache
@@ -222,7 +219,6 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
 export class ArticleFireStore extends FireStoreBaseModel<IArticle> {
   /**
    * Collection Name.
-   *
    * @protected
    * @returns {FIRESTORE_COLLECTION} collection name firestore
    */
@@ -243,14 +239,12 @@ export class ArticleFireStore extends FireStoreBaseModel<IArticle> {
 
   /**
    * Firestore Collection
-   *
    * @protected
    */
   protected override collection: AngularFirestoreCollection<IArticle>;
 
   /**
    * Constructor
-   *
    * @protected
    * @param {AngularFirestore} firestore firestore
    */

@@ -64,7 +64,9 @@ export interface IUserSettings extends ISettingCategory {
                   }
 
                   @if (!category.noEdit) {
-                    <a mat-button>
+                    <a
+                      mat-button
+                      (click)="addData(category.data)">
                       Add New {{ category.title }}
                       <mat-icon>add</mat-icon>
                     </a>
@@ -149,6 +151,14 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         }
       }
     });
+  }
+
+  addData(item: any) {
+    item.push({
+      details: {},
+      documentId: uuidv4(),
+    });
+    console.log(item);
   }
 
   opened() {

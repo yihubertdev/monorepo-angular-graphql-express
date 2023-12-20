@@ -13,7 +13,6 @@ import { ActivatedRoute } from "@angular/router";
 @Component({
   standalone: true,
   imports: [
-    NgFor,
     NgIf,
     MainPostCardComponent,
     CarouselSliderComponent,
@@ -22,14 +21,14 @@ import { ActivatedRoute } from "@angular/router";
   selector: "main-post-controller",
   template: `
     <div class="row">
-      <ng-container *ngFor="let post of data; index as i; trackBy: identify">
+      @for (post of data; track $index) {
         <div class="col-6 p-0">
           <main-post-card-component [post]="post"></main-post-card-component>
         </div>
 
         <div
           class="col-12 p-0"
-          *ngIf="i === 3 && !userId">
+          *ngIf="$index === 3 && !userId">
           <carousel-slider-component
             [images]="images"
             [isSilding]="true"></carousel-slider-component>
@@ -37,10 +36,10 @@ import { ActivatedRoute } from "@angular/router";
 
         <div
           class="col-12 p-0"
-          *ngIf="i === 7 && !userId">
+          *ngIf="$index === 7 && !userId">
           <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
         </div>
-      </ng-container>
+      }
     </div>
   `,
   styleUrls: ["./home-page-post.style.css"],
@@ -90,9 +89,5 @@ export class MainPostController implements OnInit {
     if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;
     this.data = resolverData!.posts.data;
-  }
-
-  identify(index: number, post: POST.IPost) {
-    return post.id;
   }
 }

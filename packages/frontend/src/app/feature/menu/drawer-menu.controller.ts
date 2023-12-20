@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { IMenu } from "sources-types";
 import { SITE_ROUTE_PAGE, DRAWER_MENU } from "../../core/static/menu.static";
-import { NgFor, NgStyle } from "@angular/common";
+import { NgStyle } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { Router, RouterModule } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
@@ -30,7 +30,7 @@ import { MatButtonModule } from "@angular/material/button";
                 'url(' +
                 (currentUser.photoURL ?? null | defaultUserPhoto) +
                 ')',
-              backgroundSize: 'cover',
+              backgroundSize: 'cover'
             }"></div>
         </mat-card-title-group>
       </mat-card-header>
@@ -38,7 +38,7 @@ import { MatButtonModule } from "@angular/material/button";
         <a
           class="m-2"
           mat-button
-          [routerLink]="['/users', 'me', 'personal-profile']"
+          [routerLink]="['/users', 'profile', 'me']"
           >View Profile <mat-icon> visibility </mat-icon></a
         >
         <a
@@ -52,14 +52,15 @@ import { MatButtonModule } from "@angular/material/button";
       </mat-card-actions>
       <mat-card-content>
         <mat-nav-list>
-          <a
-            mat-list-item
-            [routerLink]="menu.link"
-            *ngFor="let menu of menus"
-            routerLinkActive="active-list-item">
-            <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
-            <div matListItemTitle>{{ menu.description }}</div></a
-          >
+          @for (menu of menus; track $index) {
+            <a
+              mat-list-item
+              [routerLink]="menu.link"
+              routerLinkActive="active-list-item">
+              <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
+              <div matListItemTitle>{{ menu.description }}</div></a
+            >
+          }
           <a
             mat-list-item
             routerLinkActive="active-list-item"
@@ -74,7 +75,6 @@ import { MatButtonModule } from "@angular/material/button";
   styleUrls: ["./menu.style.css"],
   imports: [
     NgStyle,
-    NgFor,
     MatListModule,
     RouterModule,
     MatIconModule,
@@ -83,15 +83,14 @@ import { MatButtonModule } from "@angular/material/button";
     MatButtonModule,
   ],
 })
-export class DRAWER_MENUController implements OnInit {
+export class DRAWER_MENUController {
   @Input({ required: true }) currentUser!: User;
   menus: IMenu[] = DRAWER_MENU;
 
-  constructor(private _auth: AuthService, private _router: Router) {}
-
-  ngOnInit(): void {
-    console.log(this.currentUser);
-  }
+  constructor(
+    private _auth: AuthService,
+    private _router: Router
+  ) {}
 
   public logout() {
     this._auth.logout();

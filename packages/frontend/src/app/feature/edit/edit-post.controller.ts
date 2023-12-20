@@ -33,7 +33,9 @@ export class EditPostController {
     /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
   private _transformURL(value: string) {
     return value.replace(this._urlRegex, function (url) {
-      return '<a href="' + url + '" target="_blank">' + url + "</a>";
+      return (
+        '<a href="' + url + '" target="_blank">' + url.slice(0, 100) + "</a>"
+      );
     });
   }
 

@@ -28,7 +28,6 @@ export type ISubCollectionHandler<K> = {
 export abstract class FireStoreBaseModel<T> {
   /**
    * Collection Name.
-   *
    * @protected
    */
   protected abstract collectionName(): FIRESTORE_COLLECTION;
@@ -39,7 +38,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Firestore Collection
-   *
    * @protected
    */
   protected collection: AngularFirestoreCollection<T>;
@@ -53,7 +51,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Retrieve all documents from collection
-   *
    * @public
    * @param {number} limit limit the record
    * @returns {Promise<T[]>} retrieve all document
@@ -66,7 +63,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Retrieve document from collection by docs id
-   *
    * @param {string[]} ids document id
    * @public
    * @returns {Promise<any>} retrieve
@@ -79,7 +75,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Retrieve document from collection by docs id
-   *
    * @param {string} id document id
    * @public
    * @returns {Promise<any>} retrieve
@@ -92,7 +87,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Retrieve document from collection by docs id
-   *
    * @public
    * @param {string} filter document user id
    * @param {string} [filter.userId] document user id
@@ -109,7 +103,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Create document in that collection
-   *
    * @public
    * @param {T} document create document
    * @returns {Promise<void>}
@@ -130,7 +123,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Create document in that collection
-   *
    * @public
    * @param {T} document update document
    * @returns {void}
@@ -161,18 +153,16 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * Delete collection document
-   *
    * @public
    * @param {string} id delete document
    * @returns {void}
    */
   public async delete(id: string): Promise<void> {
-    this.collection.doc(id).ref.delete();
+    this.collection.doc(id).delete();
   }
 
   /**
    * List collection document
-   *
    * @public
    * @param {number} [limit] = 10 limit pagination
    * @param {string} [userIds] user id
@@ -207,7 +197,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * List collection document
-   *
    * @public
    * @param {number} [limit] = 10 limit pagination
    * @param {string} [userIds] user id
@@ -243,7 +232,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * List collection document with pagination
-   *
    * @public
    * @param {number} [limit] = 10 limit pagination
    * @param {string} [userIds] user id
@@ -286,7 +274,6 @@ export abstract class FireStoreBaseModel<T> {
 
   /**
    * List collection document with pagination
-   *
    * @public
    * @param {number} [limit] = 10 limit pagination
    * @param {string} [userIds] user id
