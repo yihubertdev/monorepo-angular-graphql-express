@@ -220,7 +220,11 @@ export const enum SETTING_CATEGORY {
   OTHER_ASSETS="other_assets",
   OTHER_LOANS="other_loans",
   LINE_OF_CREDIT="line_of_credit",
-  OTHER_PERSONAL_LIABILITIES="other_personal_liabilities"
+  OTHER_PERSONAL_LIABILITIES="other_personal_liabilities",
+  BUSINESS_TO_BE_FINANCED="business_to_be_financed",
+  BUSINESS_INTEREST="business_interest",
+  BUSINESS_DOCUMENT="business_document",
+  PERSONAL_MONTHLY_INCOME="personal_monthly_income"
 }
 
 export const enum FILE_TYPE {
