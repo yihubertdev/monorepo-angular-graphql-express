@@ -132,9 +132,6 @@ export class MainView implements OnInit {
   }
 
   ngOnInit(): void {
-    this._auth.menuControlObserver$.subscribe(
-      (status) => (this.opened = status)
-    );
     this._auth.userAuthObserver$.subscribe((user) => {
       this.userInfo = user;
     });

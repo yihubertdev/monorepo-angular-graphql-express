@@ -39,9 +39,7 @@ export interface IUserSettings extends ISettingCategory {
             <div
               class="col-xl-12 col-lg-12
               col-md-12 col-sm-12 col-xs-12 mb-4">
-              <mat-expansion-panel
-                (opened)="opened()"
-                (closed)="closed()">
+              <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title class="show-one-line">
                     {{ category.title }}
@@ -81,7 +79,7 @@ export interface IUserSettings extends ISettingCategory {
   `,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserDetailsSettingsController implements OnInit, OnDestroy {
+export class UserDetailsSettingsController implements OnInit {
   @Input({ required: true }) collection!: SETTING_COLLECTION;
 
   public categories!: IUserSettings[];
@@ -91,10 +89,6 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private _auth: AuthService
   ) {}
-
-  ngOnDestroy(): void {
-    this._auth.menuControl.next(true);
-  }
 
   ngOnInit() {
     const { user, data } = this.route.snapshot.data["settings"];
@@ -159,18 +153,5 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
       documentId: uuidv4(),
     });
     console.log(item);
-  }
-
-  opened() {
-    if (this.openStatus === false) return;
-    this.openStatus = false;
-
-    this._auth.menuControl.next(this.openStatus);
-  }
-
-  closed() {
-    if (this.openStatus === true) return;
-    this.openStatus = true;
-    this._auth.menuControl.next(this.openStatus);
   }
 }
