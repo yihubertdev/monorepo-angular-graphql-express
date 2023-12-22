@@ -9,6 +9,7 @@ import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
 import { AuthService } from "../fireAuth/auth";
+import { User } from "@angular/fire/auth";
 
 export const isUserLogin: CanActivateFn = () => {
   return Boolean(
@@ -40,16 +41,21 @@ export const isUserLoginToUser: CanActivateFn = () =>
     ? inject(Router).navigate(SITE_ROUTE_PAGE.SETTINGS)
     : true;
 
-export const isUserVerified: CanActivateFn = (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
-  const authService = inject(AuthService);
-  const user = authService.getAuth()!;
-
-  if (!authService.isUserVerified(user)) {
-    return inject(Router).navigate(["users", "profile-signup"]);
+export const isUserVerified: CanActivateFn = () => {
+  const session = inject(SessionStorageService);
+  console.log(session.getAllSessionStorage().key(0));
+  if (
+    !session.getAllSessionStorage().key(0) ||
+    session.getAllSessionStorage().key(0)?.includes("firebase")
+  ) {
+    return false;
   }
+  const userAuth = session.getSessionStorage<User>(
+    session.getAllSessionStorage().key(0)!
+  );
 
-  return true;
+  if (userAuth?.emailVerified) {
+    return true;
+  }
+  return inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
 };

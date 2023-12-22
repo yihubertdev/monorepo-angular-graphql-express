@@ -1,7 +1,4 @@
-import {
-  isUserLoginToUser,
-  isUserVerified,
-} from "../../core/services/routeGuard/index.guard";
+import { isUserLoginToUser } from "../../core/services/routeGuard/index.guard";
 import { homePagePostResolver } from "../../shared/resolvers/post.resolver";
 import { IFullRoute } from "../../routes";
 import { IMenu, ISVGIconMenu } from "sources-types";

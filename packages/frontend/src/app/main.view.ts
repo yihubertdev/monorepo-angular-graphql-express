@@ -98,7 +98,7 @@ import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor
 })
 export class MainView implements OnInit {
   public opened: boolean = false;
-  public userInfo: User | null = null;
+  public userInfo?: User;
   public isLoading: boolean = false;
 
   constructor(
@@ -133,7 +133,7 @@ export class MainView implements OnInit {
 
   ngOnInit(): void {
     this._auth.userAuthObserver$.subscribe((user) => {
-      this.userInfo = user;
+      this.userInfo = this._auth.isUserVerified(user);
     });
     // this._firebaseMessaging.requestToken();
   }

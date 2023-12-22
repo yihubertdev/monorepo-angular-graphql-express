@@ -98,38 +98,48 @@ export class AuthService {
    * @param {string} data.password password address
    * @returns {Promise<User>} user credential
    */
-  public async login(data: { email: string; password: string }): Promise<User> {
+  public async login(data: {
+    email: string;
+    password: string;
+  }): Promise<User | undefined> {
     const { user } = await signInWithEmailAndPassword(
       this.auth,
       data.email,
       data.password
     );
 
-    if (user.phoneNumber && user.emailVerified) {
-      const userFull = await this.userService.retrieveByUId(user.uid);
-      this._sessionStorage.setSessionStorage("user", userFull);
+    if (!user.emailVerified) {
+      this.auth.signOut();
+      throw new Error("User email is not verified");
     }
-    return user;
+
+    if (!user.phoneNumber) {
+      return user;
+    }
+    const userFull = await this.userService.retrieveByUId(user.uid);
+    this._sessionStorage.setSessionStorage("user", userFull);
+    return;
   }
 
   /**
    * Register user to firebase auth
    * @public
    * @param {IUserRegister} data user register data
-   * @returns {Promise<IUserRegister>} user register
+   * @param {RecaptchaVerifier} verifier user register data
+   * @returns {Promise<User>} user register
    */
-  public async register({
-    email,
-    password,
-    displayName,
-  }: IUserRegister): Promise<void> {
+  public async register(
+    { email, password, displayName, phone }: IUserRegister,
+    verifier: RecaptchaVerifier
+  ): Promise<any> {
     const { user } = await createUserWithEmailAndPassword(
       this.auth,
       email,
       password
     );
 
-    await Promise.all([
+    const [confirmationResult] = await Promise.all([
+      this.linkWithPhone(user, phone, verifier),
       updateProfile(user, { displayName }),
       this.userService.create({
         document: {
@@ -144,6 +154,8 @@ export class AuthService {
       }),
       this.sendVerificationMail(user),
     ]);
+
+    return { user, confirmationResult };
   }
 
   async linkWithPhone(
@@ -158,8 +170,9 @@ export class AuthService {
     verifyCode: string,
     phoneConfirm: ConfirmationResult
   ): Promise<boolean> {
-    const userCredential = await phoneConfirm.confirm(verifyCode);
-    console.log(userCredential.user);
+    const { user } = await phoneConfirm.confirm(verifyCode);
+    const userFull = await this.userService.retrieveByUId(user.uid);
+    this._sessionStorage.setSessionStorage("user", userFull);
     return true;
   }
 
@@ -186,8 +199,10 @@ export class AuthService {
   }
 
   public isUserVerified(userAuth: User | null) {
-    if (!userAuth) return;
-    return Boolean(userAuth.emailVerified);
+    console.log(userAuth);
+    if (!userAuth || !userAuth.emailVerified || !userAuth.phoneNumber) return;
+
+    return userAuth;
   }
 
   /**

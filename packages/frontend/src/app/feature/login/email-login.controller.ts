@@ -1,4 +1,4 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import {
   phoneRegisterSchema,
@@ -47,7 +47,7 @@ import { MatButtonModule } from "@angular/material/button";
   `,
   styleUrls: [],
 })
-export class EmailLoginControllerComponent {
+export class EmailLoginControllerComponent implements OnInit {
   public list = USER_LOGIN_FORM;
   public schema: any = userLoginSchema;
   public isLoading: boolean = false;
@@ -69,7 +69,7 @@ export class EmailLoginControllerComponent {
 
   async login(formValue: Record<string, number | string | string[]>) {
     if (!this.token) {
-      this.hasError = "Please Verify Not A Robot Check ";
+      this.hasError = "Please Verify";
       return;
     }
     this.isLoading = true;
@@ -77,17 +77,27 @@ export class EmailLoginControllerComponent {
       email: String(formValue["email"]),
       password: String(formValue["password"]),
     };
-    const user = await this.authService.login(data);
-    if (!user.phoneNumber) {
-      return this.dialog.open(RegisterPhoneDialog, {
-        disableClose: true,
-        data: {
-          user,
-          verifier: this.recaptcha,
-        },
-        height: "80%",
-        width: "80%",
-      });
+    try {
+      const user = await this.authService.login(data);
+      if (user) {
+        const dialog = this.dialog.open(RegisterPhoneDialog, {
+          disableClose: true,
+          data: {
+            user,
+            verifier: this.recaptcha,
+          },
+          height: "80%",
+          width: "80%",
+        });
+        return dialog.afterClosed().subscribe((verifyResult: string) => {
+          if (verifyResult) {
+            this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
+          }
+        });
+      }
+    } catch (err) {
+      this.isLoading = false;
+      throw err;
     }
     this.isLoading = false;
     return this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
@@ -156,7 +166,10 @@ export class RegisterPhoneDialog {
 
   async verify(value: Record<string, number | string | string[]>) {
     const { verifyCode } = value as { verifyCode: string };
-    await this.authService.confirmPhone(verifyCode, this.confirm!);
-    this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
+    const result = await this.authService.confirmPhone(
+      verifyCode,
+      this.confirm!
+    );
+    this.dialogRef.close(result);
   }
 }

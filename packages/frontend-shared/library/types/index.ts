@@ -279,6 +279,7 @@ export interface IUserRegister {
   email: string;
   password: string;
   displayName: string;
+  phone: string;
 }
 
 export interface IUserSignUpForm extends IUserRegister {
