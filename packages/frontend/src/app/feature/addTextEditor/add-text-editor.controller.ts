@@ -28,7 +28,7 @@ export class AddTextEditorController {
   ) {}
 
   openOAuthOptions() {
-    this._bottomSheet.open(TextEditorOptionsBottomSheet);
+    this._bottomSheet.open(TextEditorOptionsDialog);
   }
 }
 
@@ -39,13 +39,13 @@ export class AddTextEditorController {
   template: `<mat-nav-list>
     @for (icon of footerIconLayout; track $index) {
       <a
-      mat-list-item
-      (click)="bottomSheetRef.dismiss()"
-      [routerLink]="icon.link">
-      <mat-icon matListItemIcon> {{ icon.iconName }}</mat-icon>
-      <div matListItemTitle>{{ icon.description }}</div>
-      <div matListItemLine>{{ icon.description }}</div>
-    </a>
+        mat-list-item
+        (click)="bottomSheetRef.dismiss()"
+        [routerLink]="icon.link">
+        <mat-icon matListItemIcon> {{ icon.iconName }}</mat-icon>
+        <div matListItemTitle>{{ icon.description }}</div>
+        <div matListItemLine>{{ icon.description }}</div>
+      </a>
     }
 
     <a
@@ -64,10 +64,10 @@ export class AddTextEditorController {
     </a>
   </mat-nav-list>`,
 })
-export class TextEditorOptionsBottomSheet {
+export class TextEditorOptionsDialog {
   public footerIconLayout = DRAWER_MENU;
   constructor(
-    public bottomSheetRef: MatBottomSheetRef<TextEditorOptionsBottomSheet>,
+    public bottomSheetRef: MatBottomSheetRef<TextEditorOptionsDialog>,
     private _auth: AuthService,
     private _router: Router
   ) {}

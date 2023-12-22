@@ -108,14 +108,10 @@ export class AuthService {
       data.password
     );
 
-    if (!user.emailVerified) {
-      this.auth.signOut();
-      throw new Error("User email is not verified");
-    }
-
-    if (!user.phoneNumber) {
+    if (!this.isUserVerified(user)) {
       return user;
     }
+
     const userFull = await this.userService.retrieveByUId(user.uid);
     this._sessionStorage.setSessionStorage("user", userFull);
     return;
@@ -169,11 +165,14 @@ export class AuthService {
   async confirmPhone(
     verifyCode: string,
     phoneConfirm: ConfirmationResult
-  ): Promise<boolean> {
+  ): Promise<string | null> {
     const { user } = await phoneConfirm.confirm(verifyCode);
-    const userFull = await this.userService.retrieveByUId(user.uid);
-    this._sessionStorage.setSessionStorage("user", userFull);
-    return true;
+
+    if (this.isUserVerified(user)) {
+      const userFull = await this.userService.retrieveByUId(user.uid);
+      this._sessionStorage.setSessionStorage("user", userFull);
+    }
+    return user.phoneNumber;
   }
 
   /**
@@ -199,7 +198,6 @@ export class AuthService {
   }
 
   public isUserVerified(userAuth: User | null) {
-    console.log(userAuth);
     if (!userAuth || !userAuth.emailVerified || !userAuth.phoneNumber) return;
 
     return userAuth;
@@ -212,6 +210,12 @@ export class AuthService {
    */
   public async logout(): Promise<void> {
     this.auth.signOut();
+    const fireauth = this._sessionStorage.getAllSessionStorage().key(0);
+
+    if (fireauth && fireauth?.includes("firebase")) {
+      this._sessionStorage.deleteSessionStorage(fireauth);
+    }
+
     this._sessionStorage.deleteSessionStorage("user");
   }
 

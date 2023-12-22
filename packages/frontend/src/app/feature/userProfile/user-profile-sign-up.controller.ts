@@ -75,18 +75,15 @@ export class UserProfileSignUpController {
   public authUser: User;
   public hasError?: string;
 
-  constructor(private _router: Router, private authService: AuthService) {
-    this.authService.resendEmail().subscribe();
+  constructor(
+    private _router: Router,
+    private authService: AuthService
+  ) {
     this.authUser = this.authService.getAuth()!;
-    console.log(this.authUser);
   }
 
   public logout() {
     this.authService.logout();
     this._router.navigate(SITE_ROUTE_PAGE.LOGIN);
-  }
-
-  public async send(value: Record<string, number | string | string[]>) {
-    this.authService.triggerResendEmail(this.authUser);
   }
 }

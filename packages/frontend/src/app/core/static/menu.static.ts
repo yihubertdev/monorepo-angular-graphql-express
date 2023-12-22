@@ -40,9 +40,9 @@ export const footerMenus: IMenu[] = [
     width: "75px",
   },
   {
-    link: "menu",
-    description: "Close",
-    iconName: "menu",
+    link: SITE_ROUTE_PAGE.SETTINGS,
+    description: "Financing",
+    iconName: "paid",
     width: "75px",
   },
 ];
@@ -52,12 +52,6 @@ export const DRAWER_MENU: IMenu[] = [
     link: SITE_ROUTE_PAGE.SETTINGS,
     description: "NET WORTH",
     iconName: "paid",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.FINANCING,
-    description: "FINANCING",
-    iconName: "account_balance",
     width: "50px",
   },
   {

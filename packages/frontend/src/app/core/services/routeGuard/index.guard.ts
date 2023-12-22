@@ -8,7 +8,6 @@ import {
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
-import { AuthService } from "../fireAuth/auth";
 import { User } from "@angular/fire/auth";
 
 export const isUserLogin: CanActivateFn = () => {
@@ -36,25 +35,29 @@ export const isMeLogin: CanActivateFn = (
   return true;
 };
 
-export const isUserLoginToUser: CanActivateFn = () =>
-  Boolean(inject(SessionStorageService).getSessionStorage<IUser>("user"))
-    ? inject(Router).navigate(SITE_ROUTE_PAGE.SETTINGS)
-    : true;
+export const loginCheck: CanActivateFn = () => {
+  const session = inject(SessionStorageService);
+  const fireauth = session.getAllSessionStorage().key(0);
+  if (!fireauth || !fireauth?.includes("firebase")) {
+    return true;
+  }
+  const userAuth = session.getSessionStorage<User>(fireauth);
+
+  if (userAuth?.emailVerified && userAuth?.phoneNumber) {
+    return inject(Router).navigate(SITE_ROUTE_PAGE.SETTINGS);
+  }
+  return true;
+};
 
 export const isUserVerified: CanActivateFn = () => {
   const session = inject(SessionStorageService);
-  console.log(session.getAllSessionStorage().key(0));
-  if (
-    !session.getAllSessionStorage().key(0) ||
-    session.getAllSessionStorage().key(0)?.includes("firebase")
-  ) {
-    return false;
+  const fireauth = session.getAllSessionStorage().key(0);
+  if (!fireauth || !fireauth?.includes("firebase")) {
+    return inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
   }
-  const userAuth = session.getSessionStorage<User>(
-    session.getAllSessionStorage().key(0)!
-  );
+  const userAuth = session.getSessionStorage<User>(fireauth);
 
-  if (userAuth?.emailVerified) {
+  if (userAuth?.emailVerified && userAuth?.phoneNumber) {
     return true;
   }
   return inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);

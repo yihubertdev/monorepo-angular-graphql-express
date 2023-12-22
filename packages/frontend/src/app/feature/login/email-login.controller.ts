@@ -59,7 +59,9 @@ export class EmailLoginControllerComponent implements OnInit {
     public dialog: MatDialog,
     private _router: Router,
     private authService: AuthService
-  ) {}
+  ) {
+    this.authService.resendEmail().subscribe();
+  }
 
   ngOnInit() {
     this.recaptcha = this.authService.buildRecaptcha("recaptcha-signin");
@@ -79,7 +81,20 @@ export class EmailLoginControllerComponent implements OnInit {
     };
     try {
       const user = await this.authService.login(data);
-      if (user) {
+      // user login successfully, return null, navigate to settings
+      if (!user) {
+        this.isLoading = false;
+        return this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
+      }
+
+      // user is not verified, return unverified user
+      if (!user.emailVerified) {
+        this.authService.triggerResendEmail(user);
+        this.isLoading = false;
+        throw Error("Check your email to verifiy");
+      }
+
+      if (!user.phoneNumber) {
         const dialog = this.dialog.open(RegisterPhoneDialog, {
           disableClose: true,
           data: {
@@ -95,37 +110,36 @@ export class EmailLoginControllerComponent implements OnInit {
           }
         });
       }
+      return;
     } catch (err) {
       this.isLoading = false;
       throw err;
     }
-    this.isLoading = false;
-    return this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
   }
 }
 
 @Component({
   standalone: true,
-  imports: [NgIf, MatDialogModule, MatButtonModule, FormInputListComponent],
+  imports: [MatDialogModule, MatButtonModule, FormInputListComponent],
   template: `<h1 mat-dialog-title>Register Your Phone</h1>
     <div mat-dialog-content>
       <h1 mat-dialog-title>Register Your Phone</h1>
-      <ng-container *ngIf="!confirm">
+      @if (!confirm) {
         <form-input-list-component
           [list]="registerList"
           [schema]="registerSchema"
           buttonName="Send SMS"
           (formValue)="send($event)"
           [loading]="isLoading"></form-input-list-component>
-      </ng-container>
-      <ng-container *ngIf="confirm">
+      }
+      @if (confirm) {
         <form-input-list-component
           [list]="list"
           [schema]="schema"
           buttonName="Register"
           (formValue)="verify($event)"
           [loading]="isLoading"></form-input-list-component>
-      </ng-container>
+      }
     </div>
     <div mat-dialog-actions>
       <button
@@ -147,7 +161,6 @@ export class RegisterPhoneDialog {
   constructor(
     private authService: AuthService,
     public dialogRef: MatDialogRef<RegisterPhoneDialog>,
-    private _router: Router,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       user: User;

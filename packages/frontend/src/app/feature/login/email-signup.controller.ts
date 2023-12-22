@@ -99,15 +99,17 @@ export class EmailSignUpController implements OnInit {
         width: "80%",
       });
 
-      dialog.afterClosed().subscribe((verifyResult: string) => {
+      dialog.afterClosed().subscribe((isConfirmed: string | null) => {
+        if (!isConfirmed) {
+          this._router.navigate(SITE_ROUTE_PAGE.LOGIN);
+          throw new Error("phone number is not verified");
+        }
         if (!user.emailVerified) {
           this._router.navigate(SITE_ROUTE_PAGE.LOGIN);
           throw new Error("email is not verified");
         }
-        if (verifyResult) {
-          this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
-        }
-        this.isLoading = false;
+
+        this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
       });
     } catch {
       this.isLoading = false;
@@ -145,7 +147,6 @@ export class RegisterPhoneDialog {
   constructor(
     private authService: AuthService,
     public dialogRef: MatDialogRef<RegisterPhoneDialog>,
-    private _router: Router,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       user: User;
@@ -157,11 +158,11 @@ export class RegisterPhoneDialog {
   async verify(value: Record<string, number | string | string[]>) {
     this.isLoading = true;
     const { verifyCode } = value as { verifyCode: string };
-    const result = await this.authService.confirmPhone(
+    const isConfirmed = await this.authService.confirmPhone(
       verifyCode,
       this.data.confirm!
     );
 
-    this.dialogRef.close(result);
+    this.dialogRef.close(isConfirmed);
   }
 }

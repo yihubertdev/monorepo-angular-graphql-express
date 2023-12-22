@@ -1,8 +1,7 @@
 import { Routes } from "@angular/router";
 import {
-  isUserLogin,
-  isUserLoginToUser,
   isUserVerified,
+  loginCheck,
 } from "../../core/services/routeGuard/index.guard";
 import {
   loggedUserProfileResolver,
@@ -18,19 +17,19 @@ export default [
   },
   {
     path: "add-post",
-    canActivate: [isUserLogin],
+    canActivate: [isUserVerified],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./add-post.view"),
   },
   {
     path: "add-article",
-    canActivate: [isUserLogin],
+    canActivate: [isUserVerified],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./add-article.view"),
   },
   {
     path: "settings",
-    canActivate: [isUserLogin],
+    canActivate: [isUserVerified],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./settings.view"),
     loadChildren: () => import("../settings").then((router) => router.route),
@@ -41,18 +40,12 @@ export default [
   },
   {
     path: "signup",
-    canActivate: [isUserLoginToUser],
+    canActivate: [loginCheck],
     loadComponent: () => import("./sign-up.view"),
   },
   {
-    path: "profile-signup",
-    canActivate: [isUserLogin],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./profile-sign-up.view"),
-  },
-  {
     path: "notifications",
-    canActivate: [isUserLogin],
+    canActivate: [isUserVerified],
     loadComponent: () => import("./notification.view"),
   },
 ] as Routes;
