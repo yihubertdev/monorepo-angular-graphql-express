@@ -17,6 +17,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatButtonModule } from "@angular/material/button";
 import { IForm } from "src/app/core/static/form.static";
+import { SuccessMessage } from "src/app/core/utils/error";
 
 export interface IUserDetailCard {
   details: any;
@@ -122,7 +123,7 @@ export class UserDetailCardComponent implements OnChanges {
         break;
     }
     this.loading = false;
-    throw new Error("Networth saved successfully.");
+    throw new SuccessMessage("Networth saved successfully.");
   }
 
   remove({
@@ -158,7 +159,7 @@ export class UserDetailCardComponent implements OnChanges {
       // this.groupedSettings[category][0].data = this.groupedSettings[
       //   category
       // ][0].data.filter((item) => item.documentId != documentId);
-      throw new Error("Networth saved successfully.");
+      throw new SuccessMessage("Networth saved successfully.");
     });
   }
 }

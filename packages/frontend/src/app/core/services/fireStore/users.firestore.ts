@@ -13,7 +13,6 @@ import { v4 as uuidv4 } from "uuid";
 export class UserService extends FireStoreBaseModel<IUser> {
   /**
    * Collection Name.
-   *
    * @protected
    * @returns {FIRESTORE_COLLECTION} firestore collection
    */
@@ -27,7 +26,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Firestore Collection
-   *
    * @protected
    */
   protected override collection: AngularFirestoreCollection<IUser>;
@@ -36,7 +34,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Contructor
-   *
    * @protected
    * @param {AngularFirestore} firestore firestore
    * @param {UserCache} userCache cache users
@@ -49,7 +46,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Retrieve user with verfied email
-   *
    * @public
    * @param {number} [limit] list limit number of user
    * @returns {Promise<IUserFull[]>} user
@@ -73,7 +69,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Retrieve user with verfied email
-   *
    * @public
    * @returns {IUser[]} user
    */
@@ -97,7 +92,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Retrieve user with verfied email
-   *
    * @public
    * @param {string} userId list limit number of user
    * @returns {Promise<IUser[]>} user
@@ -146,7 +140,6 @@ export class UserService extends FireStoreBaseModel<IUser> {
 
   /**
    * Retrieve user with verfied email
-   *
    * @public
    * @param {boolean} verified verified email
    * @returns {Promise<IUser[]>} user

@@ -8,14 +8,12 @@ import { FireStorageBaseModel } from "./basic.bucket";
 export class ProfileStorageService extends FireStorageBaseModel {
   /**
    * Profile image path
-   *
    * @protected
    */
   protected path: string = "profiles";
 
   /**
    * Profile image category
-   *
    * @protected
    */
   protected category: string = "profile";
@@ -30,7 +28,6 @@ export class ProfileStorageService extends FireStorageBaseModel {
 
   /**
    * Upload file into fire storage bucket
-   *
    * @public
    * @param {File} file upload file
    * @param {string} userId upload id
@@ -58,7 +55,6 @@ export class ProfileStorageService extends FireStorageBaseModel {
 
   /**
    * Upload file into fire storage bucket
-   *
    * @public
    * @param {Blob} blob upload file
    * @returns {Promise<string>} upload url

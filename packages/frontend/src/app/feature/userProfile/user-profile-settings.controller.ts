@@ -26,6 +26,7 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { DomSanitizer } from "@angular/platform-browser";
+import { SuccessMessage } from "src/app/core/utils/error";
 
 @Component({
   standalone: true,
@@ -141,7 +142,7 @@ export class UserProfileSettingsController implements OnInit {
     dialogRef.afterClosed().subscribe(async (data: Blob) => {
       if (!data) return;
       await this.profileStorage.uploadBlob(data);
-      throw new Error("Profile uploaded");
+      throw new SuccessMessage("Profile uploaded");
     });
   }
 }
@@ -156,8 +157,7 @@ export class UserProfileSettingsController implements OnInit {
         [maintainAspectRatio]="true"
         [aspectRatio]="data.ratio"
         format="png"
-        (imageCropped)="imageCropped($event)"
-        (loadImageFailed)="loadImageFailed()"></image-cropper>
+        (imageCropped)="imageCropped($event)"></image-cropper>
       <img [src]="croppedImage" />
     </div>
     <div mat-dialog-actions>
@@ -199,10 +199,5 @@ export class ImageCropperDialog {
     }
     return;
     // event.blob can be used to upload the cropped image
-  }
-
-  loadImageFailed() {
-    throw Error("Image upload failed");
-    // show message
   }
 }

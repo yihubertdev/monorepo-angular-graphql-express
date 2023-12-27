@@ -14,10 +14,6 @@ body {
   text-decoration: none;
 }
 
-.g-image-item {
-  height: 85dvh;
-}
-
 .mat-grid-tile-content {
   /* make grid content start from the top of the div, default is center */
   align-items: initial !important;
@@ -181,6 +177,16 @@ body {
   background-position: center;
 }
 
-.mat-mdc-text-field-wrapper {
-  width: 98% !important;
+.mat-mdc-snack-bar-container {
+  &.green-snackbar {
+    --mdc-snackbar-container-color: #67cc23;
+    --mdc-snackbar-supporting-text-color: #fff;
+    --mat-snack-bar-button-color: #ffffff;
+  }
+
+  &.red-snackbar {
+    --mdc-snackbar-container-color: #eb1414;
+    --mdc-snackbar-supporting-text-color: #fff;
+    --mat-snack-bar-button-color: #ffffff;
+  }
 }

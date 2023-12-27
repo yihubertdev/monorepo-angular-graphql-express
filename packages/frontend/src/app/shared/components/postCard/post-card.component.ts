@@ -21,6 +21,7 @@ import { ImagesComponent } from "../CarouselSlider/images.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatDividerModule } from "@angular/material/divider";
+import { SuccessMessage } from "src/app/core/utils/error";
 
 @Component({
   standalone: true,
@@ -163,7 +164,7 @@ export class PostCardComponent {
               result.documentId
             );
 
-            throw new Error("post deleted");
+            throw new SuccessMessage("post deleted");
           });
         }
 

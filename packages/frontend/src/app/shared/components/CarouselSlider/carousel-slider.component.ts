@@ -11,12 +11,16 @@ export namespace ICarousel {
     PREVIEW = "preview",
   }
 
-  export interface IImage {
+  export interface IBasic {
     type: IImageType;
     image: string[];
   }
 
-  export interface IPreview extends IImage {
+  export interface IImage extends IBasic {
+    type: IImageType.IMAGE;
+  }
+
+  export interface IPreview extends IBasic {
     type: IImageType.PREVIEW;
     url: string;
     description: string;
@@ -39,9 +43,6 @@ export namespace ICarousel {
   template: `
     <div
       class="slide-show-container"
-      [ngStyle]="{
-        height: height + 'dvh'
-      }"
       *ngIf="galleryImages?.length !== 0">
       <div
         class="slide fade slide-image-cover-center"
@@ -99,7 +100,6 @@ export namespace ICarousel {
 })
 export class CarouselSliderComponent implements OnInit {
   @Input({ required: true }) images!: ICarousel.IImage | ICarousel.IPreview;
-  @Input() height?: number;
   @Input() isSilding?: boolean;
 
   @ViewChild("imageTem") imageTem: any;
@@ -107,7 +107,10 @@ export class CarouselSliderComponent implements OnInit {
   public galleryId: string = uuidv4();
   public galleryImages: ImageItem[] = [];
 
-  constructor(public gallery: Gallery, private lightbox: Lightbox) {}
+  constructor(
+    public gallery: Gallery,
+    private lightbox: Lightbox
+  ) {}
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId, {

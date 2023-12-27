@@ -14,6 +14,7 @@ import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 import { ProfileCardComponent } from "../../shared/components/postCard/profile-card.compnent";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { ImageCropperDialog } from "./user-profile-settings.controller";
+import { SuccessMessage } from "src/app/core/utils/error";
 
 @Component({
   standalone: true,
@@ -133,7 +134,7 @@ export class UserProfileController implements OnInit {
         data,
         this.currentUser!.userId
       );
-      throw new Error("Background Image uploaded");
+      throw new SuccessMessage("Background Image uploaded");
     });
   }
   triggerUpload() {

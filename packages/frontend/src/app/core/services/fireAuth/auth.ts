@@ -33,9 +33,6 @@ export class AuthService {
   public readonly userAuthObserver$: Observable<User | null>;
   private _resendEmailCall$: Subject<User> = new Subject<User>();
 
-  public menuControl: Subject<boolean> = new Subject<boolean>();
-  public menuControlObserver$: Observable<boolean>;
-
   constructor(
     private auth: Auth,
     private userService: UserService,
@@ -43,7 +40,7 @@ export class AuthService {
   ) {
     this._userAuth = new BehaviorSubject<User | null>(this.auth.currentUser);
     this.userAuthObserver$ = this._userAuth.asObservable();
-    this.menuControlObserver$ = this.menuControl.asObservable();
+
     this.auth.setPersistence(browserSessionPersistence);
     this.auth.onAuthStateChanged(async (user) => {
       this._userAuth.next(user);
@@ -114,6 +111,7 @@ export class AuthService {
 
     const userFull = await this.userService.retrieveByUId(user.uid);
     this._sessionStorage.setSessionStorage("user", userFull);
+    this._userAuth.next(user);
     return;
   }
 
@@ -166,22 +164,15 @@ export class AuthService {
     verifyCode: string,
     phoneConfirm: ConfirmationResult
   ): Promise<string | null> {
+    // phone confirm will refreash auth, no need to log out and log in again
     const { user } = await phoneConfirm.confirm(verifyCode);
 
     if (this.isUserVerified(user)) {
       const userFull = await this.userService.retrieveByUId(user.uid);
       this._sessionStorage.setSessionStorage("user", userFull);
+      this._userAuth.next(user);
     }
     return user.phoneNumber;
-  }
-
-  /**
-   * Sign in anonymously
-   * @public
-   * @returns {Promise<UserCredential>} anonymous auth
-   */
-  public async anonymousSignIn(): Promise<UserCredential> {
-    return await signInAnonymously(this.auth);
   }
 
   /**

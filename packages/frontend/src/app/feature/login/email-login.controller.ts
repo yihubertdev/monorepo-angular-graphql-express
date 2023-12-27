@@ -27,6 +27,7 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
+import { SuccessMessage } from "src/app/core/utils/error";
 
 @Component({
   standalone: true,
