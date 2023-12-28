@@ -71,6 +71,7 @@ export class EditPostController {
     const { userId } = currentUser;
     content = this._transformMention(content);
     if (image.length) {
+      // use specific type for each post type, avoid different type of post overlap into one type
       await this._postService.create({
         document: this._postService.serializer({
           type: POST.POST_TYPE.IMAGE,

@@ -149,16 +149,20 @@ export class UserProfileSettingsController implements OnInit {
 
 @Component({
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, ImageCropperModule],
-  template: `<h1 mat-dialog-title>Delete</h1>
+  imports: [NgStyle, MatDialogModule, MatButtonModule, ImageCropperModule],
+  template: `<h1 mat-dialog-title>Select Your Profile</h1>
     <div mat-dialog-content>
-      <image-cropper
-        [imageFile]="data.event"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="data.ratio"
-        format="png"
-        (imageCropped)="imageCropped($event)"></image-cropper>
-      <img [src]="croppedImage" />
+      <div class="row">
+        <div class="col-6">
+          <image-cropper
+            [imageFile]="data.event"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="data.ratio"
+            format="png"
+            (imageCropped)="imageCropped($event)"></image-cropper>
+        </div>
+        <div class="col-6"><img [src]="croppedImage" /></div>
+      </div>
     </div>
     <div mat-dialog-actions>
       <button
@@ -181,7 +185,6 @@ export class ImageCropperDialog {
   croppedImage: any = "";
   blob?: Blob | null;
   constructor(
-    private sanitizer: DomSanitizer,
     public dialogRef: MatDialogRef<ImageCropperDialog>,
     @Inject(MAT_DIALOG_DATA)
     public data: {
@@ -191,10 +194,8 @@ export class ImageCropperDialog {
   ) {}
 
   imageCropped(event: ImageCroppedEvent) {
-    if (event?.objectUrl) {
-      this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
-        event.objectUrl
-      );
+    if (event.blob) {
+      this.croppedImage = URL.createObjectURL(event.blob);
       this.blob = event.blob;
     }
     return;

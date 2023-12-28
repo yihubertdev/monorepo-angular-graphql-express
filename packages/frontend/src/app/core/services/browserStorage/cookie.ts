@@ -6,7 +6,6 @@ export class CookieService {
 
   /**
    * Get cookie
-   *
    * @param {string} name cookie name
    * @public
    * @returns {string} cookie
@@ -29,7 +28,6 @@ export class CookieService {
 
   /**
    * Delete cookie
-   *
    * @param {string} name cookie name
    * @public
    */
@@ -39,7 +37,6 @@ export class CookieService {
 
   /**
    * Set cookie
-   *
    * @param {string} name cookie name
    * @param {string} value cookie name
    * @param {string} expireHours cookie name

@@ -50,7 +50,7 @@ import {
       <mat-card-content class="p-0">
         <p
           #content
-          class="text-overflow-card-main m-2 mt-0 mb-0 pt-0"
+          class="text-overflow-card-main m-2 mt-0 mb-0"
           [innerHTML]="post.content"></p>
         <ng-container *ngIf="post.type === 'PREVIEW' || post.type === 'IMAGE'">
           <carousel-slider-component

@@ -73,16 +73,6 @@ import { SuccessMessage } from "src/app/core/utils/error";
               'url(' + (currentUser.photoURL ?? null | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
           }"></div>
-        <!-- <div class="position-absolute-bottom-right">
-          <a
-            mat-raised-button
-            color="primary"
-            [routerLink]="[currentUser?.userId ?? 'me', 'personal-profile']"
-            style="float: right; margin-right: 1%;">
-            Profile
-            <mat-icon>account_box</mat-icon>
-          </a>
-        </div> -->
       </div>
     </mat-card>
     <ng-template #profile>
