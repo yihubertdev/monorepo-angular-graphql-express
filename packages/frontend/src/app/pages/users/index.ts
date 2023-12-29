@@ -12,7 +12,6 @@ import {
 export const profileSetting: Routes = [
   {
     path: "network",
-    canActivate: [isUserLogin],
     loadComponent: () => import("./network.view"),
     loadChildren: () => import("../profile").then((router) => router.route),
   },

@@ -26,6 +26,7 @@ export const route: IFullRoute[] = [
     path: "articles",
     icon: "article",
     description: "Articles",
+    canActivate: [isMeLogin],
     resolve: { posts: postByUserResolver },
     loadComponent: () => import("./articles.view"),
   },
