@@ -6,18 +6,13 @@ import {
   sendEmailVerification,
   ActionCodeSettings,
   Auth,
-  UserCredential,
   RecaptchaVerifier,
   linkWithPhoneNumber,
   ConfirmationResult,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
 import { IUserRegister, IUserRole } from "sources-types";
-import {
-  browserSessionPersistence,
-  signInAnonymously,
-  updateProfile,
-} from "firebase/auth";
+import { browserSessionPersistence, updateProfile } from "firebase/auth";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import {
   BehaviorSubject,

@@ -5,20 +5,9 @@ import { UserDetailsSettingsController } from "src/app/feature/userProfile/user-
 @Component({
   standalone: true,
   imports: [UserDetailsSettingsController],
-  template: ` <div class="container-fluid m-0 p-0">
-    <!--justify-content-center center the inner col-->
-    <div class="row">
-      <!--padding set to 0 so dropdown panel and top profile image have same width-->
-      <div
-        class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12"
-        style="padding-left: 0;">
-        <user-details-settings-controller
-          [collection]="collection"></user-details-settings-controller>
-      </div>
-    </div>
-  </div>`,
+  template: ` <user-details-settings-controller
+    [collection]="collection"></user-details-settings-controller>`,
 })
 export default class PersonalNetWorthView {
-  @Input() id?: string;
   collection = SETTING_COLLECTION.PERSONAL_NET_WORTH;
 }

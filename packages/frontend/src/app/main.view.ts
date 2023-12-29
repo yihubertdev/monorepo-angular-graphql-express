@@ -14,15 +14,12 @@ import { NgIf, NgStyle } from "@angular/common";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatButtonModule } from "@angular/material/button";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
-import { FirebaseMessagingService } from "./core/services/firebaseMessage/basic.message";
 import { DRAWER_MENUController } from "./feature/menu/drawer-menu.controller";
 import { MainIconController } from "./feature/menu/svgicon-menu.controller";
-import { NotificationHttpService } from "./core/services/http/notification.http";
 import { HeaderMenuController } from "./feature/menu/header-menu.controller";
 import { FooterController } from "./feature/menu/footer.controller";
 import { AuthService } from "./core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
-import { SessionStorageService } from "./core/services/browserStorage/sessionStorage";
 import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/mat-drawer-menu";
 import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor.controller";
 
@@ -103,10 +100,7 @@ export class MainView implements OnInit {
 
   constructor(
     private _router: Router,
-    private _firebaseMessaging: FirebaseMessagingService,
-    private _notification: NotificationHttpService,
-    private _auth: AuthService,
-    private _sessionStorage: SessionStorageService
+    private _auth: AuthService
   ) {
     this._router.events.subscribe((event) => {
       switch (true) {

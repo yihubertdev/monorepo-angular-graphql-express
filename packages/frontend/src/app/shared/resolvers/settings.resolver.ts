@@ -12,8 +12,7 @@ export const SecurityResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const user: IUser = route.parent?.data["user"];
-
+  const user: IUser = route.parent?.parent?.data["user"];
   return inject(UserService).retrieveSubCollection({
     userId: user.userId,
     collectionId: SETTING_COLLECTION.SECURITY,
@@ -24,7 +23,7 @@ export const PersonalProfileResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const user: IUser = route.parent?.data["user"];
+  const user: IUser = route.parent?.parent?.data["user"];
 
   return inject(UserService).retrieveSubCollection({
     userId: user.userId,
@@ -36,7 +35,7 @@ export const PersonalResumeResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const user: IUser = route.parent?.data["user"];
+  const user: IUser = route.parent?.parent?.data["user"];
 
   return inject(UserService).retrieveSubCollection({
     userId: user.userId,
@@ -48,7 +47,7 @@ export const BusinessProfileResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const user: IUser = route.parent?.data["user"];
+  const user: IUser = route.parent?.parent?.data["user"];
 
   return inject(UserService).retrieveSubCollection({
     userId: user.userId,
@@ -60,7 +59,7 @@ export const PersonalNetWorthResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ) => {
-  const user: IUser = route.parent?.data["user"];
+  const user: IUser = route.parent?.parent?.data["user"];
 
   return inject(UserService).retrieveSubCollection({
     userId: user.userId,

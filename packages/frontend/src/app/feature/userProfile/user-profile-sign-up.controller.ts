@@ -33,7 +33,7 @@ export type IStepper = IFormStepper[];
     <mat-stepper
       style="height: 100dvh;"
       #mystepper
-      responsiveStepper
+      attrResponsiveStepper
       [selectedIndex]="authUser.emailVerified">
       <mat-step *ngFor="let stepper of steppers; index as i">
         <ng-template matStepLabel>{{ stepper.label }}</ng-template>

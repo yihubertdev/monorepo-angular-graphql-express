@@ -37,8 +37,8 @@
 
 /* xs width */
 .user-avatar-size {
-  height: 30vw;
-  width: 30vw;
+  height: 25vw;
+  width: 25vw;
 }
 
 .user-avatar-uploader-center {
@@ -74,8 +74,8 @@
 /* sm width */
 @media (min-width: 576px) {
   .user-avatar-size {
-    height: 22vw;
-    width: 22vw;
+    height: 17vw;
+    width: 17vw;
   }
 
   .card-height-responsive {
@@ -86,8 +86,8 @@
 /* md width */
 @media (min-width: 768px) {
   .user-avatar-size {
-    height: 19vw;
-    width: 19vw;
+    height: 14vw;
+    width: 14vw;
   }
 
   .card-height-responsive {
@@ -98,8 +98,8 @@
 /* lg width */
 @media (min-width: 992px) {
   .user-avatar-size {
-    height: 17vw;
-    width: 17vw;
+    height: 13vw;
+    width: 13vw;
   }
 
   .card-height-responsive {
@@ -110,8 +110,8 @@
 /* xl width */
 @media (min-width: 1200px) {
   .user-avatar-size {
-    height: 9vw;
-    width: 9vw;
+    height: 7vw;
+    width: 7vw;
   }
 
   .card-height-responsive {

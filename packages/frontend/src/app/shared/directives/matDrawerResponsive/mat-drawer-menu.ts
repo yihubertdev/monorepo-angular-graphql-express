@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { MatDrawer } from "@angular/material/sidenav";
 import { map } from "rxjs";
 import { MatStepper } from "@angular/material/stepper";
+import { MatNavList } from "@angular/material/list";
 
 export interface OpenedStatus {
   xs: boolean;
@@ -61,7 +62,7 @@ export class MatDrawerOpenDirective implements OnInit {
 
 @Directive({
   standalone: true,
-  selector: "[responsiveStepper]",
+  selector: "[attrResponsiveStepper]",
 })
 export class ResponsiveStepperDirective implements OnInit {
   public constructor(

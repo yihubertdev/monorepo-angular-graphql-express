@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import {
+  isUserLogin,
   isUserVerified,
   loginCheck,
 } from "../../core/services/routeGuard/index.guard";
@@ -8,12 +9,37 @@ import {
   userProfileResolver,
 } from "../../shared/resolvers/post.resolver";
 
+export const profileSetting: Routes = [
+  {
+    path: "network",
+    canActivate: [isUserLogin],
+    loadComponent: () => import("./network.view"),
+    loadChildren: () => import("../profile").then((router) => router.route),
+  },
+  {
+    path: "setting",
+    canActivate: [isUserVerified],
+    loadComponent: () => import("./setting.view"),
+    loadChildren: () => import("../settings").then((router) => router.route),
+  },
+];
+// three level menu
+// {
+//   profile: {
+//     network: {
+//       post: ""
+//     },
+//     setting: {
+//       security: ""
+//     }
+//   }
+// }
 export default [
   {
     path: "profile/:id",
-    loadComponent: () => import("./user-profile.view"),
+    loadComponent: () => import("./profile.view"),
     resolve: { user: userProfileResolver },
-    loadChildren: () => import("../profile").then((router) => router.route),
+    loadChildren: () => profileSetting,
   },
   {
     path: "add-post",
@@ -26,13 +52,6 @@ export default [
     canActivate: [isUserVerified],
     resolve: { user: loggedUserProfileResolver },
     loadComponent: () => import("./add-article.view"),
-  },
-  {
-    path: "settings",
-    canActivate: [isUserVerified],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./settings.view"),
-    loadChildren: () => import("../settings").then((router) => router.route),
   },
   {
     path: "financing",

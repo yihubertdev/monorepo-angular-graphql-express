@@ -1,5 +1,12 @@
 import { NgIf, NgStyle } from "@angular/common";
-import { Component, ElementRef, Input, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatGridListModule } from "@angular/material/grid-list";
@@ -12,9 +19,14 @@ import { FormInputListComponent } from "../../shared/components/formInputList/fo
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 import { ProfileCardComponent } from "../../shared/components/postCard/profile-card.compnent";
-import { MatDialog, MatDialogModule } from "@angular/material/dialog";
-import { ImageCropperDialog } from "./user-profile-settings.controller";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { SuccessMessage } from "src/app/core/utils/error";
+import { ImageCroppedEvent, ImageCropperModule } from "ngx-image-cropper";
 
 @Component({
   standalone: true,
@@ -37,13 +49,6 @@ import { SuccessMessage } from "src/app/core/utils/error";
   providers: [ProfileStorageService],
   template: `
     <!-- upload image input -->
-    <input
-      *ngIf="isSettingsPage"
-      type="file"
-      (change)="uploadImage($event.target)"
-      style="display:none"
-      #uploadBackgroundImage
-      name="filedata" />
     <mat-card
       class="card-height-responsive"
       style="border-radius: initial;">
@@ -54,32 +59,46 @@ import { SuccessMessage } from "src/app/core/utils/error";
             ? 'url(' + currentUser.backgroundPhotoURL + ')'
             : 'url(' + photoUrl + ')'
         }">
-        <mat-icon
-          *ngIf="isSettingsPage"
-          class="user-avatar-uploader-corner cursor-pointer"
-          (click)="triggerUpload()"
-          >upload</mat-icon
-        >
+        @if (isSettingsPage) {
+          <input
+            type="file"
+            (change)="uploadImage($event.target)"
+            style="display:none"
+            #uploadBackgroundImage />
+          <mat-icon
+            class="user-avatar-uploader-corner cursor-pointer"
+            (click)="uploadBackgroundImage.click()"
+            >upload</mat-icon
+          >
+        }
       </div>
 
-      <div
-        class="position-absolute-bottom m-0 p-0"
-        style="width: 100%;"
-        *ngIf="!isSettingsPage">
+      <div class="position-absolute-bottom">
         <div
           class="user-avatar-size user-avatar-square"
           [ngStyle]="{
             backgroundImage:
               'url(' + (currentUser.photoURL ?? null | defaultUserPhoto) + ')',
             backgroundSize: 'cover'
-          }"></div>
+          }">
+          @if (isSettingsPage) {
+            <input
+              type="file"
+              (change)="uploadProfile($event.target)"
+              style="display:none"
+              #profileUploader />
+            <mat-icon
+              class="user-avatar-uploader-center cursor-pointer"
+              (click)="profileUploader.click()"
+              >upload</mat-icon
+            >
+          }
+        </div>
       </div>
     </mat-card>
-    <ng-template #profile>
-      <profile-card-component
-        [currentUser]="currentUser"></profile-card-component>
-    </ng-template>
-    <ng-container *ngIf="isSettingsPage; else profile"></ng-container>
+
+    <profile-card-component
+      [currentUser]="currentUser"></profile-card-component>
   `,
   styleUrls: ["./user-profile.style.css"],
 })
@@ -87,6 +106,7 @@ export class UserProfileController implements OnInit {
   @Input() userId?: string;
   @Input() isSettingsPage?: boolean;
   @ViewChild("uploadBackgroundImage") uploadBackgroundImage!: ElementRef;
+  @ViewChild("profileUploader") profileUploader!: ElementRef;
   currentUser!: IUser;
   photoUrl: string =
     "https://material.angular.io/assets/img/examples/shiba1.jpg";
@@ -127,9 +147,84 @@ export class UserProfileController implements OnInit {
       throw new SuccessMessage("Background Image uploaded");
     });
   }
-  triggerUpload() {
-    if (this.isSettingsPage) {
-      this.uploadBackgroundImage.nativeElement.click();
+
+  async uploadProfile(eventTarget: EventTarget | null) {
+    const element = eventTarget as HTMLInputElement | null;
+    const file = element?.files;
+    if (!file || !this.currentUser) return;
+    const dialogRef = this.dialog.open(ImageCropperDialog, {
+      disableClose: true,
+      data: {
+        event: file[0],
+        ratio: 1 / 1,
+      },
+    });
+    this.profileUploader.nativeElement.value = "";
+    dialogRef.afterClosed().subscribe(async (data: Blob) => {
+      if (!data) return;
+      await this.profileStorage.uploadBlob(data);
+      throw new SuccessMessage("Profile uploaded");
+    });
+  }
+}
+
+@Component({
+  standalone: true,
+  imports: [NgStyle, MatDialogModule, MatButtonModule, ImageCropperModule],
+  template: `<h1 mat-dialog-title>Select Your Profile</h1>
+    <div mat-dialog-content>
+      <div class="row">
+        <div class="col-6">
+          <image-cropper
+            [imageFile]="data.event"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="data.ratio"
+            format="png"
+            (imageCropped)="imageCropped($event)"></image-cropper>
+        </div>
+        <div class="col-6">
+          <img
+            [src]="croppedImage"
+            height="100"
+            [width]="100 * data.ratio" />
+        </div>
+      </div>
+    </div>
+    <div mat-dialog-actions>
+      <button
+        mat-button
+        (click)="dialogRef.close()">
+        CLOSE
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        [mat-dialog-close]="blob"
+        cdkFocusInitial>
+        UPLOAD
+      </button>
+    </div>`,
+  styleUrls: [],
+})
+export class ImageCropperDialog {
+  imageChangedEvent: any = "";
+  croppedImage: any = "";
+  blob?: Blob | null;
+  constructor(
+    public dialogRef: MatDialogRef<ImageCropperDialog>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      event: File;
+      ratio: number;
     }
+  ) {}
+
+  imageCropped(event: ImageCroppedEvent) {
+    if (event.blob) {
+      this.croppedImage = URL.createObjectURL(event.blob);
+      this.blob = event.blob;
+    }
+    return;
+    // event.blob can be used to upload the cropped image
   }
 }
