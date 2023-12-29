@@ -18,12 +18,12 @@ import { SessionStorageService } from "src/app/core/services/browserStorage/sess
   ],
   selector: "home-page-post-controller",
   template: `
-      @for (post of data; track post.id) { 
-        <post-card-component
+    @for (post of data; track post.id) {
+      <post-card-component
         [postCardInfo]="post"
         [isUserProfile]="!!userId"
         [isMe]="isMe"></post-card-component>
-      }
+    }
   `,
   styleUrls: ["./home-page-post.style.css"],
 })
@@ -42,8 +42,7 @@ export class HomePagePostController implements OnInit {
 
   constructor(
     private _PostService: PostFireStore,
-    private route: ActivatedRoute,
-    private _sessionStorage: SessionStorageService
+    private route: ActivatedRoute
   ) {}
 
   @HostListener("window:scroll", ["$event"])
@@ -69,12 +68,10 @@ export class HomePagePostController implements OnInit {
         data: POST.IPost[];
         hasFile: boolean;
       };
-      user: IUser;
     };
     if (this.userId == "me") {
       this.isMe = true;
-      this.userId =
-        this._sessionStorage.getSessionStorage<IUser>("user")!.userId;
+      this.userId = this.route.parent?.parent?.snapshot.data["user"].userId;
     }
     if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;

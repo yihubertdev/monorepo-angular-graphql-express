@@ -26,7 +26,7 @@ import { ActivatedRoute } from "@angular/router";
 export default class UsersView {
   public id!: string;
   constructor(private route: ActivatedRoute) {
-    this.route.parent?.params.subscribe((param) => {
+    this.route.parent?.parent?.params.subscribe((param) => {
       this.id = param["id"];
     });
   }
