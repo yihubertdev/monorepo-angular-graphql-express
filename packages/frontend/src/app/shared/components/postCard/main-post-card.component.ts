@@ -35,7 +35,7 @@ import {
   template: `
     <mat-card class="m-1">
       <mat-card-header
-        [routerLink]="['/users', 'profile', post.userId, 'posts']"
+        [routerLink]="['/users', 'profile', post.userId, 'network', 'posts']"
         class="cursor-pointer">
         <div
           mat-card-avatar

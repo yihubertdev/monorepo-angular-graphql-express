@@ -58,7 +58,7 @@ import { StateDrawMenu } from "../../core/services/state/";
           }
         </mat-nav-list></mat-drawer
       >
-      <mat-drawer-content style="height: 100dvh">
+      <mat-drawer-content>
         <router-outlet></router-outlet>
       </mat-drawer-content>
     </mat-drawer-container>
