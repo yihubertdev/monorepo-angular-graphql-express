@@ -43,6 +43,7 @@ export class NotificationService {
 export class GlobalMessageHandler implements ErrorHandler {
   constructor(private notification: NotificationService) {}
   handleError(message: Error) {
+    console.log(message);
     const notifier = this.notification;
     switch (message.name) {
       case "SuccessMessage": {

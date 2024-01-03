@@ -42,6 +42,10 @@ service cloud.firestore {
             allow update, delete, create: if isAuthMachedUser(uid);
         }
 
+        match /networth/{uid}	{
+            allow read, update, delete, create: if isAuthMachedUser(uid);
+        }
+
         match /users/{uid}/{subCollectionId=**} {
             allow create, delete, get, read, list, update, write: if isAuthMachedUser(uid);
         }

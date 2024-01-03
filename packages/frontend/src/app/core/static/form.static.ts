@@ -1357,8 +1357,8 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     label: "Asset Type",
     key: "assetType",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Select Cash Asset Type",
+    icon: "web_asset",
     selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
     column: {
       xs: 12,
@@ -1374,8 +1374,8 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     label: "Financial Institution",
     key: "financialInstitution",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Select Cash Financial Institution",
+    icon: "monetization_on",
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
     column: {
       xs: 12,
@@ -1391,8 +1391,8 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     label: "Current Balance",
     key: "currentBalance",
     value: 0,
-    hint: "Email",
-    icon: "mail",
+    hint: "Cash Balance",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1407,8 +1407,8 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     label: "Last Statement",
     key: "lastStatement",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Last Statement",
+    icon: "folder",
     column: {
       xs: 12,
       sm: 12,
@@ -3959,6 +3959,204 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
   },
 ];
 
+export const ESTATE_PLANNING_GOALS: IForm[] = [
+  {
+    id: "contactType",
+    type: INPUT_TYPE.TEXT,
+    label: "Contact Type",
+    key: "contactType",
+    value: "",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
+  },
+  {
+    id: "name",
+    type: INPUT_TYPE.TEXT,
+    label: "Your Name",
+    key: "name",
+    value: "",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
+  },
+  {
+    id: "email",
+    type: INPUT_TYPE.TEXT,
+    label: "Your Email",
+    key: "email",
+    value: "",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
+  },
+  {
+    id: "phone",
+    type: INPUT_TYPE.TEXT,
+    label: "Your phone",
+    key: "phone",
+    value: "",
+    icon: "call",
+    hint: "Phone Number",
+    column: {
+      xs: 10,
+      sm: 10,
+      md: 10,
+      lg: 10,
+      xl: 10,
+    },
+  },
+];
+
+export const PERSONAL_MONTHLY_EXPENSE: IForm[] = [
+  {
+    id: "marketableSecurities",
+    type: INPUT_TYPE.TEXT,
+    label: "Marketable Securities",
+    key: "marketableSecurities",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "taxShelteredInvestment",
+    type: INPUT_TYPE.TEXT,
+    label: "Tax Sheltered Investment",
+    key: "taxShelteredInvestment",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "insurance",
+    type: INPUT_TYPE.TEXT,
+    label: "Insurance",
+    key: "insurance",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "realEstate",
+    label: "Real Estate",
+    type: INPUT_TYPE.TEXT,
+    key: "realEstate",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "businessInterests",
+    type: INPUT_TYPE.TEXT,
+    label: "Business Interests",
+    key: "businessInterests",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "vehicles",
+    type: INPUT_TYPE.TEXT,
+    label: "Vehicles",
+    key: "vehicles",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "loanBalance",
+    type: INPUT_TYPE.NUMBER,
+    label: "Loan Balance",
+    key: "loanBalance",
+    value: 0,
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+  {
+    id: "lineOfCredit",
+    type: INPUT_TYPE.TEXT,
+    label: "Line Of Credit",
+    key: "lineOfCredit",
+    value: "",
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+  },
+];
+
 export const PERSONAL_MONTHLY_INCOME: IForm[] = [
   {
     id: "realEstate",
@@ -4025,6 +4223,23 @@ export const PERSONAL_MONTHLY_INCOME: IForm[] = [
     },
   },
   {
+    id: "income_type",
+    type: INPUT_TYPE.SELECT,
+    label: "Income type",
+    key: "income_type",
+    value: [],
+    hint: "Email",
+    icon: "mail",
+    column: {
+      xs: 12,
+      sm: 12,
+      md: 3,
+      lg: 3,
+      xl: 3,
+    },
+    selection: [EMPLOYMENT_TYPE.PERMANENT_FULL_TIME],
+  },
+  {
     id: "monthlyAmount",
     type: INPUT_TYPE.TEXT,
     label: "Monthly Amount",
@@ -4042,18 +4257,22 @@ export const PERSONAL_MONTHLY_INCOME: IForm[] = [
   },
 ];
 
+export type INetWorth = Record<SETTING_CATEGORY, number>;
+
+export enum SETTING_CATEGORY_TYPE {
+  INITIAL = "INITIAL",
+  BASIC_INFORMATION = "BASIC_INFORMATION",
+  CURRENT_BALANCE = "CURRENT_BALANCE",
+  MARKET_VALUE = "MARKET_VALUE",
+}
+
 export interface ISettingCategory {
   title: string;
   description: string;
-  category: string;
+  category: SETTING_CATEGORY;
   list: IForm[];
-  noEdit?: boolean;
   schema: JoiSchemaBuilder;
-}
-
-export interface ISettingCategoryTab {
-  title: string;
-  categories: ISettingCategory[];
+  type: SETTING_CATEGORY_TYPE;
 }
 
 export const SETTING_COLLECTIONS: Record<
@@ -4066,7 +4285,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "User Basic Information",
       category: SETTING_CATEGORY.ACCOUNT,
       list: ACCOUNT_INFO,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(
         ACCOUNT_INFO.filter((data) =>
           ["displayName", "phoneNumber"].includes(data.id)
@@ -4076,15 +4295,17 @@ export const SETTING_COLLECTIONS: Record<
     {
       title: "Authentication",
       description: "Change Password",
-      category: "authentication",
+      category: SETTING_CATEGORY.AUTHENTICATION,
       list: ACCOUNT_INFO,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
       title: "Recognition",
       description: "Change facial and voice recognition",
-      category: "recognition",
+      category: SETTING_CATEGORY.RECOGNITION,
       list: ACCOUNT_INFO,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
   ],
@@ -4094,6 +4315,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Personal Information",
       category: SETTING_CATEGORY.PERSONAL_INFORMATION,
       list: PERSONAL_INFORMATION_FORM,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_INFORMATION_FORM),
     },
     {
@@ -4101,7 +4323,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Your Dependants",
       category: SETTING_CATEGORY.DEPENDANT_INFO,
       list: DEPENDANT_INFO,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(DEPENDANT_INFO),
     },
     {
@@ -4109,7 +4331,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Spouse's Information",
       category: SETTING_CATEGORY.SPOUSE_INFORMATION,
       list: SPOUSE_INFO,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(SPOUSE_INFO),
     },
     {
@@ -4117,7 +4339,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Personal Information Uploads",
       category: SETTING_CATEGORY.PERSONAL_INFORMATION_UPLOADS,
       list: PERSONAL_INFORMATION_UPLOADS_FORM,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
       schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_INFORMATION_UPLOADS_FORM),
     },
   ],
@@ -4127,6 +4349,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
@@ -4134,7 +4357,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Your Biography Description",
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
@@ -4144,6 +4367,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
@@ -4151,7 +4375,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Your Biography Description",
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
-      noEdit: true,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
@@ -4161,6 +4385,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Home Address",
       category: SETTING_CATEGORY.HOME_ADDRESS,
       list: ACCOUNT_INFO,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(ACCOUNT_INFO),
     },
     {
@@ -4168,6 +4393,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Your Biography Description",
       category: SETTING_CATEGORY.BIOGRAPHY,
       list: BIOGRAPHY_FORM,
+      type: SETTING_CATEGORY_TYPE.INITIAL,
       schema: SETTINGS_SCHEMA_GENERATOR(BIOGRAPHY_FORM),
     },
   ],
@@ -4177,6 +4403,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "asset type, financial institution, statement.",
       category: SETTING_CATEGORY.CASH_ACCOUNTS_RECEIVABLE,
       list: CASH_ACCOUNTS_RECEIVABLE_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(CASH_ACCOUNTS_RECEIVABLE_FORM),
     },
     {
@@ -4184,6 +4411,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Change facial and voice recognition",
       category: SETTING_CATEGORY.MARKABLE_SECURITY,
       list: MARKABLE_SECURITY_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(MARKABLE_SECURITY_FORM),
     },
     {
@@ -4191,6 +4419,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Tax sheltered investment",
       category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
       list: TAX_SHELTERED_INVESTMENT_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(TAX_SHELTERED_INVESTMENT_FORM),
     },
     {
@@ -4198,6 +4427,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Insurance",
       category: SETTING_CATEGORY.INSURANCE,
       list: INSURANCE_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(INSURANCE_FORM),
     },
     {
@@ -4205,6 +4435,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Real Estate Property",
       category: SETTING_CATEGORY.REAL_ESTATE,
       list: REAL_ESTATE_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
     },
     {
@@ -4212,6 +4443,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Personal Vehicles",
       category: SETTING_CATEGORY.VEHICLES,
       list: REAL_ESTATE_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(REAL_ESTATE_FORM),
     },
     {
@@ -4219,6 +4451,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Other Assets",
       category: SETTING_CATEGORY.OTHER_ASSETS,
       list: OTHER_ASSEST_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(OTHER_ASSEST_FORM),
     },
     {
@@ -4226,6 +4459,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Other Loans",
       category: SETTING_CATEGORY.OTHER_LOANS,
       list: OTHER_LOANS_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(OTHER_LOANS_FORM),
     },
     {
@@ -4233,6 +4467,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Line Of Credit",
       category: SETTING_CATEGORY.LINE_OF_CREDIT,
       list: OTHER_LOANS_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(OTHER_LOANS_FORM),
     },
     {
@@ -4240,6 +4475,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Other Personal Liabilities",
       category: SETTING_CATEGORY.OTHER_PERSONAL_LIABILITIES,
       list: OTHER_PERSONAL_LIABILITIES,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(OTHER_LOANS_FORM),
     },
     {
@@ -4247,6 +4483,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Business To Be Financed",
       category: SETTING_CATEGORY.BUSINESS_TO_BE_FINANCED,
       list: BUSINESS_TO_BE_FINANCED,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(BUSINESS_TO_BE_FINANCED),
     },
     {
@@ -4254,6 +4491,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Business Interest",
       category: SETTING_CATEGORY.BUSINESS_INTEREST,
       list: BUSINESS_INTEREST_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(BUSINESS_INTEREST_FORM),
     },
     {
@@ -4261,6 +4499,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Business Interest",
       category: SETTING_CATEGORY.BUSINESS_INTEREST,
       list: BUSINESS_INTEREST_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(BUSINESS_INTEREST_FORM),
     },
     {
@@ -4268,6 +4507,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Business Documents",
       category: SETTING_CATEGORY.BUSINESS_DOCUMENT,
       list: BUSINESS_DOCUMENT_FORM,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(BUSINESS_DOCUMENT_FORM),
     },
     {
@@ -4275,7 +4515,24 @@ export const SETTING_COLLECTIONS: Record<
       description: "Personal Monthly Income",
       category: SETTING_CATEGORY.BUSINESS_DOCUMENT,
       list: PERSONAL_MONTHLY_INCOME,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
       schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_MONTHLY_INCOME),
+    },
+    {
+      title: "Personal Monthly Expenses",
+      description: "Personal Monthly Expenses",
+      category: SETTING_CATEGORY.BUSINESS_DOCUMENT,
+      list: PERSONAL_MONTHLY_EXPENSE,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
+      schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_MONTHLY_EXPENSE),
+    },
+    {
+      title: "Estate Planning & Goals",
+      description: "Estate Planning & Goals",
+      category: SETTING_CATEGORY.BUSINESS_DOCUMENT,
+      list: PERSONAL_MONTHLY_EXPENSE,
+      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
+      schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_MONTHLY_EXPENSE),
     },
   ],
 };

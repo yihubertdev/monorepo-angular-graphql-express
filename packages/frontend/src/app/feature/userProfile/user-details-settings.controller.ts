@@ -3,6 +3,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import {
+  INetWorth,
   ISettingCategory,
   SETTING_COLLECTIONS,
 } from "../../core/static/form.static";
@@ -19,6 +20,7 @@ import { StateDrawMenu } from "../../core/services/state/";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
+  networth: INetWorth;
 }
 
 @Component({
@@ -49,19 +51,31 @@ export interface IUserSettings extends ISettingCategory {
               </mat-panel-description>
             </mat-expansion-panel-header>
             <ng-template matExpansionPanelContent>
-              @for (item of category.data; track $index) {
-                <user-details-card-component
-                  [settingDetail]="item"
-                  [collection]="collection"
-                  [user]="user"
-                  [category]="category.category"
-                  [title]="category.title"
-                  [formList]="category.list"
-                  [schema]="category.schema"
-                  [noEdit]="category.noEdit"></user-details-card-component>
+              @switch (category.type) {
+                @case ("CURRENT_BALANCE") {
+                  <h3>
+                    Current Balance:
+                    {{ category.networth }}
+                  </h3>
+                  <p>
+                    List all of your Cash Assets, to add a new Cash Asset click
+                    the "Add New Cash Asset" button.
+                  </p>
+                }
+                @case ("MARKET_VALUE") {
+                  <div>Blue</div>
+                }
               }
 
-              @if (!category.noEdit) {
+              @for (item of category.data; track $index) {
+                <user-details-card-component
+                  [data]="item"
+                  [collection]="collection"
+                  [user]="user"
+                  [category]="category"></user-details-card-component>
+              }
+
+              @if (category.type !== "BASIC_INFORMATION") {
                 <a
                   mat-button
                   (click)="addData(category.data)">
@@ -77,19 +91,24 @@ export interface IUserSettings extends ISettingCategory {
   `,
   styleUrls: ["./user-profile.style.css"],
 })
-export class UserDetailsSettingsController implements OnInit {
+export class UserDetailsSettingsController implements OnInit, OnDestroy {
   @Input({ required: true }) collection!: SETTING_COLLECTION;
 
   public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
+  public networth?: number;
   constructor(
     private route: ActivatedRoute,
     public _state: StateDrawMenu
   ) {}
 
-  ngOnInit() {
-    const { user, data } = this.route.snapshot.data["settings"];
+  ngOnDestroy(): void {
+    this._state.post(true);
+  }
 
+  ngOnInit() {
+    const { networth, settings } = this.route.snapshot.data;
+    const { user, data } = settings;
     this.user = user;
     const groupedData = groupBy(data, "category");
 
@@ -101,6 +120,7 @@ export class UserDetailsSettingsController implements OnInit {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
+            networth: networth ? networth[category] : 0,
             data: [
               {
                 details: userInfo,
@@ -113,6 +133,7 @@ export class UserDetailsSettingsController implements OnInit {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
+            networth: networth ? networth[category] : 0,
             data: [
               {
                 details: {
@@ -127,6 +148,7 @@ export class UserDetailsSettingsController implements OnInit {
         default: {
           return {
             ...collection,
+            networth: networth ? networth[category] : 0,
             data: groupedData[category]
               ? groupedData[category].map((form: any) => ({
                   details: form,

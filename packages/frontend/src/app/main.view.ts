@@ -22,6 +22,7 @@ import { AuthService } from "./core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
 import { MatDrawerOpenDirective } from "./shared/directives/matDrawerResponsive/mat-drawer-menu";
 import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor.controller";
+import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
 
 // desktop: top toolbar container 6vh, main container 90vh, mobile: no top toolbar, main container 100vh
 @Component({
@@ -41,6 +42,7 @@ import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor
     HeaderMenuController,
     MainIconController,
     FooterController,
+    MatBottomSheetModule,
     AddTextEditorController,
   ],
   selector: "main-view",
@@ -57,39 +59,44 @@ import { AddTextEditorController } from "./feature/addTextEditor/add-text-editor
       <span class="top-menu-space"></span>
       <svg-icon-menu-controller></svg-icon-menu-controller>
     </mat-toolbar>
-    <mat-progress-bar
-      *ngIf="isLoading"
-      mode="indeterminate"></mat-progress-bar>
-    <!-- desktop: 90dvh mobile: 100dvh -->
-    <mat-drawer-container>
-      <mat-drawer
-        *ngIf="userInfo"
-        [(opened)]="opened"
-        #drawer
-        mode="side"
-        [attrOpenedStatus]="{
-          xs: false,
-          sm: false,
-          md: true,
-          lg: true,
-          xl: true
-        }"
-        [ngStyle]="{ width: '18dvw' }">
-        <drawer-menu-controller
-          [currentUser]="userInfo"></drawer-menu-controller
-      ></mat-drawer>
-      <!-- mat-drawer-content overflow default is auto, scrollable-->
-      <!-- mat-drawer-content desktop width 88dvw, mobile width 100 dvw -->
-      <mat-drawer-content>
-        <router-outlet></router-outlet>
-        <div
-          *ngIf="userInfo"
-          class="fab-button icon-display">
-          <add-text-editor-controller></add-text-editor-controller>
-        </div>
-        <footer-controller class="responsive-footer"></footer-controller>
-      </mat-drawer-content>
-    </mat-drawer-container>
+
+    @defer {
+      <!-- desktop: 90dvh mobile: 100dvh -->
+      <mat-drawer-container>
+        @if (userInfo) {
+          <mat-drawer
+            [(opened)]="opened"
+            #drawer
+            mode="side"
+            [attrOpenedStatus]="{
+              xs: false,
+              sm: false,
+              md: true,
+              lg: true,
+              xl: true
+            }"
+            [ngStyle]="{ width: '18dvw' }">
+            <drawer-menu-controller
+              [currentUser]="userInfo"></drawer-menu-controller
+          ></mat-drawer>
+        }
+
+        <!-- mat-drawer-content overflow default is auto, scrollable-->
+        <!-- mat-drawer-content desktop width 88dvw, mobile width 100 dvw -->
+        <mat-drawer-content>
+          <router-outlet></router-outlet>
+          @if (userInfo) {
+            <div class="fab-button icon-display">
+              <add-text-editor-controller></add-text-editor-controller>
+            </div>
+          }
+
+          <footer-controller class="responsive-footer"></footer-controller>
+        </mat-drawer-content>
+      </mat-drawer-container>
+    } @loading {
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
   `,
   styleUrls: ["./main.style.css"],
 })

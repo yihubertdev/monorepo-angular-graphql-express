@@ -5,19 +5,19 @@ import {
   OnChanges,
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
-import { NgIf } from "@angular/common";
 import { IUser, SETTING_CATEGORY } from "sources-types";
-import { JoiSchemaBuilder } from "../../../core/utils/validator";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";
-import { UserService } from "src/app/core/services/fireStore/users.firestore";
-import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { UserService } from "../../../core/services/fireStore/users.firestore";
+import { AuthService } from "../../../core/services/fireAuth/auth";
 import { MatIconModule } from "@angular/material/icon";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatButtonModule } from "@angular/material/button";
-import { IForm } from "src/app/core/static/form.static";
-import { SuccessMessage } from "src/app/core/utils/error";
+import { SuccessMessage } from "../../../core/utils/error";
+import { IUserSettings } from "../../../feature/userProfile/user-details-settings.controller";
+import { NetWorthService } from "../../../core/services/fireStore/networth.firestore";
+import { INetWorth } from "src/app/core/static/form.static";
 
 export interface IUserDetailCard {
   details: any;
@@ -36,15 +36,15 @@ export interface IUserDetailCard {
     MatDialogModule,
   ],
   template: `<mat-card class="mt-2">
-    @if (!noEdit) {
+    @if (category.type !== "BASIC_INFORMATION") {
       <mat-card-actions>
         <button
           mat-button
           (click)="
             remove({
-              documentId: settingDetail.documentId,
-              category,
-              title
+              documentId: data.documentId,
+              category: category.category,
+              title: category.title
             })
           ">
           Remove<mat-icon>delete</mat-icon>
@@ -54,8 +54,8 @@ export interface IUserDetailCard {
 
     <mat-card-content>
       <form-input-list-component
-        [list]="formList"
-        [schema]="schema"
+        [list]="category.list"
+        [schema]="category.schema"
         buttonName="Save"
         (formValue)="save($event)"
         [loading]="loading"></form-input-list-component>
@@ -64,13 +64,9 @@ export interface IUserDetailCard {
 })
 export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) collection!: string;
-  @Input({ required: true }) settingDetail!: IUserDetailCard;
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
-  @Input({ required: true }) category!: string;
-  @Input({ required: true }) title!: string;
-  @Input({ required: true }) formList!: IForm[];
-  @Input({ required: true }) schema!: JoiSchemaBuilder;
-  @Input({ required: true }) noEdit?: boolean;
+  @Input({ required: true }) category!: IUserSettings;
+  @Input({ required: true }) data!: IUserDetailCard;
 
   public loading: boolean = false;
   columns = {
@@ -83,20 +79,22 @@ export class UserDetailCardComponent implements OnChanges {
   constructor(
     public dialog: MatDialog,
     private _userService: UserService,
-    private _authService: AuthService
+    private _authService: AuthService,
+    private _netWorthService: NetWorthService
   ) {}
 
   ngOnChanges() {
-    this.formList.forEach(
-      (list) => (list.value = this.settingDetail.details[list.key])
+    this.category.list.forEach(
+      (list) => (list.value = this.data.details[list.key])
     );
   }
 
-  save(value: any) {
+  async save(value: any) {
     this.loading = true;
     const user = this._authService.getAuth();
     if (!user) return;
-    switch (this.category) {
+
+    switch (this.category.category) {
       case SETTING_CATEGORY.ACCOUNT:
         this._authService.updateUserInfo({
           displayName: value.displayName,
@@ -112,18 +110,33 @@ export class UserDetailCardComponent implements OnChanges {
         });
 
         break;
+
       default:
-        this._userService.createSubCollectionByUser(this.user, {
-          collectionId: this.collection,
-          next: {
-            documentId: this.settingDetail.documentId,
-            documentValue: { category: this.category, ...value },
-          },
-        });
+        const total =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map((item) => Number(item.details.currentBalance))
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.currentBalance);
+        this.loading = false;
+        await Promise.all([
+          this._netWorthService.create({
+            id: this.user.id,
+            document: {
+              [this.category.category]: total,
+            } as INetWorth,
+          }),
+          this._userService.createSubCollectionByUser(this.user, {
+            collectionId: this.collection,
+            next: {
+              documentId: this.data.documentId,
+              documentValue: { category: this.category.category, ...value },
+            },
+          }),
+        ]);
         break;
     }
-    this.loading = false;
-    throw new SuccessMessage("Networth saved successfully.");
+    throw new SuccessMessage(this.category.category + " saved successfully.");
   }
 
   remove({

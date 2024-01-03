@@ -7,6 +7,9 @@ import {
 import { IUser, SETTING_COLLECTION } from "sources-types";
 
 import { UserService } from "../../core/services/fireStore/users.firestore";
+import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { User } from "@angular/fire/auth";
+import { NetWorthService } from "src/app/core/services/fireStore/networth.firestore";
 
 export const SecurityResolver: ResolveFn<any> = (
   route: ActivatedRouteSnapshot,
@@ -65,4 +68,13 @@ export const PersonalNetWorthResolver: ResolveFn<any> = (
     userId: user.userId,
     collectionId: SETTING_COLLECTION.PERSONAL_NET_WORTH,
   });
+};
+
+export const NetWorthResolver: ResolveFn<any> = (
+  route: ActivatedRouteSnapshot,
+  state: RouterStateSnapshot
+) => {
+  const user: User = inject(AuthService).getAuth()!;
+
+  return inject(NetWorthService).retrieveByUId(user.uid);
 };

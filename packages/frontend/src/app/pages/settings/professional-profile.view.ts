@@ -1,8 +1,9 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { SETTING_COLLECTION } from "sources-types";
 import { UserDetailsSettingsController } from "../../feature/userProfile/user-details-settings.controller";
 
 @Component({
+  selector: "professional-profile-view",
   standalone: true,
   imports: [UserDetailsSettingsController],
   template: `
@@ -10,6 +11,6 @@ import { UserDetailsSettingsController } from "../../feature/userProfile/user-de
       [collection]="collection"></user-details-settings-controller>
   `,
 })
-export default class PersonalProfileView {
+export default class ProfessionalProfileView {
   collection = SETTING_COLLECTION.PROFESSIONAL_PROFILE;
 }

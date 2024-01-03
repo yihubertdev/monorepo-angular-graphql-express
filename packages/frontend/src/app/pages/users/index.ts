@@ -1,6 +1,5 @@
 import { Routes } from "@angular/router";
 import {
-  isUserLogin,
   isUserVerified,
   loginCheck,
 } from "../../core/services/routeGuard/index.guard";

@@ -25,19 +25,26 @@ import { ActivatedRoute } from "@angular/router";
         <div class="col-6 p-0">
           <main-post-card-component [post]="post"></main-post-card-component>
         </div>
-
         <div
           class="col-12 p-0"
-          *ngIf="$index === 3 && !userId">
+          *ngIf="($index + 1) % 6 === 0 && !userId">
           <carousel-slider-component
-            [images]="images"
+            [images]="images2"
             [isSilding]="true"></carousel-slider-component>
         </div>
 
         <div
           class="col-12 p-0"
-          *ngIf="$index === 7 && !userId">
+          *ngIf="($index + 1) % 10 === 0 && !userId">
           <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
+        </div>
+
+        <div
+          class="col-12 p-0"
+          *ngIf="($index + 1) % 14 === 0 && !userId">
+          <carousel-slider-component
+            [images]="images1"
+            [isSilding]="true"></carousel-slider-component>
         </div>
       }
     </div>
@@ -46,13 +53,21 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class MainPostController implements OnInit {
   @Input() userId?: string;
-  public images: ICarousel.IImage = {
+  public images1: ICarousel.IImage = {
     type: ICarousel.IImageType.IMAGE,
     image: [
       "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-ai.png?alt=media&token=53d51610-84be-45e6-bbe5-247859b470a7",
       "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-financing.png?alt=media&token=fe3cee60-5d3f-4523-abf8-8b00e6893388",
       "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fhome-page-slide-social.png?alt=media&token=d769f3c7-f55a-438c-a97c-afd1841333d3",
       "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fezgif.com-gif-maker.gif?alt=media&token=8be8bb21-b17b-4f80-a2d5-7de063b733ed",
+      "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fcorporate.gif?alt=media&token=e73702c5-824e-4f99-afb3-597aa25251c0",
+    ],
+  };
+
+  public images2: ICarousel.IImage = {
+    type: ICarousel.IImageType.IMAGE,
+    image: [
+      "https://firebasestorage.googleapis.com/v0/b/hubert-blog.appspot.com/o/home-page%2Fcorporate.gif?alt=media&token=e73702c5-824e-4f99-afb3-597aa25251c0",
     ],
   };
 

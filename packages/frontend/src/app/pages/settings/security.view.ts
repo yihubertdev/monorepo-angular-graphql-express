@@ -3,6 +3,7 @@ import { UserDetailsSettingsController } from "../../feature/userProfile/user-de
 import { SETTING_COLLECTION } from "sources-types";
 
 @Component({
+  selector: "security-view",
   standalone: true,
   imports: [UserDetailsSettingsController],
   template: `
@@ -10,6 +11,6 @@ import { SETTING_COLLECTION } from "sources-types";
       [collection]="collection"></user-details-settings-controller>
   `,
 })
-export default class UsersView {
+export default class SecurityView {
   collection = SETTING_COLLECTION.SECURITY;
 }

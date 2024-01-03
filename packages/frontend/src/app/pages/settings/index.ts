@@ -1,5 +1,6 @@
 import {
   BusinessProfileResolver,
+  NetWorthResolver,
   PersonalNetWorthResolver,
   PersonalProfileResolver,
   PersonalResumeResolver,
@@ -62,7 +63,7 @@ export const route: IFullRoute[] = [
       importProvidersFrom(MatDatepickerModule),
       importProvidersFrom(MatNativeDateModule),
     ],
-    resolve: { settings: PersonalNetWorthResolver },
+    resolve: { settings: PersonalNetWorthResolver, networth: NetWorthResolver },
     loadComponent: () => import("./personal-net-worth.view"),
   },
 ];

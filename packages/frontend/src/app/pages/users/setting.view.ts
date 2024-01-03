@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
@@ -6,7 +6,7 @@ import { PROFILE_SETTINGS_MENU } from "../settings";
 import { IMenu } from "sources-types";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
-import { NgClass, NgStyle } from "@angular/common";
+import { AsyncPipe, NgClass, NgStyle } from "@angular/common";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { map } from "rxjs";
 import { StateDrawMenu } from "../../core/services/state/";
@@ -14,6 +14,7 @@ import { StateDrawMenu } from "../../core/services/state/";
 @Component({
   standalone: true,
   imports: [
+    AsyncPipe,
     NgClass,
     NgStyle,
     MatIconModule,
@@ -42,7 +43,7 @@ import { StateDrawMenu } from "../../core/services/state/";
     </mat-nav-list>
     <mat-drawer-container>
       <mat-drawer
-        [opened]="opened"
+        [opened]="_state.get | async"
         #drawer
         mode="side"
         [ngClass]="isNavDisplay ? 'hideNav' : ''"
@@ -64,27 +65,17 @@ import { StateDrawMenu } from "../../core/services/state/";
     </mat-drawer-container>
   `,
 })
-export default class SettingView implements OnInit, OnDestroy {
+export default class SettingView implements OnInit {
   public menus: IMenu[] = PROFILE_SETTINGS_MENU;
   public isNavDisplay: boolean = false;
-  public opened: boolean = true;
 
   public constructor(
     private breakpointObserver: BreakpointObserver,
-    private _state: StateDrawMenu
+    public _state: StateDrawMenu
   ) {}
 
-  ngOnDestroy(): void {
-    this.opened = true;
-  }
-
   ngOnInit() {
-    this._state.get.subscribe((value) => {
-      if (value !== null) {
-        this.opened = value;
-      }
-    });
-
+    this._state.post(true);
     this.breakpointObserver
       .observe([
         Breakpoints.XSmall,

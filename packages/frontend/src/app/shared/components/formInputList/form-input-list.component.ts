@@ -64,7 +64,7 @@ import { IForm } from "src/app/core/static/form.static";
             input.type === 'password' ||
             input.type === 'number'
           "
-          class="mb-4"
+          class="mb-2 p-1"
           [ngClass]="
             'col-xl-' +
             input.column.xl +
@@ -94,7 +94,7 @@ import { IForm } from "src/app/core/static/form.static";
 
         <mat-form-field
           *ngIf="input.type === 'date'"
-          class="mb-4"
+          class="mb-2 p-1"
           [ngClass]="
             'col-xl-' +
             input.column.xl +
@@ -126,7 +126,7 @@ import { IForm } from "src/app/core/static/form.static";
 
         <mat-form-field
           *ngIf="input.type === 'select'"
-          class="mb-4"
+          class="mb-2 p-1"
           [ngClass]="
             'col-xl-' +
             input.column.xl +
@@ -158,7 +158,7 @@ import { IForm } from "src/app/core/static/form.static";
 
         <mat-form-field
           *ngIf="input.type === 'textarea'"
-          class="mb-4"
+          class="mb-2 p-1"
           [ngClass]="
             'col-xl-' +
             input.column.xl +
@@ -188,7 +188,7 @@ import { IForm } from "src/app/core/static/form.static";
 
         <mat-form-field
           *ngIf="input.type === 'file'"
-          class="mb-4"
+          class="mb-2 p-1"
           [ngClass]="
             'col-xl-' +
             input.column.xl +
@@ -235,7 +235,7 @@ import { IForm } from "src/app/core/static/form.static";
     </form>
     <div
       *ngIf="haveEditor"
-      style="margin-bottom: 4%">
+      class="mb-2 p-1">
       <editor-component [(editorContent)]="editorContent"></editor-component>
     </div>
     <button
