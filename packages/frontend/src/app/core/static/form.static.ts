@@ -6,6 +6,7 @@ import {
   INumberFormInput,
   ISelectFormInput,
   ITextFormInput,
+  IToggleFormInput,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
 } from "sources-types";
@@ -27,6 +28,7 @@ export interface IFileFormInput extends IFormInput {
 }
 
 export type IForm =
+  | IToggleFormInput
   | ITextFormInput
   | IFileFormInput
   | ISelectFormInput
@@ -1590,8 +1592,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Financial Institution",
     key: "financialInstitution",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Select the financial institution",
+    icon: "account_balance",
     column: {
       xs: 12,
       sm: 12,
@@ -1607,8 +1609,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "In Name Of",
     key: "inNameOf",
     value: "",
-    hint: "Email",
-    icon: "mail",
+    hint: "In name of",
+    icon: "account_balance",
     column: {
       xs: 12,
       sm: 12,
@@ -1619,12 +1621,12 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "pledgeAsCollateral",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.TOGGLE,
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
     value: "",
-    hint: "Email",
-    icon: "mail",
+    hint: "Pledge As Collateral",
+    icon: "account_balance",
     column: {
       xs: 12,
       sm: 12,
@@ -1639,8 +1641,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Highest Asset Allocation",
     key: "highestAssetAllocation",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Highest asset allocation",
+    icon: "account_balance",
     column: {
       xs: 12,
       sm: 12,
@@ -1652,12 +1654,12 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "marketValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Market Value",
     key: "marketValue",
     value: "",
-    hint: "Email",
-    icon: "mail",
+    hint: "Input the market value",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1668,12 +1670,12 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "marketIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Market Income",
     key: "marketIncome",
     value: "",
-    hint: "Email",
-    icon: "mail",
+    hint: "Input the market income",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1688,8 +1690,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Month Income",
     key: "monthlyIncome",
     value: "",
-    hint: "Email",
-    icon: "mail",
+    hint: "Input the monthly income",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1704,8 +1706,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Lender",
     key: "lender",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Select your lender",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1721,8 +1723,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Loan Balance",
     key: "loanBalance",
     value: 0,
-    hint: "Email",
-    icon: "mail",
+    hint: "Input your loan balance",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1737,8 +1739,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Month Payment",
     key: "monthlyPayment",
     value: 0,
-    hint: "Email",
-    icon: "mail",
+    hint: "Input your monthly payment",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1753,8 +1755,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Last Security Statement",
     key: "lastSecurityStatement",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Input your last security statement",
+    icon: "description",
     column: {
       xs: 12,
       sm: 12,
@@ -1776,8 +1778,8 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     label: "Last Loan Statement",
     key: "lastLoanStatement",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Input your last loan statement",
+    icon: "description",
     column: {
       xs: 12,
       sm: 12,
@@ -1803,7 +1805,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "financialInstitution",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1820,7 +1822,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "inNameOf",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1831,12 +1833,12 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   },
   {
     id: "pledgeAsCollateral",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.TOGGLE,
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1852,7 +1854,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "description",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1869,7 +1871,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "marketValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1885,7 +1887,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "monthlyIncome",
     value: 0,
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1901,7 +1903,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "lender",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1918,7 +1920,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "loanBalance",
     value: 0,
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1934,7 +1936,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "monthlyPayment",
     value: 0,
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1950,7 +1952,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "lastSecurityStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1973,7 +1975,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     key: "lastLoanStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -1999,7 +2001,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "insuranceCompany",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2015,7 +2017,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "beneficiary",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2030,8 +2032,8 @@ export const INSURANCE_FORM: IForm[] = [
     label: "Type",
     key: "type",
     value: [],
-    hint: "Email",
-    icon: "mail",
+    hint: "Select your insurance type",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2039,7 +2041,18 @@ export const INSURANCE_FORM: IForm[] = [
       lg: 3,
       xl: 3,
     },
-    selection: ["RRSP", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
+    selection: [
+      "Team Life Insurance",
+      "Whole Life Insurance",
+      "Universal Life Insurance",
+      "Variable Life Insurance",
+      "Variable Universal Life Insurance",
+      "Simplified Issue Life Insurance",
+      "Guaranteed Issue Life Insurance",
+      "Final Expense Life Insurance",
+      "Group Life Insurance",
+      "Other",
+    ],
   },
   {
     id: "faceValue",
@@ -2048,7 +2061,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "faceValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2064,7 +2077,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "monthlyPremium",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2080,7 +2093,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "cashSurrenderValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2096,7 +2109,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "lender",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2113,7 +2126,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "mortgageBalance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2129,7 +2142,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "mortgagePayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2145,7 +2158,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "2ndMortgagePayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2161,7 +2174,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "2ndMortgageLender",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2177,7 +2190,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "2ndMortgageBalance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2193,7 +2206,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "2ndMortagePmt",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2209,7 +2222,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "propertyAppraisal",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2232,7 +2245,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "propertyTax",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2255,7 +2268,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "mortageStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2278,7 +2291,7 @@ export const INSURANCE_FORM: IForm[] = [
     key: "2ndMortage",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2304,7 +2317,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "typeOfResidence",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2321,7 +2334,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "titleInNameOf",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2337,7 +2350,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "ownership",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2353,7 +2366,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "dateAcquired",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2369,7 +2382,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "addressLine1",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2385,7 +2398,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "addressLine2",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2401,7 +2414,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "currentBalance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2417,7 +2430,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "province",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2434,7 +2447,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "purchasePrice",
     value: 0,
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2450,7 +2463,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "marketValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2466,7 +2479,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "grossIncome",
     value: 0,
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2482,7 +2495,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "mainCondoFees",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2498,7 +2511,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "monthlyInsurance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2514,7 +2527,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "propertyTax",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2530,7 +2543,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "lender",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2547,7 +2560,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "cashSurrenderValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2563,7 +2576,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "mortgagePayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2579,7 +2592,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "2ndMortgagePayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2595,7 +2608,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "insurance",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2618,7 +2631,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "propertyAppraisal",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2641,7 +2654,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     key: "propertyTax",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2667,7 +2680,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "year",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2683,7 +2696,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "make",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2699,7 +2712,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "model",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2715,7 +2728,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "milage",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2731,7 +2744,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "kelleyBlueBookValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2747,7 +2760,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "monthlyInsurance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2763,7 +2776,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "lender",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2779,7 +2792,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "loanBalance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2795,7 +2808,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "monthlyPayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2811,7 +2824,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "insuranceContract",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2834,7 +2847,7 @@ export const VEHICLE_FORM: IForm[] = [
     key: "loanStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2860,7 +2873,7 @@ export const OTHER_ASSEST_FORM: IForm[] = [
     key: "assetType",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
     column: {
       xs: 12,
@@ -2877,7 +2890,7 @@ export const OTHER_ASSEST_FORM: IForm[] = [
     key: "description",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2893,7 +2906,7 @@ export const OTHER_ASSEST_FORM: IForm[] = [
     key: "marketValue",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2909,7 +2922,7 @@ export const OTHER_ASSEST_FORM: IForm[] = [
     key: "lastStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2935,7 +2948,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     key: "lender",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2952,7 +2965,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     key: "loanPurpose",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2968,7 +2981,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     key: "currentBalance",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -2984,7 +2997,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     key: "monthlyPayment",
     value: "",
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -3000,7 +3013,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     key: "lastMonthStatement",
     value: [],
     hint: "Email",
-    icon: "mail",
+    icon: "monetization_on",
     column: {
       xs: 12,
       sm: 12,
@@ -4257,13 +4270,25 @@ export const PERSONAL_MONTHLY_INCOME: IForm[] = [
   },
 ];
 
-export type INetWorth = Record<SETTING_CATEGORY, number>;
+export enum NETWORTH_VALUE {
+  CURRENT_BALANCE = "CURRENT_BALANCE",
+  MARKET_VALUE = "MARKET_VALUE",
+  EQUITY = "EQUITY",
+  FACE_VALUE = "FACE_VALUE",
+  CSV = "CSV",
+}
+
+export type INetWorth = Record<
+  SETTING_CATEGORY,
+  Record<NETWORTH_VALUE, number>
+>;
 
 export enum SETTING_CATEGORY_TYPE {
   INITIAL = "INITIAL",
   BASIC_INFORMATION = "BASIC_INFORMATION",
   CURRENT_BALANCE = "CURRENT_BALANCE",
   MARKET_VALUE = "MARKET_VALUE",
+  FACE_VALUE = "FACE_VALUE",
 }
 
 export interface ISettingCategory {
@@ -4411,7 +4436,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Change facial and voice recognition",
       category: SETTING_CATEGORY.MARKABLE_SECURITY,
       list: MARKABLE_SECURITY_FORM,
-      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
+      type: SETTING_CATEGORY_TYPE.MARKET_VALUE,
       schema: SETTINGS_SCHEMA_GENERATOR(MARKABLE_SECURITY_FORM),
     },
     {
@@ -4419,7 +4444,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Tax sheltered investment",
       category: SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT,
       list: TAX_SHELTERED_INVESTMENT_FORM,
-      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
+      type: SETTING_CATEGORY_TYPE.MARKET_VALUE,
       schema: SETTINGS_SCHEMA_GENERATOR(TAX_SHELTERED_INVESTMENT_FORM),
     },
     {
@@ -4427,7 +4452,7 @@ export const SETTING_COLLECTIONS: Record<
       description: "Insurance",
       category: SETTING_CATEGORY.INSURANCE,
       list: INSURANCE_FORM,
-      type: SETTING_CATEGORY_TYPE.CURRENT_BALANCE,
+      type: SETTING_CATEGORY_TYPE.FACE_VALUE,
       schema: SETTINGS_SCHEMA_GENERATOR(INSURANCE_FORM),
     },
     {

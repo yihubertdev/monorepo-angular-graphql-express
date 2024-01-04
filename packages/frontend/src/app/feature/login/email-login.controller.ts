@@ -27,7 +27,6 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
-import { SuccessMessage } from "src/app/core/utils/error";
 
 @Component({
   standalone: true,
@@ -70,7 +69,7 @@ export class EmailLoginControllerComponent implements OnInit {
     this.recaptcha.verify().then((token) => (this.token = token));
   }
 
-  async login(formValue: Record<string, number | string | string[]>) {
+  async login(formValue: Record<string, boolean | number | string | string[]>) {
     if (!this.token) {
       this.hasError = "Please Verify";
       return;
@@ -169,7 +168,7 @@ export class RegisterPhoneDialog {
     }
   ) {}
 
-  async send(value: Record<string, number | string | string[]>) {
+  async send(value: Record<string, boolean | number | string | string[]>) {
     const { area, phone } = value as { area: string; phone: string };
     this.confirm = await this.authService.linkWithPhone(
       this.data.user,
@@ -178,7 +177,7 @@ export class RegisterPhoneDialog {
     );
   }
 
-  async verify(value: Record<string, number | string | string[]>) {
+  async verify(value: Record<string, boolean | number | string | string[]>) {
     const { verifyCode } = value as { verifyCode: string };
     const result = await this.authService.confirmPhone(
       verifyCode,

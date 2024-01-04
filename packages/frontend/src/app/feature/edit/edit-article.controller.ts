@@ -46,7 +46,7 @@ export class EditArticleController {
   ) {}
 
   public save = async (
-    formValue: Record<string, string | number | string[]>
+    formValue: Record<string, boolean | string | number | string[]>
   ) => {
     // Get current login user
     const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;

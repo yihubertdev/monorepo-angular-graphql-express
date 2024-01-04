@@ -55,15 +55,13 @@ import { MatButtonModule } from "@angular/material/button";
           @for (menu of menus; track $index) {
             <a
               mat-list-item
-              [routerLink]="menu.link"
-              routerLinkActive="active-list-item">
+              [routerLink]="menu.link">
               <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
               <div matListItemTitle>{{ menu.description }}</div></a
             >
           }
           <a
             mat-list-item
-            routerLinkActive="active-list-item"
             (click)="logout()">
             <mat-icon matListItemIcon>account_circle</mat-icon>
             <div matListItemTitle>LOGOUT</div></a

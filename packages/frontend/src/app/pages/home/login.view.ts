@@ -13,7 +13,9 @@ import { OAuthLoginControllerComponent } from "../../feature/login/oauth-login.c
     EmailLoginControllerComponent,
     OAuthLoginControllerComponent,
   ],
-  template: ` <div class="container">
+  template: ` <div
+    class="container"
+    style="height: 90dvh;">
     <div class="row mb-5 mt-5 justify-content-center">
       <div class="text-center col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <h1>Sign in with email</h1>
@@ -25,7 +27,7 @@ import { OAuthLoginControllerComponent } from "../../feature/login/oauth-login.c
       </div>
     </div>
     <div class="row mt-5 mb-5 justify-content-center">
-      <div class="text-center col-12">
+      <div class="col-12">
         <oauth-login-controller></oauth-login-controller>
       </div>
     </div>

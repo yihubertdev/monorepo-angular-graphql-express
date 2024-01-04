@@ -61,7 +61,9 @@ export class EmailSignUpController implements OnInit {
     this.recaptcha.verify().then((token) => (this.token = token));
   }
 
-  async signup(formValue: Record<string, number | string | string[]>) {
+  async signup(
+    formValue: Record<string, boolean | number | string | string[]>
+  ) {
     if (!this.token) {
       this.hasError = "Please verify";
       return;
@@ -155,7 +157,7 @@ export class RegisterPhoneDialog {
     }
   ) {}
 
-  async verify(value: Record<string, number | string | string[]>) {
+  async verify(value: Record<string, boolean | number | string | string[]>) {
     this.isLoading = true;
     const { verifyCode } = value as { verifyCode: string };
     const isConfirmed = await this.authService.confirmPhone(

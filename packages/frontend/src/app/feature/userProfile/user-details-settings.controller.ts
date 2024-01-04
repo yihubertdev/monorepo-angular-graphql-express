@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterModule } from "@angular/router";
 import {
   INetWorth,
   ISettingCategory,
+  NETWORTH_VALUE,
   SETTING_COLLECTIONS,
 } from "../../core/static/form.static";
 import {
@@ -17,10 +18,11 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
 import { v4 as uuidv4 } from "uuid";
 import { StateDrawMenu } from "../../core/services/state/";
+import { CurrencyPipe } from "@angular/common";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
-  networth: INetWorth;
+  networth: Record<NETWORTH_VALUE, number> | null;
 }
 
 @Component({
@@ -31,6 +33,7 @@ export interface IUserSettings extends ISettingCategory {
     RouterModule,
     UserDetailCardComponent,
     MatExpansionModule,
+    CurrencyPipe,
   ],
   selector: "user-details-settings-controller",
   template: `
@@ -53,17 +56,36 @@ export interface IUserSettings extends ISettingCategory {
             <ng-template matExpansionPanelContent>
               @switch (category.type) {
                 @case ("CURRENT_BALANCE") {
-                  <h3>
+                  <h5>
                     Current Balance:
-                    {{ category.networth }}
-                  </h3>
+                    {{ category.networth?.CURRENT_BALANCE | currency }}
+                  </h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
                     the "Add New Cash Asset" button.
                   </p>
                 }
                 @case ("MARKET_VALUE") {
-                  <div>Blue</div>
+                  <h5>
+                    Market Value:
+                    {{ category.networth?.MARKET_VALUE | currency }}
+                  </h5>
+                  <h5>Equity: {{ category.networth?.EQUITY | currency }}</h5>
+                  <p>
+                    List all of your Cash Assets, to add a new Cash Asset click
+                    the "Add New Cash Asset" button.
+                  </p>
+                }
+                @case ("FACE_VALUE") {
+                  <h5>
+                    Face Value:
+                    {{ category.networth?.FACE_VALUE | currency }}
+                  </h5>
+                  <h5>CSV: {{ category.networth?.CSV | currency }}</h5>
+                  <p>
+                    List all of your Cash Assets, to add a new Cash Asset click
+                    the "Add New Cash Asset" button.
+                  </p>
                 }
               }
 
@@ -110,6 +132,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
     const { networth, settings } = this.route.snapshot.data;
     const { user, data } = settings;
     this.user = user;
+    const cash = networth as INetWorth;
     const groupedData = groupBy(data, "category");
 
     this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
@@ -120,7 +143,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
-            networth: networth ? networth[category] : 0,
+            networth: cash ? cash[category] : null,
             data: [
               {
                 details: userInfo,
@@ -133,7 +156,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
-            networth: networth ? networth[category] : 0,
+            networth: cash ? cash[category] : null,
             data: [
               {
                 details: {
@@ -148,7 +171,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         default: {
           return {
             ...collection,
-            networth: networth ? networth[category] : 0,
+            networth: cash ? cash[category] : null,
             data: groupedData[category]
               ? groupedData[category].map((form: any) => ({
                   details: form,

@@ -70,6 +70,8 @@ export const enum INPUT_TYPE {
   EDITOR = "editor",
   DATE = "date",
   NUMBER = "number",
+  TOGGLE = "toggle",
+  MONEY = "money",
 }
 
 export const enum PROFILE_TITLE {
@@ -331,6 +333,11 @@ export interface ITextFormInput extends IFormInput {
     INPUT_TYPE.FILE | INPUT_TYPE.SELECT | INPUT_TYPE.NUMBER
   >;
   value: string;
+}
+
+export interface IToggleFormInput extends IFormInput {
+  type: INPUT_TYPE.TOGGLE;
+  value: boolean;
 }
 
 export interface INumberFormInput extends IFormInput {

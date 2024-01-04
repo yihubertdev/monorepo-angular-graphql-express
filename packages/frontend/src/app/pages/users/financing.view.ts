@@ -13,7 +13,9 @@ import { UserProfileController } from "../../feature/userProfile/user-profile.co
   ],
   template: `
     <!-- container section height 90dvh, width responsive 100vw or 88vw  -->
-    <div class="container-fluid">
+    <div
+      class="container-fluid"
+      style="height: 90dvh;">
       <div class="row m-0 p-0 mb-2">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12 m-0 p-0">
           <h1>qweqweqwe</h1>

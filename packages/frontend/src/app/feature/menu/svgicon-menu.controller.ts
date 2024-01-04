@@ -21,6 +21,7 @@ import { MatButtonModule } from "@angular/material/button";
   selector: "svg-icon-menu-controller",
   template: `
     <a
+      mat-icon-button
       class="m-3 cursor-pointer unset-tag-a"
       routerLink="users/notifications">
       <mat-icon
@@ -31,6 +32,7 @@ import { MatButtonModule } from "@angular/material/button";
       </mat-icon>
     </a>
     <a
+      mat-icon-button
       *ngFor="let menu of menus"
       [routerLink]="menu.link"
       [style.min-width]="menu.width"

@@ -12,18 +12,17 @@ import { MatButtonModule } from "@angular/material/button";
   standalone: true,
   imports: [NgFor, MatListModule, RouterModule, MatIconModule, MatButtonModule],
   selector: "oauth-login-controller",
-  template: ` <mat-list class="login-panel">
-    <a
-      mat-list-item
-      [routerLink]="menu.link"
-      *ngFor="let menu of menus"
-      routerLinkActive="active-list-item">
+  template: ` <mat-list>
+    <mat-list-item
+      style="margin: auto;
+    width: fit-content;"
+      *ngFor="let menu of menus">
       <mat-icon
         style="transform: scale(2);"
         matListItemIcon
         [svgIcon]="menu.iconName"></mat-icon>
-      <div matListItemTitle>{{ menu.description }}</div></a
-    >
+      <div matListItemTitle>{{ menu.description }}</div>
+    </mat-list-item>
   </mat-list>`,
   styleUrls: ["./login.style.css"],
 })

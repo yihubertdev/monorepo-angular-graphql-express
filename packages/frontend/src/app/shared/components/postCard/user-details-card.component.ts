@@ -17,7 +17,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { SuccessMessage } from "../../../core/utils/error";
 import { IUserSettings } from "../../../feature/userProfile/user-details-settings.controller";
 import { NetWorthService } from "../../../core/services/fireStore/networth.firestore";
-import { INetWorth } from "src/app/core/static/form.static";
+import { INetWorth, NETWORTH_VALUE } from "src/app/core/static/form.static";
 
 export interface IUserDetailCard {
   details: any;
@@ -35,7 +35,7 @@ export interface IUserDetailCard {
     MatButtonModule,
     MatDialogModule,
   ],
-  template: `<mat-card class="mt-2">
+  template: `<mat-card class="mt-2 mb-2">
     @if (category.type !== "BASIC_INFORMATION") {
       <mat-card-actions>
         <button
@@ -90,6 +90,7 @@ export class UserDetailCardComponent implements OnChanges {
   }
 
   async save(value: any) {
+    console.log(value);
     this.loading = true;
     const user = this._authService.getAuth();
     if (!user) return;
@@ -108,7 +109,64 @@ export class UserDetailCardComponent implements OnChanges {
           },
           uid: user.uid,
         });
+        break;
+      case SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT:
+      case SETTING_CATEGORY.MARKABLE_SECURITY:
+        const marketValue =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map((item) => Number(item.details.marketValue))
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.marketValue);
+        await Promise.all([
+          this._netWorthService.create({
+            id: this.user.id,
+            document: {
+              [this.category.category]: {
+                [NETWORTH_VALUE.MARKET_VALUE]: marketValue,
+                [NETWORTH_VALUE.EQUITY]: marketValue,
+              },
+            } as INetWorth,
+          }),
+          this._userService.createSubCollectionByUser(this.user, {
+            collectionId: this.collection,
+            next: {
+              documentId: this.data.documentId,
+              documentValue: { category: this.category.category, ...value },
+            },
+          }),
+        ]);
+        break;
 
+      case SETTING_CATEGORY.INSURANCE:
+        await Promise.all([
+          this._netWorthService.create({
+            id: this.user.id,
+            document: {
+              [this.category.category]: {
+                [NETWORTH_VALUE.FACE_VALUE]:
+                  this.category.data
+                    .filter((item) => item.documentId !== this.data.documentId)
+                    .map((item) => Number(item.details.faceValue))
+                    .reduce((sum, current) => sum + current, 0) +
+                  Number(value.faceValue),
+                [NETWORTH_VALUE.CSV]:
+                  this.category.data
+                    .filter((item) => item.documentId !== this.data.documentId)
+                    .map((item) => Number(item.details.cashSurrenderValue))
+                    .reduce((sum, current) => sum + current, 0) +
+                  Number(value.cashSurrenderValue),
+              },
+            } as INetWorth,
+          }),
+          this._userService.createSubCollectionByUser(this.user, {
+            collectionId: this.collection,
+            next: {
+              documentId: this.data.documentId,
+              documentValue: { category: this.category.category, ...value },
+            },
+          }),
+        ]);
         break;
 
       default:
@@ -123,7 +181,9 @@ export class UserDetailCardComponent implements OnChanges {
           this._netWorthService.create({
             id: this.user.id,
             document: {
-              [this.category.category]: total,
+              [this.category.category]: {
+                [NETWORTH_VALUE.CURRENT_BALANCE]: total,
+              },
             } as INetWorth,
           }),
           this._userService.createSubCollectionByUser(this.user, {

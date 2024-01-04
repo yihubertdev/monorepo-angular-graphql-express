@@ -35,13 +35,13 @@ import { ActivatedRoute } from "@angular/router";
 
         <div
           class="col-12 p-0"
-          *ngIf="($index + 1) % 10 === 0 && !userId">
+          *ngIf="($index + 5) % 36 === 0 && !userId">
           <jobs-horizonal-scroll-controller></jobs-horizonal-scroll-controller>
         </div>
 
         <div
           class="col-12 p-0"
-          *ngIf="($index + 1) % 14 === 0 && !userId">
+          *ngIf="($index + 1) % 18 === 0 && !userId">
           <carousel-slider-component
             [images]="images1"
             [isSilding]="true"></carousel-slider-component>

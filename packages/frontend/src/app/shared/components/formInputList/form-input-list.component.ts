@@ -14,6 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import {
   AsyncPipe,
+  CurrencyPipe,
   NgClass,
   NgFor,
   NgIf,
@@ -29,6 +30,7 @@ import { DocumentUploadListComponent } from "./document-upload-list.component";
 import { MatListModule } from "@angular/material/list";
 import { DocumentUploaderComponent } from "./document-uploader.component";
 import { IForm } from "src/app/core/static/form.static";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @Component({
   standalone: true,
@@ -52,6 +54,7 @@ import { IForm } from "src/app/core/static/form.static";
     DocumentUploadListComponent,
     MatListModule,
     DocumentUploaderComponent,
+    MatSlideToggleModule,
   ],
   selector: "form-input-list-component",
   template: `
@@ -77,14 +80,75 @@ import { IForm } from "src/app/core/static/form.static";
             ' col-' +
             input.column.xs
           "
-          floatLabel="always"
           appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
             [type]="input.type"
             matInput
+            [formControlName]="input.key" />
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="input.type === 'money'"
+          class="mb-2 p-1"
+          [ngClass]="
+            'col-xl-' +
+            input.column.xl +
+            ' col-lg-' +
+            input.column.lg +
+            ' col-md-' +
+            input.column.md +
+            ' col-sm-' +
+            input.column.sm +
+            ' col-' +
+            input.column.xs
+          "
+          appearance="outline">
+          <mat-label>{{ input.label }}</mat-label>
+          <input
+            type="text"
+            matInput
+            [formControlName]="input.key" />
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="input.type === 'toggle'"
+          class="mb-2 p-1"
+          [ngClass]="
+            'col-xl-' +
+            input.column.xl +
+            ' col-lg-' +
+            input.column.lg +
+            ' col-md-' +
+            input.column.md +
+            ' col-sm-' +
+            input.column.sm +
+            ' col-' +
+            input.column.xs
+          "
+          floatLabel="always"
+          appearance="outline">
+          <mat-label>{{ input.label }}</mat-label>
+          <input
+            matInput
             [formControlName]="input.key"
-            autocomplete="on" />
+            [value]="input.value"
+            hidden />
+          <mat-slide-toggle
+            matInput
+            [checked]="input.value"
+            [formControlName]="input.key">
+          </mat-slide-toggle>
           <mat-icon matSuffix>{{ input.icon }}</mat-icon>
           <mat-hint>{{ input.hint }}</mat-hint>
           <mat-error *ngIf="hasError">
@@ -107,7 +171,6 @@ import { IForm } from "src/app/core/static/form.static";
             ' col-' +
             input.column.xs
           "
-          floatLabel="always"
           appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
@@ -139,7 +202,6 @@ import { IForm } from "src/app/core/static/form.static";
             ' col-' +
             input.column.xs
           "
-          floatLabel="always"
           appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <mat-select [formControlName]="input.key">
@@ -171,7 +233,6 @@ import { IForm } from "src/app/core/static/form.static";
             ' col-' +
             input.column.xs
           "
-          floatLabel="always"
           appearance="outline">
           <mat-label *ngIf="input.label">{{ input.label }}</mat-label>
           <textarea
@@ -259,14 +320,14 @@ export class FormInputListComponent implements OnInit {
   @Input({ required: true }) loading!: boolean;
   @Input() haveEditor: boolean = false;
   @Output() formValue = new EventEmitter<
-    Record<string, number | string | string[]>
+    Record<string, boolean | number | string | string[]>
   >();
   @Output() documentUpload = new EventEmitter<string[]>();
 
   public newForm!: UntypedFormGroup;
   private defaultFormGroupValue: Record<
     string,
-    { value: number | string | string[]; disabled?: boolean }[]
+    { value: boolean | number | string | string[]; disabled?: boolean }[]
   > = {};
   public editorContent: string = "";
   public hasError: boolean = false;

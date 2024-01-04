@@ -8,6 +8,7 @@ import { SETTING_COLLECTION } from "sources-types";
   imports: [UserDetailsSettingsController],
   template: `
     <user-details-settings-controller
+      style="display: block; height: 100dvh;"
       [collection]="collection"></user-details-settings-controller>
   `,
 })

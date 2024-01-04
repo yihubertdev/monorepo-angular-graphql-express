@@ -8,6 +8,7 @@ import { UserDetailsSettingsController } from "src/app/feature/userProfile/user-
   imports: [UserDetailsSettingsController],
   template: `
     <user-details-settings-controller
+      style="display: block; height: 100dvh;"
       [collection]="collection"></user-details-settings-controller>
   `,
 })

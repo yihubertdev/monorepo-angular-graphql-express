@@ -42,9 +42,32 @@ export const SIGNUP_PHONE_NUMBER: JoiSchemaBuilder = Joi.object({
 });
 
 export const SETTINGS_SCHEMA_GENERATOR = (data: IForm[]) => {
-  const result: Record<string, Joi.StringSchema<string> | Joi.ArraySchema> = {};
+  const result: Record<
+    string,
+    Joi.StringSchema<string> | Joi.ArraySchema | Joi.BooleanSchema
+  > = {};
   data.forEach((item) => {
     switch (item.type) {
+      case INPUT_TYPE.TOGGLE:
+        result[item.key] = Joi.boolean()
+          .required()
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                case "string.base":
+                  e.message = e.local.label + " must be a string";
+                  break;
+                case "string.empty":
+                  e.message = e.local.label + " is requried";
+                  break;
+                default:
+                  break;
+              }
+            });
+
+            return err;
+          });
+        break;
       case INPUT_TYPE.FILE:
         result[item.key] = Joi.array()
           .length(1)
