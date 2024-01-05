@@ -1,8 +1,5 @@
 import { Routes } from "@angular/router";
-import {
-  isUserVerified,
-  loginCheck,
-} from "../../core/services/routeGuard/index.guard";
+import { isUserVerified } from "../../core/services/routeGuard/index.guard";
 import {
   loggedUserProfileResolver,
   userProfileResolver,
@@ -54,11 +51,6 @@ export default [
   {
     path: "financing",
     loadComponent: () => import("./financing.view"),
-  },
-  {
-    path: "signup",
-    canActivate: [loginCheck],
-    loadComponent: () => import("./sign-up.view"),
   },
   {
     path: "notifications",

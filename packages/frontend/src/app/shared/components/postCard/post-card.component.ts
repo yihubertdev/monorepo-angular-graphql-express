@@ -95,13 +95,14 @@ import { SuccessMessage } from "src/app/core/utils/error";
             target="_blank">
             <h5
               class="mt-2 text-overflow-card"
-              style="display: -webkit-box;"
+              style="display: -webkit-box; color: white;"
               [innerHTML]="postCardInfo.title"></h5>
             <p
+              #content
               class="text-overflow-card"
-              style="display: -webkit-box;"
-              [innerHTML]="postCardInfo.description"></p
-          ></a>
+              style="display: -webkit-box;color: white;"
+              [innerHTML]="postCardInfo.description"></p>
+          </a>
         </ng-container>
 
         <!--single video display-->

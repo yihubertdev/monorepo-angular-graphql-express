@@ -1,7 +1,5 @@
-import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { EmailSignUpController } from "../../feature/login/email-signup.controller";
-import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 
 @Component({
   standalone: true,

@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
 import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { EmailLoginControllerComponent } from "../../feature/login/email-login.controller";
@@ -7,8 +6,6 @@ import { OAuthLoginControllerComponent } from "../../feature/login/oauth-login.c
 @Component({
   standalone: true,
   imports: [
-    CommonModule,
-    RouterOutlet,
     RouterLinkWithHref,
     EmailLoginControllerComponent,
     OAuthLoginControllerComponent,
@@ -37,15 +34,12 @@ import { OAuthLoginControllerComponent } from "../../feature/login/oauth-login.c
           No account?
           <a
             mat-tab-link
-            routerLink="/users/signup">
+            routerLink="../signup">
             Register</a
           >
         </h3>
       </div>
     </div>
   </div>`,
-  styleUrls: [],
 })
-export default class LoginView {
-  constructor() {}
-}
+export default class LoginView {}

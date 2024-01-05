@@ -8,18 +8,14 @@ import { ActivatedRoute } from "@angular/router";
   standalone: true,
   imports: [HomePagePostController, MatTabsModule, NgTemplateOutlet],
   template: `
-    <ng-template #matTabContent>
-      <div class="container">
-        <!--justify-content-center center the inner col-->
-        <div class="row justify-content-center">
-          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12">
-            <home-page-post-controller
-              [userId]="id"></home-page-post-controller>
-          </div>
+    <div class="container">
+      <!--justify-content-center center the inner col-->
+      <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-sm-12">
+          <home-page-post-controller [userId]="id"></home-page-post-controller>
         </div>
       </div>
-    </ng-template>
-    <ng-container *ngTemplateOutlet="matTabContent"></ng-container>
+    </div>
   `,
   styleUrls: [],
 })

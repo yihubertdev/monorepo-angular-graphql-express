@@ -28,6 +28,13 @@ export const route: IFullRoute[] = [
     icon: "person",
     description: "Login",
   },
+  {
+    path: "signup",
+    canActivate: [loginCheck],
+    loadComponent: () => import("./sign-up.view"),
+    icon: "person_add",
+    description: "Signup",
+  },
 ];
 
 export const HOME_MENU: ISVGIconMenu[] = route
