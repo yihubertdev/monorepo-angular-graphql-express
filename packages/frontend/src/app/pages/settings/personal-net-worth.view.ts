@@ -7,6 +7,7 @@ import { UserDetailsSettingsController } from "src/app/feature/userProfile/user-
   standalone: true,
   imports: [UserDetailsSettingsController],
   template: ` <user-details-settings-controller
+    style="display: block; height: 100dvh;"
     [collection]="collection"></user-details-settings-controller>`,
 })
 export default class PersonalNetWorthView {
