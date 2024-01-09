@@ -72,6 +72,7 @@ export const enum INPUT_TYPE {
   NUMBER = "number",
   TOGGLE = "toggle",
   MONEY = "money",
+  PHONE = "phone",
 }
 
 export const enum PROFILE_TITLE {
@@ -342,6 +343,11 @@ export interface IToggleFormInput extends IFormInput {
 
 export interface INumberFormInput extends IFormInput {
   type: INPUT_TYPE.NUMBER;
+  value: number;
+}
+
+export interface IPhoneFormInput extends IFormInput {
+  type: INPUT_TYPE.PHONE;
   value: number;
 }
 

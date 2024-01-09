@@ -38,14 +38,14 @@ import { MatButtonModule } from "@angular/material/button";
         <a
           class="m-2"
           mat-button
-          [routerLink]="['/users', 'profile', 'me']"
+          [routerLink]="['users', 'profile', 'me', 'network']"
           >View Profile <mat-icon> visibility </mat-icon></a
         >
         <a
           class="m-2"
           mat-raised-button
           color="primary"
-          [routerLink]="['/users', 'profile-signup']">
+          [routerLink]="['users', 'profile', 'me', 'network']">
           Build Profile
           <mat-icon>account_box</mat-icon>
         </a>

@@ -143,7 +143,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
-            networth: cash ? cash[category] : null,
+            networth: null,
             data: [
               {
                 details: userInfo,
@@ -156,7 +156,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           const userInfo = this.route.parent?.parent?.snapshot.data["user"];
           return {
             ...collection,
-            networth: cash ? cash[category] : null,
+            networth: null,
             data: [
               {
                 details: {

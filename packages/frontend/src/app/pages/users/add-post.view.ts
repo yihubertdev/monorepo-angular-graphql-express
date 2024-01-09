@@ -6,7 +6,7 @@ import { EditPostController } from "../../feature/edit/edit-post.controller";
   imports: [EditPostController],
   template: `
     <div
-      class="container"
+      class="container-fluid"
       style="height: 100dvh;">
       <div class="row">
         <div class="col-12">

@@ -31,6 +31,7 @@ import { MatListModule } from "@angular/material/list";
 import { DocumentUploaderComponent } from "./document-uploader.component";
 import { IForm } from "src/app/core/static/form.static";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directive";
 
 @Component({
   standalone: true,
@@ -55,6 +56,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatListModule,
     DocumentUploaderComponent,
     MatSlideToggleModule,
+    PhoneMaskDirective,
   ],
   selector: "form-input-list-component",
   template: `
@@ -84,6 +86,36 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
           <mat-label>{{ input.label }}</mat-label>
           <input
             [type]="input.type"
+            matInput
+            [formControlName]="input.key"
+            autocomplete="on" />
+          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-hint>{{ input.hint }}</mat-hint>
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="input.type === 'phone'"
+          class="mb-2 p-1"
+          [ngClass]="
+            'col-xl-' +
+            input.column.xl +
+            ' col-lg-' +
+            input.column.lg +
+            ' col-md-' +
+            input.column.md +
+            ' col-sm-' +
+            input.column.sm +
+            ' col-' +
+            input.column.xs
+          "
+          appearance="outline">
+          <mat-label>{{ input.label }}</mat-label>
+          <input
+            attrPhoneMask
+            type="text"
             matInput
             [formControlName]="input.key" />
           <mat-icon matSuffix>{{ input.icon }}</mat-icon>

@@ -17,13 +17,12 @@ import { POST_EDIT_FORM } from "src/app/core/static/form.static";
   providers: [AuthService],
   imports: [FormInputListComponent, HttpClientModule, MatSnackBarModule],
   selector: "edit-post-controller",
-  template: ` <h5 class="mt-4 mb-4">Share Yourself</h5>
-    <form-input-list-component
-      [list]="list"
-      [schema]="blogEditSchema"
-      buttonName="Add Post"
-      (formValue)="save($event)"
-      [loading]="loading"></form-input-list-component>`,
+  template: ` <form-input-list-component
+    [list]="list"
+    [schema]="blogEditSchema"
+    buttonName="Add Post"
+    (formValue)="save($event)"
+    [loading]="loading"></form-input-list-component>`,
 })
 export class EditPostController {
   list = POST_EDIT_FORM;
