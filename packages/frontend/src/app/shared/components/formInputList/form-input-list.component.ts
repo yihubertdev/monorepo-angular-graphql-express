@@ -66,7 +66,6 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
           *ngIf="
             input.type === 'text' ||
             input.type === 'email' ||
-            input.type === 'password' ||
             input.type === 'number'
           "
           class="mb-2 p-1"
@@ -91,6 +90,41 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
             autocomplete="on" />
           <mat-icon matSuffix>{{ input.icon }}</mat-icon>
           <mat-hint>{{ input.hint }}</mat-hint>
+          <mat-error *ngIf="hasError">
+            {{ getError(input.key) }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="input.type === 'password'"
+          class="mb-2 p-1"
+          [ngClass]="
+            'col-xl-' +
+            input.column.xl +
+            ' col-lg-' +
+            input.column.lg +
+            ' col-md-' +
+            input.column.md +
+            ' col-sm-' +
+            input.column.sm +
+            ' col-' +
+            input.column.xs
+          "
+          appearance="outline">
+          <mat-label>{{ input.label }}</mat-label>
+          <input
+            [type]="isHide ? 'password' : 'text'"
+            matInput
+            autocomplete="on"
+            [formControlName]="input.key" />
+
+          <mat-icon
+            matSuffix
+            (click)="hidePassword()"
+            >visibility</mat-icon
+          >
+
+          <mat-hint>Enter Password</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
@@ -356,6 +390,7 @@ export class FormInputListComponent implements OnInit {
   >();
   @Output() documentUpload = new EventEmitter<string[]>();
 
+  public isHide: boolean = true;
   public newForm!: UntypedFormGroup;
   private defaultFormGroupValue: Record<
     string,
@@ -392,6 +427,10 @@ export class FormInputListComponent implements OnInit {
           }
         : {}
     );
+  }
+
+  hidePassword() {
+    this.isHide = !this.isHide;
   }
 
   saveFile = (filesUrl: string[], key: string) => {

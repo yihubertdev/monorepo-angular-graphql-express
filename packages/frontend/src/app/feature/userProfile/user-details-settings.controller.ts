@@ -58,7 +58,7 @@ export interface IUserSettings extends ISettingCategory {
                 @case ("CURRENT_BALANCE") {
                   <h5>
                     Current Balance:
-                    {{ category.networth?.CURRENT_BALANCE | currency }}
+                    {{ category.networth?.CURRENT_BALANCE ?? 0 | currency }}
                   </h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
@@ -68,9 +68,11 @@ export interface IUserSettings extends ISettingCategory {
                 @case ("MARKET_VALUE") {
                   <h5>
                     Market Value:
-                    {{ category.networth?.MARKET_VALUE | currency }}
+                    {{ category.networth?.MARKET_VALUE ?? 0 | currency }}
                   </h5>
-                  <h5>Equity: {{ category.networth?.EQUITY | currency }}</h5>
+                  <h5>
+                    Equity: {{ category.networth?.EQUITY ?? 0 | currency }}
+                  </h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
                     the "Add New Cash Asset" button.
@@ -79,9 +81,9 @@ export interface IUserSettings extends ISettingCategory {
                 @case ("FACE_VALUE") {
                   <h5>
                     Face Value:
-                    {{ category.networth?.FACE_VALUE | currency }}
+                    {{ category.networth?.FACE_VALUE ?? 0 | currency }}
                   </h5>
-                  <h5>CSV: {{ category.networth?.CSV | currency }}</h5>
+                  <h5>CSV: {{ category.networth?.CSV ?? 0 | currency }}</h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
                     the "Add New Cash Asset" button.

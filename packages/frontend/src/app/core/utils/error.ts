@@ -21,7 +21,7 @@ export class NotificationService {
     // The snackbar or dialog won't run outside the Angular's zone.
     // Wrapping it in the run method fixes this issue.
     this.zone.run(() => {
-      this.snackbar.open(`${message.substring(0, 100)}...`, "X", {
+      this.snackbar.open(`${message.substring(0, 100)}`, "X", {
         verticalPosition: "top",
         panelClass: ["red-snackbar"],
       });
@@ -42,17 +42,24 @@ export class NotificationService {
 })
 export class GlobalMessageHandler implements ErrorHandler {
   constructor(private notification: NotificationService) {}
-  handleError(message: Error) {
-    console.log(message);
+  private _clearUnusedMessage(message: string) {
+    ["Error", "firebase:", "Firebase:"].forEach(
+      (item) => (message = message.replace(item, ""))
+    );
+
+    return message;
+  }
+
+  handleError(error: Error) {
     const notifier = this.notification;
-    switch (message.name) {
+    switch (error.name) {
       case "SuccessMessage": {
-        notifier.showSuccessMessage(message.message);
+        notifier.showSuccessMessage(this._clearUnusedMessage(error.message));
         break;
       }
 
       default: {
-        notifier.showErrorMessage(message.message);
+        notifier.showErrorMessage(this._clearUnusedMessage(error.message));
         break;
       }
     }

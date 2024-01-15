@@ -113,8 +113,9 @@ export class EmailSignUpController implements OnInit {
 
         this._router.navigate(SITE_ROUTE_PAGE.SETTINGS);
       });
-    } catch {
+    } catch (err) {
       this.isLoading = false;
+      throw err;
     }
   }
 }

@@ -110,6 +110,7 @@ export class UserDetailCardComponent implements OnChanges {
           uid: user.uid,
         });
         break;
+      case SETTING_CATEGORY.OTHER_ASSETS:
       case SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT:
       case SETTING_CATEGORY.MARKABLE_SECURITY:
         const marketValue =
@@ -156,6 +157,79 @@ export class UserDetailCardComponent implements OnChanges {
                     .map((item) => Number(item.details.cashSurrenderValue))
                     .reduce((sum, current) => sum + current, 0) +
                   Number(value.cashSurrenderValue),
+              },
+            } as INetWorth,
+          }),
+          this._userService.createSubCollectionByUser(this.user, {
+            collectionId: this.collection,
+            next: {
+              documentId: this.data.documentId,
+              documentValue: { category: this.category.category, ...value },
+            },
+          }),
+        ]);
+        break;
+
+      case SETTING_CATEGORY.REAL_ESTATE:
+        const totalEstate =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map((item) => Number(item.details.marketValue))
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.marketValue);
+
+        const totalMortage =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map(
+              (item) =>
+                Number(item.details.mortageBalance) +
+                Number(item.details["2ndMortageBalance"])
+            )
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.mortageBalance) +
+          Number(value["2ndMortageBalance"]);
+        await Promise.all([
+          this._netWorthService.create({
+            id: this.user.id,
+            document: {
+              [this.category.category]: {
+                [NETWORTH_VALUE.MARKET_VALUE]: totalEstate,
+                [NETWORTH_VALUE.EQUITY]: totalEstate - totalMortage,
+              },
+            } as INetWorth,
+          }),
+          this._userService.createSubCollectionByUser(this.user, {
+            collectionId: this.collection,
+            next: {
+              documentId: this.data.documentId,
+              documentValue: { category: this.category.category, ...value },
+            },
+          }),
+        ]);
+        break;
+
+      case SETTING_CATEGORY.VEHICLES:
+        const totalVehicles =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map((item) => Number(item.details.kelleyBlueBookValue))
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.kelleyBlueBookValue);
+
+        const totalLoan =
+          this.category.data
+            .filter((item) => item.documentId !== this.data.documentId)
+            .map((item) => Number(item.details.loanBalance))
+            .reduce((sum, current) => sum + current, 0) +
+          Number(value.loanBalance);
+        await Promise.all([
+          this._netWorthService.create({
+            id: this.user.id,
+            document: {
+              [this.category.category]: {
+                [NETWORTH_VALUE.MARKET_VALUE]: totalVehicles,
+                [NETWORTH_VALUE.EQUITY]: totalVehicles - totalLoan,
               },
             } as INetWorth,
           }),
