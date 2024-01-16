@@ -123,8 +123,8 @@ export class EmailLoginControllerComponent implements OnInit {
   imports: [MatDialogModule, MatButtonModule, FormInputListComponent],
   template: `<h1 mat-dialog-title>Register Your Phone</h1>
     <div mat-dialog-content>
-      <h1 mat-dialog-title>Register Your Phone</h1>
       @if (!confirm) {
+        <h1 mat-dialog-title>Register Your Phone</h1>
         <form-input-list-component
           [list]="registerList"
           [schema]="registerSchema"
@@ -133,6 +133,7 @@ export class EmailLoginControllerComponent implements OnInit {
           [loading]="isLoading"></form-input-list-component>
       }
       @if (confirm) {
+        <h1 mat-dialog-title>Input Your Verification Code</h1>
         <form-input-list-component
           [list]="list"
           [schema]="schema"

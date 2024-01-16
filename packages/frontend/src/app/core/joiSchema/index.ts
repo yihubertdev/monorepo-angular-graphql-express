@@ -231,7 +231,7 @@ export const userSignUpSchema: Joi.ObjectSchema = Joi.object({
 
 export const phoneRegisterSchema = Joi.object({
   area: Joi.string().required(),
-  phone: Joi.number().required(),
+  phone: Joi.string().required(),
 });
 
 export const phoneVerifySchema = Joi.object({

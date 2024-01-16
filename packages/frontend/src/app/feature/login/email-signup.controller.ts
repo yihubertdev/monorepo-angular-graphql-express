@@ -123,9 +123,9 @@ export class EmailSignUpController implements OnInit {
 @Component({
   standalone: true,
   imports: [NgIf, MatDialogModule, MatButtonModule, FormInputListComponent],
-  template: `<h1 mat-dialog-title>Register Your Phone</h1>
+  template: `<h1 mat-dialog-title>Verification Code</h1>
     <div mat-dialog-content>
-      <h1 mat-dialog-title>Register Your Phone</h1>
+      <h1 mat-dialog-title>Input Your Verification Code</h1>
       <form-input-list-component
         [list]="list"
         [schema]="schema"
