@@ -14,7 +14,6 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import {
   AsyncPipe,
-  CurrencyPipe,
   NgClass,
   NgFor,
   NgIf,
@@ -415,15 +414,9 @@ export class FormInputListComponent implements OnInit {
       this.defaultFormGroupValue,
       this.schema
         ? {
-            validators: joiValidator.formGroup(
-              {
-                schema: this.schema,
-              },
-              {
-                abortEarly: false,
-                allowUnknown: true,
-              }
-            ),
+            validators: joiValidator.formGroup({
+              schema: this.schema,
+            }),
           }
         : {}
     );
@@ -458,7 +451,6 @@ export class FormInputListComponent implements OnInit {
    */
   getError(key: string): string {
     const formControl = this.newForm.get(key);
-
     if (formControl?.errors) {
       return formControl.errors[key];
     }

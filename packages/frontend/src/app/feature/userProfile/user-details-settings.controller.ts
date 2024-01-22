@@ -12,7 +12,12 @@ import {
   IUserDetailCard,
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
-import { IUser, SETTING_CATEGORY, SETTING_COLLECTION } from "sources-types";
+import {
+  IUser,
+  PartialRecord,
+  SETTING_CATEGORY,
+  SETTING_COLLECTION,
+} from "sources-types";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";
@@ -22,7 +27,7 @@ import { CurrencyPipe } from "@angular/common";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
-  networth: Record<NETWORTH_VALUE, number> | null;
+  networth: PartialRecord<Partial<NETWORTH_VALUE>, number> | null;
 }
 
 @Component({
@@ -93,7 +98,7 @@ export interface IUserSettings extends ISettingCategory {
 
               @for (item of category.data; track $index) {
                 <user-details-card-component
-                  [data]="item"
+                  [document]="item"
                   [collection]="collection"
                   [user]="user"
                   [category]="category"></user-details-card-component>
@@ -196,6 +201,5 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
       details: {},
       documentId: uuidv4(),
     });
-    console.log(item);
   }
 }

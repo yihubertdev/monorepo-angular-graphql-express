@@ -70,24 +70,9 @@ export const SETTINGS_SCHEMA_GENERATOR = (data: IForm[]) => {
         break;
       case INPUT_TYPE.FILE:
         result[item.key] = Joi.array()
+          .required()
           .length(1)
-          .items(
-            Joi.string()
-              .required()
-              .error((err) => {
-                err.forEach((e) => {
-                  switch (e.code) {
-                    case "string.empty":
-                      e.message = "No Document be selected";
-                      break;
-                    default:
-                      break;
-                  }
-                });
-
-                return err;
-              })
-          );
+          .items(Joi.string().required());
         break;
 
       default:
@@ -123,11 +108,13 @@ export const PDF_FILE_SCHEMA = (data: {
 }): Joi.ArraySchema => {
   const { type, name, size } = data;
   return Joi.array()
+    .required()
     .length(1)
     .items(
       Joi.object({
         name: Joi.string().required(),
         type: Joi.string()
+          .required()
           .valid(...type)
           .error((err) => {
             err.forEach((e) => {
@@ -153,28 +140,31 @@ export const IMAGE_FILE_SCHEMA = (data: {
   size: number;
 }): Joi.ArraySchema => {
   const { type, name, size } = data;
-  return Joi.array().items(
-    Joi.object({
-      name: Joi.string().required(),
-      type: Joi.string()
-        .required()
-        .valid(...type)
-        .error((err) => {
-          err.forEach((e) => {
-            switch (e.code) {
-              case "any.only":
-                e.message = `${name} document must be PDF`;
-                break;
-              default:
-                break;
-            }
-          });
+  return Joi.array()
+    .min(1)
+    .required()
+    .items(
+      Joi.object({
+        name: Joi.string().required(),
+        type: Joi.string()
+          .required()
+          .valid(...type)
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                case "any.only":
+                  e.message = `${name} document must be PDF`;
+                  break;
+                default:
+                  break;
+              }
+            });
 
-          return err;
-        }),
-      size: Joi.number().max(size).required(), // 5mb
-    })
-  );
+            return err;
+          }),
+        size: Joi.number().max(size).required(), // 5mb
+      })
+    );
 };
 export const articleEditSchema = Joi.object({
   content: Joi.string().optional().messages({

@@ -8,6 +8,7 @@ import {
   ISelectFormInput,
   ITextFormInput,
   IToggleFormInput,
+  PartialRecord,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
 } from "sources-types";
@@ -4343,7 +4344,7 @@ export enum NETWORTH_VALUE {
 
 export type INetWorth = Record<
   SETTING_CATEGORY,
-  Record<NETWORTH_VALUE, number>
+  PartialRecord<Partial<NETWORTH_VALUE>, number> | null
 >;
 
 export enum SETTING_CATEGORY_TYPE {

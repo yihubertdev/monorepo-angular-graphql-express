@@ -42,7 +42,7 @@ export interface IUserDetailCard {
           mat-button
           (click)="
             remove({
-              documentId: data.documentId,
+              documentId: document.documentId,
               category: category.category,
               title: category.title
             })
@@ -57,7 +57,7 @@ export interface IUserDetailCard {
         [list]="category.list"
         [schema]="category.schema"
         buttonName="Save"
-        (formValue)="save($event)"
+        (formValue)="handle($event)"
         [loading]="loading"></form-input-list-component>
     </mat-card-content>
   </mat-card>`,
@@ -66,7 +66,7 @@ export class UserDetailCardComponent implements OnChanges {
   @Input({ required: true }) collection!: string;
   @Input({ required: true }) user!: QueryDocumentSnapshot<IUser>;
   @Input({ required: true }) category!: IUserSettings;
-  @Input({ required: true }) data!: IUserDetailCard;
+  @Input({ required: true }) document!: IUserDetailCard;
 
   public loading: boolean = false;
   columns = {
@@ -85,12 +85,95 @@ export class UserDetailCardComponent implements OnChanges {
 
   ngOnChanges() {
     this.category.list.forEach(
-      (list) => (list.value = this.data.details[list.key])
+      (list) => (list.value = this.document.details[list.key])
     );
   }
 
-  async save(value: any) {
-    console.log(value);
+  private _calculateMarketValue(marketValue: number): number {
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.marketValue ?? 0))
+        .reduce((sum, current) => sum + current, 0) + Number(marketValue ?? 0);
+
+    return total;
+  }
+
+  private _calculateFaceValue(faceValue: number): number {
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.faceValue ?? 0))
+        .reduce((sum, current) => sum + current, 0) + Number(faceValue ?? 0);
+
+    return total;
+  }
+
+  private _calculateCashSurrenderValue(cashSurrenderValue: number): number {
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.cashSurrenderValue ?? 0))
+        .reduce((sum, current) => sum + current, 0) +
+      Number(cashSurrenderValue ?? 0);
+
+    return total;
+  }
+
+  private _calculateMortageBalance(
+    mortageBalance: number,
+    scndMortageBalance: number
+  ): number {
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map(
+          (item) =>
+            Number(item.details.mortageBalance ?? 0) +
+            Number(item.details["2ndMortageBalance"] ?? 0)
+        )
+        .reduce((sum, current) => sum + current, 0) +
+      Number(mortageBalance ?? 0) +
+      Number(scndMortageBalance ?? 0);
+
+    return total;
+  }
+
+  private _calculateKelleyBlueBookValue(kelleyBlueBookValue: number): number {
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.kelleyBlueBookValue ?? 0))
+        .reduce((sum, current) => sum + current, 0) +
+      Number(kelleyBlueBookValue ?? 0);
+
+    return total;
+  }
+
+  private _calculateCurrentBalance(currentBalance: number): number {
+    console.log(this.category.data);
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.currentBalance ?? 0))
+        .reduce((sum, current) => sum + current, 0) +
+      Number(currentBalance ?? 0);
+
+    return total;
+  }
+
+  private _calculateLoanBalance(loanBalance: number): number {
+    console.log(this.category.data);
+    const total =
+      this.category.data
+        .filter((item) => item.documentId !== this.document.documentId)
+        .map((item) => Number(item.details.loanBalance ?? 0))
+        .reduce((sum, current) => sum + current, 0) + Number(loanBalance ?? 0);
+
+    return total;
+  }
+
+  async handle(value: any, documentId?: string) {
     this.loading = true;
     const user = this._authService.getAuth();
     if (!user) return;
@@ -113,163 +196,181 @@ export class UserDetailCardComponent implements OnChanges {
       case SETTING_CATEGORY.OTHER_ASSETS:
       case SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT:
       case SETTING_CATEGORY.MARKABLE_SECURITY:
-        const marketValue =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map((item) => Number(item.details.marketValue))
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.marketValue);
-        await Promise.all([
-          this._netWorthService.create({
-            id: this.user.id,
-            document: {
-              [this.category.category]: {
-                [NETWORTH_VALUE.MARKET_VALUE]: marketValue,
-                [NETWORTH_VALUE.EQUITY]: marketValue,
-              },
-            } as INetWorth,
-          }),
-          this._userService.createSubCollectionByUser(this.user, {
+        const marketValue = this._calculateMarketValue(value.marketValue);
+
+        if (!documentId) {
+          await this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
-              documentId: this.data.documentId,
+              documentId: this.document.documentId,
               documentValue: { category: this.category.category, ...value },
             },
-          }),
-        ]);
+          });
+        }
+        this._netWorthService.create({
+          id: this.user.id,
+          document: {
+            [this.category.category]: {
+              [NETWORTH_VALUE.MARKET_VALUE]: marketValue,
+              [NETWORTH_VALUE.EQUITY]: marketValue,
+            },
+          } as INetWorth,
+        });
+        this.category.networth = {
+          [NETWORTH_VALUE.MARKET_VALUE]: marketValue,
+          [NETWORTH_VALUE.EQUITY]: marketValue,
+        };
         break;
 
       case SETTING_CATEGORY.INSURANCE:
-        await Promise.all([
-          this._netWorthService.create({
-            id: this.user.id,
-            document: {
-              [this.category.category]: {
-                [NETWORTH_VALUE.FACE_VALUE]:
-                  this.category.data
-                    .filter((item) => item.documentId !== this.data.documentId)
-                    .map((item) => Number(item.details.faceValue))
-                    .reduce((sum, current) => sum + current, 0) +
-                  Number(value.faceValue),
-                [NETWORTH_VALUE.CSV]:
-                  this.category.data
-                    .filter((item) => item.documentId !== this.data.documentId)
-                    .map((item) => Number(item.details.cashSurrenderValue))
-                    .reduce((sum, current) => sum + current, 0) +
-                  Number(value.cashSurrenderValue),
-              },
-            } as INetWorth,
-          }),
+        const faceValue = this._calculateFaceValue(value.faceValue);
+        const cashSurrenderValue = this._calculateCashSurrenderValue(
+          value.cashSurrenderValue
+        );
+
+        if (!documentId) {
           this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
-              documentId: this.data.documentId,
+              documentId: this.document.documentId,
               documentValue: { category: this.category.category, ...value },
             },
-          }),
-        ]);
+          });
+        }
+
+        this._netWorthService.create({
+          id: this.user.id,
+          document: {
+            [this.category.category]: {
+              [NETWORTH_VALUE.FACE_VALUE]: faceValue,
+              [NETWORTH_VALUE.CSV]: cashSurrenderValue,
+            },
+          } as INetWorth,
+        });
+
+        this.category.networth = {
+          [NETWORTH_VALUE.FACE_VALUE]: faceValue,
+          [NETWORTH_VALUE.CSV]: cashSurrenderValue,
+        };
         break;
 
       case SETTING_CATEGORY.REAL_ESTATE:
-        const totalEstate =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map((item) => Number(item.details.marketValue))
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.marketValue);
+        const totalEstate = this._calculateMarketValue(value.marketValue);
 
-        const totalMortage =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map(
-              (item) =>
-                Number(item.details.mortageBalance) +
-                Number(item.details["2ndMortageBalance"])
-            )
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.mortageBalance) +
-          Number(value["2ndMortageBalance"]);
-        await Promise.all([
-          this._netWorthService.create({
-            id: this.user.id,
-            document: {
-              [this.category.category]: {
-                [NETWORTH_VALUE.MARKET_VALUE]: totalEstate,
-                [NETWORTH_VALUE.EQUITY]: totalEstate - totalMortage,
-              },
-            } as INetWorth,
-          }),
-          this._userService.createSubCollectionByUser(this.user, {
+        const totalMortage = this._calculateMortageBalance(
+          value.mortageBalance,
+          value["2ndMortageBalance"]
+        );
+
+        if (!documentId) {
+          await this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
-              documentId: this.data.documentId,
+              documentId: this.document.documentId,
               documentValue: { category: this.category.category, ...value },
             },
-          }),
-        ]);
+          });
+        }
+        await this._netWorthService.create({
+          id: this.user.id,
+          document: {
+            [this.category.category]: {
+              [NETWORTH_VALUE.MARKET_VALUE]: totalEstate,
+              [NETWORTH_VALUE.EQUITY]: totalEstate - totalMortage,
+            },
+          } as INetWorth,
+        });
+
+        this.category.networth = {
+          [NETWORTH_VALUE.MARKET_VALUE]: totalEstate,
+          [NETWORTH_VALUE.EQUITY]: totalEstate - totalMortage,
+        };
+
         break;
 
       case SETTING_CATEGORY.VEHICLES:
-        const totalVehicles =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map((item) => Number(item.details.kelleyBlueBookValue))
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.kelleyBlueBookValue);
+        const totalVehicles = this._calculateKelleyBlueBookValue(
+          value.kelleyBlueBookValue
+        );
+        const totalLoan = this._calculateLoanBalance(value.loanBalance);
 
-        const totalLoan =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map((item) => Number(item.details.loanBalance))
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.loanBalance);
-        await Promise.all([
-          this._netWorthService.create({
-            id: this.user.id,
-            document: {
-              [this.category.category]: {
-                [NETWORTH_VALUE.MARKET_VALUE]: totalVehicles,
-                [NETWORTH_VALUE.EQUITY]: totalVehicles - totalLoan,
-              },
-            } as INetWorth,
-          }),
-          this._userService.createSubCollectionByUser(this.user, {
+        if (!documentId) {
+          await this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
-              documentId: this.data.documentId,
+              documentId: this.document.documentId,
               documentValue: { category: this.category.category, ...value },
             },
-          }),
-        ]);
+          });
+        }
+        await this._netWorthService.create({
+          id: this.user.id,
+          document: {
+            [this.category.category]: {
+              [NETWORTH_VALUE.MARKET_VALUE]: totalVehicles,
+              [NETWORTH_VALUE.EQUITY]: totalVehicles - totalLoan,
+            },
+          } as INetWorth,
+        });
+
+        this.category.networth = {
+          [NETWORTH_VALUE.MARKET_VALUE]: totalVehicles,
+          [NETWORTH_VALUE.EQUITY]: totalVehicles - totalLoan,
+        };
+
         break;
 
       default:
-        const total =
-          this.category.data
-            .filter((item) => item.documentId !== this.data.documentId)
-            .map((item) => Number(item.details.currentBalance))
-            .reduce((sum, current) => sum + current, 0) +
-          Number(value.currentBalance);
+        const total = this._calculateCurrentBalance(value.currentBalance);
+        this.category.networth = {
+          [NETWORTH_VALUE.CURRENT_BALANCE]: total,
+        };
         this.loading = false;
-        await Promise.all([
-          this._netWorthService.create({
-            id: this.user.id,
-            document: {
-              [this.category.category]: {
-                [NETWORTH_VALUE.CURRENT_BALANCE]: total,
-              },
-            } as INetWorth,
-          }),
-          this._userService.createSubCollectionByUser(this.user, {
+
+        if (!documentId) {
+          await this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
-              documentId: this.data.documentId,
+              documentId: this.document.documentId,
               documentValue: { category: this.category.category, ...value },
             },
-          }),
-        ]);
+          });
+        }
+
+        await this._netWorthService.create({
+          id: this.user.id,
+          document: {
+            [this.category.category]: {
+              [NETWORTH_VALUE.CURRENT_BALANCE]: total,
+            },
+          } as INetWorth,
+        });
         break;
     }
+
+    if (documentId) {
+      this._userService.deleteSubCollectionDocumentByUser(this.user, {
+        collectionId: this.collection,
+        next: {
+          documentId,
+        },
+      });
+
+      // delete the category data for the specific document
+      this.category.data = this.category.data.filter(
+        (item) => item.documentId !== documentId
+      );
+      throw new SuccessMessage(
+        this.category.category + " deleted successfully."
+      );
+    }
+
+    // add the category new data detail for the specific document
+    this.category.data = this.category.data.map((item) =>
+      item.documentId === this.document.documentId
+        ? { ...item, details: value }
+        : item
+    );
     throw new SuccessMessage(this.category.category + " saved successfully.");
   }
 
@@ -292,21 +393,14 @@ export class UserDetailCardComponent implements OnChanges {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(async (result) => {
       if (!result) return;
       const { documentId } = result;
-      this._userService.deleteSubCollectionDocumentByUser(this.user, {
-        collectionId: this.collection,
-        next: {
-          documentId,
-        },
-      });
-
-      // each category only have one object, each object have multiple data
+      this.handle({}, documentId);
+      // each category have a data array which contains multiple document
       // this.groupedSettings[category][0].data = this.groupedSettings[
       //   category
       // ][0].data.filter((item) => item.documentId != documentId);
-      throw new SuccessMessage("Networth saved successfully.");
     });
   }
 }

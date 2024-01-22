@@ -1,3 +1,7 @@
+.white-text {
+  color: var(--mat-sidenav-content-text-color)
+}
+
 .input-full-width {
   width: 100%;
 }

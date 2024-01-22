@@ -1,3 +1,7 @@
+export type PartialRecord<K extends keyof any, T> = {
+  [P in K]?: T;
+};
+
 export const enum FIRESTORE_COLLECTION {
   users = "users",
   blogs = "blogs",

@@ -94,13 +94,13 @@ import { SuccessMessage } from "src/app/core/utils/error";
             [href]="postCardInfo.url"
             target="_blank">
             <h5
-              class="mt-2 text-overflow-card"
-              style="display: -webkit-box; color: white;"
+              class="mt-2 text-overflow-card white-text"
+              style="display: -webkit-box;"
               [innerHTML]="postCardInfo.title"></h5>
             <p
               #content
-              class="text-overflow-card"
-              style="display: -webkit-box;color: white;"
+              class="text-overflow-card white-text"
+              style="display: -webkit-box;"
               [innerHTML]="postCardInfo.description"></p>
           </a>
         </ng-container>
