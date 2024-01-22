@@ -2,9 +2,9 @@ import {
   EMPLOYMENT_TYPE,
   FILE_TYPE,
   IFormInput,
+  IMoneyFormInput,
   INPUT_TYPE,
   INumberFormInput,
-  IPhoneFormInput,
   ISelectFormInput,
   ITextFormInput,
   IToggleFormInput,
@@ -34,7 +34,7 @@ export type IForm =
   | IFileFormInput
   | ISelectFormInput
   | INumberFormInput
-  | IPhoneFormInput;
+  | IMoneyFormInput;
 
 export const POST_EDIT_FORM: IForm[] = [
   {
@@ -203,11 +203,11 @@ export const PHONE_REGISTER: IForm[] = [
 export const PHONE_VERIFY: IForm[] = [
   {
     id: "verifyCode",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.TEXT,
     label: "Verify Code",
     key: "verifyCode",
-    value: 0,
-    hint: "Edit Name",
+    value: "",
+    hint: "Check Your Phone Text To Get Verify Code",
     icon: "phone",
     error: "",
     column: {
@@ -458,7 +458,7 @@ export const PERSONAL_INFORMATION_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Marital Status",
     key: "maritalStatus",
-    value: [],
+    value: "",
     hint: "Martial Status",
     icon: "badge",
     selection: ["single", "married", "common law"],
@@ -587,7 +587,7 @@ export const PERSONAL_INFORMATION_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Residence",
     key: "residence",
-    value: [],
+    value: "",
     hint: "Residence",
     icon: "badge",
     selection: ["Rent", "Own", "Others"],
@@ -1360,7 +1360,7 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Asset Type",
     key: "assetType",
-    value: [],
+    value: "",
     hint: "Select Cash Asset Type",
     icon: "web_asset",
     selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
@@ -1377,7 +1377,7 @@ export const CASH_ACCOUNTS_RECEIVABLE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: [],
+    value: "",
     hint: "Select Cash Financial Institution",
     icon: "monetization_on",
     selection: ["BMO", "CIBC", "RBC", "SCOTIA", "TD", "OTHER"],
@@ -1556,7 +1556,7 @@ export const HOME_ADDRESS_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -1573,7 +1573,7 @@ export const HOME_ADDRESS_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Country",
     key: "country",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -1593,7 +1593,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: [],
+    value: "",
     hint: "Select the financial institution",
     icon: "account_balance",
     column: {
@@ -1626,7 +1626,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.TOGGLE,
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
-    value: "",
+    value: false,
     hint: "Pledge As Collateral",
     icon: "account_balance",
     column: {
@@ -1642,7 +1642,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Highest Asset Allocation",
     key: "highestAssetAllocation",
-    value: [],
+    value: "",
     hint: "Highest asset allocation",
     icon: "account_balance",
     column: {
@@ -1659,7 +1659,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.MONEY,
     label: "Market Value",
     key: "marketValue",
-    value: "",
+    value: 0,
     hint: "Input the market value",
     icon: "monetization_on",
     column: {
@@ -1675,7 +1675,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.MONEY,
     label: "Market Income",
     key: "marketIncome",
-    value: "",
+    value: 0,
     hint: "Input the market income",
     icon: "monetization_on",
     column: {
@@ -1688,10 +1688,10 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "monthlyIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Month Income",
     key: "monthlyIncome",
-    value: "",
+    value: 0,
     hint: "Input the monthly income",
     icon: "monetization_on",
     column: {
@@ -1707,7 +1707,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "Select your lender",
     icon: "monetization_on",
     column: {
@@ -1721,7 +1721,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Loan Balance",
     key: "loanBalance",
     value: 0,
@@ -1737,7 +1737,7 @@ export const MARKABLE_SECURITY_FORM: IForm[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Month Payment",
     key: "monthlyPayment",
     value: 0,
@@ -1805,7 +1805,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Financial Institution",
     key: "financialInstitution",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -1838,7 +1838,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.TOGGLE,
     label: "Pledge As Collateral",
     key: "pledgeAsCollateral",
-    value: "",
+    value: false,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -1854,7 +1854,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Description",
     key: "description",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -1868,10 +1868,10 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   },
   {
     id: "marketValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Market Value",
     key: "marketValue",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -1884,7 +1884,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   },
   {
     id: "monthlyIncome",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Income",
     key: "monthlyIncome",
     value: 0,
@@ -1903,7 +1903,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -1917,7 +1917,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Loan Balance",
     key: "loanBalance",
     value: 0,
@@ -1933,7 +1933,7 @@ export const TAX_SHELTERED_INVESTMENT_FORM: IForm[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Month Payment",
     key: "monthlyPayment",
     value: 0,
@@ -2033,7 +2033,7 @@ export const INSURANCE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Type",
     key: "type",
-    value: [],
+    value: "",
     hint: "Select your insurance type",
     icon: "monetization_on",
     column: {
@@ -2109,7 +2109,7 @@ export const INSURANCE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2317,7 +2317,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Type Of Residence",
     key: "typeOfResidence",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2430,7 +2430,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2444,7 +2444,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "purchasePrice",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Purchase Price",
     key: "purchasePrice",
     value: 0,
@@ -2460,10 +2460,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "marketValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Market Value",
     key: "marketValue",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2476,7 +2476,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "grossIncome",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Gross Income",
     key: "grossIncome",
     value: 0,
@@ -2492,10 +2492,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "mainCondoFees",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Main Condo Fees",
     key: "mainCondoFees",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2508,10 +2508,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "monthlyInsurance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Insurance",
     key: "monthlyInsurance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2524,10 +2524,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "propertyTax",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Property Tax",
     key: "propertyTax",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2543,7 +2543,7 @@ export const REAL_ESTATE_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2557,10 +2557,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "mortageBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Mortage Balance",
     key: "mortageBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2573,10 +2573,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "mortagePayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Mortage Payment",
     key: "mortagePayment",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2589,10 +2589,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "2ndMortageBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "2nd Mortage Balance",
     key: "2ndMortageBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2605,10 +2605,10 @@ export const REAL_ESTATE_FORM: IForm[] = [
   },
   {
     id: "2ndMortgagePayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Second Mortgage Payment",
     key: "2ndMortgagePayment",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2803,10 +2803,10 @@ export const VEHICLE_FORM: IForm[] = [
   },
   {
     id: "kelleyBlueBookValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Kelley Blue Book Value",
     key: "kelleyBlueBookValue",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2819,10 +2819,10 @@ export const VEHICLE_FORM: IForm[] = [
   },
   {
     id: "monthlyInsurance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Insurance",
     key: "monthlyInsurance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2851,10 +2851,10 @@ export const VEHICLE_FORM: IForm[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Loan Balance",
     key: "loanBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2867,10 +2867,10 @@ export const VEHICLE_FORM: IForm[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Payment",
     key: "monthlyPayment",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -2935,7 +2935,7 @@ export const OTHER_ASSEST_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Asset Type",
     key: "assetType",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     selection: ["Cash", "Account Receivable", "Other Liquid Asset"],
@@ -2965,10 +2965,10 @@ export const OTHER_ASSEST_FORM: IForm[] = [
   },
   {
     id: "marketValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Market Value",
     key: "marketValue",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -3010,7 +3010,7 @@ export const OTHER_LOANS_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -3040,10 +3040,10 @@ export const OTHER_LOANS_FORM: IForm[] = [
   },
   {
     id: "currentBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Current Balance",
     key: "currentBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -3056,10 +3056,10 @@ export const OTHER_LOANS_FORM: IForm[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Payment",
     key: "monthlyPayment",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "monetization_on",
     column: {
@@ -3101,7 +3101,7 @@ export const LINE_OF_CREDIT_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Liability Type",
     key: "liabilityType",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3131,10 +3131,10 @@ export const LINE_OF_CREDIT_FORM: IForm[] = [
   },
   {
     id: "creditLimit",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Credit Limit",
     key: "creditLimit",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -3147,10 +3147,10 @@ export const LINE_OF_CREDIT_FORM: IForm[] = [
   },
   {
     id: "currentBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Current Balance",
     key: "currentBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -3192,7 +3192,7 @@ export const OTHER_PERSONAL_LIABILITIES: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Liability Type",
     key: "liabilityType",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3222,10 +3222,10 @@ export const OTHER_PERSONAL_LIABILITIES: IForm[] = [
   },
   {
     id: "currentBalance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Current Balance",
     key: "currentBalance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -3380,7 +3380,7 @@ export const BUSINESS_TO_BE_FINANCED: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3397,7 +3397,7 @@ export const BUSINESS_TO_BE_FINANCED: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Country",
     key: "country",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3884,7 +3884,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Province",
     key: "province",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3901,7 +3901,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Country",
     key: "country",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3915,10 +3915,10 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
   },
   {
     id: "businessMarketValue",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Business Market Value",
     key: "businessMarketValue",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -3931,10 +3931,10 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
   },
   {
     id: "monthlyIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Monthly Income",
     key: "monthlyIncome",
-    value: "",
+    value: 0,
     hint: "Monthly Income",
     icon: "apartment",
     column: {
@@ -3950,7 +3950,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3967,7 +3967,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Lender",
     key: "lender",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -3981,7 +3981,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Loan Balance",
     key: "loanBalance",
     value: 0,
@@ -3997,7 +3997,7 @@ export const BUSINESS_INTEREST_FORM: IForm[] = [
   },
   {
     id: "monthlyPayment",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Month Payment",
     key: "monthlyPayment",
     value: 0,
@@ -4138,10 +4138,10 @@ export const PERSONAL_MONTHLY_EXPENSE: IForm[] = [
   },
   {
     id: "insurance",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Insurance",
     key: "insurance",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -4155,9 +4155,9 @@ export const PERSONAL_MONTHLY_EXPENSE: IForm[] = [
   {
     id: "realEstate",
     label: "Real Estate",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     key: "realEstate",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -4202,7 +4202,7 @@ export const PERSONAL_MONTHLY_EXPENSE: IForm[] = [
   },
   {
     id: "loanBalance",
-    type: INPUT_TYPE.NUMBER,
+    type: INPUT_TYPE.MONEY,
     label: "Loan Balance",
     key: "loanBalance",
     value: 0,
@@ -4285,10 +4285,10 @@ export const PERSONAL_MONTHLY_INCOME: IForm[] = [
   },
   {
     id: "dependantsIncome",
-    type: INPUT_TYPE.TEXT,
+    type: INPUT_TYPE.MONEY,
     label: "Dependants Income",
     key: "dependantsIncome",
-    value: "",
+    value: 0,
     hint: "description",
     icon: "mail",
     column: {
@@ -4304,7 +4304,7 @@ export const PERSONAL_MONTHLY_INCOME: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Income type",
     key: "income_type",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {
@@ -4696,7 +4696,7 @@ export const EMPLOYMENT: IForm[] = [
     type: INPUT_TYPE.SELECT,
     label: "Employment type",
     key: "employment_type",
-    value: [],
+    value: "",
     hint: "description",
     icon: "mail",
     column: {

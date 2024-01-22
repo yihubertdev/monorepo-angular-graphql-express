@@ -44,7 +44,7 @@ export const SIGNUP_PHONE_NUMBER: JoiSchemaBuilder = Joi.object({
 export const SETTINGS_SCHEMA_GENERATOR = (data: IForm[]) => {
   const result: Record<
     string,
-    Joi.StringSchema<string> | Joi.ArraySchema | Joi.BooleanSchema
+    Joi.StringSchema | Joi.ArraySchema | Joi.BooleanSchema | Joi.NumberSchema
   > = {};
   data.forEach((item) => {
     switch (item.type) {
@@ -68,6 +68,23 @@ export const SETTINGS_SCHEMA_GENERATOR = (data: IForm[]) => {
             return err;
           });
         break;
+      case INPUT_TYPE.MONEY:
+      case INPUT_TYPE.NUMBER:
+        result[item.key] = Joi.number()
+          .required()
+          .error((err) => {
+            err.forEach((e) => {
+              switch (e.code) {
+                default:
+                  console.log(e.code);
+                  break;
+              }
+            });
+
+            return err;
+          });
+        break;
+
       case INPUT_TYPE.FILE:
         result[item.key] = Joi.array()
           .required()
@@ -195,28 +212,14 @@ export const userLoginSchema = Joi.object({
 });
 
 export const userSignUpSchema: Joi.ObjectSchema = Joi.object({
-  displayName: Joi.string().required().messages({
-    "string.base": `'username' should be a type of 'string'`,
-    "string.empty": `Please enter your name`,
-  }),
+  displayName: Joi.string().required(),
   email: Joi.string()
     .required()
-    .regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
-    .messages({
-      "string.base": `'email' should be a type of 'string'`,
-      "object.regex": `'email' should follow email pattern`,
-      "string.pattern.base": `'email' should follow email pattern`,
-      "string.empty": `Please enter your email.`,
-    }),
-  password: Joi.string().required().messages({
-    "string.base": `password should be a type of 'string'`,
-    "string.empty": `Please enter your password.`,
-  }),
-  repeatPassword: Joi.string().required().valid(Joi.ref("password")).messages({
-    "string.base": `password should be a type of 'string'`,
-    "any.only": "Password and repeat password must be equal",
-    "string.empty": `Please enter your password.`,
-  }),
+    .regex(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/),
+  area: Joi.string().required(),
+  phone: Joi.string().required(),
+  password: Joi.string().required(),
+  repeatPassword: Joi.string().required().valid(Joi.ref("password")),
 });
 
 export const phoneRegisterSchema = Joi.object({

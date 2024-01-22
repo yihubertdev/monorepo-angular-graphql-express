@@ -133,7 +133,7 @@ export class EmailLoginControllerComponent implements OnInit {
           [loading]="isLoading"></form-input-list-component>
       }
       @if (confirm) {
-        <h1 mat-dialog-title>Input Your Verification Code</h1>
+        <h1 mat-dialog-title>Input Your Verification Code From Phone Text</h1>
         <form-input-list-component
           [list]="list"
           [schema]="schema"

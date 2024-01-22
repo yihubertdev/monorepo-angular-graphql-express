@@ -335,7 +335,11 @@ export interface IFormInput {
 export interface ITextFormInput extends IFormInput {
   type: Exclude<
     INPUT_TYPE,
-    INPUT_TYPE.FILE | INPUT_TYPE.SELECT | INPUT_TYPE.NUMBER
+    | INPUT_TYPE.FILE
+    | INPUT_TYPE.SELECT
+    | INPUT_TYPE.NUMBER
+    | INPUT_TYPE.MONEY
+    | INPUT_TYPE.TOGGLE
   >;
   value: string;
 }
@@ -350,14 +354,14 @@ export interface INumberFormInput extends IFormInput {
   value: number;
 }
 
-export interface IPhoneFormInput extends IFormInput {
-  type: INPUT_TYPE.PHONE;
+export interface IMoneyFormInput extends IFormInput {
+  type: INPUT_TYPE.MONEY;
   value: number;
 }
 
 export interface ISelectFormInput extends IFormInput {
   type: INPUT_TYPE.SELECT;
-  value: string[];
+  value: string;
   selection: (string | number)[];
 }
 

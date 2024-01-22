@@ -213,7 +213,7 @@ export class AuthService {
    */
   public async sendVerificationMail(user: User): Promise<void> {
     const actionCodeSettings: ActionCodeSettings = {
-      url: "https://hubert-blog.web.app/",
+      url: "https://hubert-blog.web.app/home/login",
     };
 
     await sendEmailVerification(user, actionCodeSettings);

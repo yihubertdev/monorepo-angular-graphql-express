@@ -173,7 +173,7 @@ export class UserDetailCardComponent implements OnChanges {
     return total;
   }
 
-  async handle(value: any, documentId?: string) {
+  handle(value: any, documentId?: string) {
     this.loading = true;
     const user = this._authService.getAuth();
     if (!user) return;
@@ -199,7 +199,7 @@ export class UserDetailCardComponent implements OnChanges {
         const marketValue = this._calculateMarketValue(value.marketValue);
 
         if (!documentId) {
-          await this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
               documentId: this.document.documentId,
@@ -216,10 +216,12 @@ export class UserDetailCardComponent implements OnChanges {
             },
           } as INetWorth,
         });
+        // Update net worth value after user changed the value
         this.category.networth = {
           [NETWORTH_VALUE.MARKET_VALUE]: marketValue,
           [NETWORTH_VALUE.EQUITY]: marketValue,
         };
+        this.loading = false;
         break;
 
       case SETTING_CATEGORY.INSURANCE:
@@ -263,7 +265,7 @@ export class UserDetailCardComponent implements OnChanges {
         );
 
         if (!documentId) {
-          await this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
               documentId: this.document.documentId,
@@ -271,7 +273,7 @@ export class UserDetailCardComponent implements OnChanges {
             },
           });
         }
-        await this._netWorthService.create({
+        this._netWorthService.create({
           id: this.user.id,
           document: {
             [this.category.category]: {
@@ -295,7 +297,7 @@ export class UserDetailCardComponent implements OnChanges {
         const totalLoan = this._calculateLoanBalance(value.loanBalance);
 
         if (!documentId) {
-          await this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
               documentId: this.document.documentId,
@@ -303,7 +305,7 @@ export class UserDetailCardComponent implements OnChanges {
             },
           });
         }
-        await this._netWorthService.create({
+        this._netWorthService.create({
           id: this.user.id,
           document: {
             [this.category.category]: {
@@ -328,7 +330,7 @@ export class UserDetailCardComponent implements OnChanges {
         this.loading = false;
 
         if (!documentId) {
-          await this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollectionByUser(this.user, {
             collectionId: this.collection,
             next: {
               documentId: this.document.documentId,
@@ -337,7 +339,7 @@ export class UserDetailCardComponent implements OnChanges {
           });
         }
 
-        await this._netWorthService.create({
+        this._netWorthService.create({
           id: this.user.id,
           document: {
             [this.category.category]: {
@@ -395,8 +397,7 @@ export class UserDetailCardComponent implements OnChanges {
 
     dialogRef.afterClosed().subscribe(async (result) => {
       if (!result) return;
-      const { documentId } = result;
-      this.handle({}, documentId);
+      this.handle({}, result.documentId);
       // each category have a data array which contains multiple document
       // this.groupedSettings[category][0].data = this.groupedSettings[
       //   category

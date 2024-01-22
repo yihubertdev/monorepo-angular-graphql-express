@@ -14,6 +14,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import {
   AsyncPipe,
+  CurrencyPipe,
   NgClass,
   NgFor,
   NgIf,
@@ -56,6 +57,7 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
     DocumentUploaderComponent,
     MatSlideToggleModule,
     PhoneMaskDirective,
+    CurrencyPipe,
   ],
   selector: "form-input-list-component",
   template: `
@@ -176,11 +178,13 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
           appearance="outline">
           <mat-label>{{ input.label }}</mat-label>
           <input
-            type="text"
+            type="number"
             matInput
             [formControlName]="input.key" />
           <mat-icon matSuffix>{{ input.icon }}</mat-icon>
-          <mat-hint>{{ input.hint }}</mat-hint>
+          <mat-hint>{{
+            newForm.get(input.key)?.value ?? 0 | currency: "CAD"
+          }}</mat-hint>
           <mat-error *ngIf="hasError">
             {{ getError(input.key) }}
           </mat-error>
