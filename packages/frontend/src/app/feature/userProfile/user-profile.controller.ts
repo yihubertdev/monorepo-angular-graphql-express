@@ -140,10 +140,11 @@ export class UserProfileController implements OnInit {
     this.uploadBackgroundImage.nativeElement.value = "";
     dialogRef.afterClosed().subscribe(async (data: Blob) => {
       if (!data) return;
-      await this.profileStorage.uploadBackgroundImage(
+      const backgroundImage = await this.profileStorage.uploadBackgroundImage(
         data,
         this.currentUser!.userId
       );
+      this.currentUser.backgroundPhotoURL = backgroundImage;
       throw new SuccessMessage("Background Image uploaded");
     });
   }
@@ -162,7 +163,8 @@ export class UserProfileController implements OnInit {
     this.profileUploader.nativeElement.value = "";
     dialogRef.afterClosed().subscribe(async (data: Blob) => {
       if (!data) return;
-      await this.profileStorage.uploadBlob(data);
+      const photoURL = await this.profileStorage.uploadBlob(data);
+      this.currentUser.photoURL = photoURL;
       throw new SuccessMessage("Profile uploaded");
     });
   }

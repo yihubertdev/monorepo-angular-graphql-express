@@ -53,6 +53,12 @@ export interface IUserDetailCard {
     }
 
     <mat-card-content>
+      @if (category.category === "PERSONAL_STATEMENT_OF_EQUITY") {
+        <div class="row">
+          <div class="col-6 text-center"><h5>ASSETS</h5></div>
+          <div class="col-6 text-center"><h5>LIABILITIES</h5></div>
+        </div>
+      }
       <form-input-list-component
         [list]="category.list"
         [schema]="category.schema"
@@ -84,6 +90,12 @@ export class UserDetailCardComponent implements OnChanges {
   ) {}
 
   ngOnChanges() {
+    if (
+      this.category.category === SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY
+    ) {
+      this.loading = true;
+      return this.category.list.forEach((list) => (list.value = 180000));
+    }
     this.category.list.forEach(
       (list) => (list.value = this.document.details[list.key])
     );

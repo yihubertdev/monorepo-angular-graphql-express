@@ -3,6 +3,8 @@ import { Storage } from "@angular/fire/storage";
 import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
 import { FireStorageBaseModel } from "./basic.bucket";
+import { SessionStorageService } from "../browserStorage/sessionStorage";
+import { IUser } from "sources-types";
 
 @Injectable({ providedIn: "root" })
 export class ProfileStorageService extends FireStorageBaseModel {
@@ -21,7 +23,8 @@ export class ProfileStorageService extends FireStorageBaseModel {
   constructor(
     storage: Storage,
     private userService: UserService,
-    private authService: AuthService
+    private authService: AuthService,
+    private _sessionStorage: SessionStorageService
   ) {
     super(storage);
   }
@@ -60,14 +63,21 @@ export class ProfileStorageService extends FireStorageBaseModel {
    * @returns {Promise<string>} upload url
    */
   public override async uploadBlob(blob: Blob): Promise<string> {
-    const url = await super.uploadBlob(blob);
+    const photoURL = await super.uploadBlob(blob);
 
     // Update fire auth user information
     this.authService.updateUserInfo({
-      photoURL: url,
+      photoURL,
     });
 
-    return url;
+    const user = this._sessionStorage.getSessionStorage<IUser>("user");
+
+    this._sessionStorage.setSessionStorage("user", {
+      ...user,
+      photoURL,
+    });
+
+    return photoURL;
   }
 
   public async uploadBackgroundImage(
@@ -80,6 +90,13 @@ export class ProfileStorageService extends FireStorageBaseModel {
     await this.userService.updateByUserId({
       document: { backgroundPhotoURL },
       userId,
+    });
+
+    const user = this._sessionStorage.getSessionStorage<IUser>("user");
+
+    this._sessionStorage.setSessionStorage("user", {
+      ...user,
+      backgroundPhotoURL,
     });
 
     return backgroundPhotoURL;

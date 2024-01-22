@@ -29,14 +29,14 @@ export const route: IFullRoute[] = [
   },
   {
     path: "personal-profile",
-    description: "Peronsal Profile",
+    description: "Personal Profile",
     icon: "face",
     resolve: { settings: PersonalProfileResolver },
     loadComponent: () => import("./personal-profile.view"),
   },
   {
     path: "personal-resume",
-    description: "Peronsal Resume",
+    description: "Personal Resume",
     icon: "face",
     resolve: { settings: PersonalResumeResolver },
     loadComponent: () => import("./personal-resume.view"),

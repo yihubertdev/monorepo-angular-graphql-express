@@ -232,6 +232,7 @@ export const enum SETTING_CATEGORY {
   BUSINESS_INTEREST = "business_interest",
   BUSINESS_DOCUMENT = "business_document",
   PERSONAL_MONTHLY_INCOME = "personal_monthly_income",
+  PERSONAL_STATEMENT_OF_EQUITY = "PERSONAL_STATEMENT_OF_EQUITY",
 }
 
 export const enum FILE_TYPE {

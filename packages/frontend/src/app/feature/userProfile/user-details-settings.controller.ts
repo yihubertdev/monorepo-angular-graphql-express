@@ -175,6 +175,21 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           };
         }
 
+        case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY: {
+          console.log(networth);
+
+          return {
+            ...collection,
+            networth: cash ? cash[category] : null,
+            data: [
+              {
+                details: {},
+                documentId: uuidv4(),
+              },
+            ],
+          };
+        }
+
         default: {
           return {
             ...collection,
