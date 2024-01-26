@@ -76,7 +76,6 @@ export const SETTINGS_SCHEMA_GENERATOR = (data: IForm[]) => {
             err.forEach((e) => {
               switch (e.code) {
                 default:
-                  console.log(e.code);
                   break;
               }
             });

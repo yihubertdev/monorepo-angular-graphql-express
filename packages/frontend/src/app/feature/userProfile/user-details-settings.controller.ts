@@ -13,6 +13,11 @@ import {
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import {
+  EQUITY_TITLE,
+  NET_INCOME_TITLE,
+  NetWorthListComponent,
+} from "../../shared/components/postCard/net-worth-list.component";
+import {
   IUser,
   PartialRecord,
   SETTING_CATEGORY,
@@ -24,6 +29,7 @@ import { groupBy } from "../../core/utils/lodash";
 import { v4 as uuidv4 } from "uuid";
 import { StateDrawMenu } from "../../core/services/state/";
 import { CurrencyPipe } from "@angular/common";
+import { MatTableModule } from "@angular/material/table";
 
 export interface IUserSettings extends ISettingCategory {
   data: IUserDetailCard[];
@@ -39,6 +45,8 @@ export interface IUserSettings extends ISettingCategory {
     UserDetailCardComponent,
     MatExpansionModule,
     CurrencyPipe,
+    MatTableModule,
+    NetWorthListComponent,
   ],
   selector: "user-details-settings-controller",
   template: `
@@ -95,16 +103,34 @@ export interface IUserSettings extends ISettingCategory {
                   </p>
                 }
               }
-
-              @for (item of category.data; track $index) {
-                <user-details-card-component
-                  [document]="item"
-                  [collection]="collection"
-                  [user]="user"
-                  [category]="category"></user-details-card-component>
+              @if (
+                category.category !== "PERSONAL_STATEMENT_OF_EQUITY" &&
+                category.category !== "PERSONAL_STATEMENT_OF_NET_INCOME"
+              ) {
+                @for (item of category.data; track $index) {
+                  <user-details-card-component
+                    [document]="item"
+                    [collection]="collection"
+                    [user]="user"
+                    [category]="category"></user-details-card-component>
+                }
               }
 
-              @if (category.type !== "BASIC_INFORMATION") {
+              @if (category.category === "PERSONAL_STATEMENT_OF_EQUITY") {
+                <net-worth-list-component
+                  [dataSource]="EQUITY_DATA"
+                  [dataColumn]="EQUILY_COLUMN"></net-worth-list-component>
+              }
+              @if (category.category === "PERSONAL_STATEMENT_OF_NET_INCOME") {
+                <net-worth-list-component
+                  [dataSource]="NET_INCOME_DATA"
+                  [dataColumn]="NET_INCOME_COLUMN"></net-worth-list-component>
+              }
+
+              @if (
+                category.type !== "BASIC_INFORMATION" &&
+                category.type !== "NETWORTH_LIST"
+              ) {
                 <a
                   mat-button
                   (click)="addData(category.data)">
@@ -126,6 +152,12 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
   public categories!: IUserSettings[];
   public user!: QueryDocumentSnapshot<IUser>;
   public networth?: number;
+
+  EQUILY_COLUMN: EQUITY_TITLE[] = Object.values(EQUITY_TITLE);
+  EQUITY_DATA: Record<EQUITY_TITLE, string | number>[] = [];
+
+  NET_INCOME_COLUMN: NET_INCOME_TITLE[] = Object.values(NET_INCOME_TITLE);
+  NET_INCOME_DATA: Record<NET_INCOME_TITLE, string | number>[] = [];
   constructor(
     private route: ActivatedRoute,
     public _state: StateDrawMenu
@@ -141,7 +173,167 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
     this.user = user;
     const cash = networth as INetWorth;
     const groupedData = groupBy(data, "category");
+    if (this.collection === SETTING_COLLECTION.PERSONAL_NET_WORTH) {
+      this.EQUITY_DATA = [
+        {
+          ASSETS: "Cash (Sch A)",
+          AMOUNT: String(cash.cash_accounts_receivable?.CURRENT_BALANCE ?? 0),
+          LIABILITIES: "Overdrafts (Sch J)",
+          EXPENSE: String(0),
+        },
+        {
+          ASSETS: "Accounts Receivable (Sch A)",
+          AMOUNT: 0,
+          LIABILITIES: "Credit Cards (Sch J)",
+          EXPENSE: 0,
+        },
+        {
+          ASSETS: "Other Liquid Assets (Sch A)",
+          AMOUNT: 0,
+          LIABILITIES: "Marketable Securities (Sch B)",
+          EXPENSE:
+            (cash.markable_securities?.MARKET_VALUE ?? 0) -
+            (cash.markable_securities?.EQUITY ?? 0),
+        },
+        {
+          ASSETS: "Marketable Securities (Sch B)",
+          AMOUNT: cash.markable_securities?.MARKET_VALUE ?? 0,
+          LIABILITIES: "Tax Sheltered Invest (Sch C)",
+          EXPENSE:
+            (cash.tax_sheltered_investment?.MARKET_VALUE ?? 0) -
+            (cash.tax_sheltered_investment?.EQUITY ?? 0),
+        },
+        {
+          ASSETS: "Tax Sheltered Invest (Sch C)",
+          AMOUNT: cash.tax_sheltered_investment?.MARKET_VALUE ?? 0,
+          LIABILITIES: "Insurance (Sch D)",
+          EXPENSE: 0,
+        },
+        {
+          ASSETS: "Insurance CSV (Sch D)",
+          AMOUNT: cash.insurance?.CSV ?? 0,
+          LIABILITIES: "Home (Sch E)",
+          EXPENSE: cash.real_estate?.MARKET_VALUE ?? 0,
+        },
+        {
+          ASSETS: "Home (Sch E)",
+          AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
+          LIABILITIES: "Mortgages (Sch E)",
+          EXPENSE: cash.real_estate?.MARKET_VALUE ?? 0,
+        },
+        {
+          ASSETS: "Real Estate (Sch E)",
+          AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
+          LIABILITIES: "Business Interests (Sch F)",
+          EXPENSE: cash.business_interest?.CURRENT_BALANCE ?? 0,
+        },
+        {
+          ASSETS: "Business Interests (Sch F)",
+          AMOUNT: cash.business_interest?.CURRENT_BALANCE ?? 0,
+          LIABILITIES: "Vehicle (Sch G)",
+          EXPENSE:
+            (cash.vehicles?.MARKET_VALUE ?? 0) - (cash.vehicles?.EQUITY ?? 0),
+        },
+        {
+          ASSETS: "Vehicles (Sch G)",
+          AMOUNT: cash.vehicles?.MARKET_VALUE ?? 0,
+          LIABILITIES: "Other Loans (Sch I)",
+          EXPENSE: 0,
+        },
+        {
+          ASSETS: "Other Assets (Sch H)",
+          AMOUNT: 0,
+          LIABILITIES: "Other Liabilities (Sch J)",
+          EXPENSE: 0,
+        },
+        {
+          ASSETS: "Line Of Credit Limits (Sch J)",
+          AMOUNT: 0,
+          LIABILITIES: "Total Liabilities",
+          EXPENSE: 0,
+        },
+        {
+          ASSETS: "Total Assets",
+          AMOUNT: 0,
+          LIABILITIES: "Total Equity",
+          EXPENSE: 0,
+        },
+      ];
 
+      this.NET_INCOME_DATA = [
+        {
+          INCOME: "Salary, Bonus, Commissions",
+          AMOUNT: cash.cash_accounts_receivable?.CURRENT_BALANCE ?? 0,
+          EXPENSES: "Marketable Securities (Sch B)",
+          COST: 0,
+        },
+        {
+          INCOME: "Professional",
+          AMOUNT: 0,
+          EXPENSES: "Tax Sheltered Invest (Sch C)",
+          COST: 0,
+        },
+        {
+          INCOME: "Spouse",
+          AMOUNT: 0,
+          EXPENSES: "Insurance (Sch D)",
+          COST:
+            (cash.markable_securities?.MARKET_VALUE ?? 0) -
+            (cash.markable_securities?.EQUITY ?? 0),
+        },
+        {
+          INCOME: "Other",
+          AMOUNT: cash.markable_securities?.MARKET_VALUE ?? 0,
+          EXPENSES: "Home (Sch E)",
+          COST:
+            (cash.tax_sheltered_investment?.MARKET_VALUE ?? 0) -
+            (cash.tax_sheltered_investment?.EQUITY ?? 0),
+        },
+        {
+          INCOME: "Marketable Securities (Sch B)",
+          AMOUNT: cash.tax_sheltered_investment?.MARKET_VALUE ?? 0,
+          EXPENSES: "Real Estate (Sch E)",
+          COST: 0,
+        },
+        {
+          INCOME: "Home (Sch E)",
+          AMOUNT: cash.insurance?.CSV ?? 0,
+          EXPENSES: "Business Interest (Sch F)",
+          COST: cash.real_estate?.MARKET_VALUE ?? 0,
+        },
+        {
+          INCOME: "Real Estate (Sch E)",
+          AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
+          EXPENSES: "Vehicle (Sch G)",
+          COST: cash.real_estate?.MARKET_VALUE ?? 0,
+        },
+        {
+          INCOME: "Business Interests (Sch F)",
+          AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
+          EXPENSES: "Other Loans Payments (Sch I)",
+          COST: cash.business_interest?.CURRENT_BALANCE ?? 0,
+        },
+        {
+          INCOME: "Dependants",
+          AMOUNT: cash.business_interest?.CURRENT_BALANCE ?? 0,
+          EXPENSES: "Other (Sch K)",
+          COST:
+            (cash.vehicles?.MARKET_VALUE ?? 0) - (cash.vehicles?.EQUITY ?? 0),
+        },
+        {
+          INCOME: "Total Income",
+          AMOUNT: cash.vehicles?.MARKET_VALUE ?? 0,
+          EXPENSES: "Total Expenses",
+          COST: 0,
+        },
+        {
+          INCOME: "Total Net Income",
+          AMOUNT: 0,
+          EXPENSES: "",
+          COST: 0,
+        },
+      ];
+    }
     this.categories = SETTING_COLLECTIONS[this.collection].map((collection) => {
       const { category } = collection;
 
@@ -176,8 +368,6 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         }
 
         case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY: {
-          console.log(networth);
-
           return {
             ...collection,
             networth: cash ? cash[category] : null,
@@ -188,6 +378,11 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
               },
             ],
           };
+        }
+
+        case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY:
+        case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_NET_INCOME: {
+          return { ...collection, networth: null, data: [] };
         }
 
         default: {

@@ -13,7 +13,7 @@ export const SITE_ROUTE_PAGE = {
   SIGNUP: ["users", "signup"],
   PAYMENT: ["payment"],
   NOTIFICATION: ["users", "notifications"],
-  SETTINGS: ["users", "profile", "me", "setting"],
+  SETTINGS: ["users", "profile", "me", "personal-profile"],
   SETTINGS_SECURITY: ["security"],
   SETTINGS_PROFILE: ["profile"],
   SETTINGS_PERSONAL_NET_WORTH: ["personal-net-worth"],
@@ -44,33 +44,6 @@ export const footerMenus: IMenu[] = [
     description: "Setting",
     iconName: "paid",
     width: "75px",
-  },
-];
-
-export const DRAWER_MENU: IMenu[] = [
-  {
-    link: SITE_ROUTE_PAGE.SETTINGS,
-    description: "NET WORTH",
-    iconName: "paid",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.NETWORK,
-    description: "NETWORK",
-    iconName: "groups",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.ADD_POST,
-    description: "NETWORK POST",
-    iconName: "post_add",
-    width: "50px",
-  },
-  {
-    link: SITE_ROUTE_PAGE.ADD_ARTICLE,
-    description: "NETWORK ARTICLE",
-    iconName: "feed",
-    width: "50px",
   },
 ];
 

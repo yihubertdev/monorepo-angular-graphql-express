@@ -1,5 +1,4 @@
 import {
-  BusinessProfileResolver,
   NetWorthResolver,
   PersonalNetWorthResolver,
   PersonalProfileResolver,
@@ -10,7 +9,7 @@ import { importProvidersFrom } from "@angular/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { IMenu } from "sources-types";
-import { IFullRoute } from "src/app/routes";
+import { IFullRoute } from "../../routes";
 
 export const route: IFullRoute[] = [
   {
@@ -28,35 +27,21 @@ export const route: IFullRoute[] = [
     loadComponent: () => import("./security.view"),
   },
   {
-    path: "personal-profile",
+    path: "profile",
     description: "Personal Profile",
     icon: "face",
     resolve: { settings: PersonalProfileResolver },
-    loadComponent: () => import("./personal-profile.view"),
+    loadComponent: () => import("./profile.view"),
   },
   {
-    path: "personal-resume",
+    path: "resume",
     description: "Personal Resume",
     icon: "face",
     resolve: { settings: PersonalResumeResolver },
-    loadComponent: () => import("./personal-resume.view"),
+    loadComponent: () => import("./resume.view"),
   },
   {
-    path: "business-profile",
-    description: "Business Profile",
-    icon: "person_pin_circle",
-    resolve: { settings: BusinessProfileResolver },
-    loadComponent: () => import("./professional-profile.view"),
-  },
-  {
-    path: "professional-profile",
-    description: "Professional Profile",
-    icon: "person_pin_circle",
-    resolve: { settings: PersonalProfileResolver },
-    loadComponent: () => import("./professional-profile.view"),
-  },
-  {
-    path: "personal-net-worth",
+    path: "net-worth",
     description: "Personal Net Worth",
     icon: "monetization_on",
     providers: [
@@ -64,11 +49,11 @@ export const route: IFullRoute[] = [
       importProvidersFrom(MatNativeDateModule),
     ],
     resolve: { settings: PersonalNetWorthResolver, networth: NetWorthResolver },
-    loadComponent: () => import("./personal-net-worth.view"),
+    loadComponent: () => import("./net-worth.view"),
   },
 ];
 
-export const PROFILE_SETTINGS_MENU: IMenu[] = route
+export const PERSONAL_PROFILE_SETTINGS_MENU: IMenu[] = route
   .filter((route) => route.path)
   .map((route) => ({
     link: route.path!,

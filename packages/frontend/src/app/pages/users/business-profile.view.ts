@@ -2,14 +2,14 @@ import { Component, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
-import { PROFILE_SETTINGS_MENU } from "../settings";
 import { IMenu } from "sources-types";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { AsyncPipe, NgClass, NgStyle } from "@angular/common";
 import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
 import { map } from "rxjs";
-import { StateDrawMenu } from "../../core/services/state/";
+import { StateDrawMenu } from "../../core/services/state";
+import { BUSINESS_PROFILE_SETTING_MENU } from "../businessProfile";
 
 @Component({
   standalone: true,
@@ -66,7 +66,7 @@ import { StateDrawMenu } from "../../core/services/state/";
   `,
 })
 export default class SettingView implements OnInit {
-  public menus: IMenu[] = PROFILE_SETTINGS_MENU;
+  public menus: IMenu[] = BUSINESS_PROFILE_SETTING_MENU;
   public isNavDisplay: boolean = false;
 
   public constructor(

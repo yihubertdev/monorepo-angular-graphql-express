@@ -4628,6 +4628,7 @@ export enum SETTING_CATEGORY_TYPE {
   CURRENT_BALANCE = "CURRENT_BALANCE",
   MARKET_VALUE = "MARKET_VALUE",
   FACE_VALUE = "FACE_VALUE",
+  NETWORTH_LIST = "NETWORTH_LIST",
 }
 
 export interface ISettingCategory {
@@ -4636,7 +4637,7 @@ export interface ISettingCategory {
   category: SETTING_CATEGORY;
   list: IForm[];
   schema: JoiSchemaBuilder;
-  type: SETTING_CATEGORY_TYPE;
+  type: SETTING_CATEGORY_TYPE; // type is used to define different style section
 }
 
 export const SETTING_COLLECTIONS: Record<
@@ -4894,9 +4895,17 @@ export const SETTING_COLLECTIONS: Record<
       title: "Personal Statement Of Equity",
       description: "Personal Statement Of Equity",
       category: SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY,
-      list: PERSONAL_STATEMENT_OF_EQUITY,
-      type: SETTING_CATEGORY_TYPE.BASIC_INFORMATION,
-      schema: SETTINGS_SCHEMA_GENERATOR(PERSONAL_STATEMENT_OF_EQUITY),
+      list: [],
+      type: SETTING_CATEGORY_TYPE.NETWORTH_LIST,
+      schema: SETTINGS_SCHEMA_GENERATOR([]),
+    },
+    {
+      title: "Personal Statement Of Net Income",
+      description: "Personal Statement Of Net Income",
+      category: SETTING_CATEGORY.PERSONAL_STATEMENT_OF_NET_INCOME,
+      list: [],
+      type: SETTING_CATEGORY_TYPE.NETWORTH_LIST,
+      schema: SETTINGS_SCHEMA_GENERATOR([]),
     },
   ],
 };

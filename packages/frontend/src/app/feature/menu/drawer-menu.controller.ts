@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { IMenu } from "sources-types";
-import { SITE_ROUTE_PAGE, DRAWER_MENU } from "../../core/static/menu.static";
+import { SITE_ROUTE_PAGE } from "../../core/static/menu.static";
 import { NgStyle } from "@angular/common";
 import { MatListModule } from "@angular/material/list";
 import { Router, RouterModule } from "@angular/router";
@@ -10,6 +10,7 @@ import { User } from "@angular/fire/auth";
 import { MatCardModule } from "@angular/material/card";
 import { UserPhotoPipe } from "../../shared/pipes/default-photo.pipe";
 import { MatButtonModule } from "@angular/material/button";
+import { DRAWER_MENU } from "../../pages/users";
 
 @Component({
   standalone: true,

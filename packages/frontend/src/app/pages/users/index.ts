@@ -1,23 +1,55 @@
-import { Routes } from "@angular/router";
 import { isUserVerified } from "../../core/services/routeGuard/index.guard";
 import {
   loggedUserProfileResolver,
   userProfileResolver,
 } from "../../shared/resolvers/post.resolver";
+import { IMenu } from "sources-types";
+import { IFullRoute } from "../../routes";
 
-export const profileSetting: Routes = [
+export const profileSetting: IFullRoute[] = [
+  {
+    path: "personal-profile",
+    description: "PERSONAL PROFILE",
+    icon: "account_circle",
+    canActivate: [isUserVerified],
+    loadComponent: () => import("./personal-profile.view"),
+    loadChildren: () =>
+      import("../personalProfile").then((router) => router.route),
+  },
+  {
+    path: "business-profile",
+    description: "BUSINESS PROFILE",
+    icon: "account_circle",
+    canActivate: [isUserVerified],
+    loadComponent: () => import("./business-profile.view"),
+    loadChildren: () =>
+      import("../businessProfile").then((router) => router.route),
+  },
   {
     path: "network",
+    description: "MY NETWORK",
+    icon: "groups",
     loadComponent: () => import("./network.view"),
     loadChildren: () => import("../profile").then((router) => router.route),
   },
   {
-    path: "setting",
+    path: "add-post",
+    description: "NETWORK POST",
+    icon: "post_add",
     canActivate: [isUserVerified],
-    loadComponent: () => import("./setting.view"),
-    loadChildren: () => import("../settings").then((router) => router.route),
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-post.view"),
+  },
+  {
+    path: "add-article",
+    description: "NETWORK ARTICLE",
+    icon: "feed",
+    canActivate: [isUserVerified],
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-article.view"),
   },
 ];
+
 // three level menu
 // {
 //   profile: {
@@ -29,32 +61,44 @@ export const profileSetting: Routes = [
 //     }
 //   }
 // }
-export default [
+export const route: IFullRoute[] = [
   {
     path: "profile/:id",
+    description: "NETWORK POST",
+    icon: "post_add",
     loadComponent: () => import("./profile.view"),
     resolve: { user: userProfileResolver },
     loadChildren: () => profileSetting,
   },
   {
-    path: "add-post",
-    canActivate: [isUserVerified],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./add-post.view"),
-  },
-  {
-    path: "add-article",
-    canActivate: [isUserVerified],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./add-article.view"),
-  },
-  {
     path: "financing",
+    description: "FINANCING",
+    icon: "paid",
     loadComponent: () => import("./financing.view"),
   },
   {
     path: "notifications",
+    description: "NOTIFICATION",
+    icon: "notifications",
     canActivate: [isUserVerified],
     loadComponent: () => import("./notification.view"),
   },
-] as Routes;
+];
+
+export const DRAWER_MENU: IMenu[] = route
+  .map((route) => {
+    if (route.loadChildren) {
+      return profileSetting.map((item) => ({
+        link: "/users/profile/me/" + item.path!,
+        description: item.description,
+        iconName: item.icon,
+      }));
+    } else {
+      return {
+        link: "users/" + route.path!,
+        description: route.description,
+        iconName: route.icon,
+      };
+    }
+  })
+  .flat();

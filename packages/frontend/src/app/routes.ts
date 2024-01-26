@@ -24,6 +24,6 @@ export default [
     resolve: {
       users: usersResolver,
     },
-    loadChildren: () => import("./pages/users"),
+    loadChildren: () => import("./pages/users").then((router) => router.route),
   },
 ] as Routes;

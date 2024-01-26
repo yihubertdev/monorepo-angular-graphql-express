@@ -3,15 +3,15 @@ import {
   MatBottomSheet,
   MatBottomSheetModule,
 } from "@angular/material/bottom-sheet";
-import { SessionStorageService } from "../../core/services/browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { MatIconModule } from "@angular/material/icon";
-import { NgFor, NgIf } from "@angular/common";
+import { NgIf } from "@angular/common";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";
-import { DRAWER_MENU, SITE_ROUTE_PAGE } from "../../core/static/menu.static";
+import { SITE_ROUTE_PAGE } from "../../core/static/menu.static";
 import { MatListModule } from "@angular/material/list";
 import { Router, RouterModule } from "@angular/router";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
+import { DRAWER_MENU } from "../../pages/users";
 
 @Component({
   standalone: true,
@@ -22,10 +22,7 @@ import { AuthService } from "src/app/core/services/fireAuth/auth";
 })
 export class AddTextEditorController {
   public hasUser?: IUser | undefined;
-  constructor(
-    private _sessionStorage: SessionStorageService,
-    private _bottomSheet: MatBottomSheet
-  ) {}
+  constructor(private _bottomSheet: MatBottomSheet) {}
 
   openOAuthOptions() {
     this._bottomSheet.open(TextEditorOptionsDialog);

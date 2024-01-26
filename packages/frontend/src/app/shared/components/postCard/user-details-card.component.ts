@@ -53,12 +53,6 @@ export interface IUserDetailCard {
     }
 
     <mat-card-content>
-      @if (category.category === "PERSONAL_STATEMENT_OF_EQUITY") {
-        <div class="row">
-          <div class="col-6 text-center"><h5>ASSETS</h5></div>
-          <div class="col-6 text-center"><h5>LIABILITIES</h5></div>
-        </div>
-      }
       <form-input-list-component
         [list]="category.list"
         [schema]="category.schema"

@@ -93,6 +93,7 @@ export class MainPostController implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.data.length) return;
     const resolverData = this.route.snapshot.data as {
       posts: {
         data: POST.IPostFull[];
@@ -101,7 +102,6 @@ export class MainPostController implements OnInit {
       user: IUser;
     };
 
-    if (this.data.length) return;
     this.hasFile = resolverData!.posts.hasFile;
     this.data = resolverData!.posts.data;
   }
