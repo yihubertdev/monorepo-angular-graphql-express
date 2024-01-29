@@ -91,20 +91,20 @@ export const headerMenu: INestedMenu[] = [
     width: "75px",
     subMenu: [
       {
-        link: SITE_ROUTE_PAGE.MY_POSTS,
-        description: "My Post",
-        iconName: "account_circle",
-        width: "75px",
-      },
-      {
-        link: SITE_ROUTE_PAGE.NETWORK,
+        link: ["users", "profile", "me", "personal-profile"],
         description: "Personal Profile",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: SITE_ROUTE_PAGE.NETWORK,
+        link: ["users", "profile", "me", "business-profile"],
         description: "Business Profile",
+        iconName: "account_circle",
+        width: "75px",
+      },
+      {
+        link: ["users", "profile", "me", "network"],
+        description: "Network",
         iconName: "account_circle",
         width: "75px",
       },
@@ -117,13 +117,13 @@ export const headerMenu: INestedMenu[] = [
     width: "75px",
     subMenu: [
       {
-        link: "home/posts",
+        link: ["users", "profile", "me", "network", "posts"],
         description: "Short Post",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: "home/articles",
+        link: ["users", "profile", "me", "network", "articles"],
         description: "Article",
         iconName: "account_circle",
         width: "75px",
@@ -137,13 +137,13 @@ export const headerMenu: INestedMenu[] = [
     width: "75px",
     subMenu: [
       {
-        link: "home/posts",
-        description: "Banker",
+        link: ["users", "profile", "me", "personal-profile"],
+        description: "Net Worth",
         iconName: "account_circle",
         width: "75px",
       },
       {
-        link: "home/articles",
+        link: ["users", "profile", "me", "personal-profile"],
         description: "Valuation",
         iconName: "account_circle",
         width: "75px",

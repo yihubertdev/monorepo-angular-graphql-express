@@ -30,71 +30,63 @@ export namespace ICarousel {
 
 @Component({
   standalone: true,
-  imports: [
-    MatProgressBarModule,
-    NgStyle,
-    NgClass,
-    NgIf,
-    NgForOf,
-    LightboxModule,
-    GalleryModule,
-  ],
+  imports: [MatProgressBarModule, NgStyle, LightboxModule, GalleryModule],
   selector: "carousel-slider-component",
   template: `
-    <div
-      class="slide-show-container"
-      *ngIf="galleryImages?.length !== 0">
-      <div
-        class="slide fade slide-image-cover-center"
-        *ngFor="let item of galleryImages; let i = index"
-        [ngStyle]="{
-          height: '100%',
-          'background-image': 'url(' + item.data.src + ')',
-          display: i === slideIndex ? 'block' : 'none'
-        }"
-        [lightbox]="i"
-        [gallery]="galleryId">
-        <hr />
-        <a
-          *ngIf="item?.data?.thumb"
-          mat-stroked-button
-          [href]="item?.data?.thumb"
-          class="unset-tag-a"
-          target="_blank"
-          ><div class="gallery-image-text">
-            <h4 class="text-overflow-title">{{ item.data.alt }}</h4>
-            <p class="text-overflow-preview">{{ item.data.args }}</p>
+    @if (galleryImages.length !== 0) {
+      <div class="slide-show-container">
+        @for (item of galleryImages; track i; let i = $index) {
+          <div
+            class="slide fade slide-image-cover-center"
+            [ngStyle]="{
+              height: '100%',
+              'background-image': 'url(' + item.data.src + ')',
+              display: i === slideIndex ? 'block' : 'none'
+            }"
+            [lightbox]="i"
+            [gallery]="galleryId">
+            <hr />
+            @if (item?.data?.thumb) {
+              <a
+                mat-stroked-button
+                [href]="item?.data?.thumb"
+                class="unset-tag-a"
+                target="_blank"
+                ><div class="gallery-image-text">
+                  <h4 class="text-overflow-title">{{ item.data.alt }}</h4>
+                  <p class="text-overflow-preview">{{ item.data.args }}</p>
+                </div>
+              </a>
+            }
           </div>
-        </a>
-      </div>
+        }
 
-      <div class="position-absolute-center">
-        <span
-          class="dot"
-          *ngFor="let item of galleryImages; let i = index"
-          (click)="slideIndex = i"
-          [ngClass]="i === slideIndex ? 'active' : ''"></span>
-      </div>
+        @if (galleryImages.length > 1) {
+          <div class="position-absolute-center">
+            {{ slideIndex + 1 }} / {{ galleryImages.length }}
+          </div>
 
-      <a
-        class="prev hide-slide"
-        (click)="
-          slideIndex - 1 < 0
-            ? (slideIndex = galleryImages.length - 1)
-            : (slideIndex = slideIndex - 1)
-        "
-        >❮</a
-      >
-      <a
-        class="next hide-slide"
-        (click)="
-          slideIndex + 1 >= galleryImages.length
-            ? (slideIndex = 0)
-            : (slideIndex = slideIndex + 1)
-        "
-        >❯</a
-      >
-    </div>
+          <a
+            class="prev hide-slide"
+            (click)="
+              slideIndex - 1 < 0
+                ? (slideIndex = galleryImages.length - 1)
+                : (slideIndex = slideIndex - 1)
+            "
+            >❮</a
+          >
+          <a
+            class="next hide-slide"
+            (click)="
+              slideIndex + 1 >= galleryImages.length
+                ? (slideIndex = 0)
+                : (slideIndex = slideIndex + 1)
+            "
+            >❯</a
+          >
+        }
+      </div>
+    }
   `,
   styleUrls: ["./carousel-slider.css"],
 })
