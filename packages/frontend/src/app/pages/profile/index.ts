@@ -2,9 +2,13 @@ import { IMenu } from "sources-types";
 import {
   isMeLogin,
   isUserLogin,
+  isUserVerified,
 } from "src/app/core/services/routeGuard/index.guard";
 import { IFullRoute } from "src/app/routes";
-import { postByUserResolver } from "src/app/shared/resolvers/post.resolver";
+import {
+  loggedUserProfileResolver,
+  postByUserResolver,
+} from "src/app/shared/resolvers/post.resolver";
 
 export const route: IFullRoute[] = [
   {
@@ -36,6 +40,22 @@ export const route: IFullRoute[] = [
     description: "Profile",
     canActivate: [isUserLogin],
     loadComponent: () => import("./details.view"),
+  },
+  {
+    path: "add-post",
+    description: "NETWORK POST",
+    icon: "post_add",
+    canActivate: [isUserVerified],
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-post.view"),
+  },
+  {
+    path: "add-article",
+    description: "NETWORK ARTICLE",
+    icon: "post_add",
+    canActivate: [isUserVerified],
+    resolve: { user: loggedUserProfileResolver },
+    loadComponent: () => import("./add-article.view"),
   },
   // {
   //   path: "article/:id",

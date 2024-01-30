@@ -1,8 +1,5 @@
 import { isUserVerified } from "../../core/services/routeGuard/index.guard";
-import {
-  loggedUserProfileResolver,
-  userProfileResolver,
-} from "../../shared/resolvers/post.resolver";
+import { userProfileResolver } from "../../shared/resolvers/post.resolver";
 import { IMenu } from "sources-types";
 import { IFullRoute } from "../../routes";
 
@@ -31,22 +28,6 @@ export const profileSetting: IFullRoute[] = [
     icon: "groups",
     loadComponent: () => import("./network.view"),
     loadChildren: () => import("../profile").then((router) => router.route),
-  },
-  {
-    path: "add-post",
-    description: "NETWORK POST",
-    icon: "post_add",
-    canActivate: [isUserVerified],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./add-post.view"),
-  },
-  {
-    path: "add-article",
-    description: "NETWORK ARTICLE",
-    icon: "feed",
-    canActivate: [isUserVerified],
-    resolve: { user: loggedUserProfileResolver },
-    loadComponent: () => import("./add-article.view"),
   },
 ];
 

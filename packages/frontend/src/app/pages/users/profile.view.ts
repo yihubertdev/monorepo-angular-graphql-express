@@ -12,7 +12,7 @@ import { UserProfileController } from "../../feature/userProfile/user-profile.co
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-sm-12 m-0 p-0">
           <user-profile-controller
             [isSettingsPage]="
-              route.children[0].routeConfig?.path === 'setting'
+              route.children[0].routeConfig?.path === 'personal-profile'
             "></user-profile-controller>
         </div>
       </div>

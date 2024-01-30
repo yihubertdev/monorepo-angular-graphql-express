@@ -181,7 +181,7 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
             type="number"
             matInput
             [formControlName]="input.key" />
-          <mat-icon matSuffix>{{ input.icon }}</mat-icon>
+          <mat-icon matSuffix>monetization_on</mat-icon>
           <mat-hint>{{
             newForm.get(input.key)?.value ?? 0 | currency: "CAD"
           }}</mat-hint>

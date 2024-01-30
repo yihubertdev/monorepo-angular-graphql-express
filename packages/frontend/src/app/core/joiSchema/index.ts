@@ -190,10 +190,8 @@ export const articleEditSchema = Joi.object({
 });
 
 export const blogEditSchema = Joi.object({
-  content: Joi.string().required().messages({
-    "string.base": `'content' should be a type of 'string'`,
-    "string.empty": `'content' should not be empty`,
-  }),
+  content: Joi.string().required(),
+  image: Joi.array().optional(),
 });
 
 export const userLoginSchema = Joi.object({

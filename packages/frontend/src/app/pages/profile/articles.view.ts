@@ -1,11 +1,9 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { MatTabsModule } from "@angular/material/tabs";
-import { HomePagePostController } from "../../feature/homePagePost/home-page-post.controller";
+import { Component, Input } from "@angular/core";
 import { HomePageArticleController } from "../../feature/homePagePost/home-page-article.controller";
 
 @Component({
   standalone: true,
-  imports: [HomePagePostController, HomePageArticleController, MatTabsModule],
+  imports: [HomePageArticleController],
   template: `
     <div class="container">
       <!--justify-content-center center the inner col-->
@@ -19,10 +17,6 @@ import { HomePageArticleController } from "../../feature/homePagePost/home-page-
   `,
   styleUrls: [],
 })
-export default class UsersView implements OnInit {
+export default class UsersView {
   @Input() id?: string;
-
-  ngOnInit() {
-    console.log(this.id);
-  }
 }

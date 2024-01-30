@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
 
 export enum EQUITY_TITLE {
@@ -47,15 +47,10 @@ export enum NET_INCOME_TITLE {
   </table>`,
   styleUrls: [],
 })
-export class NetWorthListComponent implements OnInit {
+export class NetWorthListComponent {
   @Input({ required: true }) dataSource!: (
     | Record<EQUITY_TITLE, string | number>
     | Record<NET_INCOME_TITLE, string | number>
   )[];
   @Input({ required: true }) dataColumn!: (EQUITY_TITLE | NET_INCOME_TITLE)[];
-
-  ngOnInit() {
-    console.log(this.dataColumn);
-    console.log(this.dataSource);
-  }
 }
