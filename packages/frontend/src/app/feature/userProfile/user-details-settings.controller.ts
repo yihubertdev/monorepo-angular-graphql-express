@@ -176,87 +176,87 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
     if (this.collection === SETTING_COLLECTION.PERSONAL_NET_WORTH) {
       this.EQUITY_DATA = [
         {
-          ASSETS: "Cash (Sch A)",
+          ASSET: "Cash (Sch A)",
           AMOUNT: String(cash.cash_accounts_receivable?.CURRENT_BALANCE ?? 0),
-          LIABILITIES: "Overdrafts (Sch J)",
-          EXPENSE: String(0),
+          LIABILITY: "Overdrafts (Sch J)",
+          EXPENSES: String(0),
         },
         {
-          ASSETS: "Accounts Receivable (Sch A)",
+          ASSET: "Accounts Receivable (Sch A)",
           AMOUNT: 0,
-          LIABILITIES: "Credit Cards (Sch J)",
-          EXPENSE: 0,
+          LIABILITY: "Credit Cards (Sch J)",
+          EXPENSES: 0,
         },
         {
-          ASSETS: "Other Liquid Assets (Sch A)",
+          ASSET: "Other Liquid Assets (Sch A)",
           AMOUNT: 0,
-          LIABILITIES: "Marketable Securities (Sch B)",
-          EXPENSE:
+          LIABILITY: "Marketable Securities (Sch B)",
+          EXPENSES:
             (cash.markable_securities?.MARKET_VALUE ?? 0) -
             (cash.markable_securities?.EQUITY ?? 0),
         },
         {
-          ASSETS: "Marketable Securities (Sch B)",
+          ASSET: "Marketable Securities (Sch B)",
           AMOUNT: cash.markable_securities?.MARKET_VALUE ?? 0,
-          LIABILITIES: "Tax Sheltered Invest (Sch C)",
-          EXPENSE:
+          LIABILITY: "Tax Sheltered Invest (Sch C)",
+          EXPENSES:
             (cash.tax_sheltered_investment?.MARKET_VALUE ?? 0) -
             (cash.tax_sheltered_investment?.EQUITY ?? 0),
         },
         {
-          ASSETS: "Tax Sheltered Invest (Sch C)",
+          ASSET: "Tax Sheltered Invest (Sch C)",
           AMOUNT: cash.tax_sheltered_investment?.MARKET_VALUE ?? 0,
-          LIABILITIES: "Insurance (Sch D)",
-          EXPENSE: 0,
+          LIABILITY: "Insurance (Sch D)",
+          EXPENSES: 0,
         },
         {
-          ASSETS: "Insurance CSV (Sch D)",
+          ASSET: "Insurance CSV (Sch D)",
           AMOUNT: cash.insurance?.CSV ?? 0,
-          LIABILITIES: "Home (Sch E)",
-          EXPENSE: cash.real_estate?.MARKET_VALUE ?? 0,
+          LIABILITY: "Home (Sch E)",
+          EXPENSES: cash.real_estate?.MARKET_VALUE ?? 0,
         },
         {
-          ASSETS: "Home (Sch E)",
+          ASSET: "Home (Sch E)",
           AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
-          LIABILITIES: "Mortgages (Sch E)",
-          EXPENSE: cash.real_estate?.MARKET_VALUE ?? 0,
+          LIABILITY: "Mortgages (Sch E)",
+          EXPENSES: cash.real_estate?.MARKET_VALUE ?? 0,
         },
         {
-          ASSETS: "Real Estate (Sch E)",
+          ASSET: "Real Estate (Sch E)",
           AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
-          LIABILITIES: "Business Interests (Sch F)",
-          EXPENSE: cash.business_interest?.CURRENT_BALANCE ?? 0,
+          LIABILITY: "Business Interests (Sch F)",
+          EXPENSES: cash.business_interest?.CURRENT_BALANCE ?? 0,
         },
         {
-          ASSETS: "Business Interests (Sch F)",
+          ASSET: "Business Interests (Sch F)",
           AMOUNT: cash.business_interest?.CURRENT_BALANCE ?? 0,
-          LIABILITIES: "Vehicle (Sch G)",
-          EXPENSE:
+          LIABILITY: "Vehicle (Sch G)",
+          EXPENSES:
             (cash.vehicles?.MARKET_VALUE ?? 0) - (cash.vehicles?.EQUITY ?? 0),
         },
         {
-          ASSETS: "Vehicles (Sch G)",
+          ASSET: "Vehicles (Sch G)",
           AMOUNT: cash.vehicles?.MARKET_VALUE ?? 0,
-          LIABILITIES: "Other Loans (Sch I)",
-          EXPENSE: 0,
+          LIABILITY: "Other Loans (Sch I)",
+          EXPENSES: 0,
         },
         {
-          ASSETS: "Other Assets (Sch H)",
+          ASSET: "Other Assets (Sch H)",
           AMOUNT: 0,
-          LIABILITIES: "Other Liabilities (Sch J)",
-          EXPENSE: 0,
+          LIABILITY: "Other Liabilities (Sch J)",
+          EXPENSES: 0,
         },
         {
-          ASSETS: "Line Of Credit Limits (Sch J)",
+          ASSET: "Line Of Credit Limits (Sch J)",
           AMOUNT: 0,
-          LIABILITIES: "Total Liabilities",
-          EXPENSE: 0,
+          LIABILITY: "Total Liabilities",
+          EXPENSES: 0,
         },
         {
-          ASSETS: "Total Assets",
+          ASSET: "Total Assets",
           AMOUNT: 0,
-          LIABILITIES: "Total Equity",
-          EXPENSE: 0,
+          LIABILITY: "Total Equity",
+          EXPENSES: 0,
         },
       ];
 
@@ -264,19 +264,19 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         {
           INCOME: "Salary, Bonus, Commissions",
           AMOUNT: cash.cash_accounts_receivable?.CURRENT_BALANCE ?? 0,
-          EXPENSES: "Marketable Securities (Sch B)",
+          EXPENSE: "Marketable Securities (Sch B)",
           COST: 0,
         },
         {
           INCOME: "Professional",
           AMOUNT: 0,
-          EXPENSES: "Tax Sheltered Invest (Sch C)",
+          EXPENSE: "Tax Sheltered Invest (Sch C)",
           COST: 0,
         },
         {
           INCOME: "Spouse",
           AMOUNT: 0,
-          EXPENSES: "Insurance (Sch D)",
+          EXPENSE: "Insurance (Sch D)",
           COST:
             (cash.markable_securities?.MARKET_VALUE ?? 0) -
             (cash.markable_securities?.EQUITY ?? 0),
@@ -284,7 +284,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         {
           INCOME: "Other",
           AMOUNT: cash.markable_securities?.MARKET_VALUE ?? 0,
-          EXPENSES: "Home (Sch E)",
+          EXPENSE: "Home (Sch E)",
           COST:
             (cash.tax_sheltered_investment?.MARKET_VALUE ?? 0) -
             (cash.tax_sheltered_investment?.EQUITY ?? 0),
@@ -292,44 +292,44 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
         {
           INCOME: "Marketable Securities (Sch B)",
           AMOUNT: cash.tax_sheltered_investment?.MARKET_VALUE ?? 0,
-          EXPENSES: "Real Estate (Sch E)",
+          EXPENSE: "Real Estate (Sch E)",
           COST: 0,
         },
         {
           INCOME: "Home (Sch E)",
           AMOUNT: cash.insurance?.CSV ?? 0,
-          EXPENSES: "Business Interest (Sch F)",
+          EXPENSE: "Business Interest (Sch F)",
           COST: cash.real_estate?.MARKET_VALUE ?? 0,
         },
         {
           INCOME: "Real Estate (Sch E)",
           AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
-          EXPENSES: "Vehicle (Sch G)",
+          EXPENSE: "Vehicle (Sch G)",
           COST: cash.real_estate?.MARKET_VALUE ?? 0,
         },
         {
           INCOME: "Business Interests (Sch F)",
           AMOUNT: cash.real_estate?.MARKET_VALUE ?? 0,
-          EXPENSES: "Other Loans Payments (Sch I)",
+          EXPENSE: "Other Loans Payments (Sch I)",
           COST: cash.business_interest?.CURRENT_BALANCE ?? 0,
         },
         {
           INCOME: "Dependants",
           AMOUNT: cash.business_interest?.CURRENT_BALANCE ?? 0,
-          EXPENSES: "Other (Sch K)",
+          EXPENSE: "Other (Sch K)",
           COST:
             (cash.vehicles?.MARKET_VALUE ?? 0) - (cash.vehicles?.EQUITY ?? 0),
         },
         {
           INCOME: "Total Income",
           AMOUNT: cash.vehicles?.MARKET_VALUE ?? 0,
-          EXPENSES: "Total Expenses",
+          EXPENSE: "Total Expenses",
           COST: 0,
         },
         {
           INCOME: "Total Net Income",
           AMOUNT: 0,
-          EXPENSES: "",
+          EXPENSE: "",
           COST: 0,
         },
       ];
