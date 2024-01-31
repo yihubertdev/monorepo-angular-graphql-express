@@ -1,4 +1,7 @@
-import { isUserVerified } from "../../core/services/routeGuard/index.guard";
+import {
+  isUserVerified,
+  replaceUserId,
+} from "../../core/services/routeGuard/index.guard";
 import { userProfileResolver } from "../../shared/resolvers/post.resolver";
 import { IMenu } from "sources-types";
 import { IFullRoute } from "../../routes";
@@ -8,7 +11,7 @@ export const profileSetting: IFullRoute[] = [
     path: "personal-profile",
     description: "PERSONAL PROFILE",
     icon: "account_circle",
-    canActivate: [isUserVerified],
+    canMatch: [isUserVerified],
     loadComponent: () => import("./personal-profile.view"),
     loadChildren: () =>
       import("../personalProfile").then((router) => router.route),
@@ -17,7 +20,7 @@ export const profileSetting: IFullRoute[] = [
     path: "business-profile",
     description: "BUSINESS PROFILE",
     icon: "account_circle",
-    canActivate: [isUserVerified],
+    canMatch: [isUserVerified],
     loadComponent: () => import("./business-profile.view"),
     loadChildren: () =>
       import("../businessProfile").then((router) => router.route),
@@ -47,6 +50,7 @@ export const route: IFullRoute[] = [
     path: "profile/:id",
     description: "NETWORK POST",
     icon: "post_add",
+    canMatch: [replaceUserId],
     loadComponent: () => import("./profile.view"),
     resolve: { user: userProfileResolver },
     loadChildren: () => profileSetting,

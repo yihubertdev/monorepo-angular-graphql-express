@@ -4,18 +4,31 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   CanActivateFn,
+  CanMatchFn,
+  UrlSegment,
+  Route,
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import { IUser } from "sources-types";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
 import { User } from "@angular/fire/auth";
 
-export const isUserLogin: CanActivateFn = () => {
-  return Boolean(
-    inject(SessionStorageService).getSessionStorage<IUser>("user")
-      ? true
-      : inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN)
-  );
+export const replaceUserId: CanMatchFn = (
+  route: Route,
+  segments: UrlSegment[]
+) => {
+  const user = inject(SessionStorageService).getSessionStorage<IUser>("user");
+  if (segments[1].path === user?.userId) {
+    inject(Router).navigate([
+      "users",
+      ...segments.map((item, index) => {
+        return index === 1 ? "me" : item.path;
+      }),
+    ]);
+    return false;
+  }
+
+  return true;
 };
 
 export const isMeLogin: CanActivateFn = (
@@ -45,7 +58,7 @@ export const loginCheck: CanActivateFn = () => {
   return true;
 };
 
-export const isUserVerified: CanActivateFn = () => {
+export const isUserVerified: CanMatchFn = () => {
   const session = inject(SessionStorageService);
   const fireauth = session.getAllSessionStorage().key(0);
   if (!fireauth || !fireauth?.includes("firebase")) {
@@ -56,5 +69,6 @@ export const isUserVerified: CanActivateFn = () => {
   if (userAuth?.emailVerified && userAuth?.phoneNumber) {
     return true;
   }
-  return inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
+  inject(Router).navigate(SITE_ROUTE_PAGE.LOGIN);
+  return false;
 };

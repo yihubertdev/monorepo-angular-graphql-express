@@ -1,10 +1,16 @@
 import { NgFor } from "@angular/common";
 import { Component } from "@angular/core";
-import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  RouterLinkWithHref,
+  RouterOutlet,
+} from "@angular/router";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
 import { MatTabsModule } from "@angular/material/tabs";
 import { PROFILE_MENU } from "../profile";
 import { MatIconModule } from "@angular/material/icon";
+import { IStringMenu } from "sources-types";
 
 @Component({
   standalone: true,
@@ -39,6 +45,15 @@ import { MatIconModule } from "@angular/material/icon";
   styleUrls: [],
 })
 export default class UserProfileView {
-  public PROFILE_MENU = PROFILE_MENU;
-  public activeLink = PROFILE_MENU[0].link;
+  public PROFILE_MENU?: IStringMenu[];
+  public activeLink?: string;
+
+  constructor(private route: ActivatedRoute) {
+    this.PROFILE_MENU =
+      this.route.parent?.snapshot.params["id"] === "me"
+        ? PROFILE_MENU
+        : PROFILE_MENU.filter(
+            (menu) => menu.link !== "add-post" && menu.link !== "add-article"
+          );
+  }
 }

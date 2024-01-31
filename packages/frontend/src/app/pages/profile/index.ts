@@ -1,7 +1,6 @@
-import { IMenu } from "sources-types";
+import { IStringMenu } from "sources-types";
 import {
   isMeLogin,
-  isUserLogin,
   isUserVerified,
 } from "src/app/core/services/routeGuard/index.guard";
 import { IFullRoute } from "src/app/routes";
@@ -38,7 +37,7 @@ export const route: IFullRoute[] = [
     path: "profile",
     icon: "account_circle",
     description: "Profile",
-    canActivate: [isUserLogin],
+    canActivate: [isUserVerified],
     loadComponent: () => import("./details.view"),
   },
   {
@@ -65,7 +64,7 @@ export const route: IFullRoute[] = [
   // },
 ];
 
-export const PROFILE_MENU: IMenu[] = route
+export const PROFILE_MENU: IStringMenu[] = route
   .filter((route) => route.path)
   .map((route) => ({
     link: route.path!,

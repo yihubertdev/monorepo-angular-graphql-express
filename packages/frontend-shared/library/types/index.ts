@@ -271,6 +271,10 @@ export interface INestedMenu extends IMenu {
   subMenu?: INestedMenu[];
 }
 
+export interface IStringMenu extends IMenu {
+  link: string;
+}
+
 export interface IUser {
   userId: string;
   displayName: string;
