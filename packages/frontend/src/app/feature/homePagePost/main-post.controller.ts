@@ -6,7 +6,7 @@ import { NgFor, NgIf } from "@angular/common";
 import {
   CarouselSliderComponent,
   ICarousel,
-} from "../../shared/components/CarouselSlider/carousel-slider.component";
+} from "../../shared/components/imagesCard/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
 

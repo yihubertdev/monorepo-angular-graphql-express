@@ -3,7 +3,7 @@ import { POST } from "sources-types";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
 import { NgIf } from "@angular/common";
-import { CarouselSliderComponent } from "../../shared/components/CarouselSlider/carousel-slider.component";
+import { CarouselSliderComponent } from "../../shared/components/imagesCard/carousel-slider.component";
 import { JobsHorizonalScrollController } from "./jobs-horizonal-scroll.controller";
 import { ActivatedRoute } from "@angular/router";
 

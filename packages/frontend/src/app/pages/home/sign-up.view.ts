@@ -3,7 +3,7 @@ import { EmailSignUpController } from "../../feature/login/email-signup.controll
 import {
   CarouselSliderComponent,
   ICarousel,
-} from "../../shared/components/CarouselSlider/carousel-slider.component";
+} from "../../shared/components/imagesCard/carousel-slider.component";
 
 @Component({
   standalone: true,

@@ -14,7 +14,7 @@ import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
 import {
   CarouselSliderComponent,
   ICarousel,
-} from "../CarouselSlider/carousel-slider.component";
+} from "../imagesCard/carousel-slider.component";
 
 @Component({
   standalone: true,

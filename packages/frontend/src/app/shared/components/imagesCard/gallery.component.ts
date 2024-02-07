@@ -51,7 +51,10 @@ export class GalleryImageComponent implements OnInit {
   public galleryImages: GalleryItem[] = [];
   public galleryId: string = uuidv4();
 
-  constructor(public gallery: Gallery, private lightbox: Lightbox) {}
+  constructor(
+    public gallery: Gallery,
+    private lightbox: Lightbox
+  ) {}
 
   ngOnInit(): void {
     const galleryRef = this.gallery.ref(this.galleryId);

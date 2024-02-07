@@ -17,7 +17,7 @@ import { RouterModule } from "@angular/router";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonModule } from "@angular/material/button";
 import { UserPhotoPipe } from "../../pipes/default-photo.pipe";
-import { ImagesComponent } from "../CarouselSlider/images.component";
+import { ImagesComponent } from "../imagesCard/images.component";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { RemoveSettingCategoryDialog } from "../../dialog/remove-setting-category.dialog";
 import { MatDividerModule } from "@angular/material/divider";

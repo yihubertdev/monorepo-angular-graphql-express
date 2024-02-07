@@ -5,7 +5,7 @@ import { OAuthLoginControllerComponent } from "../../feature/login/oauth-login.c
 import {
   CarouselSliderComponent,
   ICarousel,
-} from "../../shared/components/CarouselSlider/carousel-slider.component";
+} from "../../shared/components/imagesCard/carousel-slider.component";
 
 @Component({
   standalone: true,
