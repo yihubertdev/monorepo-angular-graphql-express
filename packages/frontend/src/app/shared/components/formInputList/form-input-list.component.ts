@@ -375,12 +375,11 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
       mat-fab
       extended
       color="primary"
-      class="btn-full-width"
+      style="width: 98%;"
       (click)="submit()">
       {{ buttonName }}
     </button>
   `,
-  styleUrls: ["./form-input-list.component.css"],
 })
 export class FormInputListComponent implements OnInit {
   @Input({ required: true }) list!: IForm[];
