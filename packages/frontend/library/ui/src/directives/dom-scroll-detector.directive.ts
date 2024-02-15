@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Output } from "@angular/core";
 
 @Directive({
-  selector: "[domScroll]",
+  selector: "[attrDomScroll]",
 })
 export class DomScrollDirective {
   // this will emit the scroll update to whatever you want to assign with its emitted value

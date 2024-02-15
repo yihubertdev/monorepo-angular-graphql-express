@@ -50,7 +50,6 @@
 
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
       "@typescript-eslint/consistent-type-assertions": ["error", { "assertionStyle": "as" }],
-      "@typescript-eslint/no-duplicate-imports": "error",
       "@typescript-eslint/no-inferrable-types": "error",
       "@typescript-eslint/no-misused-new": "error",
       "@typescript-eslint/no-this-alias": "error",
