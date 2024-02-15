@@ -33,6 +33,7 @@
     "migrate:rollback": "npm run knex:run -- migrate:rollback --debug"
   },
   "dependencies": {
+    "@google-cloud/pubsub": "^4.3.2",
     "@graphql-tools/schema": "^10.0.2",
     "apollo-server": "^3.13.0",
     "apollo-server-express": "^3.13.0",

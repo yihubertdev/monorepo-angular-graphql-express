@@ -1,4 +1,0 @@
-extend type Query {
-  anotherhello: String
-  anotherAnotherHello: String
-}

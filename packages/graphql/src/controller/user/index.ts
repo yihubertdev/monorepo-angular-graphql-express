@@ -5,7 +5,7 @@ import {
   RESOLVER_TYPE,
   Resolver,
 } from "../../decorators/resolver";
-import { IFaceGraphqlContext } from "../../index-graphql";
+import { IFaceGraphqlContext } from "../../graphql";
 import models from "../../models";
 
 @Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
