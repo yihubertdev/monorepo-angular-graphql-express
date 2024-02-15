@@ -2,13 +2,16 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
-    "rootDirs": ["src"],
-    "baseUrl": ".",
-    "outDir": "./.build",
-    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "outDir": "lib",
+    "sourceMap": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
     "paths": {
       // "sources-types": ["../frontend-shared/library/types/index.ts"]
-    },
+    }
   },
-  "include": ["./src"]
+  "compileOnSave": true,
+  "include": ["src"]
 }

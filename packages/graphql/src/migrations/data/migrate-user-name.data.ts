@@ -11,7 +11,7 @@ export async function migrationUserDisplayName(): Promise<void> {
 
   const batch = fireStore.batch();
 
-  const users = await modelsFirestore.users.get({});
+  const users = await modelsFirestore.users.get({}) as any;
 
   try {
     await Promise.all(

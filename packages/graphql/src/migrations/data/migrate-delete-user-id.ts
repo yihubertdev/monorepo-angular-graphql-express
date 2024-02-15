@@ -1,6 +1,6 @@
 import { FieldValue } from "firebase-admin/firestore";
 import client from "../../client";
-import modelsFirestore from "../../models/firestore";
+import { firestore } from "../../models/firestore";
 
 /**
  * Sync user display name and name id
@@ -12,7 +12,7 @@ export async function migrationDeleteUserId(): Promise<void> {
   const batch = fireStore.batch();
 
   try {
-    const users = await modelsFirestore.users.get();
+    const users = await firestore.users.getAllUsers({}) as any;
     await Promise.all(
       users.map(async (user) => {
         const userRef = fireStore.collection("users").doc(user["userId"]);

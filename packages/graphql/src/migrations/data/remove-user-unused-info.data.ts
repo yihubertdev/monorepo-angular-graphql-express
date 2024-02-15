@@ -11,8 +11,7 @@ export async function migrationPostFieldRemove(): Promise<void> {
 
   const batch = fireStore.batch();
 
-  const users = await modelsFirestore.users.getAllUsers({});
-  console.log(users);
+  const users = (await modelsFirestore.users.getAllUsers({})) as any;
   try {
     users.map((user) => {
       batch.update(user.ref, {

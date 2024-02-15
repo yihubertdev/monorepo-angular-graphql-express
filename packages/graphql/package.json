@@ -5,7 +5,6 @@
   "author": "hubertyydev",
   "homepage": "",
   "license": "ISC",
-  "main": "src/index.ts",
   "directories": {
     "src": "src",
     "test": "__tests__"
@@ -13,10 +12,19 @@
   "files": [
     "src"
   ],
+  "engines": {
+    "node": "20"
+  },
+  "main": "lib/src/index.js",
   "scripts": {
-    "start": "npx ts-node-dev src/index-local.ts",
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
     "lint": "npx eslint --ext .ts .",
-    "build": "tsc --project ./tsconfig.json",
     "knex:run": "npx knex --knexfile src/database/knexfile",
     "migrate:list": "npm run knex:run -- migrate:list",
     "migrate:make": "npm run knex:run -- migrate:make",
@@ -25,24 +33,22 @@
     "migrate:rollback": "npm run knex:run -- migrate:rollback --debug"
   },
   "dependencies": {
-    "@as-integrations/aws-lambda": "^2.0.1",
-    "@graphql-tools/schema": "^9.0.16",
-    "apollo-server": "^3.1.2",
-    "apollo-server-lambda": "^3.11.1",
+    "@graphql-tools/schema": "^10.0.2",
+    "apollo-server": "^3.13.0",
+    "apollo-server-express": "^3.13.0",
     "apollo-server-plugin-base": "^3.5.0",
-    "aws-lambda": "^1.0.6",
-    "firebase-admin": "^11.5.0",
-    "graphql": "^16.6.0",
-    "joi": "^17.9.1",
-    "knex": "^2.4.2"
+    "express": "^4.18.2",
+    "firebase-admin": "^11.8.0",
+    "firebase-functions": "^4.3.1",
+    "graphql": "^16.8.1",
+    "joi": "^17.12.1",
+    "knex": "^3.1.0"
   },
   "devDependencies": {
     "@types/sources-types": "file:dependencies/types-sources-types-1.0.1.tgz",
-    "@types/uuid": "^9.0.1",
-    "graphql-constraint-directive": "^5.0.0",
+    "@types/uuid": "^9.0.8",
+    "graphql-constraint-directive": "^5.4.1",
     "mysql": "^2.18.1",
-    "serverless-offline": "^12.0.4",
-    "serverless-plugin-typescript": "^2.1.2",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   }
 }
