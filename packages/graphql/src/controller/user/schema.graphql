@@ -10,10 +10,16 @@ input PostUserInput {
   email: EMAIL
 }
 
+input PublishMessageInput {
+  data: string
+}
+
 extend type Query {
   posts: Boolean
 }
 
 extend type Mutation {
   postUser(postUserInput: PostUserInput): String
+
+  publishMessage(publishMessageInput: PublishMessageInput): Boolean
 }
