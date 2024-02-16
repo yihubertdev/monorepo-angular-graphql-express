@@ -1,16 +1,23 @@
-import path from "path";
-import fs from "fs";
-import {
-  FieldResolver,
-  RESOLVER_TYPE,
-  Resolver,
-} from "../../decorators/resolver";
-import client from "../../client";
+import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import client from "../client";
 import { TokenMessage } from "firebase-admin/messaging";
+import { gql } from "apollo-server";
 
-@Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class SubscriptionResolver {
   @FieldResolver({
+    schema: gql`
+      type SendMessagingOutput {
+        result: Boolean
+      }
+
+      input SendMessageInput {
+        token: String
+      }
+
+      extend type Mutation {
+        sendMessage(sendMessageInput: SendMessageInput!): SendMessagingOutput
+      }
+    `,
     type: RESOLVER_TYPE.MUTATION,
   })
   async sendMessage(source, args, context) {

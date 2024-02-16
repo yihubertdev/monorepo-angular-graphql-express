@@ -1,14 +1,13 @@
-import path from "path";
-import fs from "fs";
-import {
-  FieldResolver,
-  RESOLVER_TYPE,
-  Resolver,
-} from "../../decorators/resolver";
+import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { gql } from "apollo-server";
 
-@Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
 class ArticleResolver {
   @FieldResolver({
+    schema: gql`
+      extend type Query {
+        anotherhello: String
+      }
+    `,
     type: RESOLVER_TYPE.QUERY,
   })
   anotherhello() {
@@ -17,6 +16,11 @@ class ArticleResolver {
   }
 
   @FieldResolver({
+    schema: gql`
+      extend type Query {
+        anotherAnotherHello: String
+      }
+    `,
     type: RESOLVER_TYPE.QUERY,
   })
   anotherAnotherHello() {

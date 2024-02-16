@@ -1,10 +1,23 @@
 import { merge } from "lodash";
-import fs from "fs";
-import path from "path";
 import utils from "../utils";
 import scalars from "./scalars";
+import { DocumentNode } from "graphql";
+import { gql } from "apollo-server";
 
-export enum RESOLVER_TYPE {
+export const baseGraphql = gql`
+  type Query {
+    _empty: String
+  }
+
+  type Mutation {
+    _empty: String
+  }
+
+  type Subscription {
+    _empty: String
+  }
+`;
+export const enum RESOLVER_TYPE {
   QUERY = "Query",
   MUTATION = "Mutation",
   SUBSCRIPTION = "Subscription",
@@ -26,11 +39,9 @@ export type TypeMethodDecoratorResponse = (
   propertyDescriptor: PropertyDescriptor
 ) => TypeResolver;
 
-export let totalResolver: TypeResolver = {};
+export const totalResolver: TypeResolver = {};
 
-export const totalTypeDefs: string[] = [
-  fs.readFileSync(path.join(__dirname, "../controller/schema.graphql"), "utf8"),
-];
+export const totalTypeDefs: DocumentNode[] = [baseGraphql];
 
 // Change the reference value directly, no need to return. variable is a reference to an object or arrays in ts
 utils.graphql.addScalars(totalResolver, totalTypeDefs, scalars);
@@ -40,13 +51,18 @@ utils.graphql.addScalars(totalResolver, totalTypeDefs, scalars);
  * @param {RESOLVER_TYPE} params.type resolver type
  * @returns {TypeMethodDecoratorResponse}
  */
-export function FieldResolver(params: {
+export const FieldResolver = ({
+  type,
+  description,
+  schema,
+  subQuery,
+}: {
+  schema: DocumentNode;
   type: RESOLVER_TYPE;
   description?: string;
   subQuery?: string;
-}): TypeMethodDecoratorResponse {
-  const { type, description, subQuery } = params;
-
+}): TypeMethodDecoratorResponse => {
+  totalTypeDefs.push(schema);
   return (
     target: any,
     name: string, // class function name
@@ -55,7 +71,8 @@ export function FieldResolver(params: {
     switch (type) {
       case RESOLVER_TYPE.QUERY:
       case RESOLVER_TYPE.MUTATION:
-        return (totalResolver = merge(
+        // add object that have resolver name and function into totalResolver
+        merge(
           totalResolver,
           Object.defineProperty({}, type, {
             configurable: true,
@@ -65,11 +82,12 @@ export function FieldResolver(params: {
               enumerable: true,
               value: propertyDescriptor.value,
             }),
-          }) as TypeResolver
-        ));
+          })
+        );
+        return totalResolver;
 
       case RESOLVER_TYPE.SUBSCRIPTION:
-        return (totalResolver = merge(
+        merge(
           totalResolver,
           Object.defineProperty({}, type, {
             configurable: true,
@@ -82,14 +100,15 @@ export function FieldResolver(params: {
                 subscribe: propertyDescriptor.value,
               },
             }),
-          }) as TypeResolver
-        ));
+          })
+        );
+        return totalResolver;
 
       case RESOLVER_TYPE.SUB_QUERY:
         if (!subQuery) {
           throw Error("subQuery not provided");
         }
-        return (totalResolver = merge(
+        merge(
           totalResolver,
           Object.defineProperty({}, subQuery, {
             configurable: true,
@@ -100,16 +119,11 @@ export function FieldResolver(params: {
               value: propertyDescriptor.value,
             }),
           }) as TypeResolver
-        ));
+        );
+        return totalResolver;
 
       default:
         throw new Error(`Field Type ${type} not supported`);
     }
-  };
-}
-
-export const Resolver = (typeDefs: string) => {
-  return (target: Function) => {
-    totalTypeDefs.push(typeDefs);
   };
 };

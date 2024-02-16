@@ -11,7 +11,7 @@ export async function migrationPostFieldRemove(): Promise<void> {
 
   const batch = fireStore.batch();
 
-  const posts = await modelsFirestore.users.getPost({});
+  const posts = (await modelsFirestore.users.getPost({})) as any;
   console.log(posts);
   try {
     posts.map((post) => {

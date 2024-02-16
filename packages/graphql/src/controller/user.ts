@@ -1,20 +1,19 @@
-import path from "path";
-import fs from "fs";
-import {
-  FieldResolver,
-  RESOLVER_TYPE,
-  Resolver,
-} from "../../decorators/resolver";
-import { IFaceGraphqlContext } from "../../graphql";
-import models from "../../models";
+import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { IFaceGraphqlContext } from "../graphql";
+import models from "../models";
 import { PubSub } from "@google-cloud/pubsub";
+import { gql } from "apollo-server";
 
 // Creates a client; cache this for further use
 const pubSubClient = new PubSub();
-
-@Resolver(fs.readFileSync(path.join(__dirname, "schema.graphql"), "utf8"))
+console.log(FieldResolver)
 class UserResolver {
   @FieldResolver({
+    schema: gql`
+      extend type Query {
+        posts: Boolean
+      }
+    `,
     type: RESOLVER_TYPE.QUERY,
   })
   async posts(source, args, context: IFaceGraphqlContext, info) {
@@ -30,6 +29,15 @@ class UserResolver {
   }
 
   @FieldResolver({
+    schema: gql`
+      input PublishMessageInput {
+        data: String
+      }
+
+      extend type Mutation {
+        publishMessage(publishMessageInput: PublishMessageInput): Boolean
+      }
+    `,
     type: RESOLVER_TYPE.MUTATION,
   })
   async publishMessage(source, args) {
@@ -40,7 +48,7 @@ class UserResolver {
     try {
       const messageId = await pubSubClient
         .topic("test-topic")
-        .publishMessage({data: dataBuffer});
+        .publishMessage({ data: dataBuffer });
       console.log(`Message ${messageId} published.`);
     } catch (error) {
       console.error(
@@ -52,6 +60,18 @@ class UserResolver {
   }
 
   @FieldResolver({
+    schema: gql`
+      input PostUserInput {
+        "Create user Id"
+        id: UUID
+
+        email: EMAIL
+      }
+
+      extend type Mutation {
+        postUser(postUserInput: PostUserInput): String
+      }
+    `,
     type: RESOLVER_TYPE.MUTATION,
   })
   postUser(source, args, context, info) {

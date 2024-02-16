@@ -1,6 +1,7 @@
 import { merge } from "lodash";
 import { TypeResolver } from "../decorators/resolver";
-import { GraphQLScalarType } from "graphql";
+import { DocumentNode, GraphQLScalarType } from "graphql";
+import { gql } from "apollo-server";
 
 /**
  * Validates an arbitrary object against a Joi schema
@@ -12,13 +13,13 @@ import { GraphQLScalarType } from "graphql";
  */
 export function addScalars(
   resolvers: TypeResolver,
-  typeDefs: string[],
+  typeDefs: DocumentNode[],
   scalars: Record<string, any>
 ): void {
   Object.keys(scalars).forEach((key) => {
     const { name, description, parseLiteral, parseValue, serialize } =
       scalars[key];
-    typeDefs.unshift(`scalar ${name}`);
+    typeDefs.unshift(gql`scalar ${name}`);
 
     merge(
       resolvers,
