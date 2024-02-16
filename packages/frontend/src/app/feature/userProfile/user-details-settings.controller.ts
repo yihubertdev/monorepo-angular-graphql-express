@@ -22,7 +22,7 @@ import {
   PartialRecord,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
-} from "sources-types";
+} from "sources";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { groupBy } from "../../core/utils/lodash";

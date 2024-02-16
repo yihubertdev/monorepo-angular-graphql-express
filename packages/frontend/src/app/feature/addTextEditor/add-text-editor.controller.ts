@@ -3,7 +3,7 @@ import {
   MatBottomSheet,
   MatBottomSheetModule,
 } from "@angular/material/bottom-sheet";
-import { IUser } from "sources-types";
+import { IUser } from "sources";
 import { MatIconModule } from "@angular/material/icon";
 import { NgIf } from "@angular/common";
 import { MatBottomSheetRef } from "@angular/material/bottom-sheet";

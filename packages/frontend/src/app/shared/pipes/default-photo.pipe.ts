@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { DEFAULT_CONSTANTS } from "sources-types";
+import { DEFAULT_CONSTANTS } from "sources";
 
 @Pipe({
   standalone: true,

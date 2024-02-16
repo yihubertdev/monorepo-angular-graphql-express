@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { POST, IUser } from "sources-types";
+import { POST, IUser } from "sources";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { MainPostCardComponent } from "../../shared/components/postCard/main-post-card.component";
 import { NgFor, NgIf } from "@angular/common";

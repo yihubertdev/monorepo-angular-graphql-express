@@ -4,7 +4,7 @@ import {
   AngularFirestoreCollection,
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, IUser, IUserFull } from "sources-types";
+import { FIRESTORE_COLLECTION, IUser, IUserFull } from "sources";
 import { FireStoreBaseModel } from "./basic.firestore";
 import { UserCache } from "../cache/extend.cache";
 

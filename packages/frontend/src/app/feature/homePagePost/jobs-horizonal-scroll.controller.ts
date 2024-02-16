@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
-import { IArticle } from "sources-types";
+import { IArticle } from "sources";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 
 @Component({

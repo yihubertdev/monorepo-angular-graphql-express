@@ -1,6 +1,6 @@
 import { Auth, DecodedIdToken } from "firebase-admin/auth";
 import client from "../../client";
-import { POST, IUser } from "sources-types";
+import { IUser, POST } from "sources";
 import { QueryDocumentSnapshot } from "firebase-admin/firestore";
 
 /**

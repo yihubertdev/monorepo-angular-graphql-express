@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { UserProfileController } from "../../feature/userProfile/user-profile.controller";
-import { IArticle } from "sources-types";
+import { IArticle } from "sources";
 import { ArticlePostControllerComponent } from "../../feature/homePagePost/article-post.controller";
 
 @Component({

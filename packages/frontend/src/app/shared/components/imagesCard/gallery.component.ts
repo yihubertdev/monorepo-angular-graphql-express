@@ -3,7 +3,7 @@ import { Lightbox, LightboxModule } from "ng-gallery/lightbox";
 import { Gallery, GalleryItem, GalleryModule } from "ng-gallery";
 import { v4 as uuidv4 } from "uuid";
 import { NgIf, NgStyle } from "@angular/common";
-import { POST } from "sources-types";
+import { POST } from "sources";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 

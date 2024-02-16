@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FireStoreCacheService } from "./basic.cache";
-import { CACHE_KEY, POST, IUserFull } from "sources-types";
+import { CACHE_KEY, POST, IUserFull } from "sources";
 import { INetWorth } from "../../static/form.static";
 
 @Injectable({ providedIn: "root" })

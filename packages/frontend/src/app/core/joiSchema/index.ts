@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { FILE_TYPE, INPUT_TYPE } from "sources-types";
+import { FILE_TYPE, INPUT_TYPE } from "sources";
 import { JoiSchemaBuilder } from "../utils/validator";
 import { IForm } from "../static/form.static";
 

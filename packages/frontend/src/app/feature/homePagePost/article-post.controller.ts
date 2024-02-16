@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { QuillModule } from "ngx-quill";
-import { IArticle } from "sources-types";
+import { IArticle } from "sources";
 
 @Component({
   standalone: true,

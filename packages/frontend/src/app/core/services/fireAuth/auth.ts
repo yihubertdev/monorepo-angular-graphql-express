@@ -11,7 +11,7 @@ import {
   ConfirmationResult,
 } from "@angular/fire/auth";
 import { Injectable } from "@angular/core";
-import { IUserRegister, IUserRole } from "sources-types";
+import { IUserRegister, IUserRole } from "sources";
 import { browserSessionPersistence, updateProfile } from "firebase/auth";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
 import {

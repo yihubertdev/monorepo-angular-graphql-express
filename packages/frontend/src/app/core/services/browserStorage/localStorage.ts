@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { EMBED_YOUTUBE } from "sources-types";
+import { EMBED_YOUTUBE } from "sources";
 
 @Injectable({ providedIn: "root" })
 export class LocalStorageService {

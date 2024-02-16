@@ -1,6 +1,6 @@
 import { Component, HostListener } from "@angular/core";
 import { MatBottomSheetModule } from "@angular/material/bottom-sheet";
-import { IMenu } from "sources-types";
+import { IMenu } from "sources";
 import { footerMenus } from "../../core/static/menu.static";
 import { NgFor, NgStyle } from "@angular/common";
 import { RouterModule } from "@angular/router";

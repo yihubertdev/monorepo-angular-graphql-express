@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { UserDetailsSettingsController } from "../../feature/userProfile/user-details-settings.controller";
-import { SETTING_COLLECTION } from "sources-types";
+import { SETTING_COLLECTION } from "sources";
 
 @Component({
   selector: "security-view",

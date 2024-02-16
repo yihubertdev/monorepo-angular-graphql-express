@@ -5,7 +5,7 @@ import {
   OnChanges,
 } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
-import { IUser, SETTING_CATEGORY } from "sources-types";
+import { IUser, SETTING_CATEGORY } from "sources";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FormInputListComponent } from "../formInputList/form-input-list.component";

@@ -9,7 +9,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { MatDialog } from "@angular/material/dialog";
 import { UploadVideoDialog } from "../../dialog/upload-video.dialog";
-import { EMBED_YOUTUBE } from "sources-types";
+import { EMBED_YOUTUBE } from "sources";
 import { QuillModule } from "ngx-quill";
 import { FormsModule } from "@angular/forms";
 import { MatProgressBarModule } from "@angular/material/progress-bar";

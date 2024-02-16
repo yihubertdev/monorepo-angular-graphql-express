@@ -1,5 +1,4 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
     "experimentalDecorators": true,
     "noImplicitReturns": true,
@@ -7,15 +6,8 @@
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "paths": {
-      "sources": [
-        "../types/src/index.d.ts"
-      ],
-    },
+    "allowSyntheticDefaultImports": true
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["./src"]
 }

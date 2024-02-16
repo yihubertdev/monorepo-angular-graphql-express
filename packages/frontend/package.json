@@ -52,7 +52,7 @@
     "@angular/compiler-cli": "^17.0.8",
     "@types/jasmine": "~5.1.4",
     "@types/node": "^20.10.5",
-    "@types/sources-types": "file:dependencies/types-sources-types-1.0.1.tgz",
+    "@types/sources": "file:dependencies/types-sources-1.0.0.tgz",
     "angular-mentions": "^1.5.0",
     "jasmine-core": "~5.1.1",
     "karma": "~6.4.2",

@@ -1,8 +1,9 @@
 {
-    "name": "@types/sources-types",
-    "version": "1.0.1",
-    "types": "index.ts",
-    "devDependencies": {
-        "@types/sources-types": "file:types-sources-types-1.0.1.tgz"
+    "name": "@types/sources",
+    "version": "1.0.0",
+    "types": "./src/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch"
     }
 }

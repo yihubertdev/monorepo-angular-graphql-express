@@ -8,7 +8,7 @@ import {
 import { importProvidersFrom } from "@angular/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
-import { IMenu } from "sources-types";
+import { IMenu } from "sources";
 import { IFullRoute } from "../../routes";
 
 export const route: IFullRoute[] = [

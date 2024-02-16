@@ -1,15 +1,22 @@
 #!/bin/bash
 echo "packing the dependencies"
 
-cd ../frontend-shared/library/types
+cd ../types
 
 SHARED_TYPES=$(find . -type f -name "*.tgz")
 
 rm $SHARED_TYPES
 
+npm run build
+
 npm pack
 
-cp $SHARED_TYPES ../../../frontend/dependencies
+cp $SHARED_TYPES ../frontend/dependencies
+
+cd ../frontend/dependencies
+
+npm uninstall @types/sources
+npm install $SHARED_TYPES --save-dev
 
 # cp $SHARED_TYPES ../ui/dependencies
 # echo "finish file copy"
@@ -35,13 +42,13 @@ cp $SHARED_TYPES ../../../frontend/dependencies
 
 # mv $SHARED_COMPONENTS ../../../frontend/dependencies
 
-cd ../../../frontend/dependencies
+# cd ../../../frontend/dependencies
 
-npm uninstall @types/sources-types
+# npm uninstall @types/sources-types
 
-npm uninstall angular-shared-ui
+# npm uninstall angular-shared-ui
 
-npm install $SHARED_TYPES --save-dev
+# npm install $SHARED_TYPES --save-dev
 
 # npm install $SHARED_COMPONENTS --save-dev
 

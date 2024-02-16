@@ -3,7 +3,7 @@
 // import { MatButtonModule } from "@angular/material/button";
 // import { MatCardModule } from "@angular/material/card";
 // import { Router, RouterModule } from "@angular/router";
-// import { LINK_PREVIEW } from "sources-types";
+// import { LINK_PREVIEW } from "sources";
 
 // @Component({
 //   standalone: true,

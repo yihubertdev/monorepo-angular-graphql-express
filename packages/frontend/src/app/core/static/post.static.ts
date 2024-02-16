@@ -1,4 +1,4 @@
-import { IFormInput, INPUT_TYPE } from "sources-types";
+import { IFormInput, INPUT_TYPE } from "sources";
 
 export const postList = [
   {

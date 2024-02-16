@@ -4,7 +4,7 @@ import { EmailSignUpController } from "../../feature/login/email-signup.controll
 import { RouterLinkWithHref, RouterOutlet } from "@angular/router";
 import { UserProfileSignUpController } from "../../feature/userProfile/user-profile-sign-up.controller";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
-import { IUser } from "sources-types";
+import { IUser } from "sources";
 
 @Component({
   standalone: true,

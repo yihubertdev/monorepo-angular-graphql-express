@@ -4,7 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from "@angular/router";
-import { POST, IUser } from "sources-types";
+import { POST, IUser } from "sources";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { UserService } from "../../core/services/fireStore/users.firestore";

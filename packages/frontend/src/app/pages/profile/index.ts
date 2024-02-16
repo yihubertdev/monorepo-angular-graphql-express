@@ -1,4 +1,4 @@
-import { IStringMenu } from "sources-types";
+import { IStringMenu } from "sources";
 import {
   isMeLogin,
   isUserVerified,

@@ -53,3 +53,5 @@ Thumbs.db
 
 # Firebase debug log
 .firebase-debug.log
+
+firebase-admin.json

@@ -6,7 +6,7 @@ import {
 } from "@angular/material/dialog";
 import { MatSnackBar, MatSnackBarModule } from "@angular/material/snack-bar";
 import { GoogleHttpService } from "src/app/core/services/http/google.http";
-import { SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources-types";
+import { SNACKBAR_ERROR, SNACKBAR_ACTION } from "sources";
 import { FormsModule } from "@angular/forms";
 import { MatInputModule } from "@angular/material/input";
 

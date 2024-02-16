@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { IPostCategoryList } from "sources-types";
+import { IPostCategoryList } from "sources";
 
 @Component({
   selector: "post-category-controller",
