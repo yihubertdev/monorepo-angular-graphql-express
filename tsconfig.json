@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "allowUnreachableCode": false,
-    "lib": ["esnext", "dom", "es2020"],
+    "lib": [
+      "esnext",
+      "dom",
+      "es2020"
+    ],
     "outDir": "./dist/out-tsc",
     "skipLibCheck": true,
     "resolveJsonModule": true,
@@ -22,11 +26,16 @@
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "strict": true,
+    "alwaysStrict": true,
     "allowJs": true,
     "strictNullChecks": true
   },
-  "include": ["packages/**/*.ts"],
-  "exclude": ["**/node_modules/*", "**/.*/"],
+  "include": [
+    "packages/**/*.ts"
+  ],
+  "exclude": [
+    "**/node_modules/*",
+    "**/.*/"
+  ],
   "sourceMap": true
 }

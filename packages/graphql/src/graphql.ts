@@ -3,7 +3,7 @@ import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
 import { IUser } from "sources";
 import { ApolloServer } from "apollo-server-express";
-import {logger} from "firebase-functions"
+import { logger } from "firebase-functions";
 
 export interface IFaceGraphqlContext {
   remoteAddress?: string;
@@ -78,14 +78,7 @@ const schema = makeExecutableSchema({
 //   };
 // }
 
-function context({
-  req,
-}: {
-  req: Request;
-  res: Response;
-}) {
-  logger.log(req.headers["authorization"])
-}
+function context({ req }: { req: Request; res: Response }) {}
 
 export const server = new ApolloServer({
   schema,

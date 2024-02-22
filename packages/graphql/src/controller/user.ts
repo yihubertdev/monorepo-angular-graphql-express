@@ -1,4 +1,4 @@
-import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
 import { IFaceGraphqlContext } from "../graphql";
 import models from "../models";
 import { PubSub } from "@google-cloud/pubsub";
@@ -6,9 +6,8 @@ import { gql } from "apollo-server";
 
 // Creates a client; cache this for further use
 const pubSubClient = new PubSub();
-console.log(FieldResolver)
 class UserResolver {
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       extend type Query {
         posts: Boolean
@@ -28,7 +27,7 @@ class UserResolver {
     return false;
   }
 
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       input PublishMessageInput {
         data: String
@@ -59,7 +58,7 @@ class UserResolver {
     return false;
   }
 
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       input PostUserInput {
         "Create user Id"
@@ -75,7 +74,7 @@ class UserResolver {
     type: RESOLVER_TYPE.MUTATION,
   })
   postUser(source, args, context, info) {
-    console.log(args);
+    console.log(args.message);
     const i = 1;
     return "hello";
   }

@@ -1,8 +1,8 @@
-import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
 import { gql } from "apollo-server";
 
 class ArticleResolver {
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       extend type Query {
         anotherhello: String
@@ -15,7 +15,7 @@ class ArticleResolver {
     return i;
   }
 
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       extend type Query {
         anotherAnotherHello: String

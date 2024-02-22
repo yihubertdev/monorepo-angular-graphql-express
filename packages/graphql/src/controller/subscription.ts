@@ -1,10 +1,10 @@
-import { FieldResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
 import client from "../client";
 import { TokenMessage } from "firebase-admin/messaging";
 import { gql } from "apollo-server";
 
 class SubscriptionResolver {
-  @FieldResolver({
+  @TypeResolver({
     schema: gql`
       type SendMessagingOutput {
         result: Boolean
