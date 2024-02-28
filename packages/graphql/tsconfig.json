@@ -9,13 +9,9 @@
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "sources": [
-        "../types/src/index.d.ts"
-      ],
-    },
+      "sources": ["../types/src/index.d.ts"]
+    }
   },
   "compileOnSave": true,
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

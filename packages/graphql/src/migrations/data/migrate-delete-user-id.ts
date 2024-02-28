@@ -12,7 +12,7 @@ export async function migrationDeleteUserId(): Promise<void> {
   const batch = fireStore.batch();
 
   try {
-    const users = await firestore.users.getAllUsers({}) as any;
+    const users = (await firestore.users.getAllUsers({})) as any;
     await Promise.all(
       users.map(async (user) => {
         const userRef = fireStore.collection("users").doc(user["userId"]);
