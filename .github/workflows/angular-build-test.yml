@@ -25,6 +25,6 @@ jobs:
       fail-fast: false
       matrix:
         backend: 
-          - lint
+          - build
     with:
       graphql-mono: run ${{ matrix.backend }}

@@ -25,7 +25,7 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "lint": "npx eslint --ext .ts .",
+    "lint": "eslint -c .eslintrc.json --ext .ts .",
     "knex:run": "npx knex --knexfile src/database/knexfile",
     "migrate:list": "npm run knex:run -- migrate:list",
     "migrate:make": "npm run knex:run -- migrate:make",
