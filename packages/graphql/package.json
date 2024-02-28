@@ -6,6 +6,7 @@
   "author": "hubertyydev",
   "homepage": "",
   "license": "ISC",
+  "prettier": "../../.prettierrc",
   "directories": {
     "src": "src",
     "test": "__tests__"

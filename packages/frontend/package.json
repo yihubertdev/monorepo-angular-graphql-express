@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "version": "0.0.0",
+  "prettier": "../../.prettierrc",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration development",
