@@ -45,7 +45,7 @@ jobs:
         run: chmod +x ./deploy.sh
         shell: bash
       - name: Install packages dependencies
-        run: ./deploy.sh
+        run: yarn install
       - name: Run npm script
         if: inputs.frontend
         run: yarn workspace frontend -- ${{ inputs.frontend }}
