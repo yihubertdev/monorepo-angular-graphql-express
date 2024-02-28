@@ -1,1 +1,0 @@
-{"version":3,"file":"knex.js","sourceRoot":"","sources":["../../../../../packages/graphql/src/client/knex.ts"],"names":[],"mappings":";;;AAAA,+BAAkC;AAClC,oDAAkE;AAElE;;;;GAIG;AACH,SAAS,WAAW,CAAC,UAAgC,EAAE;IACrD,MAAM,MAAM,GAAG,IAAA,oCAAyB,EAAC,OAAO,CAAC,CAAC;IAElD,OAAO,IAAA,WAAI,EAAC,MAAM,CAAC,CAAC;AACtB,CAAC;AAEY,QAAA,QAAQ,GAAG;IACtB,WAAW;CACZ,CAAC"}
