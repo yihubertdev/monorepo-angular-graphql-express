@@ -12,6 +12,9 @@
     "deploy-role": "firebase deploy --only firestore:rules"
   },
   "private": true,
+  "workspaces": {
+    "nohoist": ["quill", "bootstrap"]
+  },
   "dependencies": {
     "@angular/animations": "^17.0.8",
     "@angular/cdk": "^17.0.4",

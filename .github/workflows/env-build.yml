@@ -44,10 +44,10 @@ jobs:
       - name: Install root dependencies
         run: npm ci
       - name: Install packages dependencies
-        run: npx lerna bootstrap
+        run: ./deploy.sh
       - name: Run npm script
         if: inputs.frontend
-        run: npx lerna exec --scope frontend -- npm ${{ inputs.frontend }}
+        run: yarn workspace frontend -- ${{ inputs.frontend }}
       - name: Run backend script
         if: inputs.graphql-mono
-        run: npx lerna exec --scope graphql -- npm ${{ inputs.graphql-mono }}
+        run: yarn workspace graphql -- ${{ inputs.graphql-mono }}

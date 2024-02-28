@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "packing the dependencies"
 
-cd ../types
+cd ../type-source
 
 SHARED_TYPES=$(find . -type f -name "*.tgz")
 
@@ -15,7 +15,7 @@ cp $SHARED_TYPES ../frontend/dependencies
 
 cd ../frontend/dependencies
 
-npm uninstall @types/sources
+npm uninstall type-source
 npm install $SHARED_TYPES --save-dev
 
 # cp $SHARED_TYPES ../ui/dependencies

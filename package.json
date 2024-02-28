@@ -1,14 +1,16 @@
 {
-  "name": "yihu-tech-blog",
+  "name": "yu-monorepo",
   "version": "1.0.0",
-  "description": "yihu tech blog monorepo",
+  "description": "monorepo",
   "author": "hubertyydev",
   "license": "ISC",
+  "private": true,
   "scripts": {
     "pretty": "npx prettier --config ./.prettierrc --write .",
     "start": "npx lerna run start --parallel",
     "add": "npx lerna add package --scope=workspace",
-    "checkpack": "ncu -u"
+    "checkpack": "ncu -u",
+    "pack": "./deploy.sh"
   },
   "dependencies": {
     "ts-node": "^10.9.2",
@@ -36,5 +38,9 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged --check && npm run pretty && npx lerna exec -- npm run lint"
     }
-  }
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "repository": "git@github.com:yihubertdev/monorepo-angular-graphql-express.git"
 }

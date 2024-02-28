@@ -1,7 +1,7 @@
 #!/bin/bash
 echo "packing the dependencies"
 
-cd ../types
+cd ../type-source
 
 npm run build
 
@@ -13,6 +13,6 @@ mv $SHARED_TYPES ../graphql/dependencies
 
 cd ../graphql/dependencies
 
-npm uninstall @types/sources
+npm uninstall type-source
 
 npm install $SHARED_TYPES --save-dev
