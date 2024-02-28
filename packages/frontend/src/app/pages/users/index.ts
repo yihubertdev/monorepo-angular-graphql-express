@@ -68,6 +68,13 @@ export const route: IFullRoute[] = [
     canActivate: [isUserVerified],
     loadComponent: () => import("./notification.view"),
   },
+  {
+    path: "room",
+    description: "ROOM",
+    icon: "groups",
+    canActivate: [isUserVerified],
+    loadComponent: () => import("./room.view"),
+  },
 ];
 
 export const DRAWER_MENU: IMenu[] = route
