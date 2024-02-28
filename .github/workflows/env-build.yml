@@ -28,7 +28,7 @@ jobs:
         working-directory: ${{ github.workspace }}
     strategy:
       matrix:
-        node-version: [16.14.2]
+        node-version: [20.9.0]
     steps:
       - name: Checkout github env
         uses: actions/checkout@v3
