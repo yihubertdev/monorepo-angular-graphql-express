@@ -9,7 +9,7 @@ import {
   Route,
 } from "@angular/router";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 import { SITE_ROUTE_PAGE } from "../../static/menu.static";
 import { User } from "@angular/fire/auth";
 

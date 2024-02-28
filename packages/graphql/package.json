@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "@types/sources": "file:dependencies/types-sources-1.0.0.tgz",
+    "type-sources": "workspaces: *",
     "@types/uuid": "^9.0.8",
     "graphql-constraint-directive": "^5.4.1",
     "lodash": "^4.17.21",

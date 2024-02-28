@@ -13,7 +13,7 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, RouterModule } from "@angular/router";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";

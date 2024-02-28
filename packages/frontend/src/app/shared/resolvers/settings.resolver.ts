@@ -4,7 +4,7 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from "@angular/router";
-import { IUser, SETTING_COLLECTION } from "sources";
+import { IUser, SETTING_COLLECTION } from "type-sources";
 
 import { UserService } from "../../core/services/fireStore/users.firestore";
 import { AuthService } from "src/app/core/services/fireAuth/auth";

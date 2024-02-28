@@ -7,9 +7,9 @@ import {
   DocumentReference,
   QueryDocumentSnapshot,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, SUBCOLLECTION_HANDLER } from "sources";
+import { FIRESTORE_COLLECTION, SUBCOLLECTION_HANDLER } from "type-sources";
 import { v4 as uuidv4 } from "uuid";
-import { ICollectionQueryBuilder, POST } from "sources";
+import { ICollectionQueryBuilder, POST } from "type-sources";
 import joiValidator from "../../utils/validator";
 import {
   deleteCollectionBuilderSchema,

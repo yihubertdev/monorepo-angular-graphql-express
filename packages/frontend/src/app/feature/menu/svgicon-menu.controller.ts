@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ISVGIconMenu } from "sources";
+import { ISVGIconMenu } from "type-sources";
 import { HOME_MENU } from "../../pages/home";
 import { NgFor, NgIf } from "@angular/common";
 import { RouterModule } from "@angular/router";

@@ -6,7 +6,7 @@ import {
   UserDetailCardComponent,
 } from "../../shared/components/postCard/user-details-card.component";
 import { UserService } from "../../core/services/fireStore/users.firestore";
-import { IProfileHomeAddress, IUser } from "sources";
+import { IProfileHomeAddress, IUser } from "type-sources";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 
 @Component({

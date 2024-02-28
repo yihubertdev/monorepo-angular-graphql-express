@@ -4,7 +4,7 @@ import { AuthService } from "../fireAuth/auth";
 import { UserService } from "../fireStore/users.firestore";
 import { FireStorageBaseModel } from "./basic.bucket";
 import { SessionStorageService } from "../browserStorage/sessionStorage";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 
 @Injectable({ providedIn: "root" })
 export class ProfileStorageService extends FireStorageBaseModel {

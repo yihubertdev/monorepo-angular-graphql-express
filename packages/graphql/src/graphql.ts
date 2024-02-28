@@ -1,7 +1,7 @@
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { totalResolver, totalTypeDefs } from "./decorators/resolver";
 import "./controller";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 import { ApolloServer } from "apollo-server-express";
 import { logger } from "firebase-functions";
 

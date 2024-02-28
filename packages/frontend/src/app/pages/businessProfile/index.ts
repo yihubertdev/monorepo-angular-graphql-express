@@ -2,7 +2,7 @@ import {
   BusinessProfileResolver,
   PersonalProfileResolver,
 } from "../../shared/resolvers/settings.resolver";
-import { IMenu } from "sources";
+import { IMenu } from "type-sources";
 import { IFullRoute } from "src/app/routes";
 
 export const route: IFullRoute[] = [

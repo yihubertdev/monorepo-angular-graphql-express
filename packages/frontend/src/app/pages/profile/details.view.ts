@@ -2,7 +2,7 @@ import { CommonModule } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { UserDetailsController } from "../../feature/userProfile/user-details.controller";
 import { SessionStorageService } from "../../core/services/browserStorage/sessionStorage";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 
 @Component({
   standalone: true,

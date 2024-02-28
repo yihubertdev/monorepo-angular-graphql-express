@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
-import { ISVGIconMenu } from "sources";
+import { ISVGIconMenu } from "type-sources";
 import { LOGIN_MENU } from "../../core/static/menu.static";
 import { NgFor } from "@angular/common";
 import { MatListModule } from "@angular/material/list";

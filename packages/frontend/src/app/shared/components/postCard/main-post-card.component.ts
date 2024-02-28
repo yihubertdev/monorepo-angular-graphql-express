@@ -4,7 +4,7 @@ import {
   Input,
   OnInit,
 } from "@angular/core";
-import { POST } from "sources";
+import { POST } from "type-sources";
 import { NgIf, NgStyle, DatePipe, NgFor } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { RouterModule } from "@angular/router";

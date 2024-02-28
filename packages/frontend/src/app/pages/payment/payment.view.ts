@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { IPostList } from "sources";
+import { IPostList } from "type-sources";
 import { postList } from "../../core/static/post.static";
 
 @Component({

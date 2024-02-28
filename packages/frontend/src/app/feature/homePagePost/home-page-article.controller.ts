@@ -1,6 +1,6 @@
 import { NgFor } from "@angular/common";
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { IArticle, IUser } from "sources";
+import { IArticle, IUser } from "type-sources";
 import { SessionStorageService } from "../../core/services/browserStorage/sessionStorage";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { ArticleCardComponent } from "../../shared/components/postCard/article-card.component";

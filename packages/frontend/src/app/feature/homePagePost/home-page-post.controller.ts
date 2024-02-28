@@ -1,5 +1,5 @@
 import { Component, HostListener, Input, OnInit } from "@angular/core";
-import { POST } from "sources";
+import { POST } from "type-sources";
 import { PostFireStore } from "../../core/services/fireStore/blog.firestore";
 import { PostCardComponent } from "../../shared/components/postCard/post-card.component";
 import { NgIf } from "@angular/common";

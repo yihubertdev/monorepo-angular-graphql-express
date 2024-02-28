@@ -1,5 +1,5 @@
 import * as Joi from "joi";
-import { SUBCOLLECTION_HANDLER } from "sources";
+import { SUBCOLLECTION_HANDLER } from "type-sources";
 
 export const subCollectionBuilderSchema: Joi.ObjectSchema = Joi.object({
   next: Joi.object().optional(),

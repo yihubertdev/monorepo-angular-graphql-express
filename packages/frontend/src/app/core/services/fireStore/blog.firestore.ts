@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, POST, IArticle } from "sources";
+import { FIRESTORE_COLLECTION, POST, IArticle } from "type-sources";
 import { FireStoreBaseModel } from "./basic.firestore";
 import {
   HomePagePostCache,

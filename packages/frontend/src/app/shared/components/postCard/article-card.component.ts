@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
-import { IArticle } from "sources";
+import { IArticle } from "type-sources";
 import { RouterModule } from "@angular/router";
 import { MatIconModule } from "@angular/material/icon";
 

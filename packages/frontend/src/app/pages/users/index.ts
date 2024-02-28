@@ -3,7 +3,7 @@ import {
   replaceUserId,
 } from "../../core/services/routeGuard/index.guard";
 import { userProfileResolver } from "../../shared/resolvers/post.resolver";
-import { IMenu } from "sources";
+import { IMenu } from "type-sources";
 import { IFullRoute } from "../../routes";
 
 export const profileSetting: IFullRoute[] = [

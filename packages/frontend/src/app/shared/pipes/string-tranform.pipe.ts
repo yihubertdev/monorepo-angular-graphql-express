@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { MentionConfig } from "angular-mentions";
-import { SETTING_CATEGORY } from "sources";
+import { SETTING_CATEGORY } from "type-sources";
 import { UserService } from "src/app/core/services/fireStore/users.firestore";
 import { transpileModule } from "typescript";
 

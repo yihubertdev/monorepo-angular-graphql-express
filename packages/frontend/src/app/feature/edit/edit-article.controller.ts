@@ -2,17 +2,17 @@ import { Component } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { Router } from "@angular/router";
 import { articleEditSchema } from "../../core/joiSchema";
-import { IUser } from "sources";
+import { IUser } from "type-sources";
 import { AuthService } from "../../core/services/fireAuth/auth";
 import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
-import { IArticle } from "sources";
+import { IArticle } from "type-sources";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { HttpClientModule } from "@angular/common/http";
 import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { EDIT_ARTICLE_FORM } from "src/app/core/static/form.static";
-import { POST } from "sources";
+import { POST } from "type-sources";
 
 @Component({
   standalone: true,

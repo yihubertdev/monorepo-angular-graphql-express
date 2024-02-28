@@ -4468,14 +4468,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/sources@file:packages/frontend/dependencies/types-sources-1.0.0.tgz":
-  version "1.0.0"
-  resolved "file:packages/frontend/dependencies/types-sources-1.0.0.tgz#2d9645030b8f69f6b32ac2f8eeebacf45a96da31"
-
-"@types/sources@file:packages/graphql/dependencies/types-sources-1.0.0.tgz":
-  version "1.0.0"
-  resolved "file:packages/graphql/dependencies/types-sources-1.0.0.tgz#a53945e5cdf296d61a8aa6b908b93e1ce35f1734"
-
 "@types/strip-bom@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/strip-bom/-/strip-bom-3.0.0.tgz#14a8ec3956c2e81edb7520790aecf21c290aebd2"

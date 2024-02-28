@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FireStoreBaseModel } from "./basic.firestore";
-import { FIRESTORE_COLLECTION } from "sources";
+import { FIRESTORE_COLLECTION } from "type-sources";
 import {
   AngularFirestore,
   AngularFirestoreCollection,

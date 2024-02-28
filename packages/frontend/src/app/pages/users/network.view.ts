@@ -10,7 +10,7 @@ import { UserProfileController } from "../../feature/userProfile/user-profile.co
 import { MatTabsModule } from "@angular/material/tabs";
 import { PROFILE_MENU } from "../profile";
 import { MatIconModule } from "@angular/material/icon";
-import { IStringMenu } from "sources";
+import { IStringMenu } from "type-sources";
 
 @Component({
   standalone: true,

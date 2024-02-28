@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { IMenu } from "sources";
+import { IMenu } from "type-sources";
 import { SITE_ROUTE_PAGE } from "../../core/static/menu.static";
 import { NgStyle } from "@angular/common";
 import { MatListModule } from "@angular/material/list";

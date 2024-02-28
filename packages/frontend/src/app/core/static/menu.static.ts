@@ -1,4 +1,4 @@
-import { IMenu, INestedMenu, ISVGIconMenu } from "sources";
+import { IMenu, INestedMenu, ISVGIconMenu } from "type-sources";
 export const SITE_ROUTE_PAGE = {
   ADD_ARTICLE: ["users", "add-article"],
   ADD_POST: ["users", "add-post"],

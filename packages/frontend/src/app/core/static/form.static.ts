@@ -11,7 +11,7 @@ import {
   PartialRecord,
   SETTING_CATEGORY,
   SETTING_COLLECTION,
-} from "sources";
+} from "type-sources";
 import { JoiSchemaBuilder } from "../utils/validator";
 import {
   IMAGE_FILE_SCHEMA,

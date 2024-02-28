@@ -5,11 +5,11 @@ import {
   Input,
   ViewChild,
 } from "@angular/core";
-import { POST } from "sources";
+import { POST } from "type-sources";
 import { postCardMenu } from "../../../core/static/menu.static";
 import { PostFireStore } from "../../../core/services/fireStore/blog.firestore";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
-import { EMBED_YOUTUBE } from "sources";
+import { EMBED_YOUTUBE } from "type-sources";
 import { NgIf, NgStyle, DatePipe, NgFor } from "@angular/common";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";

@@ -1,7 +1,7 @@
 import { loginCheck } from "../../core/services/routeGuard/index.guard";
 import { homePagePostResolver } from "../../shared/resolvers/post.resolver";
 import { IFullRoute } from "../../routes";
-import { ISVGIconMenu } from "sources";
+import { ISVGIconMenu } from "type-sources";
 // URL naming
 // key1, key2 are paramteres
 // https//www.hubspotexample.com/page?key1=value1&key2=value2
