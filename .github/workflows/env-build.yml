@@ -41,6 +41,9 @@ jobs:
         run: npm cache clean --force
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+      - name: Add permission to shell
+        run: chmod +x ./deploy.sh
+        shell: bash
       - name: Install packages dependencies
         run: ./deploy.sh
       - name: Run npm script
