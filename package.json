@@ -37,8 +37,16 @@
       "pre-commit": "pretty-quick --staged --check && npm run pretty && npx lerna exec -- npm run lint"
     }
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ],
+    "nohoist": [
+      "**/firebase-admin",
+      "**/firebase-admin/**",
+      "**/firebase-functions",
+      "**/firebase-functions/**"
+    ]
+  },
   "repository": "git@github.com:yihubertdev/monorepo-angular-graphql-express.git"
 }
