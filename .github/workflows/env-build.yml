@@ -37,8 +37,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - name: clear cache
-        run: npm cache clean --force
       - name: Install Angular CLI
         run: npm install -g @angular/cli
       - name: Add permission to shell
