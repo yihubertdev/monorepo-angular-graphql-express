@@ -6,3 +6,4 @@ node_modules
 .vscode
 dist
 # folder dist build
+yarn.lock
