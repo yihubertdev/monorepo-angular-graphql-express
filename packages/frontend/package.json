@@ -56,7 +56,7 @@
     "@angular/compiler-cli": "^17.0.8",
     "@types/jasmine": "~5.1.4",
     "@types/node": "^20.10.5",
-    "type-sources": "workspaces: *",
+    "type-sources": "file:../type-sources/type-sources-v1.0.0.tgz",
     "angular-mentions": "^1.5.0",
     "jasmine-core": "~5.1.1",
     "karma": "~6.4.2",

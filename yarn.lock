@@ -12128,9 +12128,10 @@ type-is@~1.6.18:
     media-typer "0.3.0"
     mime-types "~2.1.24"
 
-"type-sources@file:./packages/graphql/dependencies/type-sources-v1.0.0.tgz":
+"type-sources@file:packages/type-sources/type-sources-v1.0.0.tgz":
   version "1.0.0"
-  resolved "file:./packages/graphql/dependencies/type-sources-v1.0.0.tgz#e6e0b29611e3d48ecdb148e7ba16504bdbb528e6"
+  uid "4f3195a511b145365ef95234b87d4d34d3aa7afe"
+  resolved "file:packages/type-sources/type-sources-v1.0.0.tgz#4f3195a511b145365ef95234b87d4d34d3aa7afe"
 
 typed-array-buffer@^1.0.2:
   version "1.0.2"

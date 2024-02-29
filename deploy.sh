@@ -7,8 +7,4 @@ cd ./packages/type-sources
 
 SHARED_TYPES=$(find . -type f -name "*.tgz")
 
-cp $SHARED_TYPES ../frontend/dependencies ../graphql/dependencies
-
-cd ../../
-
 yarn install

@@ -11,12 +11,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        frontend:
+        script:
           - lint
           - format
           - test
     with:
-      frontend-mono: run ${{ matrix.frontend }}
+      frontend-mono: run ${{ matrix.script }}
 
   backend-quality:
     name: Backend - ${{ matrix.script }}
@@ -24,7 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        backend: 
+        script: 
           - format
     with:
-      graphql-mono: run ${{ matrix.backend }}
+      graphql-mono: run ${{ matrix.script }}
