@@ -11,3 +11,4 @@ docker-compose.yml
 dist/
 .github/
 .serverless
+.eslintrc.json

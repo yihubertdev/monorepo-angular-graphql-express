@@ -18,7 +18,7 @@
   },
   "main": "lib/src/index.js",
   "scripts": {
-    "format": "prettier --write .",
+    "format": "prettier --config ../../.prettierrc --write .",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "npm run build && firebase emulators:start --only functions",
@@ -45,7 +45,8 @@
     "firebase-functions": "^4.3.1",
     "graphql": "^16.8.1",
     "joi": "^17.12.1",
-    "knex": "^3.1.0"
+    "knex": "^3.1.0",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
