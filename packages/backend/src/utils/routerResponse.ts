@@ -5,7 +5,7 @@ import {
   API_RESPONSE_FAILURE_MESSAGE,
   API_RESPONSE_GENERIC_MESSAGE,
   API_RESPONSE_SUCCESS_MESSAGE,
-} from "../decorators/constants";
+} from "./decorators";
 
 type TypeApiResponse =
   | API_RESPONSE_FAILURE_MESSAGE
@@ -161,8 +161,8 @@ export class ResponseHandler {
 
   /**
    * Common function used to send json response when user is not allowed for action
-   * @param {Response} res
-   * @param {TypeApiResponse} [message]
+   * @param {Response} res res
+   * @param {TypeApiResponse} [message] m
    * @returns {void}
    */
   protected forbidden(res: Response, message?: TypeApiResponse): void {

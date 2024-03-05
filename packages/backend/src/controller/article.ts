@@ -1,4 +1,4 @@
-import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../utils/decorators";
 import { gql } from "apollo-server";
 
 class ArticleResolver {
@@ -24,7 +24,6 @@ class ArticleResolver {
     type: RESOLVER_TYPE.QUERY,
   })
   anotherAnotherHello() {
-    const i = 1;
     return "hello1";
   }
 }

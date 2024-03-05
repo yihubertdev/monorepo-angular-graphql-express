@@ -10,6 +10,14 @@
     "src": "src",
     "test": "__tests__"
   },
+  "workspaces": {
+    "nohoist": [
+      "**/firebase-admin",
+      "**/firebase-admin/**",
+      "**/firebase-functions",
+      "**/firebase-functions/**"
+    ]
+  },
   "files": [
     "src"
   ],

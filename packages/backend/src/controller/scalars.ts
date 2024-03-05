@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Scalar } from "../decorators/resolver";
+import { Scalar } from "../utils/decorators";
 
 class ScalarDefinition {
   @Scalar({

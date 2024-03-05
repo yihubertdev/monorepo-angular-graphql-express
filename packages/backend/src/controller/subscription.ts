@@ -1,4 +1,4 @@
-import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../utils/decorators";
 import client from "../client";
 import { TokenMessage } from "firebase-admin/messaging";
 import { gql } from "apollo-server";

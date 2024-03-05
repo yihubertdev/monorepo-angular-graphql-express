@@ -7,6 +7,9 @@ import { server } from "./graphql";
 import express from "express";
 import { onRequest } from "firebase-functions/v1/https";
 import cors from "cors";
+import "./routers"; // This is important
+import { appRouter } from "./utils/decorators";
+
 const graphqlHost = express();
 
 /**
@@ -29,9 +32,7 @@ const rest = express();
 rest.use(express.json());
 rest.use(express.text());
 rest.use(cors());
-
-rest.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+console.log(appRouter);
+rest.use(appRouter);
 
 exports.rest = onRequest(rest);

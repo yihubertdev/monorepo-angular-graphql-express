@@ -2,14 +2,15 @@ import Joi from "joi";
 
 /**
  * Validates an arbitrary object against a Joi schema
- *
- * @param {Joi.ObjectSchema<any>} schema
- * @param {object} params
- * @returns {T | unknown}
- * @throws {OnmoValidationError} - If the validation failed
+ * @param {Joi.ObjectSchema<any>} schema joi schema
+ * @param {object} params T
+ * @returns {object} value
  */
 export function validate<T>(
-  schema: Joi.ObjectSchema<any> | Joi.ArraySchema | Joi.StringSchema<any>,
+  schema:
+    | Joi.ObjectSchema<unknown>
+    | Joi.ArraySchema
+    | Joi.StringSchema<unknown>,
   params: T | unknown
 ): T {
   // Joi returns `any` as a type rather than `unknown`, so eslint complains about us destructuring it

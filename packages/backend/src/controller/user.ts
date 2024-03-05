@@ -1,4 +1,4 @@
-import { TypeResolver, RESOLVER_TYPE } from "../decorators/resolver";
+import { TypeResolver, RESOLVER_TYPE } from "../utils/decorators";
 import { IFaceGraphqlContext } from "../graphql";
 import models from "../models";
 import { PubSub } from "@google-cloud/pubsub";
@@ -74,7 +74,6 @@ class UserResolver {
     type: RESOLVER_TYPE.MUTATION,
   })
   postUser(source, args, context, info) {
-    console.log(args.message);
     const i = 1;
     return "hello";
   }
