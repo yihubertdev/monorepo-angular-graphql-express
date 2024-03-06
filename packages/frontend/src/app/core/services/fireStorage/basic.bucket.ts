@@ -32,7 +32,6 @@ export interface IUploadMultipleFileRes {
 export abstract class FireStorageBaseModel {
   /**
    * uploadPercent
-   *
    * @protected
    */
   public uploadPercent$: Observable<{
@@ -42,35 +41,30 @@ export abstract class FireStorageBaseModel {
 
   /**
    * File saved path
-   *
    * @protected
    */
   protected abstract path: string;
 
   /**
    * File saved category
-   *
    * @protected
    */
   protected abstract category: string;
 
   /**
    * File saved storageRef
-   *
    * @protected
    */
   protected storageRef?: StorageReference;
 
   /**
    * Constructor
-   *
    * @param {Storage}storage storage
    */
   constructor(protected storage: Storage) {}
 
   /**
    * Upload file into fire storage bucket
-   *
    * @public
    * @param {File} file upload file
    * @param {string} id upload file id
@@ -109,7 +103,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Upload file into fire storage bucket
-   *
    * @public
    * @param {File} file upload file
    * @param {string} id upload file id
@@ -142,7 +135,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Upload multiple file with storageRef
-   *
    * @public
    * @param {IUploadFile[]} uploadFiles upload file
    * @param {string} path upload file path
@@ -194,7 +186,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Get Multiple File Download URl
-   *
    * @public
    * @param {StorageReference[]} storageRefs upload file
    * @returns {string[]} return upload task
@@ -205,7 +196,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Get Download URl
-   *
    * @public
    * @param {StorageReference} storageRef upload file
    * @returns {string[]} return upload task
@@ -218,7 +208,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Delete file
-   *
    * @public
    */
   public deleteFile = async (): Promise<void> => {
@@ -228,7 +217,6 @@ export abstract class FireStorageBaseModel {
 
   /**
    * Delete file by url
-   *
    * @param {string}url delete file by url
    * @public
    */

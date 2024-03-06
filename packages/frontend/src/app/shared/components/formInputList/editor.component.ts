@@ -62,7 +62,7 @@ export class EditorComponent {
 
   getEditorInstance(editorInstance: any) {
     this.editorRef = editorInstance;
-    let toolbar = editorInstance.getModule("toolbar");
+    const toolbar = editorInstance.getModule("toolbar");
     toolbar.addHandler("image", () => {
       this.uploadImageRef.nativeElement.click();
     });

@@ -98,7 +98,7 @@ export class UserService extends FireStoreBaseModel<IUser> {
   public async listUserByUserIdWithCache(userId: string): Promise<IUser> {
     let cache = this._userCache.get();
 
-    let cachedUser = cache?.find((u) => u.userId == userId);
+    const cachedUser = cache?.find((u) => u.userId == userId);
     if (cachedUser) {
       return cachedUser;
     }
@@ -121,7 +121,7 @@ export class UserService extends FireStoreBaseModel<IUser> {
   public async listUserByUserIdWithUId(uid: string): Promise<IUser> {
     let cache = this._userCache.get();
 
-    let cachedUser = cache?.find((u) => u.uid == uid);
+    const cachedUser = cache?.find((u) => u.uid == uid);
     if (cachedUser) {
       return cachedUser;
     }
@@ -172,7 +172,7 @@ export class UserService extends FireStoreBaseModel<IUser> {
     user: QueryDocumentSnapshot<IUser>;
   }> {
     const { userId, collectionId } = filter;
-    let query = this.collection.ref.where("userId", "==", userId);
+    const query = this.collection.ref.where("userId", "==", userId);
 
     const [user] = (await query.get()).docs;
     // return document;

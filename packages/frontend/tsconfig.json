@@ -14,8 +14,8 @@
       "rxjs": ["./node_modules/rxjs"],
       "@angular/*": ["./node_modules/@angular/*"],
       // "angular-shared-ui": ["../frontend-shared/library/ui/src/index.ts"],
-      "sources": [
-        "../types/src/index.d.ts"
+      "type-sources": [
+        "../type-sources/src/index.d.ts"
       ],
       "ui": [
         "./dist/ui"

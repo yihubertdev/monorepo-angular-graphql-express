@@ -17,7 +17,10 @@
         "createDefaultProgram": true
       },
       "extends": [
-        "plugin:prettier/recommended",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/typescript",
+        "plugin:jsdoc/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
         "plugin:jsdoc/recommended"

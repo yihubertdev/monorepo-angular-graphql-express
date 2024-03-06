@@ -94,7 +94,7 @@ export abstract class FireStoreBaseModel<T> {
    */
   public retrieve = async (filter: { userId?: string }): Promise<T[]> => {
     const { userId } = filter;
-    let query = this.collection.ref.where("userId", "==", userId);
+    const query = this.collection.ref.where("userId", "==", userId);
 
     const result = await query.get();
     // return document;
@@ -319,7 +319,7 @@ export abstract class FireStoreBaseModel<T> {
     handler: SUBCOLLECTION_HANDLER
   ): Promise<void | DocumentData> {
     const { documentId, collectionId, documentValue, next } = queryBuilder;
-    let newQueries = queries.doc(documentId);
+    const newQueries = queries.doc(documentId);
 
     return next
       ? this.buildSubCollectionHandler(

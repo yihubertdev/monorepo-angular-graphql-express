@@ -6,21 +6,18 @@ import { FireStorageBaseModel } from "./basic.bucket";
 export class FormFileStorageService extends FireStorageBaseModel {
   /**
    * Form document path
-   *
    * @protected
    */
   protected path: string = "form";
 
   /**
    * Form document category
-   *
    * @protected
    */
   protected category: string = "form";
 
   /**
    * Contructor
-   *
    * @protected
    * @param {Storage} storage firestore storage
    */

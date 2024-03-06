@@ -110,7 +110,7 @@ export class PostFireStore extends FireStoreBaseModel<POST.IPost> {
     }
     const users = this._userCache.get();
     const groupedData = keyBy(users!, "userId");
-    let post = await this.list(limit, Object.keys(groupedData));
+    const post = await this.list(limit, Object.keys(groupedData));
 
     const postFull: { hasFile: boolean; data: POST.IPostFull[] } = {
       hasFile: post.hasFile,

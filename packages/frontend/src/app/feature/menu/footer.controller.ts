@@ -49,7 +49,7 @@ export class FooterController {
 
   @HostListener("window:scroll", ["$event"])
   onWindowScroll($event: Event) {
-    let position =
+    const position =
       (document.documentElement.scrollTop || document.body.scrollTop) +
       document.documentElement.offsetHeight;
     position >= this._position
