@@ -209,8 +209,7 @@ export class UserProfileController implements OnInit {
   styleUrls: [],
 })
 export class ImageCropperDialog {
-  imageChangedEvent: any = "";
-  croppedImage: any = "";
+  croppedImage: string = "";
   blob?: Blob | null;
   constructor(
     public dialogRef: MatDialogRef<ImageCropperDialog>,

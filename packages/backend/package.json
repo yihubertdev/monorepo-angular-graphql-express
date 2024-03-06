@@ -1,5 +1,5 @@
 {
-  "name": "graphql",
+  "name": "backend",
   "version": "1.0.0",
   "private": true,
   "description": "Serverless apollo graphql lambda",
@@ -9,14 +9,6 @@
   "directories": {
     "src": "src",
     "test": "__tests__"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**/firebase-admin",
-      "**/firebase-admin/**",
-      "**/firebase-functions",
-      "**/firebase-functions/**"
-    ]
   },
   "files": [
     "src"
@@ -58,7 +50,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.202",
-    "type-sources": "file:../type-sources/type-sources-v1.0.0.tgz",
+    "type-sources": "file:dependencies/type-sources-1.0.0.tgz",
     "@types/uuid": "^9.0.8",
     "graphql-constraint-directive": "^5.4.1",
     "lodash": "^4.17.21",

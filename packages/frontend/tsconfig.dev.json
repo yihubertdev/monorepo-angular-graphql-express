@@ -13,8 +13,9 @@
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
       "@angular/*": ["./node_modules/@angular/*"],
-      "angular-shared-ui": ["../frontend-shared/library/ui/index.ts"],
-      "sources": ["../types/src/index.d.ts"]
+      "type-sources": [
+        "./node_modules/type-sources/src/index.ts"
+      ],
     },
     "declaration": false,
     "downlevelIteration": true,

@@ -1,8 +1,8 @@
 {
   "functions": [
     {
-      "source": "packages/graphql",
-      "codebase": "graphql",
+      "source": "packages/backend",
+      "codebase": "backend",
       "ignore": [
         "node_modules",
         ".git",
