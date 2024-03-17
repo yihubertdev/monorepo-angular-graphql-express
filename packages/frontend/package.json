@@ -68,7 +68,7 @@
     "loader-utils": ">=3.2.1",
     "ng-packagr": "^17.2.1",
     "typescript": "~5.3.3",
-    "type-sources": "file:dependencies/type-sources-1.0.0.tgz"
+    "type-sources": "file:dependencies/type-sources-v1.0.0.tgz"
   },
   "engines": {
     "node": "20"

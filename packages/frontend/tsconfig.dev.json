@@ -14,7 +14,7 @@
       "rxjs": ["./node_modules/rxjs"],
       "@angular/*": ["./node_modules/@angular/*"],
       "type-sources": [
-        "./node_modules/type-sources/src/index.ts"
+        "../type-sources/src/index.d.ts"
       ],
     },
     "declaration": false,
