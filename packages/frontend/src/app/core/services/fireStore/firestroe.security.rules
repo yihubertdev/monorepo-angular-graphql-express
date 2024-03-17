@@ -60,5 +60,9 @@ service cloud.firestore {
             allow create: if request.auth != null && isNewDataMatchedUser();
             allow update, delete: if currentArticleInfo(articleId).userId == currentUserInfo().userId;
         }
+
+        match /ROOM/{document=**} {
+            allow read, update, delete, create: if true;
+        }
     }
 }

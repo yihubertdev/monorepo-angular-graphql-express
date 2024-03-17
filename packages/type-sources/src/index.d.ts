@@ -7,6 +7,13 @@ export const enum FIRESTORE_COLLECTION {
   blogs = "blogs",
   article = "article",
   networth = "networth",
+  ROOM = "ROOM"
+}
+
+export const enum FIRESTORE_SUBCOLLECTION {
+  OFFER = "OFFER",
+  ANSWER = "ANSWER",
+  ICE = "ICE"
 }
 
 export const enum FIREAUTH_PERSISTENCE {
@@ -150,6 +157,41 @@ export namespace POST {
   };
 }
 
+export namespace ISubCollectionQuery {
+  // when user provide one collection id with the document value, it will create it under the root collection user provided
+  // when user provide next, it will create the sub-collection next to the current collection
+  export interface ICreate<T> {
+    collectionId?: string;
+    documentValue?: T;
+    next?: ISubCollectionQuery.Create<T>;
+  }
+
+  export interface IUpdate<T> {
+    documentId?: string;
+    collectionId?: string;
+    documentValue?: T;
+    next?: ISubCollectionQuery.Update<T>;
+  }
+
+  export interface IRead<T> {
+    documentId?: string;
+    collectionId?: string;
+    next?: ISubCollectionQuery.Read<T>;
+  }
+
+  export interface IDelete<T> {
+    documentId?: string;
+    collectionId?: string;
+    next?: ISubCollectionQuery.Delete<T>;
+  }
+}
+
+export interface ICreateSubCollectionQuery<T> {
+  collectionId?: string;
+  documentValue?: T;
+  next?: ICollectionQueryBuilder<T>;
+}
+
 export interface ICollectionQueryBuilder<T> {
   documentId?: string;
   collectionId?: string;
@@ -282,6 +324,38 @@ export interface IUser {
   description: string | null;
   backgroundPhotoURL: string | null;
   role: IUserRole;
+}
+
+export const enum ROOM_TYPE {
+  BASIC = "BASIC"
+}
+
+export namespace IRoom {
+  export interface IBase {
+    type: ROOM_TYPE;
+    enabled: boolean;
+    createdAt: number;
+    updatedAt: number;
+  }
+
+  export interface IFull extends Base {
+    id: string;
+  }
+
+  export interface ICE {
+    userId: string;
+    candidate: RTCIceCandidateInit;
+  }
+
+  export interface IRTCDes {
+    sdp?: string;
+    type: RTCSdpType;
+}
+
+  export interface IOffer {
+    userId: string;
+    config: RTCDes
+  }
 }
 
 export interface IUserFull extends IUser {

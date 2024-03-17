@@ -12,13 +12,10 @@
     "sourceMap": true,
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
-      "@angular/*": ["./node_modules/@angular/*"],
       "type-sources": [
         "../type-sources/src/index.d.ts"
       ],
-      "ui": [
-        "./dist/ui"
-      ]
+      "@angular/*": ["./node_modules/@angular/*"],
     },
     "declaration": false,
     "downlevelIteration": true,

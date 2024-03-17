@@ -4,10 +4,12 @@ import {
   ResolveFn,
   RouterStateSnapshot,
 } from "@angular/router";
-import { POST, IUser } from "type-sources";
+import { POST, IUser, IRoom } from "type-sources";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { PostFireStore } from "src/app/core/services/fireStore/blog.firestore";
 import { UserService } from "../../core/services/fireStore/users.firestore";
+import { RoomService } from "../../core/services/fireStore/room.firestore";
+import { DocumentReference } from "@angular/fire/compat/firestore";
 
 export const homePagePostResolver: ResolveFn<{
   data: POST.IPost[];
@@ -38,7 +40,7 @@ export const postByUserResolver: ResolveFn<{
 
 export const userProfileResolver: ResolveFn<IUser | undefined> = async (
   route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
+
 ) => {
   const userId = route.params["id"] ?? route.firstChild?.params["id"];
   if (userId !== "me") {
@@ -48,13 +50,18 @@ export const userProfileResolver: ResolveFn<IUser | undefined> = async (
   }
 };
 
-export const loggedUserProfileResolver: ResolveFn<IUser> = async (
-  route: ActivatedRouteSnapshot,
-  state: RouterStateSnapshot
-) => {
+export const loggedUserProfileResolver: ResolveFn<IUser> = async () => {
   const userId = inject(SessionStorageService).getSessionStorage<IUser>(
     "user"
   )!.userId;
 
   return inject(UserService).listUserByUserIdWithCache(userId);
+};
+
+export const roomResolver: ResolveFn<DocumentReference<IRoom.IBase>> = (
+  route: ActivatedRouteSnapshot,
+) => {
+  const roomId = route.params["roomId"];
+
+  return inject(RoomService).retrieveRoom(roomId);
 };

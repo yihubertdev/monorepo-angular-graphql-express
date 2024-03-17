@@ -15,5 +15,3 @@ SHARED_TYPES=$(find . -type f -name "*.tgz")
 
 cp $SHARED_TYPES ../frontend/dependencies
 cp $SHARED_TYPES ../backend/dependencies
-
-yarn install

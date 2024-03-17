@@ -81,7 +81,7 @@ export class UserDetailCardComponent implements OnChanges {
     private _userService: UserService,
     private _authService: AuthService,
     private _netWorthService: NetWorthService
-  ) {}
+  ) { }
 
   ngOnChanges() {
     if (
@@ -201,16 +201,13 @@ export class UserDetailCardComponent implements OnChanges {
         break;
       case SETTING_CATEGORY.OTHER_ASSETS:
       case SETTING_CATEGORY.TAX_SHELTERED_INVESTMENT:
-      case SETTING_CATEGORY.MARKABLE_SECURITY:
+      case SETTING_CATEGORY.MARKABLE_SECURITY: {
         const marketValue = this._calculateMarketValue(value.marketValue);
 
         if (!documentId) {
-          this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            next: {
-              documentId: this.document.documentId,
-              documentValue: { category: this.category.category, ...value },
-            },
+            documentValue: { category: this.category.category, ...value },
           });
         }
         this._netWorthService.create({
@@ -229,20 +226,18 @@ export class UserDetailCardComponent implements OnChanges {
         };
         this.loading = false;
         break;
+      }
 
-      case SETTING_CATEGORY.INSURANCE:
+      case SETTING_CATEGORY.INSURANCE: {
         const faceValue = this._calculateFaceValue(value.faceValue);
         const cashSurrenderValue = this._calculateCashSurrenderValue(
           value.cashSurrenderValue
         );
 
         if (!documentId) {
-          this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            next: {
-              documentId: this.document.documentId,
-              documentValue: { category: this.category.category, ...value },
-            },
+            documentValue: { category: this.category.category, ...value },
           });
         }
 
@@ -261,8 +256,8 @@ export class UserDetailCardComponent implements OnChanges {
           [NETWORTH_VALUE.CSV]: cashSurrenderValue,
         };
         break;
-
-      case SETTING_CATEGORY.REAL_ESTATE:
+      }
+      case SETTING_CATEGORY.REAL_ESTATE: {
         const totalEstate = this._calculateMarketValue(value.marketValue);
 
         const totalMortage = this._calculateMortageBalance(
@@ -271,12 +266,9 @@ export class UserDetailCardComponent implements OnChanges {
         );
 
         if (!documentId) {
-          this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            next: {
-              documentId: this.document.documentId,
-              documentValue: { category: this.category.category, ...value },
-            },
+            documentValue: { category: this.category.category, ...value },
           });
         }
         this._netWorthService.create({
@@ -295,20 +287,17 @@ export class UserDetailCardComponent implements OnChanges {
         };
 
         break;
-
-      case SETTING_CATEGORY.VEHICLES:
+      }
+      case SETTING_CATEGORY.VEHICLES: {
         const totalVehicles = this._calculateKelleyBlueBookValue(
           value.kelleyBlueBookValue
         );
         const totalLoan = this._calculateLoanBalance(value.loanBalance);
 
         if (!documentId) {
-          this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            next: {
-              documentId: this.document.documentId,
-              documentValue: { category: this.category.category, ...value },
-            },
+            documentValue: { category: this.category.category, ...value },
           });
         }
         this._netWorthService.create({
@@ -327,8 +316,8 @@ export class UserDetailCardComponent implements OnChanges {
         };
 
         break;
-
-      default:
+      }
+      default: {
         const total = this._calculateCurrentBalance(value.currentBalance);
         this.category.networth = {
           [NETWORTH_VALUE.CURRENT_BALANCE]: total,
@@ -336,12 +325,9 @@ export class UserDetailCardComponent implements OnChanges {
         this.loading = false;
 
         if (!documentId) {
-          this._userService.createSubCollectionByUser(this.user, {
+          this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            next: {
-              documentId: this.document.documentId,
-              documentValue: { category: this.category.category, ...value },
-            },
+            documentValue: { category: this.category.category, ...value },
           });
         }
 
@@ -354,10 +340,11 @@ export class UserDetailCardComponent implements OnChanges {
           } as INetWorth,
         });
         break;
+      }
     }
 
     if (documentId) {
-      this._userService.deleteSubCollectionDocumentByUser(this.user, {
+      this._userService.deleteSubCollection(this.user.ref, {
         collectionId: this.collection,
         next: {
           documentId,
