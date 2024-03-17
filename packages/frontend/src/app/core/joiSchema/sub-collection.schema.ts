@@ -1,23 +1,39 @@
 import * as Joi from "joi";
 import { SUBCOLLECTION_HANDLER } from "type-sources";
 
-export const subCollectionBuilderSchema: Joi.ObjectSchema = Joi.object({
+export const updateSubCollectionSchema: Joi.ObjectSchema = Joi.object({
   next: Joi.object().optional(),
   documentId: Joi.when(Joi.ref("next"), {
     is: Joi.exist(),
     then: Joi.forbidden(),
     otherwise: Joi.string().required(),
   }),
-  collectionId: Joi.when(Joi.ref("next"), {
-    is: Joi.exist(),
-    then: Joi.string().required(),
-    otherwise: Joi.forbidden(),
-  }),
+  collectionId: Joi.string().required(),
   documentValue: Joi.when(Joi.ref("next"), {
     is: Joi.exist(),
     then: Joi.forbidden(),
     otherwise: Joi.object().required(),
   }),
+});
+
+export const createSubCollectionSchema: Joi.ObjectSchema = Joi.object({
+  next: Joi.object().optional(),
+  collectionId: Joi.string().required(),
+  documentValue: Joi.when(Joi.ref("next"), {
+    is: Joi.exist(),
+    then: Joi.forbidden(),
+    otherwise: Joi.object().required(),
+  }),
+});
+
+export const readSubCollectionSchema: Joi.ObjectSchema = Joi.object({
+  next: Joi.object().optional(),
+  documentId: Joi.when(Joi.ref("next"), {
+    is: Joi.exist(),
+    then: Joi.forbidden(),
+    otherwise: Joi.string().required(),
+  }),
+  collectionId: Joi.string().required(),
 });
 
 export const deleteCollectionBuilderSchema: Joi.ObjectSchema = Joi.object({
@@ -27,11 +43,7 @@ export const deleteCollectionBuilderSchema: Joi.ObjectSchema = Joi.object({
     then: Joi.forbidden(),
     otherwise: Joi.string().required(),
   }),
-  collectionId: Joi.when(Joi.ref("next"), {
-    is: Joi.exist(),
-    then: Joi.string().required(),
-    otherwise: Joi.forbidden(),
-  }),
+  collectionId: Joi.string().required(),
   documentValue: Joi.string().optional(),
 });
 

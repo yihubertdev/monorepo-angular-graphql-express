@@ -2,27 +2,50 @@ import { Injectable } from "@angular/core";
 import {
   AngularFirestore,
   AngularFirestoreCollection,
-  CollectionReference,
   DocumentData,
   DocumentReference,
   QueryDocumentSnapshot,
+  SnapshotOptions,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, SUBCOLLECTION_HANDLER } from "type-sources";
+import { FIRESTORE_COLLECTION, ISubCollectionQuery, SUBCOLLECTION_HANDLER } from "type-sources";
 import { v4 as uuidv4 } from "uuid";
 import { ICollectionQueryBuilder, POST } from "type-sources";
 import joiValidator from "../../utils/validator";
 import {
+  createSubCollectionSchema,
   deleteCollectionBuilderSchema,
-  subCollectionBuilderSchema,
+  readSubCollectionSchema,
   subCollectionHandlerSchema,
+  updateSubCollectionSchema,
 } from "../../joiSchema/sub-collection.schema";
 import { firstValueFrom } from "rxjs/internal/firstValueFrom";
 
 export type ISubCollectionHandler<K> = {
   queries: DocumentReference<K>;
   action: SUBCOLLECTION_HANDLER;
-  value?: K;
 };
+
+export interface ISubCollectionCreate<K> extends ISubCollectionHandler<K> {
+  queries: DocumentReference<K>;
+  action: SUBCOLLECTION_HANDLER.CREATE;
+  value: K;
+}
+
+export interface ISubCollectionUpdate<K> extends ISubCollectionHandler<K> {
+  queries: DocumentReference<K>;
+  action: SUBCOLLECTION_HANDLER.UPDATE;
+  value: K;
+}
+
+export interface ISubCollectionRead<K> extends ISubCollectionHandler<K> {
+  queries: DocumentReference<K>;
+  action: SUBCOLLECTION_HANDLER.READ;
+}
+
+export interface ISubCollectionDelete<K> extends ISubCollectionHandler<K> {
+  queries: DocumentReference<K>;
+  action: SUBCOLLECTION_HANDLER.DELETE;
+}
 
 @Injectable({ providedIn: "root" })
 export abstract class FireStoreBaseModel<T> {
@@ -314,42 +337,42 @@ export abstract class FireStoreBaseModel<T> {
   };
 
   private buildSubCollectionHandler<K extends DocumentData>(
-    queries: CollectionReference<K>,
+    document: DocumentReference<K>,
     queryBuilder: ICollectionQueryBuilder<K>,
     handler: SUBCOLLECTION_HANDLER
   ): Promise<void | DocumentData> {
     const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const newQueries = queries.doc(documentId);
+    const collection = document.collection(collectionId!);
 
     return next
       ? this.buildSubCollectionHandler(
-          newQueries.collection(collectionId as string),
+        collection.doc(documentId),
           next,
           handler
         )
       : this.subCollectionHandler({
-          queries: newQueries,
+          queries: collection.doc(documentId),
           action: handler,
-          value: documentValue,
+          value: documentValue!,
         });
   }
 
   private async subCollectionHandler<K extends DocumentData>(
-    filter: ISubCollectionHandler<K>
+    filter: ISubCollectionCreate<K> | ISubCollectionUpdate<K> |ISubCollectionRead<K> |ISubCollectionDelete<K>
   ): Promise<void | K> {
     joiValidator.parameter({
       data: filter,
       schema: subCollectionHandlerSchema,
     });
-    const { queries, action, value } = filter;
+    const { queries, action } = filter;
     switch (action) {
       case SUBCOLLECTION_HANDLER.CREATE:
-        queries.set(value!);
+        queries.set(filter.value);
         break;
       case SUBCOLLECTION_HANDLER.READ:
         return (await queries.get()).data();
       case SUBCOLLECTION_HANDLER.UPDATE:
-        queries.update(value!);
+        queries.update(filter.value as SnapshotOptions);
         break;
       case SUBCOLLECTION_HANDLER.DELETE:
         queries.delete();
@@ -357,43 +380,68 @@ export abstract class FireStoreBaseModel<T> {
     }
   }
 
-  public updateSubCollectionByUser<K extends DocumentData>(
-    user: QueryDocumentSnapshot<T>,
-    queryBuilder: ICollectionQueryBuilder<K>
+  public createSubCollection<K extends DocumentData>(
+    document: DocumentReference<T>,
+    queryBuilder: ISubCollectionQuery.ICreate<K>
+   ): Promise<DocumentData | void> {
+    joiValidator.parameter({
+      data: queryBuilder,
+      schema: createSubCollectionSchema,
+    });
+    const { collectionId, documentValue, next } = queryBuilder;
+    const collection = document.collection(collectionId!);
+
+    return next
+      ? this.buildSubCollectionHandler(
+          collection.doc(),
+          next,
+          SUBCOLLECTION_HANDLER.CREATE
+        )
+      : this.subCollectionHandler({
+          queries: collection.doc(),
+          action: SUBCOLLECTION_HANDLER.CREATE,
+          value: documentValue!,
+        });
+  }
+
+  public updateSubCollection<K extends DocumentData>(
+    document: DocumentReference<T>,
+    queryBuilder: ISubCollectionQuery.IUpdate<K>
   ): void {
     joiValidator.parameter({
       data: queryBuilder,
-      schema: subCollectionBuilderSchema,
+      schema: updateSubCollectionSchema,
     });
     const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
+    const collection = document.collection(collectionId!);
 
     next
       ? this.buildSubCollectionHandler(
-          collection,
+          collection.doc(documentId),
           next,
           SUBCOLLECTION_HANDLER.UPDATE
         )
       : this.subCollectionHandler({
           queries: collection.doc(documentId),
           action: SUBCOLLECTION_HANDLER.UPDATE,
+          value: documentValue!
         });
   }
 
-  public readSubCollectionByUser<K extends DocumentData>(
-    user: QueryDocumentSnapshot<T>,
-    queryBuilder: ICollectionQueryBuilder<K>
+  public readSubCollection<K extends DocumentData>(
+    document: DocumentReference<T>,
+    queryBuilder: ISubCollectionQuery.IRead<K>
   ): Promise<DocumentData | void> {
     joiValidator.parameter({
       data: queryBuilder,
-      schema: subCollectionBuilderSchema,
+      schema: readSubCollectionSchema,
     });
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
+    const { documentId, collectionId, next } = queryBuilder;
+    const collection = document.collection(collectionId!);
 
     return next
       ? this.buildSubCollectionHandler(
-          collection,
+          collection.doc(documentId),
           next,
           SUBCOLLECTION_HANDLER.READ
         )
@@ -403,44 +451,20 @@ export abstract class FireStoreBaseModel<T> {
         });
   }
 
-  public createSubCollectionByUser<K extends DocumentData>(
-    user: QueryDocumentSnapshot<T>,
-    queryBuilder: ICollectionQueryBuilder<K>
-  ): Promise<DocumentData | void> {
-    joiValidator.parameter({
-      data: queryBuilder,
-      schema: subCollectionBuilderSchema,
-    });
-    const { documentId, collectionId, documentValue, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
-
-    return next
-      ? this.buildSubCollectionHandler(
-          collection,
-          next,
-          SUBCOLLECTION_HANDLER.CREATE
-        )
-      : this.subCollectionHandler({
-          queries: collection.doc(documentId),
-          action: SUBCOLLECTION_HANDLER.CREATE,
-          value: documentValue,
-        });
-  }
-
-  public deleteSubCollectionDocumentByUser<K extends DocumentData>(
-    user: QueryDocumentSnapshot<T>,
-    queryBuilder: ICollectionQueryBuilder<K>
+  public deleteSubCollection<K extends DocumentData>(
+    document: DocumentReference<T>,
+    queryBuilder: ISubCollectionQuery.IDelete<K>
   ): void {
     joiValidator.parameter({
       data: queryBuilder,
       schema: deleteCollectionBuilderSchema,
     });
     const { documentId, collectionId, next } = queryBuilder;
-    const collection = user.ref.collection(collectionId!);
+    const collection = document.collection(collectionId!);
 
     next
       ? this.buildSubCollectionHandler(
-          collection,
+        collection.doc(documentId),
           next,
           SUBCOLLECTION_HANDLER.DELETE
         )

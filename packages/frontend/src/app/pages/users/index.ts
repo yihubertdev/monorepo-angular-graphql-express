@@ -2,7 +2,7 @@ import {
   isUserVerified,
   replaceUserId,
 } from "../../core/services/routeGuard/index.guard";
-import { userProfileResolver } from "../../shared/resolvers/post.resolver";
+import { loggedUserProfileResolver, roomResolver, userProfileResolver } from "../../shared/resolvers/post.resolver";
 import { IMenu } from "type-sources";
 import { IFullRoute } from "../../routes";
 
@@ -69,10 +69,14 @@ export const route: IFullRoute[] = [
     loadComponent: () => import("./notification.view"),
   },
   {
-    path: "room",
+    path: "room/:roomId",
     description: "ROOM",
     icon: "groups",
     canActivate: [isUserVerified],
+    resolve: {
+      user: loggedUserProfileResolver,
+      room: roomResolver
+    },
     loadComponent: () => import("./room.view"),
   },
 ];
