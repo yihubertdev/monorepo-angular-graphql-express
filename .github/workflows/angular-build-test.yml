@@ -28,4 +28,4 @@ jobs:
           - format
           - lint
     with:
-      graphql-mono: run ${{ matrix.script }}
+      backend-mono: run ${{ matrix.script }}
