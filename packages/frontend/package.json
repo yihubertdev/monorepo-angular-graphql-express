@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "format": "npx prettier --config ../../.prettierrc --write .",
     "tsc-build": "tsc --build ./tsconfig.json",
     "ng": "ng",
     "start": "ng serve --configuration development",

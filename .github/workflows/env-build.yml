@@ -10,7 +10,7 @@ on:
         description: "npm script to run in a frontend workspace"
         required: false
         type: string
-      graphql-mono:
+      backend-mono:
         description: "npm script to run in a frontend workspace"
         required: false
         type: string
@@ -48,5 +48,5 @@ jobs:
         if: inputs.frontend-mono
         run: yarn workspace frontend -- ${{ inputs.frontend-mono }}
       - name: Run backend script
-        if: inputs.graphql-mono
-        run: yarn workspace backend -- ${{ inputs.graphql-mono }}
+        if: inputs.backend-mono
+        run: yarn workspace backend -- ${{ inputs.backend-mono }}
