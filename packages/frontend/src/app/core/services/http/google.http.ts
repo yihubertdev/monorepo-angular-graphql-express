@@ -10,7 +10,7 @@ export const youtubeVideoValidateURL = `https://www.googleapis.com/youtube/v3/vi
   providedIn: "root",
 })
 export class GoogleHttpService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   /**
    *
@@ -22,6 +22,10 @@ export class GoogleHttpService {
   }
 
   async getTURNServerConfig(): Promise<RTCIceServer[]> {
-    return firstValueFrom(this.http.get(`https://yoohoo.metered.live/api/v1/turn/credentials?apiKey=569bd5cbf80879b021147fc620c93a953c94`)) as unknown as Promise<RTCIceServer[]>;
+    return firstValueFrom(
+      this.http.get(
+        `https://yoohoo.metered.live/api/v1/turn/credentials?apiKey=569bd5cbf80879b021147fc620c93a953c94`
+      )
+    ) as unknown as Promise<RTCIceServer[]>;
   }
 }

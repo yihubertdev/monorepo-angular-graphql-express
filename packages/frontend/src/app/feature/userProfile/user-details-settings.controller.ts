@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, Inject, Input, OnDestroy, OnInit } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { ActivatedRoute, RouterModule } from "@angular/router";
@@ -84,7 +84,8 @@ export interface IUserSettings extends ISettingCategory {
                     {{ category.networth?.MARKET_VALUE ?? 0 | currency }}
                   </h5>
                   <h5>
-                    Equity: {{ category.networth?.EQUITY ?? 0 | currency }}
+                    Equity:
+                    {{ category.networth?.EQUITY ?? 0 | currency }}
                   </h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
@@ -96,7 +97,10 @@ export interface IUserSettings extends ISettingCategory {
                     Face Value:
                     {{ category.networth?.FACE_VALUE ?? 0 | currency }}
                   </h5>
-                  <h5>CSV: {{ category.networth?.CSV ?? 0 | currency }}</h5>
+                  <h5>
+                    CSV:
+                    {{ category.networth?.CSV ?? 0 | currency }}
+                  </h5>
                   <p>
                     List all of your Cash Assets, to add a new Cash Asset click
                     the "Add New Cash Asset" button.
@@ -160,7 +164,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
   NET_INCOME_DATA: Record<NET_INCOME_TITLE, string | number>[] = [];
   constructor(
     private route: ActivatedRoute,
-    public _state: StateDrawMenu
+    @Inject(StateDrawMenu) public _state: StateDrawMenu
   ) {}
 
   ngOnDestroy(): void {
@@ -380,7 +384,6 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
           };
         }
 
-        case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_EQUITY:
         case SETTING_CATEGORY.PERSONAL_STATEMENT_OF_NET_INCOME: {
           return { ...collection, networth: null, data: [] };
         }
@@ -390,9 +393,9 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
             ...collection,
             networth: cash ? cash[category] : null,
             data: groupedData[category]
-              ? groupedData[category].map((form: any) => ({
+              ? groupedData[category].map((form) => ({
                   details: form,
-                  documentId: form.documentId,
+                  documentId: form["documentId"],
                 }))
               : [
                   {
@@ -406,7 +409,7 @@ export class UserDetailsSettingsController implements OnInit, OnDestroy {
     });
   }
 
-  addData(item: any) {
+  addData(item: IUserDetailCard[]) {
     item.push({
       details: {},
       documentId: uuidv4(),

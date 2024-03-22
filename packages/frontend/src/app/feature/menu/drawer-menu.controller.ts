@@ -58,7 +58,9 @@ import { DRAWER_MENU } from "../../pages/users";
               mat-list-item
               [routerLink]="menu.link">
               <mat-icon matListItemIcon>{{ menu.iconName }}</mat-icon>
-              <div matListItemTitle>{{ menu.description }}</div></a
+              <div matListItemTitle>
+                {{ menu.description }}
+              </div></a
             >
           }
           <a

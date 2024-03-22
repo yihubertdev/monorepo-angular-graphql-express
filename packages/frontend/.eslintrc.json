@@ -3,9 +3,23 @@
   "ignorePatterns": [
     "*.js",
     "jest.config.ts",
-    "/lib"
+    "/lib",
+    "src/test/*",
+    "**/*.spec.ts",
+    "src/environments/*",
+    "src/test.ts"
   ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier"],
   "overrides": [
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ]
+    },
     {
       "files": [
         "*.ts"
@@ -23,9 +37,11 @@
         "plugin:jsdoc/recommended",
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:jsdoc/recommended"
+        "plugin:jsdoc/recommended",
+        "plugin:prettier/recommended"
       ],
       "rules": {
+        "prettier/prettier": "error",
         "jsdoc/no-undefined-types": 0,
         "@angular-eslint/component-class-suffix": [
           "error",
@@ -82,34 +98,6 @@
               "ClassProperty",
               "FunctionDeclaration"
             ]
-          }
-        ]
-      }
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
-      "rules": {}
-    },
-    {
-      "files": [
-        "*.html"
-      ],
-      "excludedFiles": [
-        "*inline-template-*.component.html"
-      ],
-      "extends": [
-        "plugin:prettier/recommended"
-      ],
-      "rules": {
-        "prettier/prettier": [
-          "error",
-          {
-            "parser": "angular"
           }
         ]
       }

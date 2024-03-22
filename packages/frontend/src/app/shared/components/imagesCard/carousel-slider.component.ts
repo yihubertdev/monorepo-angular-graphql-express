@@ -52,8 +52,12 @@ export namespace ICarousel {
                 class="unset-tag-a m-2"
                 target="_blank"
                 ><div class="gallery-image-text">
-                  <h4 class="text-overflow-title">{{ item.data.alt }}</h4>
-                  <p class="text-overflow-preview">{{ item.data.args }}</p>
+                  <h4 class="text-overflow-title">
+                    {{ item.data.alt }}
+                  </h4>
+                  <p class="text-overflow-preview">
+                    {{ item.data.args }}
+                  </p>
                 </div>
               </a>
             }

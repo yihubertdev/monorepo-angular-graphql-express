@@ -81,7 +81,7 @@ export class UserDetailCardComponent implements OnChanges {
     private _userService: UserService,
     private _authService: AuthService,
     private _netWorthService: NetWorthService
-  ) { }
+  ) {}
 
   ngOnChanges() {
     if (
@@ -207,7 +207,10 @@ export class UserDetailCardComponent implements OnChanges {
         if (!documentId) {
           this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            documentValue: { category: this.category.category, ...value },
+            documentValue: {
+              category: this.category.category,
+              ...value,
+            },
           });
         }
         this._netWorthService.create({
@@ -237,7 +240,10 @@ export class UserDetailCardComponent implements OnChanges {
         if (!documentId) {
           this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            documentValue: { category: this.category.category, ...value },
+            documentValue: {
+              category: this.category.category,
+              ...value,
+            },
           });
         }
 
@@ -268,7 +274,10 @@ export class UserDetailCardComponent implements OnChanges {
         if (!documentId) {
           this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            documentValue: { category: this.category.category, ...value },
+            documentValue: {
+              category: this.category.category,
+              ...value,
+            },
           });
         }
         this._netWorthService.create({
@@ -297,7 +306,10 @@ export class UserDetailCardComponent implements OnChanges {
         if (!documentId) {
           this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            documentValue: { category: this.category.category, ...value },
+            documentValue: {
+              category: this.category.category,
+              ...value,
+            },
           });
         }
         this._netWorthService.create({
@@ -327,7 +339,10 @@ export class UserDetailCardComponent implements OnChanges {
         if (!documentId) {
           this._userService.createSubCollection(this.user.ref, {
             collectionId: this.collection,
-            documentValue: { category: this.category.category, ...value },
+            documentValue: {
+              category: this.category.category,
+              ...value,
+            },
           });
         }
 

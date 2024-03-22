@@ -14,9 +14,7 @@
       "rxjs": ["./node_modules/rxjs"],
       "@angular/*": ["./node_modules/@angular/*"],
       "angular-shared-ui": ["./node_modules/angular-shared-ui"],
-      "type-sources": [
-        "./node_modules/type-sources/src/index.d.ts"
-      ],
+      "type-sources": ["./node_modules/type-sources/src/index.d.ts"]
     },
     "declaration": false,
     "downlevelIteration": true,

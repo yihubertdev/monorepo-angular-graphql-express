@@ -7,7 +7,6 @@ export class LocalStorageService {
 
   /**
    * Get local storage
-   *
    * @public
    * @param {string} key local storage
    * @returns {T} local storage
@@ -20,7 +19,6 @@ export class LocalStorageService {
 
   /**
    * Set local storage
-   *
    * @public
    * @param {string} key local storage key
    * @param {T} value local storage value
@@ -33,7 +31,6 @@ export class LocalStorageService {
 
   /**
    * Remove local storage
-   *
    * @public
    * @param {string} key local storage key
    * @returns {void} local storage value

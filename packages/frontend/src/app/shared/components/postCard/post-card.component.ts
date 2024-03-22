@@ -72,7 +72,9 @@ import { SuccessMessage } from "src/app/core/utils/error";
         <p
           #content
           class="text-overflow-card"
-          [ngStyle]="{ display: isShowMore ? 'block' : '-webkit-box' }"
+          [ngStyle]="{
+            display: isShowMore ? 'block' : '-webkit-box'
+          }"
           [innerHTML]="postCardInfo.content"></p>
         <p
           *ngIf="content.scrollHeight > 100"

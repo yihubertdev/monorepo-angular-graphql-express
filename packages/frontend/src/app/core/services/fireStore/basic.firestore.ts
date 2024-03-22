@@ -7,7 +7,11 @@ import {
   QueryDocumentSnapshot,
   SnapshotOptions,
 } from "@angular/fire/compat/firestore";
-import { FIRESTORE_COLLECTION, ISubCollectionQuery, SUBCOLLECTION_HANDLER } from "type-sources";
+import {
+  FIRESTORE_COLLECTION,
+  ISubCollectionQuery,
+  SUBCOLLECTION_HANDLER,
+} from "type-sources";
 import { v4 as uuidv4 } from "uuid";
 import { ICollectionQueryBuilder, POST } from "type-sources";
 import joiValidator from "../../utils/validator";
@@ -78,11 +82,11 @@ export abstract class FireStoreBaseModel<T> {
    * @param {number} limit limit the record
    * @returns {Promise<T[]>} retrieve all document
    */
-  public retrieveAll = async (limit: number = 100): Promise<T[]> => {
+  public async retrieveAll(limit: number = 100): Promise<T[]> {
     const result = await this.collection.ref.limit(limit).get();
 
     return result.docs.map((data) => data.data());
-  };
+  }
 
   /**
    * Retrieve document from collection by docs id
@@ -346,7 +350,7 @@ export abstract class FireStoreBaseModel<T> {
 
     return next
       ? this.buildSubCollectionHandler(
-        collection.doc(documentId),
+          collection.doc(documentId),
           next,
           handler
         )
@@ -358,7 +362,11 @@ export abstract class FireStoreBaseModel<T> {
   }
 
   private async subCollectionHandler<K extends DocumentData>(
-    filter: ISubCollectionCreate<K> | ISubCollectionUpdate<K> |ISubCollectionRead<K> |ISubCollectionDelete<K>
+    filter:
+      | ISubCollectionCreate<K>
+      | ISubCollectionUpdate<K>
+      | ISubCollectionRead<K>
+      | ISubCollectionDelete<K>
   ): Promise<void | K> {
     joiValidator.parameter({
       data: filter,
@@ -382,8 +390,9 @@ export abstract class FireStoreBaseModel<T> {
 
   public createSubCollection<K extends DocumentData>(
     document: DocumentReference<T>,
-    queryBuilder: ISubCollectionQuery.ICreate<K>
-   ): Promise<DocumentData | void> {
+    queryBuilder: ISubCollectionQuery.ICreate<K>,
+    documentId?: string
+  ): void {
     joiValidator.parameter({
       data: queryBuilder,
       schema: createSubCollectionSchema,
@@ -391,14 +400,14 @@ export abstract class FireStoreBaseModel<T> {
     const { collectionId, documentValue, next } = queryBuilder;
     const collection = document.collection(collectionId!);
 
-    return next
+    next
       ? this.buildSubCollectionHandler(
-          collection.doc(),
+          collection.doc(documentId),
           next,
           SUBCOLLECTION_HANDLER.CREATE
         )
       : this.subCollectionHandler({
-          queries: collection.doc(),
+          queries: collection.doc(documentId),
           action: SUBCOLLECTION_HANDLER.CREATE,
           value: documentValue!,
         });
@@ -424,7 +433,7 @@ export abstract class FireStoreBaseModel<T> {
       : this.subCollectionHandler({
           queries: collection.doc(documentId),
           action: SUBCOLLECTION_HANDLER.UPDATE,
-          value: documentValue!
+          value: documentValue!,
         });
   }
 
@@ -464,7 +473,7 @@ export abstract class FireStoreBaseModel<T> {
 
     next
       ? this.buildSubCollectionHandler(
-        collection.doc(documentId),
+          collection.doc(documentId),
           next,
           SUBCOLLECTION_HANDLER.DELETE
         )

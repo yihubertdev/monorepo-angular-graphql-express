@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit } from "@angular/core";
 import { RouterModule, RouterOutlet } from "@angular/router";
 import { MatListModule } from "@angular/material/list";
 import { MatCardModule } from "@angular/material/card";
@@ -71,7 +71,7 @@ export default class SettingView implements OnInit {
 
   public constructor(
     private breakpointObserver: BreakpointObserver,
-    public _state: StateDrawMenu
+    @Inject(StateDrawMenu) public _state: StateDrawMenu
   ) {}
 
   ngOnInit() {

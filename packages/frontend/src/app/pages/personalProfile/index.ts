@@ -48,7 +48,10 @@ export const route: IFullRoute[] = [
       importProvidersFrom(MatDatepickerModule),
       importProvidersFrom(MatNativeDateModule),
     ],
-    resolve: { settings: PersonalNetWorthResolver, networth: NetWorthResolver },
+    resolve: {
+      settings: PersonalNetWorthResolver,
+      networth: NetWorthResolver,
+    },
     loadComponent: () => import("./net-worth.view"),
   },
 ];

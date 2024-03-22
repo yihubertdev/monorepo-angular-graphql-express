@@ -22,7 +22,7 @@ import { DecimalPipe } from "@angular/common";
     <p
       class="m-0 p-0"
       style="float:right">
-      {{ percentage | number : "1.0-0" }}
+      {{ percentage | number: "1.0-0" }}
     </p>
   </ng-container>`,
 })

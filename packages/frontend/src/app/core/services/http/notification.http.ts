@@ -16,8 +16,8 @@ const POST_INFORMATIONS = gql`
 export class NotificationHttpService {
   constructor(private apollo: Apollo) {}
 
-  public getUserPosts(): Observable<ApolloQueryResult<Boolean>> {
-    return this.apollo.watchQuery<Boolean>({
+  public getUserPosts(): Observable<ApolloQueryResult<boolean>> {
+    return this.apollo.watchQuery<boolean>({
       query: POST_INFORMATIONS,
     }).valueChanges;
   }

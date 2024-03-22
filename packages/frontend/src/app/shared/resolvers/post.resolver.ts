@@ -31,16 +31,16 @@ export const postByUserResolver: ResolveFn<{
 }> = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   let userId = route.parent?.parent?.params["id"];
   if (userId == "me") {
-    userId = inject(SessionStorageService).getSessionStorage<IUser>("user")
-      ?.userId;
+    userId = inject(SessionStorageService).getSessionStorage<IUser>(
+      "user"
+    )?.userId;
   }
 
   return inject(PostFireStore).listUserPagePostCache(5, userId);
 };
 
 export const userProfileResolver: ResolveFn<IUser | undefined> = async (
-  route: ActivatedRouteSnapshot,
-
+  route: ActivatedRouteSnapshot
 ) => {
   const userId = route.params["id"] ?? route.firstChild?.params["id"];
   if (userId !== "me") {
@@ -59,7 +59,7 @@ export const loggedUserProfileResolver: ResolveFn<IUser> = async () => {
 };
 
 export const roomResolver: ResolveFn<DocumentReference<IRoom.IBase>> = (
-  route: ActivatedRouteSnapshot,
+  route: ActivatedRouteSnapshot
 ) => {
   const roomId = route.params["roomId"];
 

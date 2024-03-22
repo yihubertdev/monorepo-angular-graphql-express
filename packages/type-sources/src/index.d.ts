@@ -7,13 +7,15 @@ export const enum FIRESTORE_COLLECTION {
   blogs = "blogs",
   article = "article",
   networth = "networth",
-  ROOM = "ROOM"
+  ROOM = "ROOM",
+  TURN = "TURN",
 }
 
 export const enum FIRESTORE_SUBCOLLECTION {
   OFFER = "OFFER",
   ANSWER = "ANSWER",
-  ICE = "ICE"
+  ICE = "ICE",
+  USERS = "USERS",
 }
 
 export const enum FIREAUTH_PERSISTENCE {
@@ -117,6 +119,12 @@ export interface IPostBase {
   updatedAt: number;
 }
 
+export interface ITURNConfig {
+  iceServers: RTCIceServer[];
+  createdAt: number;
+  updatedAt: number;
+}
+
 export namespace POST {
   export const enum POST_TYPE {
     "VIDEO" = "VIDEO",
@@ -163,26 +171,26 @@ export namespace ISubCollectionQuery {
   export interface ICreate<T> {
     collectionId?: string;
     documentValue?: T;
-    next?: ISubCollectionQuery.Create<T>;
+    next?: ISubCollectionQuery.ICreate<T>;
   }
 
   export interface IUpdate<T> {
     documentId?: string;
     collectionId?: string;
     documentValue?: T;
-    next?: ISubCollectionQuery.Update<T>;
+    next?: ISubCollectionQuery.IUpdate<T>;
   }
 
   export interface IRead<T> {
     documentId?: string;
     collectionId?: string;
-    next?: ISubCollectionQuery.Read<T>;
+    next?: ISubCollectionQuery.IRead<T>;
   }
 
   export interface IDelete<T> {
     documentId?: string;
     collectionId?: string;
-    next?: ISubCollectionQuery.Delete<T>;
+    next?: ISubCollectionQuery.IDelete<T>;
   }
 }
 
@@ -327,7 +335,7 @@ export interface IUser {
 }
 
 export const enum ROOM_TYPE {
-  BASIC = "BASIC"
+  BASIC = "BASIC",
 }
 
 export namespace IRoom {
@@ -338,7 +346,7 @@ export namespace IRoom {
     updatedAt: number;
   }
 
-  export interface IFull extends Base {
+  export interface IFull extends IBase {
     id: string;
   }
 
@@ -350,11 +358,27 @@ export namespace IRoom {
   export interface IRTCDes {
     sdp?: string;
     type: RTCSdpType;
-}
+  }
+
+  export const enum IOfferStatus {
+    PENDING = "PENDING",
+    USED = "USED",
+  }
 
   export interface IOffer {
     userId: string;
-    config: RTCDes
+    config: IRTCDes;
+  }
+
+  export const enum IUserStatus {
+    JOINED = "JOINED",
+    LEFT = "LEFT",
+    REQUESTED = "REQUESTED",
+  }
+
+  export interface IRoomUser {
+    userId: string;
+    status: IUserStatus;
   }
 }
 

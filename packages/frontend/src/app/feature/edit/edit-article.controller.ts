@@ -61,7 +61,9 @@ export class EditArticleController {
       userId: currentUser.userId,
     } as IArticle;
 
-    const articleId = this._articleFireStore.create({ document: newArticle });
+    const articleId = this._articleFireStore.create({
+      document: newArticle,
+    });
 
     this._postService.create({
       document: this._postService.serializer({

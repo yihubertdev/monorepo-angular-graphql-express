@@ -64,7 +64,10 @@ export class EditPostController {
   async save(formValue: Record<string, boolean | string | number | string[]>) {
     console.log(formValue);
     this.loading = true;
-    let { content, image } = formValue as { content: string; image: string[] };
+    let { content, image } = formValue as {
+      content: string;
+      image: string[];
+    };
     // Get current login user
     const currentUser = this._sessionStorage.getSessionStorage<IUser>("user")!;
 

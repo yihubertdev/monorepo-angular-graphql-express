@@ -59,12 +59,14 @@ export enum NET_INCOME_TITLE {
       mat-row
       *matRowDef="let row; columns: dataColumn"></tr>
   </table>`,
-  styles: `.show-one-line {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 1; /* number of lines to show */
-  }`,
+  styles: `
+    .show-one-line {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      -webkit-line-clamp: 1; /* number of lines to show */
+    }
+  `,
 })
 export class NetWorthListComponent implements OnInit {
   @Input({ required: true }) dataSource!: (
