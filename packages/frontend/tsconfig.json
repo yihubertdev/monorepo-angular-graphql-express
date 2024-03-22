@@ -10,6 +10,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
+    "esModuleInterop": true,
+    "types": ["jest", "node"],
     "paths": {
       "rxjs": ["./node_modules/rxjs"],
       "type-sources": ["../type-sources/src/index.d.ts"],
@@ -28,10 +30,8 @@
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.ts"],
   "exclude": [
-    "src/test/*",
     "**/*.spec.ts",
     "src/environments/*",
-    "src/test.ts"
   ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
