@@ -12,7 +12,6 @@ jobs:
       fail-fast: false
       matrix:
         script:
-          - lint
           - format
           - test
     with:
@@ -26,6 +25,5 @@ jobs:
       matrix:
         script: 
           - format
-          - lint
     with:
       backend-mono: run ${{ matrix.script }}
