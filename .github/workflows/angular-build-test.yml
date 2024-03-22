@@ -26,5 +26,6 @@ jobs:
       matrix:
         script: 
           - format
+          - lint
     with:
       graphql-mono: run ${{ matrix.script }}

@@ -49,4 +49,4 @@ jobs:
         run: yarn workspace frontend -- ${{ inputs.frontend-mono }}
       - name: Run backend script
         if: inputs.graphql-mono
-        run: yarn workspace graphql -- ${{ inputs.graphql-mono }}
+        run: yarn workspace backend -- ${{ inputs.graphql-mono }}

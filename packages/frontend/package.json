@@ -8,7 +8,7 @@
     "start": "ng serve --configuration development",
     "build": "ng build --configuration production",
     "test": "ng test --watch=false --browsers=ChromeHeadless",
-    "lint": "eslint --config ./.eslintrc.json --ext .ts src/* --fix",
+    "lint": "eslint --config ./.eslintrc.json --ext .ts src/ --fix",
     "deploy": "ng build && firebase deploy",
     "deploy-select-region": "firebase use",
     "deploy-role": "firebase deploy --only firestore:rules"
