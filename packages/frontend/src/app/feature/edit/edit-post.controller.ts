@@ -8,7 +8,7 @@ import { PostFireStore as PostService } from "../../core/services/fireStore/blog
 import { POST } from "type-sources";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
-import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-list.component";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { POST_EDIT_FORM } from "src/app/core/static/form.static";
 
@@ -17,12 +17,12 @@ import { POST_EDIT_FORM } from "src/app/core/static/form.static";
   providers: [AuthService],
   imports: [FormInputListComponent, HttpClientModule, MatSnackBarModule],
   selector: "edit-post-controller",
-  template: ` <form-input-list-component
+  template: ` <form-list-component
     [list]="list"
     [schema]="blogEditSchema"
     buttonName="Add Post"
     (formValue)="save($event)"
-    [loading]="loading"></form-input-list-component>`,
+    [loading]="loading"></form-list-component>`,
 })
 export class EditPostController {
   list = POST_EDIT_FORM;

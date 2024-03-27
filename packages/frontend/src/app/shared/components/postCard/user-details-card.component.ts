@@ -8,7 +8,7 @@ import { MatCardModule } from "@angular/material/card";
 import { IUser, SETTING_CATEGORY } from "type-sources";
 import { QueryDocumentSnapshot } from "@angular/fire/compat/firestore";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
-import { FormInputListComponent } from "../formInputList/form-input-list.component";
+import { FormInputListComponent } from "../formInputList/form-list.component";
 import { UserService } from "../../../core/services/fireStore/users.firestore";
 import { AuthService } from "../../../core/services/fireAuth/auth";
 import { MatIconModule } from "@angular/material/icon";
@@ -53,12 +53,12 @@ export interface IUserDetailCard {
     }
 
     <mat-card-content>
-      <form-input-list-component
+      <form-list-component
         [list]="category.list"
         [schema]="category.schema"
         buttonName="Save"
         (formValue)="handle($event)"
-        [loading]="loading"></form-input-list-component>
+        [loading]="loading"></form-list-component>
     </mat-card-content>
   </mat-card>`,
 })

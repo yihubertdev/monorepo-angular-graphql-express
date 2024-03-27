@@ -15,7 +15,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { ActivatedRoute, RouterModule } from "@angular/router";
 import { IUser } from "type-sources";
 import { ProfileStorageService } from "src/app/core/services/fireStorage/profile.bucket";
-import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-list.component";
 import { UserPhotoPipe } from "src/app/shared/pipes/default-photo.pipe";
 import { StringTransformPipe } from "src/app/shared/pipes/string-tranform.pipe";
 import { ProfileCardComponent } from "../../shared/components/postCard/profile-card.compnent";

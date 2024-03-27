@@ -31,7 +31,8 @@ import { MatListModule } from "@angular/material/list";
 import { DocumentUploaderComponent } from "./document-uploader.component";
 import { IForm } from "src/app/core/static/form.static";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directive";
+import { PhoneMaskDirective } from "../../directives/phoneMask.directive";
+import { PasswordElementComponent } from "./password-element.component";
 
 @Component({
   standalone: true,
@@ -58,8 +59,9 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
     MatSlideToggleModule,
     PhoneMaskDirective,
     CurrencyPipe,
+    PasswordElementComponent,
   ],
-  selector: "form-input-list-component",
+  selector: "form-list-component",
   template: `
     <form [formGroup]="newForm">
       <ng-container *ngFor="let input of list">
@@ -95,41 +97,12 @@ import { PhoneMaskDirective } from "../../../shared/directives/phoneMask.directi
             {{ getError(input.key) }}
           </mat-error>
         </mat-form-field>
-
-        <mat-form-field
-          *ngIf="input.type === 'password'"
-          class="mb-2 p-1"
-          [ngClass]="
-            'col-xl-' +
-            input.column.xl +
-            ' col-lg-' +
-            input.column.lg +
-            ' col-md-' +
-            input.column.md +
-            ' col-sm-' +
-            input.column.sm +
-            ' col-' +
-            input.column.xs
-          "
-          appearance="outline">
-          <mat-label>{{ input.label }}</mat-label>
-          <input
-            [type]="isHide ? 'password' : 'text'"
-            matInput
-            autocomplete="on"
-            [formControlName]="input.key" />
-
-          <mat-icon
-            matSuffix
-            (click)="hidePassword()"
-            >visibility</mat-icon
-          >
-
-          <mat-hint>Enter Password</mat-hint>
-          <mat-error *ngIf="hasError">
-            {{ getError(input.key) }}
-          </mat-error>
-        </mat-form-field>
+        @if (input.type === "password") {
+          <password-form-component
+            [formElement]="input"
+            [form]="newForm">
+          </password-form-component>
+        }
 
         <mat-form-field
           *ngIf="input.type === 'phone'"
@@ -392,7 +365,6 @@ export class FormInputListComponent implements OnInit {
   >();
   @Output() documentUpload = new EventEmitter<string[]>();
 
-  public isHide: boolean = true;
   public newForm!: UntypedFormGroup;
   private defaultFormGroupValue: Record<
     string,
@@ -423,10 +395,6 @@ export class FormInputListComponent implements OnInit {
           }
         : {}
     );
-  }
-
-  hidePassword() {
-    this.isHide = !this.isHide;
   }
 
   saveFile = (filesUrl: string[], key: string) => {

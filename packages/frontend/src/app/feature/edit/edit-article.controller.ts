@@ -8,7 +8,7 @@ import { ArticleFireStore } from "../../core/services/fireStore/blog.firestore";
 import { IArticle } from "type-sources";
 import { PostFireStore as PostService } from "../../core/services/fireStore/blog.firestore";
 import { HttpClientModule } from "@angular/common/http";
-import { FormInputListComponent } from "../../shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "../../shared/components/formInputList/form-list.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { SessionStorageService } from "src/app/core/services/browserStorage/sessionStorage";
 import { EDIT_ARTICLE_FORM } from "src/app/core/static/form.static";
@@ -24,13 +24,13 @@ import { POST } from "type-sources";
   ],
   providers: [AuthService],
   selector: "edit-article-controller",
-  template: ` <form-input-list-component
+  template: ` <form-list-component
     [list]="list"
     [schema]="validatorSchema"
     buttonName="Add Article"
     (formValue)="save($event)"
     [haveEditor]="true"
-    [loading]="loading"></form-input-list-component>`,
+    [loading]="loading"></form-list-component>`,
 })
 export class EditArticleController {
   public list = EDIT_ARTICLE_FORM;

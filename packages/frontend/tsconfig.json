@@ -30,8 +30,10 @@
   "files": ["src/main.ts", "src/polyfills.ts"],
   "include": ["src/**/*.ts"],
   "exclude": [
+    "src/test/*",
     "**/*.spec.ts",
     "src/environments/*",
+    "src/test.ts"
   ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

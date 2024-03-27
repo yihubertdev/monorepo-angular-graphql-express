@@ -17,7 +17,7 @@ import {
   RecaptchaVerifier,
   User,
 } from "@angular/fire/auth";
-import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-list.component";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { NgIf } from "@angular/common";
 import {
@@ -33,12 +33,12 @@ import { MatButtonModule } from "@angular/material/button";
   selector: "email-login-controller",
   imports: [NgIf, FormInputListComponent, MatFormFieldModule, MatDialogModule],
   template: `
-    <form-input-list-component
+    <form-list-component
       [list]="list"
       [schema]="schema"
       buttonName="Login"
       (formValue)="login($event)"
-      [loading]="isLoading"></form-input-list-component>
+      [loading]="isLoading"></form-list-component>
     <div
       class="mt-5"
       style="display:inline-block"
@@ -125,21 +125,21 @@ export class EmailLoginControllerComponent implements OnInit {
     <div mat-dialog-content>
       @if (!confirm) {
         <h1 mat-dialog-title>Register Your Phone</h1>
-        <form-input-list-component
+        <form-list-component
           [list]="registerList"
           [schema]="registerSchema"
           buttonName="Send SMS"
           (formValue)="send($event)"
-          [loading]="isLoading"></form-input-list-component>
+          [loading]="isLoading"></form-list-component>
       }
       @if (confirm) {
         <h1 mat-dialog-title>Input Your Verification Code From Phone Text</h1>
-        <form-input-list-component
+        <form-list-component
           [list]="list"
           [schema]="schema"
           buttonName="Register"
           (formValue)="verify($event)"
-          [loading]="isLoading"></form-input-list-component>
+          [loading]="isLoading"></form-list-component>
       }
     </div>
     <div mat-dialog-actions>

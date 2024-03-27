@@ -8,7 +8,7 @@ import { ResponsiveStepperDirective } from "src/app/shared/directives/matDrawerR
 import { AuthService } from "src/app/core/services/fireAuth/auth";
 import { User } from "@angular/fire/auth";
 import { SITE_ROUTE_PAGE } from "src/app/core/static/menu.static";
-import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-list.component";
 
 export interface IFormStepper {
   label: string;

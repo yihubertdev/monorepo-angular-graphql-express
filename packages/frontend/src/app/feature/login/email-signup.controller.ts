@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { phoneVerifySchema, userSignUpSchema } from "../../core/joiSchema";
 import { AuthService } from "src/app/core/services/fireAuth/auth";
-import { FormInputListComponent } from "src/app/shared/components/formInputList/form-input-list.component";
+import { FormInputListComponent } from "src/app/shared/components/formInputList/form-list.component";
 import {
   ConfirmationResult,
   RecaptchaVerifier,
@@ -28,12 +28,12 @@ import { SITE_ROUTE_PAGE } from "src/app/core/static/menu.static";
   imports: [NgIf, FormInputListComponent, MatFormFieldModule, MatDialogModule],
   providers: [AuthService],
   selector: "email-signup-controller",
-  template: ` <form-input-list-component
+  template: ` <form-list-component
       [list]="list"
       [schema]="schema"
       buttonName="SignUp"
       (formValue)="signup($event)"
-      [loading]="isLoading"></form-input-list-component>
+      [loading]="isLoading"></form-list-component>
     <div
       class="mt-5"
       style="display:inline-block"
@@ -126,12 +126,12 @@ export class EmailSignUpController implements OnInit {
   template: `<h1 mat-dialog-title>Verification Code</h1>
     <div mat-dialog-content>
       <h1 mat-dialog-title>Input Your Verification Code From Phone Text</h1>
-      <form-input-list-component
+      <form-list-component
         [list]="list"
         [schema]="schema"
         buttonName="Register"
         (formValue)="verify($event)"
-        [loading]="isLoading"></form-input-list-component>
+        [loading]="isLoading"></form-list-component>
     </div>
     <div mat-dialog-actions>
       <button

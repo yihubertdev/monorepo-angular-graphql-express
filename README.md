@@ -1,13 +1,38 @@
-# MonoRepo Angular, Serverless Graphql, Serverless Express
+# MONOHub
 
-- [YoohooTech](#yoohootech-blog)
+- [Introduction](#yoohootech-blog)
+  - [Architecture](#architecuture)
+    - [Monorepo](#monorepo)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
   - [Getting started](#getting-started)
     - [Install dependencies](#install-dependencies)
     - [Setup the project](#setup-the-project)
   - [Tests](#tests)
     - [Existing test suites](#existing-test-suites)
 
----
+## Architecuture
+### MonoRepo
+
+the project is built on the top of `yarn workspace`
+
+### Frontend
+
+- Lastest version of angular, the package.json will keep maintian the latest version of each node package by running command `yarn checkpack`.
+
+- Angular service built with firebase packages.
+
+- Design pattern strictly followed by SOLID principles.
+
+### Backend
+
+- Google cloud functions with apollo graphql.
+
+- Google cloud functions with apollo express rest api.
+
+- Storage and database connected with firebase packages.
+
+- Async task triggered by GCP pub/sub, GCP tasks.
 
 ## Getting started
 
@@ -18,7 +43,7 @@
 3. Install [npm](https://www.npmjs.com/get-npm)
 4. Install [angular cli](https://github.com/angular/angular-cli/releases)
 
-   - Install those dependencies and run `npm ci` and `ng serve`
+   - Install those dependencies and run `./deploy.sh` and `yarn install`
    - Environment config file.
 
    ```toml
@@ -48,13 +73,13 @@
 
 ## Tests
 
-ng test
+switched to jest, better performance
 
----
-
-### Existing test suites
+### Unit test
 
 - `ng test`
-  - karma unit test
+  - jest unit test
+
+### E2E test
 
 ---

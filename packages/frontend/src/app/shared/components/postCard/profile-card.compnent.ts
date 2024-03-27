@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { MatCardModule } from "@angular/material/card";
 import { NgIf, NgStyle } from "@angular/common";
-import { FormInputListComponent } from "../formInputList/form-input-list.component";
+import { FormInputListComponent } from "../formInputList/form-list.component";
 import { IUser } from "type-sources";
 
 @Component({
